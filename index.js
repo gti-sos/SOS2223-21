@@ -1,3 +1,18 @@
+var cool = require("cool-ascii-faces");
+var express = require("express");
+var port = process.env.PORT || 12345;
+//esqueleto de un servidor web
+var app = express();
+//req = request res = response
+app.get("/cool", (req, res) => {
+    res.send(cool());
+    console.log("New request for an ascii face");
+});
+app.listen(port, () => {
+    //con esto nos  aseguramos quele mensaje no sale hasta que el servidor no esta escucha ndo de verdad
+    console.log(`Server escuchando en el puerto ${port}`);
+}); //puertos hasta 32k
+
 var datos_ejemplos_jorge = [
     { province: "Almería", year: 2010, pib_current_price: 149627412, pib_percentage_structure: 100, pib_variation_rate: 298281107 },
     { province: "Cádiz", year: 2014, pib_current_price: 19540300.38, pib_percentage_structure: 13.62894036, pib_variation_rate: -0.83632259 },
@@ -9,6 +24,11 @@ var datos_ejemplos_jorge = [
     { province: "Cádiz", year: 2012, pib_current_price: 30011963.99, pib_percentage_structure: 19.96043729, pib_variation_rate: 3.930404178 },
     { province: "Córdoba", year: 2018, pib_current_price: 14101232, pib_percentage_structure: 8.380260375, pib_variation_rate: 2.099969438 },
     { province: "Granada", year: 2015, pib_current_price: 16170570.78, pib_percentage_structure: 10.75476647, pib_variation_rate: 4.166229745 }];
-
-var seleccionados = datos_ejemplos_jorge.filter((n) => n.province === "Granada").map((n) => { return n.pib_variation_rate });
-console.log("Media de las tasas de variación de Granada: " + seleccionados.reduce((a, b) => a + b, 0) / seleccionados.length);
+function jorge() {
+    var seleccionados = datos_ejemplos_jorge.filter((n) => n.province === "Granada").map((n) => { return n.pib_variation_rate });
+    return ("Media de las tasas de variación de Granada: " + seleccionados.reduce((a, b) => a + b, 0) / seleccionados.length);
+}
+app.get("/samples/jfs", (req, res) => {
+    res.send(jorge());
+    console.log("New request for jfs exercise");
+});
