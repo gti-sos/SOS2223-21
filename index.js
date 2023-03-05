@@ -1,3 +1,6 @@
+const pvl = require("./index-PVL");
+//var dat = pvl.datos_ejemplos_pablo;
+
 var cool = require("cool-ascii-faces");
 var express = require("express");
 var port = process.env.PORT || 12345;
@@ -32,3 +35,9 @@ app.get("/samples/jfs", (req, res) => {
     res.send(jorge());
     console.log("New request for jfs exercise");
 });
+
+app.get("/samples/pvl", (req, res) => {
+    res.send(pvl.media_variation_rate(pvl.datos_ejemplos_pablo, "Granada"));
+    console.log("New request for pvl exercise");
+});
+

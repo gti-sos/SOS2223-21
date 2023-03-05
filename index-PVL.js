@@ -18,6 +18,9 @@ function media_variation_rate (entrada, provincia){
         suma = suma + e.variation_rate;
     }    
     });
-    return suma/cuenta;
+    return "Media de las tasas de variación de "+ provincia+": " + suma/cuenta;
 }
-console.log("Media de las tasas de variación de Granada: " + media_variation_rate(datos_ejemplos_pablo, "Granada"));
+
+
+module.exports.media_variation_rate =  media_variation_rate;
+module.exports.datos_ejemplos_pablo = datos_ejemplos_pablo;
