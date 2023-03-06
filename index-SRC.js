@@ -12,3 +12,8 @@ var datos_ejemplos_sete = [
 
 var seleccionados = datos_ejemplos_sete.filter((n) => n.province === "Cádiz").map((n) => { return n.pib_current_price});
 console.log("Media del precio actual del pib de Cádiz: " + seleccionados.reduce((a, b) => a + b, 0) / seleccionados.length);
+
+app.get("/samples/SRC", (req, res) => {
+    res.send(sete());
+    console.log("Cálculo algoritmo");
+});
