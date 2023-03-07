@@ -1,4 +1,7 @@
 const pvl = require("./index-PVL");
+const lector = require("./lector")
+var XLSX = require("xlsx");
+
 //var dat = pvl.datos_ejemplos_pablo;
 
 var cool = require("cool-ascii-faces");
@@ -63,3 +66,19 @@ app.get("/samples/src", (req, res) => {
     console.log("Cálculo algoritmo");
 });
 
+const BASE_API_URL = "/api/v1";
+var JSONP = lector.lector(XLSX.readFile("./Datos/Datos.xls"));
+var JSON = [{}];
+app.get(BASE_API_URL + "/PABLO", (req, res) => {
+    res.send(JSON);
+    console.log("New request for pvl exercise");});
+
+app.get(BASE_API_URL + "PABLO/loadInitialData", (req, res) => {
+    if (JSON.length() <= 0){
+        res.send(JSONP)
+        
+    }else{
+        res.send(JSON);
+        console.log("Cálculo algoritmo");
+    }
+});
