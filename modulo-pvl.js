@@ -2,13 +2,16 @@
 const pvl = require("./index-PVL.js");
 module.exports =(app)=>{
     
-    var JSONP = [];
+var JSONP = pvl.datos_ejemplos_pablo;
 const ruta = "/api/v1/workingplaces-stats";
 
 app.get("/samples/pvl", (req, res) => {
     res.send(pvl.media_variation_rate(pvl.datos_ejemplos_pablo, "Granada"));
     console.log("New request for pvl exercise");
 });
+
+//GET LISTA DE PUEBLOS
+
 app.get(ruta, (req, resp) => {
     resp.send(pvl.datos_ejemplos_pablo);
     resp.status(200);
@@ -41,6 +44,7 @@ app.get(ruta, (req, res) => {
         console.log("New GET to /workingplaces-stats");
     }
 });
+//GET DATOS PROVINCIA
 app.get(ruta + '/:province', (req, res) => {
     const province = req.params.province.toLowerCase();
     const provSeleccionda = pvl.datos_ejemplos_pablo.filter(x => x.province.toLowerCase() === province);
@@ -48,6 +52,8 @@ app.get(ruta + '/:province', (req, res) => {
     console.log("New GET to /workingplaces-stats/" + province);
     res.status(200);
 });
+
+//GET DATOS PROVINCIA Y AÑO
 app.get(ruta + '/:province' + '/:year', (req, res) => {
     const year = parseInt(req.params.year);
     const province = req.params.province.toLowerCase();
@@ -57,6 +63,7 @@ app.get(ruta + '/:province' + '/:year', (req, res) => {
     console.log("New GET to /workingplaces-stats/" + province + "/" + year);
     res.status(200);
 });
+//POST CREA
 app.post(ruta, (req, res) => {
     if (!req.body) {
         res.status(400).send("Hay que insertar datos.");
@@ -76,9 +83,11 @@ app.post(ruta, (req, res) => {
         }
     }
 });
+//POST FALLO LoadInitialData(405)
 app.post(ruta + "/loadInitialData", (req, res) => {
     res.status(405).send("POST no está permitido en esta ruta.");
 });
+//PUT ()
 app.put(ruta + '/:province' + '/:year', (req, res) => {
     const province = req.params.province;
     const year = parseInt(req.params.year);
@@ -94,23 +103,21 @@ app.put(ruta + '/:province' + '/:year', (req, res) => {
         console.log("New PUT to /workingplaces-stats/" + province + "/" + year);
     }
 });
+//PUT NO PERMITIDO loadInitialData
 app.put(ruta, (req, res) => {
     res.status(405).send("El método PUT no está permitido para esta ruta.");
 });
-app.put(ruta + "/loadInitialData", (req, res) => {
-    if (!req.body) {
-        res.status(400).send("Hay que insertar datos.");
-    } else {
-        JSONP = req.body;
-        res.status(200).send("El recurso se ha actualizado correctamente.");
-    }
-});
+
+
+//DELETE TODOS
 app.delete(ruta, (req, res) => {
-    pvl.datos_ejemplos_pablo = [];
+    JSONP = [];
     res.status(200).send("Los datos se han borrado correctamente.");
 });
-app.delete(ruta + "/loadInitialData", (req, res) => {
+//DELETE UNO SOLO
+app.delete(ruta, (req, res) => {
     JSONP = [];
-    res.status(200).send("El recurso se ha borrado correctamente.");
+    res.status(200).send("Los datos se han borrado correctamente.");
 });
+
 }
