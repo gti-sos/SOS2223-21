@@ -45,7 +45,8 @@ app.get("/samples/src", (req, res) => {
 
 /*F05*/
 //f05 pablo
-
+var bodyParser = require("body-parser");
+app.use(bodyParser.json());
 modulo_pablo(app);
 
 //f05 jorge

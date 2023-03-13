@@ -3,7 +3,7 @@ const pvl = require("./index-PVL.js");
 module.exports =(app)=>{
     
     var JSONP = [];
-const ruta = "/api/v1/workingplaces_stats";
+const ruta = "/api/v1/workingplaces-stats";
 
 app.get("/samples/pvl", (req, res) => {
     res.send(pvl.media_variation_rate(pvl.datos_ejemplos_pablo, "Granada"));
@@ -11,7 +11,7 @@ app.get("/samples/pvl", (req, res) => {
 });
 app.get(ruta, (req, resp) => {
     resp.send(pvl.datos_ejemplos_pablo);
-
+    res.status(200);
     console.log("New request for pvl exercise");
 });
 
@@ -32,20 +32,20 @@ app.get(ruta, (req, res) => {
     const { year } = req.query;
     if (year) {
         const year = pvl.datos_ejemplos_pablo.filter(x => x.year === parseInt(year));
-        console.log("New GET to /workingplaces_stats");
+        console.log("New GET to /workingplaces-stats");
         res.json(year);
         res.status(200);
     } else {
         res.status(200);
         res.json(pvl.datos_ejemplos_pablo);
-        console.log("New GET to /workingplaces_stats");
+        console.log("New GET to /workingplaces-stats");
     }
 });
 app.get(ruta + '/:province', (req, res) => {
     const province = req.params.province.toLowerCase();
     const provSeleccionda = pvl.datos_ejemplos_pablo.filter(x => x.province.toLowerCase() === province);
     res.json(provSeleccionda);
-    console.log("New GET to /workingplaces_stats/" + province);
+    console.log("New GET to /workingplaces-stats/" + province);
     res.status(200);
 });
 app.get(ruta + '/:province' + '/:year', (req, res) => {
@@ -54,7 +54,7 @@ app.get(ruta + '/:province' + '/:year', (req, res) => {
     const provSelec = pvl.datos_ejemplos_pablo.filter(x => x.province.toLowerCase() === province);
     const yearSelec = provSelec.filter(x => x.year === year);
     res.json(yearSelec);
-    console.log("New GET to /workingplaces_stats/" + province + "/" + year);
+    console.log("New GET to /workingplaces-stats/" + province + "/" + year);
     res.status(200);
 });
 app.post(ruta, (req, res) => {
@@ -71,7 +71,7 @@ app.post(ruta, (req, res) => {
         } else {
             pvl.datos_ejemplos_pablo.push(req.body);
             console.log(`newData = ${JSON.stringify(req.body, null, 2)}`);
-            console.log("New POST to /workingplaces_stats");
+            console.log("New POST to /workingplaces-stats");
             res.status(201).send("El recurso se ha creado correctamente.");
         }
     }
@@ -91,7 +91,7 @@ app.put(ruta + '/:province' + '/:year', (req, res) => {
         existe.percentage_structure = req.body.percentage_structure || existe.percentage_structure;
         existe.variation_rate = req.body.variation_rate || existe.variation_rate;
         res.status(200).send("Estadística actualizada correctamente");
-        console.log("New PUT to /workingplaces_stats/" + province + "/" + year);
+        console.log("New PUT to /workingplaces-stats/" + province + "/" + year);
     }
 });
 app.put(ruta, (req, res) => {
