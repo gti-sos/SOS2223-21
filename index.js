@@ -2,7 +2,8 @@ var port = process.env.PORT || 12345;
 /*F04*/
 var cool = require("cool-ascii-faces");
 var express = require("express");
-
+var modulo_pablo = require('./modulo-pvl');
+const pvl = require("./index-PVL");
 //esqueleto de un servidor web
 var app = express();
 //req = request res = response
@@ -19,10 +20,6 @@ const index_jorge = require("./index-JFS");
 app.get("/samples/jfs", (req, res) => {
     res.send(index_jorge.jorge());
     console.log("New request for jfs exercise");
-});
-app.get("/samples/pvl", (req, res) => {
-    res.send(pvl.media_variation_rate(pvl.datos_ejemplos_pablo, "Granada"));
-    console.log("New request for pvl exercise");
 });
 var datos_ejemplos_sete = [
     { province: "Almería", year: 2010, pib_current_price: 149627412, pib_percentage_structure: 100, pib_variation_rate: 298281107 },
@@ -47,34 +44,9 @@ app.get("/samples/src", (req, res) => {
 
 /*F05*/
 //f05 pablo
-const pvl = require("./index-PVL");
-const lector = require("./lector")
-var XLSX = require("xlsx");
-var bodyParser = require("body-parser");
-app.use(bodyParser.json());
-const BASE_API_URL = "/api/v1";
 
-//var dat = pvl.datos_ejemplos_pablo;
+modulo_pablo(app);
 
-var JSONP = lector.lector(XLSX.readFile("./Datos/Datos.xls"));
-var datos_json = [];
-app.get(BASE_API_URL + "/PABLO", (req, res) => {
-    res.send(datos_json
-    );
-    console.log("New request for pvl exercise");
-});
-
-app.get(BASE_API_URL + "PABLO/loadInitialData", (req, res) => {
-    if (datos_json
-        .length() <= 0) {
-        res.send(JSONP)
-
-    } else {
-        res.send(datos_json
-        );
-        console.log("Cálculo algoritmo");
-    }
-});
 //f05 jorge
 var datos_json_jorge = [];
 const rutaJorge = "/api/v1/market-prices-stats";
