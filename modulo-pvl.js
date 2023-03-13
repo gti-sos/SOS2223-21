@@ -2,7 +2,7 @@
 const pvl = require("./index-PVL.js");
 module.exports =(app)=>{
     
-var JSONP = pvl.datos_ejemplos_pablo;
+var workinplaces_stats = pvl.datos_ejemplos_pablo;
 const ruta = "/api/v1/workingplaces-stats";
 
 app.get("/samples/pvl", (req, res) => {
@@ -20,9 +20,9 @@ app.get(ruta, (req, resp) => {
 
 //TAREA 10 GET PABLO
 app.get(ruta + "/loadInitialData", (req, res) => {
-    if (JSONP.length === 0) {
-      JSONP = pvl.datos_ejemplos_pablo;
-      res.json(JSONP)
+    if (workinplaces_stats.length === 0) {
+      workinplaces_stats = pvl.datos_ejemplos_pablo;
+      res.json(workinplaces_stats)
       res.status(200);
       console.log("New api request")
     } else {
@@ -111,13 +111,33 @@ app.put(ruta, (req, res) => {
 
 //DELETE TODOS
 app.delete(ruta, (req, res) => {
-    JSONP = [];
+    workinplaces_stats = [];
     res.status(200).send("Los datos se han borrado correctamente.");
 });
 //DELETE UNO SOLO
 app.delete(ruta, (req, res) => {
-    JSONP = [];
+    workinplaces_stats = [];
     res.status(200).send("Los datos se han borrado correctamente.");
 });
+
+app.delete('/api/v1/workinplaces-stats/:province', (req, res) => {
+    const province = req.params.province;
+    const filteredStats = workinplaces_stats.filter(stats => stats.province === province);
+    
+    if (filteredStats.length === 0) {
+      res.status(404).json(`No se encontraron datos para ${province}`);
+    } else {
+      const newData = workinplaces_stats.filter(stats => stats.province !== province);
+      const deleted = newData.length !== workinplaces_stats.length;
+      workinplaces_stats = newData;
+  
+      if (deleted) {
+        res.status(204).json(`Se ha borrado ${province}`);
+        console.log("Datos borrados");
+      } else {
+        res.status(404).json(`No se encontraron datos que coincidan con los criterios de eliminación para ${province}`);
+      }
+    }
+  });
 
 }
