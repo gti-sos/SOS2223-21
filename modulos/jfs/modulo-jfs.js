@@ -31,8 +31,9 @@ module.exports = {
         });
         //POST rutaJorge
         app.post(rutaJorge, (req, res) => {
-            if (!req.body) {
-                res.status(400).send("Hay que insertar datos.");
+            const body = req.body;
+            if (!body || !body.province || !body.pib_current_price || !body.pib_percentage_structure || !body.pib_variation_rate) {
+                res.status(400).send("Hay que insertar datos o faltan campos.");
             } else {
                 newData = req.body;
                 if (datos_json_jorge.some(x =>
@@ -73,10 +74,6 @@ module.exports = {
         //PUT rutaJorge
         app.put(rutaJorge, (req, res) => {
             res.status(405).send("PUT no está permitido en esta ruta.");
-        });
-        // Ruta Específica PUT
-        app.put(rutaJorge, (req, res) => {
-            res.status(405);
         });
         //DELETE rutaJorge
         app.delete(rutaJorge, (req, res) => {
