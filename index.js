@@ -195,7 +195,7 @@ app.get(rutaJorge + '/:province', (req, res) => {
 /*F05*/
 //f05 sete
 
-
+/*
 //f05 sete
 var datos_json_sete = [];
 const rutaSete = "/api/v1/salaried-stats";
@@ -245,4 +245,4 @@ app.post(rutaSete, (req, res) => {
             res.status(201).send("El recurso se ha creado correctamente.");
         }
     }
-});
+});*/

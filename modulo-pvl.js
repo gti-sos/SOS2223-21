@@ -11,7 +11,7 @@ app.get("/samples/pvl", (req, res) => {
 });
 app.get(ruta, (req, resp) => {
     resp.send(pvl.datos_ejemplos_pablo);
-    res.status(200);
+    resp.status(200);
     console.log("New request for pvl exercise");
 });
 
