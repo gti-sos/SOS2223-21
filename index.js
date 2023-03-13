@@ -78,28 +78,49 @@ app.get(BASE_API_URL + "PABLO/loadInitialData", (req, res) => {
 //f05 jorge
 var datos_json_jorge = [];
 const rutaJorge = "/api/v1/market-prices-stats";
-//TAREA 10 jorge
-app.get(rutaJorge + "loadInitialData", (req, res) => {
+//TAREA 10 GET jorge
+app.get(rutaJorge + "/loadInitialData", (req, res) => {
     if (datos_json_jorge.length === 0) {
         datos_json_jorge.push(index_jorge.datos_aleatorios_jorge);
         res.json(datos_json_jorge);
+        res.status(200).send("Se ha insertado correctamente los datos.");
         console.log("Se han insertado " + datos_json_jorge[0].length + " datos.");
     } else {
-        res.send("El array ya contiene datos");
+        res.send("El array ya contiene datos, son estos: \n");
+        res.json(datos_json_jorge);
     }
     console.log("New GET to /market-prices-stats/loadInitialData");
 });
-//POST nuevos datos jorge
-app.get(rutaJorge, (request, response) => {
-    var newData = request.body;
-    console.log(`newData = ${JSON.stringify(newData, null, 2)}`);
-    console.log("New POST to /market-prices-stats");
-    contacts.push(newData);
-    response.sendStatus(201);
-});
-//GET rutaJorge
+//GET rutaJorge y por año
 app.get(rutaJorge, (req, res) => {
-    res.json(index_jorge.datos_jorge);
+    const { year } = req.query;
+    if (year) {
+        const yearSelecc = index_jorge.datos_jorge.filter(x => x.year === parseInt(year));
+        console.log("New GET to /market-prices-stats");
+        res.json(yearSelecc);
+        res.status(200);
+    } else {
+        res.status(200);
+        res.json(index_jorge.datos_jorge);
+        console.log("New GET to /market-prices-stats");
+    }
+});
+//GET provincia
+app.get(rutaJorge + '/:province', (req, res) => {
+    const province = req.params.province.toLowerCase();
+    const provSeleccionda = index_jorge.datos_jorge.filter(x => x.province.toLowerCase() === province);
+    res.json(provSeleccionda);
+    console.log("New GET to /market-prices-stats/" + province);
+    res.status(200);
+});
+//GET provincia + año
+app.get(rutaJorge + '/:province' + '/:year', (req, res) => {
+    const year = parseInt(req.params.year);
+    const province = req.params.province.toLowerCase();
+    const provSelec = index_jorge.datos_jorge.filter(x => x.province.toLowerCase() === province);
+    const yearSelec = provSelec.filter(x => x.year === year);
+    res.json(yearSelec);
+    console.log("New GET to /market-prices-stats/" + province + "/" + year);
     res.status(200);
 });
 //POST rutaJorge
@@ -107,25 +128,61 @@ app.post(rutaJorge, (req, res) => {
     if (!req.body) {
         res.status(400).send("Hay que insertar datos.");
     } else {
-        if (index_jorge.datos_jorge.some(x => {
-            x.province === req.body.province &&
-                x.pib_current_price === req.body.pib_current_price &&
-                x.pib_percentage_structure === req.body.pib_percentage_structure &&
-                x.pib_variation_rate === req.body.pib_variation_rate})) {
+        newData = req.body;
+        if (index_jorge.datos_jorge.some(x =>
+            x.province === newData.province &&
+            x.pib_current_price === newData.pib_current_price &&
+            x.pib_percentage_structure === newData.pib_percentage_structure &&
+            x.pib_variation_rate === newData.pib_variation_rate)) {
             res.status(409).send("El recurso ya existe.");
         } else {
             index_jorge.datos_jorge.push(req.body);
+            console.log(`newData = ${JSON.stringify(req.body, null, 2)}`);
+            console.log("New POST to /market-prices-stats");
             res.status(201).send("El recurso se ha creado correctamente.");
         }
     }
 });
+//Ruta específica POST
+app.post(rutaJorge + "/loadInitialData", (req, res) => {
+    res.status(405).send("POST no está permitido en esta ruta.");
+});
+//PUT actualizar estadistica
+app.put(rutaJorge + '/:province' + '/:year', (req, res) => {
+    const province = req.params.province;
+    const year = parseInt(req.params.year);
+
+    const existe = index_jorge.datos_jorge.find(p => p.province === province && p.year === year);
+    if (!existe || province !== req.body.province || year !== req.body.year) {
+        return res.status(400).send("Estadística incorrecta.");
+    } else {
+        existe.pib_current_price = req.body.pib_current_price || existe.pib_current_price;
+        existe.pib_percentage_structure = req.body.pib_percentage_structure || existe.pib_percentage_structure;
+        existe.pib_variation_rate = req.body.pib_variation_rate || existe.pib_variation_rate;
+        res.status(200).send("Estadística actualizada correctamente");
+        console.log("New PUT to /market-prices-stats/" + province + "/" + year);
+    }
+});
 //PUT rutaJorge
 app.put(rutaJorge, (req, res) => {
-    res.status(405).send("El método PUT no está permitido.");
+    res.status(405).send("El método PUT no está permitido para esta ruta.");
 });
-
+// Ruta Específica PUT
+app.put(rutaJorge + "/loadInitialData", (req, res) => {
+    if (!req.body) {
+        res.status(400).send("Hay que insertar datos.");
+    } else {
+        datos_json_jorge = req.body;
+        res.status(200).send("El recurso se ha actualizado correctamente.");
+    }
+});
 //DELETE rutaJorge
 app.delete(rutaJorge, (req, res) => {
     index_jorge.datos_jorge = [];
     res.status(200).send("Los datos se han borrado correctamente.");
+});
+//DELETE de la ruta específica.
+app.delete(rutaJorge + "/loadInitialData", (req, res) => {
+    datos_json_jorge = [];
+    res.status(200).send("El recurso se ha borrado correctamente.");
 });
