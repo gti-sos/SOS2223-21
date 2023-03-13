@@ -91,37 +91,18 @@ app.get(rutaJorge + "/loadInitialData", (req, res) => {
     }
     console.log("New GET to /market-prices-stats/loadInitialData");
 });
-//GET rutaJorge y por año
-app.get(rutaJorge, (req, res) => {
-    const { year } = req.query;
-    if (year) {
-        const yearSelecc = index_jorge.datos_jorge.filter(x => x.year === parseInt(year));
-        console.log("New GET to /market-prices-stats");
-        res.json(yearSelecc);
-        res.status(200);
-    } else {
-        res.status(200);
-        res.json(index_jorge.datos_jorge);
-        console.log("New GET to /market-prices-stats");
-    }
-});
-//GET provincia
-app.get(rutaJorge + '/:province', (req, res) => {
-    const province = req.params.province.toLowerCase();
-    const provSeleccionda = index_jorge.datos_jorge.filter(x => x.province.toLowerCase() === province);
-    res.json(provSeleccionda);
-    console.log("New GET to /market-prices-stats/" + province);
-    res.status(200);
-});
 //GET provincia + año
 app.get(rutaJorge + '/:province' + '/:year', (req, res) => {
     const year = parseInt(req.params.year);
-    const province = req.params.province.toLowerCase();
-    const provSelec = index_jorge.datos_jorge.filter(x => x.province.toLowerCase() === province);
+    const province = req.params.province;
+    const provSelec = index_jorge.datos_jorge.filter(x => x.province === province);
     const yearSelec = provSelec.filter(x => x.year === year);
-    res.json(yearSelec);
-    console.log("New GET to /market-prices-stats/" + province + "/" + year);
-    res.status(200);
+    if (yearSelec) {
+        res.json(yearSelec).status(200);
+        console.log("New GET to /market-prices-stats/" + province + "/" + year);
+    } else {
+        res.status(404).json({ message: `No existe ningún recurso para la provincia: ${province} en el año: ${year}.` });
+    }
 });
 //POST rutaJorge
 app.post(rutaJorge, (req, res) => {
@@ -165,7 +146,7 @@ app.put(rutaJorge + '/:province' + '/:year', (req, res) => {
 });
 //PUT rutaJorge
 app.put(rutaJorge, (req, res) => {
-    res.status(405).send("El método PUT no está permitido para esta ruta.");
+    res.status(405).send("PUT no está permitido en esta ruta.");
 });
 // Ruta Específica PUT
 app.put(rutaJorge + "/loadInitialData", (req, res) => {
@@ -185,4 +166,55 @@ app.delete(rutaJorge, (req, res) => {
 app.delete(rutaJorge + "/loadInitialData", (req, res) => {
     datos_json_jorge = [];
     res.status(200).send("El recurso se ha borrado correctamente.");
+});
+//GET periodo concreto
+app.get(rutaJorge, (req, res) => {
+    const from = req.query.from;
+    const to = req.query.to;
+    const datosSelecc = index_jorge.datos_jorge.filter(x => x.year >= from && x.year <= to);
+    if (from && to) {
+        if (from >= to) {
+            res.status(400).send("El rango es incorrecto");
+        } else {
+            res.status(200).json(datosSelecc);
+            console.log(`New GET to /market-prices-stats?from=${from}&to=${to}`);
+        }
+    }
+    else {
+        const { year } = req.query;
+        if (year) {
+            const yearSelecc = index_jorge.datos_jorge.filter(x => x.year === parseInt(year));
+            console.log(`New GET to /market-prices-stats?year=${year}`);
+            res.json(yearSelecc);
+            res.status(200);
+        } else {
+            res.status(200);
+            res.json(index_jorge.datos_jorge);
+            console.log("New GET to /market-prices-stats");
+        }
+    }
+});
+
+//GET periodo concreto + provincia
+app.get(rutaJorge + '/:province', (req, res) => {
+    const province = req.params.province;
+    const from = req.query.from;
+    const to = req.query.to;
+    const yearSelec = index_jorge.datos_jorge.filter(x => x.year >= from && x.year <= to);
+    const provSelecc = yearSelec.filter(x => x.province == province);
+    if (from && to) {
+        if (from >= to) {
+            res.status(400).send("El rango es incorrecto");
+        } else {
+            res.status(200).json(provSelecc);
+            console.log(`New GET to /market-prices-stats/${province}?from=${from}&to=${to}`);
+        }
+    }
+    else {
+        const provSeleccionda = index_jorge.datos_jorge.filter(x => x.province === province);
+        res.json(provSeleccionda);
+        console.log("New GET to /market-prices-stats/" + province);
+        res.status(200);
+
+    }
 });
