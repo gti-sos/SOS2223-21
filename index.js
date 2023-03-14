@@ -225,6 +225,16 @@ app.get(rutaSete + '/:province' + '/:year', (req, res) => {
     }
 });
 
+//GET
+app.get(rutaSete, (req, res) => {
+    if (datos_json_sete) {
+        res.json(datos_json_sete).status(200);
+        console.log("New GET to /salaried-stats/");
+    } else {
+        res.status(404).json({ message: `No existe ningún recurso:` });
+    }
+});
+
 //POST rutaSete
 app.post(rutaSete, (req, res) => {
     console.log(req.body);
@@ -244,5 +254,89 @@ app.post(rutaSete, (req, res) => {
             console.log("New POST to /salaried-stats");
             res.status(201).send("El recurso se ha creado correctamente.");
         }
+    }
+});
+
+//Ruta específica POST
+app.post(rutaSete + "/loadInitialData", (req, res) => {
+    res.status(405).send("POST no está permitido en esta ruta.");
+});
+
+//PUT actualizar estadistica
+app.put(rutaSete + '/:province' + '/:year', (req, res) => {
+    const province = req.params.province;
+    const year = parseInt(req.params.year);
+
+    const existe = datos_json_sete.find(p => p.province === province && p.year === year);
+    if (!existe || province !== req.body.province || year !== req.body.year) {
+        return res.status(400).send("Estadística incorrecta.");
+    } else {
+        existe.pib_current_price = req.body.pib_current_price || existe.pib_current_price;
+        existe.pib_percentage_structure = req.body.pib_percentage_structure || existe.pib_percentage_structure;
+        existe.pib_variation_rate = req.body.pib_variation_rate || existe.pib_variation_rate;
+        res.status(200).send("Estadística actualizada correctamente");
+        console.log("New PUT to /salaried-stats/" + province + "/" + year);
+    }
+});
+//PUT rutaSete
+app.put(rutaSete, (req, res) => {
+    res.status(405).send("PUT no está permitido en esta ruta.");
+});
+
+
+//DELETE rutaSete
+app.delete(rutaSete, (req, res) => {
+    datos_json_sete = [];
+    res.status(200).send("Los datos se han borrado correctamente.");
+});
+//DELETE de la ruta específica.
+app.delete(rutaSete + "/loadInitialData", (req, res) => {
+    datos_json_sete = [];
+    res.status(200).send("El recurso se ha borrado correctamente.");
+});
+
+//GET periodo concreto
+app.get(rutaJorge, (req, res) => {
+    const from = req.query.from;
+    const to = req.query.to;
+    const datosSelecc = datos_json_sete.filter(x => x.year >= from && x.year <= to);
+    if (from && to) {
+        if (from >= to) {
+            res.status(400).send("El rango es incorrecto");
+        } else {
+            res.status(200).json(datosSelecc);
+            console.log(`New GET to /salaried-stats?from=${from}&to=${to}`);
+        }
+    } else {
+        const { year } = req.query;
+        if (year) {
+            const yearSelecc = datos_json_sete.filter(x => x.year === parseInt(year));
+            console.log(`New GET to /salaried-stats?year=${year}`);
+            res.json(yearSelecc);
+        } else {
+            res.json(datos_json_sete);
+            console.log("New GET to /salaried-stats");
+        }
+    }
+});
+
+//GET periodo concreto + provincia
+app.get(rutaSete + '/:province', (req, res) => {
+    const province = req.params.province;
+    const from = req.query.from;
+    const to = req.query.to;
+    const yearSelec = datos_json_sete.filter(x => x.year >= from && x.year <= to);
+    const provSelecc = yearSelec.filter(x => x.province == province);
+    if (from && to) {
+        if (from >= to) {
+            res.status(400).send("El rango es incorrecto");
+        } else {
+            res.status(200).json(provSelecc);
+            console.log(`New GET to /salaried-stats/${province}?from=${from}&to=${to}`);
+        }
+    } else {
+        const provSeleccionda = datos_json_sete.filter(x => x.province === province);
+        res.json(provSeleccionda);
+        console.log("New GET to /salaried-stats/" + province);
     }
 });
