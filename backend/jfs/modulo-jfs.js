@@ -1,20 +1,27 @@
 const index_jorge = require('./index-JFS.js');
 const rutaJorge = "/api/v1/market-prices-stats";
+var Datastore = require('nedb'), db = new Datastore();
+
 
 module.exports = {
     api: (app) => {
-        /*F05*/
         var datos_json_jorge = [];
         //INICIALIZA DATOS
         app.get(rutaJorge + "/loadInitialData", (req, res) => {
-            if (datos_json_jorge.length === 0) {
-                datos_json_jorge = index_jorge.datos_jorge;
-                res.json(datos_json_jorge).status(200);
-                console.log("Se han insertado " + datos_json_jorge.length + " datos.");
-            } else {
-                res.send("El array ya contiene datos, son estos: \n").json(datos_json_jorge);
-            }
             console.log("New GET to /market-prices-stats/loadInitialData");
+            db.find({}, async (err, data) => {
+                if (err) {
+                    console.log(`Algo ha salido mal cargando los datos: ${err}.`);
+                    response.sendStatus(500);
+                } else if (data.length != 0) {
+                    console.log(`Ya hay datos cargados.`);
+                    response.sendStatus(200);
+                } else {
+                    db.insert(index_jorge.datos_jorge);
+                    console.log(`Se han insertado ${index_jorge.datos_jorge.length} datos.`);
+                    response.sendStatus(201);
+                }
+            });
         });
         //GET provincia + año
         app.get(rutaJorge + '/:province' + '/:year', (req, res) => {
@@ -89,8 +96,15 @@ module.exports = {
         app.delete(rutaJorge + "/:province/:year", (req, res) => {
             const province = req.params.province;
             const year = req.params.year;
-            datos_json_jorge = datos_json_jorge.filter(item => item.province !== province && item.year !== year);
-            res.status(200).send("El recurso se ha borrado correctamente.");
+            db.remove({province: province, year:year}, (err, dataRemoved) =>{
+                if(err){
+                    console.log(`Ha habido un error borrando /${province}: ${err}`);
+                    res.status(500);
+                }else{
+                    console.log(`Recurso /${province}/${year} borrado correctamnte.`);
+                    res.status(200);
+                }
+            });
         });
         //GET periodo concreto o por año o get rutaJorge
         app.get(rutaJorge, (req, res) => {
