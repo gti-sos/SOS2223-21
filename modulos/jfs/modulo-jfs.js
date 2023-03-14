@@ -5,7 +5,7 @@ module.exports = {
     api: (app) => {
         /*F05*/
         var datos_json_jorge = [];
-        //TAREA 10 GET jorge
+        //INICIALIZA DATOS
         app.get(rutaJorge + "/loadInitialData", (req, res) => {
             if (datos_json_jorge.length === 0) {
                 datos_json_jorge = index_jorge.datos_jorge;
@@ -50,7 +50,7 @@ module.exports = {
                 }
             }
         });
-        //Ruta específica POST
+        //POST Ruta específica 
         app.post(rutaJorge + '/:pronvince/:year', (req, res) => {
             res.status(405).send("POST no está permitido en esta ruta.");
         });
@@ -61,14 +61,19 @@ module.exports = {
             const year = parseInt(req.params.year);
             const existe = datos_json_jorge.find(p => p.province === province && p.year === year);
             if (!existe) {
-                return res.status(400).send("Estadística incorrecta.");
+                res.status(400).send("Estadística incorrecta.");
             } else {
-                existe.year = req.body.year;
-                existe.pib_current_price = req.body.pib_current_price;
-                existe.pib_percentage_structure = req.body.pib_percentage_structure;
-                existe.pib_variation_rate = req.body.pib_variation_rate;
-                res.status(200).send("Estadística actualizada correctamente");
-                console.log("New PUT to /market-prices-stats/" + province + "/" + year);
+                if (!req.body.province || !req.body.year || !req.body.pib_current_price || !req.body.pib_percentage_structure || !req.body.pib_variation_rate) {
+                    res.status(400).send("Faltan campos en el body.");
+                } else {
+                    existe.province = req.body.province;
+                    existe.year = req.body.year;
+                    existe.pib_current_price = req.body.pib_current_price;
+                    existe.pib_percentage_structure = req.body.pib_percentage_structure;
+                    existe.pib_variation_rate = req.body.pib_variation_rate;
+                    res.status(200).send("Estadística actualizada correctamente");
+                    console.log("New PUT to /market-prices-stats/" + province + "/" + year);
+                }
             }
         });
         //PUT rutaJorge
@@ -87,7 +92,7 @@ module.exports = {
             datos_json_jorge = datos_json_jorge.filter(item => item.province !== province && item.year !== year);
             res.status(200).send("El recurso se ha borrado correctamente.");
         });
-        //GET periodo concreto
+        //GET periodo concreto o por año o get rutaJorge
         app.get(rutaJorge, (req, res) => {
             const from = req.query.from;
             const to = req.query.to;
