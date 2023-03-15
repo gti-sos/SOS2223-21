@@ -6,6 +6,7 @@ var Datastore = require('nedb'), db = new Datastore();
 module.exports = {
     api: (app) => {
         /*------------GET------------*/
+        //GET carga de datos
         app.get(rutaJorge + "/loadInitialData", (req, res) => {
             console.log("New GET to /market-prices-stats/loadInitialData");
             db.find({}, async (err, data) => {
@@ -39,74 +40,96 @@ module.exports = {
                         res.json(data).status(200);
                     }
                 };
-            })
+            });
         });
-        //GET periodo concreto + provincia
+        //GET provincia o provincia + periodo concreto 
         app.get(rutaJorge + '/:province', (req, res) => {
             const province = req.params.province;
             const from = req.query.from;
             const to = req.query.to;
-            const yearSelec = datos_json_jorge.filter(x => x.year >= from && x.year <= to);
-            const provSelecc = yearSelec.filter(x => x.province == province);
-            if (from && to) {
-                if (from >= to) {
-                    res.status(400).send("El rango es incorrecto");
+            db.find({ province: province }, async (err, data) => {
+                const dataSelec = data.filter(x => x.year >= from && x.year <= to);
+                if (err) {
+                    console.log(`Algo ha salido mal: ${err}.`);
+                    res.sendStatus(500);
                 } else {
-                    res.status(200).json(provSelecc);
-                    console.log(`New GET to /market-prices-stats/${province}?from=${from}&to=${to}`);
-                }
-            }
-            else {
-                const provSeleccionda = datos_json_jorge.filter(x => x.province === province);
-                res.json(provSeleccionda).status(200);
-                console.log("New GET to /market-prices-stats/" + province);
-            }
+                    if (from && to) {
+                        if (from >= to) {
+                            res.sendStatus(400);
+                            console.log(`El rango desde: ${from} hasta ${to} es incorrecto.`);
+                        } else {
+                            res.json(dataSelec);
+                            console.log(`New GET to /market-prices-stats/${province}?from=${from}&to=${to}`);
+                        }
+                    } else {
+                        res.json(data);
+                        console.log("New GET to /market-prices-stats/" + province);
+                    }
+                };
+            });
         });
-        //GET periodo concreto o por año o get rutaJorge
+        //GET periodo concreto/año concreto/datos DB
         app.get(rutaJorge, (req, res) => {
             const from = req.query.from;
             const to = req.query.to;
-            const datosSelecc = datos_json_jorge.filter(x => x.year >= from && x.year <= to);
-            if (from && to) {
-                if (from >= to) {
-                    res.status(400).send("El rango es incorrecto");
+            const year = req.query.year;
+            db.find({}, async (err, data) => {
+                const dataSelec = data.filter(x => x.year >= from && x.year <= to);
+                if (err) {
+                    console.log(`Algo ha salido mal: ${err}.`);
+                    res.sendStatus(500);
                 } else {
-                    res.status(200).json(datosSelecc);
-                    console.log(`New GET to /market-prices-stats?from=${from}&to=${to}`);
-                }
-            }
-            else {
-                const { year } = req.query;
-                if (year) {
-                    const yearSelecc = datos_json_jorge.filter(x => x.year === parseInt(year));
-                    console.log(`New GET to /market-prices-stats?year=${year}`);
-                    res.json(yearSelecc).status(200);
-                } else {
-                    res.status(200).json(datos_json_jorge);
-                    console.log("New GET to /market-prices-stats");
-                }
-            }
+                    if (from && to) {
+                        if (from >= to) {
+                            res.sendStatus(400);
+                            console.log(`El rango desde ${from} hasta ${to} es incorrecto.`);
+                        } else {
+                            res.json(dataSelec).status(200)
+                            console.log(`New GET to /market-prices-stats?from=${from}&to=${to}`);
+                        }
+                    } else if (year) {
+                        const yearSelecc = data.filter(x => x.year === parseInt(year));
+                        console.log(`New GET to /market-prices-stats?year=${year}`);
+                        res.json(yearSelecc).status(200);
+                    } else {
+                        res.json(data).status(200);
+                        console.log("New GET to /market-prices-stats");
+                    }
+                };
+            });
         });
         //POST rutaJorge
         app.post(rutaJorge, (req, res) => {
             const body = req.body;
-            if (!body || !body.province || !body.pib_current_price || !body.pib_percentage_structure || !body.pib_variation_rate) {
-                res.status(400).send("Hay que insertar datos o faltan campos.");
-            } else {
-                newData = req.body;
-                if (datos_json_jorge.some(x =>
-                    x.province === newData.province &&
-                    x.pib_current_price === newData.pib_current_price &&
-                    x.pib_percentage_structure === newData.pib_percentage_structure &&
-                    x.pib_variation_rate === newData.pib_variation_rate)) {
-                    res.status(409).send("El recurso ya existe.");
+            db.find({}, async (err, data) => {
+                if (err) {
+                    console.log(`Algo ha salido mal: ${err}.`);
+                    res.sendStatus(500);
                 } else {
-                    datos_json_jorge.push(req.body);
-                    console.log(`newData = ${JSON.stringify(req.body, null, 2)}`);
-                    console.log("New POST to /market-prices-stats");
-                    res.status(201).send("El recurso se ha creado correctamente.");
-                }
-            }
+                    if (!body || !body.province || !body.pib_current_price || !body.pib_percentage_structure || !body.pib_variation_rate) {
+                        res.status(400).send("Hay que insertar datos o faltan campos.");
+                    } else {
+                        if (data.some(x =>
+                            x.province === body.province &&
+                            x.pib_current_price === body.pib_current_price &&
+                            x.pib_percentage_structure === body.pib_percentage_structure &&
+                            x.pib_variation_rate === body.pib_variation_rate)) {
+                            res.status(409).send("El recurso ya existe.");
+                        } else {
+                            if (data.some(x => x.province === body.province)) {
+                                db.insert(req.body);
+                                console.log(`newData = ${JSON.stringify(body, null, 2)}`);
+                                console.log("New POST to /market-prices-stats");
+                                res.status(201).send("El recurso se ha creado correctamente.");
+                            }
+                            else {
+                                res.status(409).send("La provincia tiene que ser de Andalucía.");
+                            }
+                        }
+                    }
+                };
+            });
+
         });
         //POST Ruta específica 
         app.post(rutaJorge + '/:pronvince/:year', (req, res) => {
@@ -116,22 +139,32 @@ module.exports = {
         app.put(rutaJorge + '/:province' + '/:year', (req, res) => {
             const province = req.params.province;
             const year = parseInt(req.params.year);
-            const existe = datos_json_jorge.find(p => p.province === province && p.year === year);
-            if (!existe) {
-                res.status(400).send("Estadística incorrecta.");
-            } else {
-                if (!req.body.province || !req.body.year || !req.body.pib_current_price || !req.body.pib_percentage_structure || !req.body.pib_variation_rate) {
-                    res.status(400).send("Faltan campos en el body.");
-                } else {
-                    existe.province = req.body.province;
-                    existe.year = req.body.year;
-                    existe.pib_current_price = req.body.pib_current_price;
-                    existe.pib_percentage_structure = req.body.pib_percentage_structure;
-                    existe.pib_variation_rate = req.body.pib_variation_rate;
-                    res.status(200).send("Estadística actualizada correctamente");
-                    console.log("New PUT to /market-prices-stats/" + province + "/" + year);
+            db.find({ province: province, year: year }, async (err, data) => {
+                if (err) {
+                    console.log(`Algo ha salido mal: ${err}.`);
+                    res.sendStatus(500);
                 }
-            }
+                if (data.length === 0) {
+                    res.status(400).send("Estadística incorrecta.");
+                } else {
+                    if (!req.body.province || !req.body.year || !req.body.pib_current_price || !req.body.pib_percentage_structure || !req.body.pib_variation_rate) {
+                        res.status(400).send("Faltan campos en el body.");
+                    } else {
+                        if (data.some(x => x.province === req.body.province)) {
+                            data.province = req.body.province;
+                            data.year = req.body.year;
+                            data.pib_current_price = req.body.pib_current_price;
+                            data.pib_percentage_structure = req.body.pib_percentage_structure;
+                            data.pib_variation_rate = req.body.pib_variation_rate;
+                            res.status(200).send("Estadística actualizada correctamente");
+                            console.log("New PUT to /market-prices-stats/" + province + "/" + year);
+                        }
+                        else {
+                            res.status(409).send("La provincia tiene que ser de Andalucía.");
+                        }
+                    }
+                }
+            });
         });
         //PUT rutaJorge
         app.put(rutaJorge, (req, res) => {
@@ -139,26 +172,30 @@ module.exports = {
         });
         //DELETE rutaJorge
         app.delete(rutaJorge, (req, res) => {
-            datos_json_jorge = [];
-            res.status(200).send("Los datos se han borrado correctamente.");
+            db.remove({},{ multi: true }, async (err, dataRemoved) => {
+                if (err) {
+                    console.log(`Ha habido un error borrando ${dataRemoved.length} datos: ${err}`);
+                    res.sendStatus(500);
+                } else {
+                    res.status(200).send("Los datos se han borrado correctamente.");
+                    console.log(`Se han borrado los datos correctamente.`)
+                }
+            });
         });
-        //DELETE de la ruta específica.
+        //DELETE recurso especifido
         app.delete(rutaJorge + "/:province/:year", (req, res) => {
             const province = req.params.province;
             const year = req.params.year;
             db.remove({ province: province, year: year }, (err, dataRemoved) => {
                 if (err) {
                     console.log(`Ha habido un error borrando /${province}: ${err}`);
-                    res.status(500);
+                    res.sendStatus(500);
                 } else {
                     console.log(`Recurso /${province}/${year} borrado correctamnte.`);
-                    res.status(200);
+                    res.status(200).send("El recurso se ha borrado correctamente.");
                 }
             });
         });
-
-
-
     }
 };
 
