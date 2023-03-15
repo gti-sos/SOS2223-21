@@ -5,21 +5,20 @@ var Datastore = require('nedb'), db = new Datastore();
 
 module.exports = {
     api: (app) => {
-        var datos_json_jorge = [];
-        //INICIALIZA DATOS
+        /*------------GET------------*/
         app.get(rutaJorge + "/loadInitialData", (req, res) => {
             console.log("New GET to /market-prices-stats/loadInitialData");
             db.find({}, async (err, data) => {
                 if (err) {
                     console.log(`Algo ha salido mal cargando los datos: ${err}.`);
-                    response.sendStatus(500);
+                    res.sendStatus(500);
                 } else if (data.length != 0) {
                     console.log(`Ya hay datos cargados.`);
-                    response.sendStatus(200);
+                    res.sendStatus(200);
                 } else {
                     db.insert(index_jorge.datos_jorge);
                     console.log(`Se han insertado ${index_jorge.datos_jorge.length} datos.`);
-                    response.sendStatus(201);
+                    res.sendStatus(201);
                 }
             });
         });
@@ -27,13 +26,65 @@ module.exports = {
         app.get(rutaJorge + '/:province' + '/:year', (req, res) => {
             const year = parseInt(req.params.year);
             const province = req.params.province;
-            const provSelec = datos_json_jorge.filter(x => x.province === province);
-            const yearSelec = provSelec.filter(x => x.year === year);
-            if (yearSelec) {
-                res.json(yearSelec).status(200);
-                console.log("New GET to /market-prices-stats/" + province + "/" + year);
-            } else {
-                res.status(404).json({ message: `No existe ningún recurso para la provincia: ${province} en el año: ${year}.` });
+            console.log("New GET to /market-prices-stats/" + province + "/" + year);
+            db.find({ province: province, year: year }, async (err, data) => {
+                if (err) {
+                    console.log(`Algo ha salido mal: ${err}.`);
+                    res.sendStatus(500);
+                } else {
+                    if (data.length === 0) {
+                        res.sendStatus(404);
+                        console.log(`No existe ningún recurso para la provincia: ${province}, en el año: ${year}.`);
+                    } else {
+                        res.json(data).status(200);
+                    }
+                };
+            })
+        });
+        //GET periodo concreto + provincia
+        app.get(rutaJorge + '/:province', (req, res) => {
+            const province = req.params.province;
+            const from = req.query.from;
+            const to = req.query.to;
+            const yearSelec = datos_json_jorge.filter(x => x.year >= from && x.year <= to);
+            const provSelecc = yearSelec.filter(x => x.province == province);
+            if (from && to) {
+                if (from >= to) {
+                    res.status(400).send("El rango es incorrecto");
+                } else {
+                    res.status(200).json(provSelecc);
+                    console.log(`New GET to /market-prices-stats/${province}?from=${from}&to=${to}`);
+                }
+            }
+            else {
+                const provSeleccionda = datos_json_jorge.filter(x => x.province === province);
+                res.json(provSeleccionda).status(200);
+                console.log("New GET to /market-prices-stats/" + province);
+            }
+        });
+        //GET periodo concreto o por año o get rutaJorge
+        app.get(rutaJorge, (req, res) => {
+            const from = req.query.from;
+            const to = req.query.to;
+            const datosSelecc = datos_json_jorge.filter(x => x.year >= from && x.year <= to);
+            if (from && to) {
+                if (from >= to) {
+                    res.status(400).send("El rango es incorrecto");
+                } else {
+                    res.status(200).json(datosSelecc);
+                    console.log(`New GET to /market-prices-stats?from=${from}&to=${to}`);
+                }
+            }
+            else {
+                const { year } = req.query;
+                if (year) {
+                    const yearSelecc = datos_json_jorge.filter(x => x.year === parseInt(year));
+                    console.log(`New GET to /market-prices-stats?year=${year}`);
+                    res.json(yearSelecc).status(200);
+                } else {
+                    res.status(200).json(datos_json_jorge);
+                    console.log("New GET to /market-prices-stats");
+                }
             }
         });
         //POST rutaJorge
@@ -61,7 +112,6 @@ module.exports = {
         app.post(rutaJorge + '/:pronvince/:year', (req, res) => {
             res.status(405).send("POST no está permitido en esta ruta.");
         });
-
         //PUT actualizar estadistica
         app.put(rutaJorge + '/:province' + '/:year', (req, res) => {
             const province = req.params.province;
@@ -96,63 +146,19 @@ module.exports = {
         app.delete(rutaJorge + "/:province/:year", (req, res) => {
             const province = req.params.province;
             const year = req.params.year;
-            db.remove({province: province, year:year}, (err, dataRemoved) =>{
-                if(err){
+            db.remove({ province: province, year: year }, (err, dataRemoved) => {
+                if (err) {
                     console.log(`Ha habido un error borrando /${province}: ${err}`);
                     res.status(500);
-                }else{
+                } else {
                     console.log(`Recurso /${province}/${year} borrado correctamnte.`);
                     res.status(200);
                 }
             });
         });
-        //GET periodo concreto o por año o get rutaJorge
-        app.get(rutaJorge, (req, res) => {
-            const from = req.query.from;
-            const to = req.query.to;
-            const datosSelecc = datos_json_jorge.filter(x => x.year >= from && x.year <= to);
-            if (from && to) {
-                if (from >= to) {
-                    res.status(400).send("El rango es incorrecto");
-                } else {
-                    res.status(200).json(datosSelecc);
-                    console.log(`New GET to /market-prices-stats?from=${from}&to=${to}`);
-                }
-            }
-            else {
-                const { year } = req.query;
-                if (year) {
-                    const yearSelecc = datos_json_jorge.filter(x => x.year === parseInt(year));
-                    console.log(`New GET to /market-prices-stats?year=${year}`);
-                    res.json(yearSelecc).status(200);
-                } else {
-                    res.status(200).json(datos_json_jorge);
-                    console.log("New GET to /market-prices-stats");
-                }
-            }
-        });
 
-        //GET periodo concreto + provincia
-        app.get(rutaJorge + '/:province', (req, res) => {
-            const province = req.params.province;
-            const from = req.query.from;
-            const to = req.query.to;
-            const yearSelec = datos_json_jorge.filter(x => x.year >= from && x.year <= to);
-            const provSelecc = yearSelec.filter(x => x.province == province);
-            if (from && to) {
-                if (from >= to) {
-                    res.status(400).send("El rango es incorrecto");
-                } else {
-                    res.status(200).json(provSelecc);
-                    console.log(`New GET to /market-prices-stats/${province}?from=${from}&to=${to}`);
-                }
-            }
-            else {
-                const provSeleccionda = datos_json_jorge.filter(x => x.province === province);
-                res.json(provSeleccionda).status(200);
-                console.log("New GET to /market-prices-stats/" + province);
-            }
-        })
+
+
     }
 };
 
