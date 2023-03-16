@@ -1,5 +1,5 @@
 const index_jorge = require('./index-JFS.js');
-const rutaJorge = "/api/v1/market-prices-stats/doc";
+const rutaJorge = "/api/v1/market-prices-stats";
 var Datastore = require('nedb'), db = new Datastore();
 
 
