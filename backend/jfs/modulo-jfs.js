@@ -1,10 +1,14 @@
 const index_jorge = require('./index-JFS.js');
-const rutaJorge = "/api/v1/market-prices-stats";
+const rutaJorge = "/api/v1/market-prices-stats/doc";
 var Datastore = require('nedb'), db = new Datastore();
 
 
 module.exports = {
     api: (app) => {
+        //POSTMAN DOCUMENTATION
+        app.get(rutaJorge + '/:docs', function(req, res) {
+            res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93Jxr1Nx');
+        });
         /*------------GET------------*/
         //GET carga de datos
         app.get(rutaJorge + "/loadInitialData", (req, res) => {
@@ -47,7 +51,9 @@ module.exports = {
             const province = req.params.province;
             const from = req.query.from;
             const to = req.query.to;
-            db.find({ province: province }, async (err, data) => {
+            const limit = req.query.limit;
+            const offset = req.query.offset;
+            db.find({ province: province }).skip(offset).limit(limit).exec(async (err, data) => {
                 const dataSelec = data.filter(x => x.year >= from && x.year <= to);
                 if (err) {
                     console.log(`Algo ha salido mal: ${err}.`);
@@ -73,7 +79,9 @@ module.exports = {
             const from = req.query.from;
             const to = req.query.to;
             const year = req.query.year;
-            db.find({}, async (err, data) => {
+            const limit = req.query.limit;
+            const offset = req.query.offset;
+            db.find({}).skip(offset).limit(limit).exec(async (err, data) => {
                 const dataSelec = data.filter(x => x.year >= from && x.year <= to);
                 if (err) {
                     console.log(`Algo ha salido mal: ${err}.`);
@@ -98,6 +106,7 @@ module.exports = {
                 };
             });
         });
+        /*------------POST------------*/
         //POST rutaJorge
         app.post(rutaJorge, (req, res) => {
             const body = req.body;
@@ -135,6 +144,7 @@ module.exports = {
         app.post(rutaJorge + '/:pronvince/:year', (req, res) => {
             res.status(405).send("POST no está permitido en esta ruta.");
         });
+        /*------------PUT------------*/
         //PUT actualizar estadistica
         app.put(rutaJorge + '/:province' + '/:year', (req, res) => {
             const province = req.params.province;
@@ -151,13 +161,23 @@ module.exports = {
                         res.status(400).send("Faltan campos en el body.");
                     } else {
                         if (data.some(x => x.province === req.body.province)) {
-                            data.province = req.body.province;
-                            data.year = req.body.year;
-                            data.pib_current_price = req.body.pib_current_price;
-                            data.pib_percentage_structure = req.body.pib_percentage_structure;
-                            data.pib_variation_rate = req.body.pib_variation_rate;
-                            res.status(200).send("Estadística actualizada correctamente");
-                            console.log("New PUT to /market-prices-stats/" + province + "/" + year);
+                            db.update({ province: province, year: year }, {
+                                $set: {
+                                    province: req.body.province,
+                                    year: req.body.year,
+                                    pib_current_price: req.body.pib_current_price,
+                                    pib_percentage_structure: req.body.pib_percentage_structure,
+                                    pib_variation_rate: req.body.pib_variation_rate
+                                }
+                            }, {}, async (error, dat) => {
+                                if (error) {
+                                    console.log(`Algo ha salido mal: ${err}.`);
+                                    res.sendStatus(500);
+                                } else {
+                                    res.status(200).send("Estadística actualizada correctamente");
+                                    console.log("New PUT to /market-prices-stats/" + province + "/" + year);
+                                }
+                            });
                         }
                         else {
                             res.status(409).send("La provincia tiene que ser de Andalucía.");
@@ -170,9 +190,10 @@ module.exports = {
         app.put(rutaJorge, (req, res) => {
             res.status(405).send("PUT no está permitido en esta ruta.");
         });
+        /*------------DELETE------------*/
         //DELETE rutaJorge
         app.delete(rutaJorge, (req, res) => {
-            db.remove({},{ multi: true }, async (err, dataRemoved) => {
+            db.remove({}, { multi: true }, async (err, dataRemoved) => {
                 if (err) {
                     console.log(`Ha habido un error borrando ${dataRemoved.length} datos: ${err}`);
                     res.sendStatus(500);
