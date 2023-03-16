@@ -6,7 +6,7 @@ var Datastore = require('nedb'), db = new Datastore();
 module.exports = {
     api: (app) => {
         //POSTMAN DOCUMENTATION
-        app.get(rutaJorge + '/:docs', function(req, res) {
+        app.get(rutaJorge + '/:docs', function (req, res) {
             res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93Jxr1Nx');
         });
         /*------------GET------------*/
@@ -31,8 +31,10 @@ module.exports = {
         app.get(rutaJorge + '/:province' + '/:year', (req, res) => {
             const year = parseInt(req.params.year);
             const province = req.params.province;
+            const limit = req.query.limit;
+            const offset = req.query.offset;
             console.log("New GET to /market-prices-stats/" + province + "/" + year);
-            db.find({ province: province, year: year }, async (err, data) => {
+            db.find({ province: province, year: year }).skip(offset).limit(limit).exec(async (err, data) => {
                 if (err) {
                     console.log(`Algo ha salido mal: ${err}.`);
                     res.sendStatus(500);
