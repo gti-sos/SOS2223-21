@@ -9,11 +9,6 @@ var datos_jorge = [
     { province: "Cádiz", year: 2012, pib_current_price: 30011963.99, pib_percentage_structure: 19.96043729, pib_variation_rate: 3.930404178 },
     { province: "Córdoba", year: 2018, pib_current_price: 14101232, pib_percentage_structure: 8.380260375, pib_variation_rate: 2.099969438 },
     { province: "Granada", year: 2015, pib_current_price: 16170570.78, pib_percentage_structure: 10.75476647, pib_variation_rate: 4.166229745 }];
-function jorge() {
-    var seleccionados = datos_jorge
-        .filter((n) => n.province === "Granada").map((n) => { return n.pib_variation_rate });
-    return ("Media de las tasas de variación de Granada: " + seleccionados.reduce((a, b) => a + b, 0) / seleccionados.length);
-}
 module.exports = {
     jorge: jorge,
     datos_jorge: datos_jorge
