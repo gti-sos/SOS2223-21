@@ -102,6 +102,37 @@
 					"response": []
 				},
 				{
+					"name": "/province/year",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Almería/2010",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Almería",
+								"2010"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/Province",
 					"event": [
 						{
