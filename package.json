@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test-jorge": "npx newman run ./testsPostman/backend-jfs.json -e ./testsPostman/env/localhost-jfs.json",
-    "test": "npm run test-jorge"
+    "test-jorge-local": "npx newman run ./testsPostman/backend-jfs.json -e ./testsPostman/env/localhost-jfs.json",
+    "test-jorge-gcloud": "npx newman run ./testsPostman/backend-jfs.json -e ./testsPostman/env/gcloud-jfs.json",
+    "test": "npm run test-jorge-local && npm run test-jorge-gcloud"
   },
   "repository": {
     "type": "git",
