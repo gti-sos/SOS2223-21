@@ -18,4 +18,4 @@ backend_jorge.api(app);
 //modulo_pablo.api(app);
 
 app.use("/", express.static("./public")); // barra es cualquier ruta
-
+//esto es una prueba
