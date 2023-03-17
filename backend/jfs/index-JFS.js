@@ -11,6 +11,5 @@ var datos_jorge = [
     { province: "Granada", year: 2015, pib_current_price: 16170570.78, pib_percentage_structure: 10.75476647, pib_variation_rate: 4.166229745 },
     { province: "Sevilla", year: 2017, pib_current_price: 12370570.78, pib_percentage_structure: 18.75476647, pib_variation_rate: 7.166229745 }];
 module.exports = {
-    jorge: jorge,
     datos_jorge: datos_jorge
 }
