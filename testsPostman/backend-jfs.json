@@ -108,8 +108,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -120,13 +120,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Almería/2010",
+							"raw": "{{URL_BASE}}{{API}}/Granada/2015",
 							"host": [
 								"{{URL_BASE}}{{API}}"
 							],
 							"path": [
-								"Almería",
-								"2010"
+								"Granada",
+								"2015"
 							]
 						}
 					},
