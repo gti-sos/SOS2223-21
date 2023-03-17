@@ -6,7 +6,7 @@ var Datastore = require('nedb'), db = new Datastore();
 module.exports = {
     api: (app) => {
         //POSTMAN DOCUMENTATION
-        app.get(rutaJorge + '/:docs', function (req, res) {
+        app.get(rutaJorge + '/docs', function (req, res) {
             res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93Jxr1Nx');
         });
         /*------------GET------------*/
@@ -112,6 +112,7 @@ module.exports = {
         //POST rutaJorge
         app.post(rutaJorge, (req, res) => {
             const body = req.body;
+            console.log("New POST to /market-prices-stats");
             db.find({}, async (err, data) => {
                 if (err) {
                     console.log(`Algo ha salido mal: ${err}.`);
