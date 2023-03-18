@@ -33,8 +33,22 @@ module.exports = {
             const province = req.params.province;
             const limit = req.query.limit;
             const offset = req.query.offset;
+            const pib_current_price_over = req.query.pib_current_price_over;
+            const pib_percentage_estructure_over = req.query.pib_percentage_estructure_over;
+            const pib_variation_rate_over = req.query.pib_variation_rate_over;
+            const pib_current_price_lower = req.query.pib_current_price_over;
+            const pib_percentage_estructure_lower = req.query.pib_percentage_estructure_over;
+            const pib_variation_rate_lower = req.query.pib_variation_rate_over;
             console.log("New GET to /market-prices-stats/" + province + "/" + year);
-            db.find({ province: province, year: year }).skip(offset).limit(limit).exec(async (err, data) => {
+            db.find({
+                province: province, year: year,
+                pib_current_price: { $lte: pib_current_price_lower },
+                pib_percentage_estructure: { $lte: pib_percentage_estructure_lower },
+                pib_variation_rate: { $lte: pib_variation_rate_lower },
+                pib_current_price: { $gte: pib_current_price_over },
+                pib_percentage_estructure: { $gte: pib_percentage_estructure_over },
+                pib_variation_rate: { $gte: pib_variation_rate_over }
+            }).skip(offset).limit(limit).exec(async (err, data) => {
                 if (err) {
                     console.log(`Algo ha salido mal: ${err}.`);
                     res.sendStatus(500);
@@ -55,7 +69,22 @@ module.exports = {
             const to = req.query.to;
             const limit = req.query.limit;
             const offset = req.query.offset;
-            db.find({ province: province }).skip(offset).limit(limit).exec(async (err, data) => {
+            const year = req.query.year;
+            const pib_current_price_over = req.query.pib_current_price_over;
+            const pib_percentage_estructure_over = req.query.pib_percentage_estructure_over;
+            const pib_variation_rate_over = req.query.pib_variation_rate_over;
+            const pib_current_price_lower = req.query.pib_current_price_over;
+            const pib_percentage_estructure_lower = req.query.pib_percentage_estructure_over;
+            const pib_variation_rate_lower = req.query.pib_variation_rate_over;
+            db.find({
+                province: province,
+                pib_current_price: { $lte: pib_current_price_lower },
+                pib_percentage_estructure: { $lte: pib_percentage_estructure_lower },
+                pib_variation_rate: { $lte: pib_variation_rate_lower },
+                pib_current_price: { $gte: pib_current_price_over },
+                pib_percentage_estructure: { $gte: pib_percentage_estructure_over },
+                pib_variation_rate: { $gte: pib_variation_rate_over }
+            }).skip(offset).limit(limit).exec(async (err, data) => {
                 const dataSelec = data.filter(x => x.year >= from && x.year <= to);
                 if (err) {
                     console.log(`Algo ha salido mal: ${err}.`);
@@ -80,10 +109,28 @@ module.exports = {
         app.get(rutaJorge, (req, res) => {
             const from = req.query.from;
             const to = req.query.to;
-            const year = req.query.year;
             const limit = req.query.limit;
             const offset = req.query.offset;
-            db.find({}).skip(offset).limit(limit).exec(async (err, data) => {
+            const year = parseInt(req.query.year);
+            const pib_current_price_over = parseFloat(req.query.pib_current_price_over);
+            const pib_percentage_estructure_over = parseFloat(req.query.pib_percentage_estructure_over);
+            const pib_variation_rate_over = parseFloat(req.query.pib_variation_rate_over);
+            const pib_current_price_lower = parseFloat(req.query.pib_current_price_over);
+            const pib_percentage_estructure_lower = parseFloat(req.query.pib_percentage_estructure_over);
+            const pib_variation_rate_lower = parseFloat(req.query.pib_variation_rate_over);
+            const conditions = {
+                year: { $eq: year },
+                pib_current_price: { $gte: pib_current_price_over },
+                pib_percentage_estructure: { $gte: pib_percentage_estructure_over },
+                pib_variation_rate: { $gte: pib_variation_rate_over },
+                pib_current_price: { $lte: pib_current_price_lower },
+                pib_percentage_estructure: { $lte: pib_percentage_estructure_lower },
+                pib_variation_rate: { $lte: pib_variation_rate_lower }
+            };
+            const filteredConditions = Object.entries(conditions).filter(([key, value]) => req.query[key] !== undefined).reduce((obj, [key, value]) => { obj[key] = value; return obj; }, {});
+            console.log(filteredConditions);
+
+            db.find({ filteredConditions }).skip(offset).limit(limit).exec(async (err, data) => {
                 const dataSelec = data.filter(x => x.year >= from && x.year <= to);
                 if (err) {
                     console.log(`Algo ha salido mal: ${err}.`);
@@ -97,10 +144,6 @@ module.exports = {
                             res.json(dataSelec).status(200)
                             console.log(`New GET to /market-prices-stats?from=${from}&to=${to}`);
                         }
-                    } else if (year) {
-                        const yearSelecc = data.filter(x => x.year === parseInt(year));
-                        console.log(`New GET to /market-prices-stats?year=${year}`);
-                        res.json(yearSelecc).status(200);
                     } else {
                         res.json(data).status(200);
                         console.log("New GET to /market-prices-stats");
@@ -222,5 +265,4 @@ module.exports = {
         });
     }
 };
-
 
