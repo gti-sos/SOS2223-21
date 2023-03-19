@@ -30,7 +30,7 @@ module.exports =  {
 
     //TAREA 10 GET PABLO
     // GET LoadInitialData
-    app.get(ruta + '/loadInitialData', (req, resp) => {
+    app.get(ruta + "/loadInitialData", (req, resp) => {
         console.log(`New Request /workingplaces-stats/loadInitialData.`);
         db.find({}, async (error, data) => {
             if(error){
