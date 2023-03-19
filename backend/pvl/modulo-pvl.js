@@ -56,7 +56,9 @@ module.exports =  {
                 }else if(data.length == 0){
                     console.log(`workingplaces-stats not found`);
                     response.sendStatus(404);
-                }else{}
+                }else{
+
+                }
 
 
             })
@@ -159,14 +161,14 @@ module.exports =  {
             });
         });
                                                 //DELETE SPECIFICO\\
-        app.delete(ruta+"/:year/:province", (request,response) => {
+        app.delete(ruta+"/:province/:year/", (request,response) => {
             var year = request.params.year;
             var province = request.params.province;
             var gender = request.params.gender;
             console.log(`New DELETE`);
-            db.remove({"year":parseInt(year),"province":province},{},(err, numRemoved)=>{
+            db.remove({"province":province, "year":parseInt(year)},{},(err, numRemoved)=>{
                 if(err){
-                    console.log(`Error deleting workingplaces-stats/${year}/${province}: ${err}`);
+                    console.log(`Error deleting workingplaces-stats/${province}/${year}: ${err}`);
                     response.sendStatus(500);
                 }else{
                     console.log(`Data removed ${numRemoved}`);
