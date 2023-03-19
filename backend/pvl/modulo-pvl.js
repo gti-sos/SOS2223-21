@@ -122,7 +122,19 @@ module.exports =  {
                     if (vacios !=0) {
                         res.status(400).send("Data needs to be inserted or fields are missing.");
                     } else {
-                        if (data === body) {
+                        var iguales = 0;
+                        for (const campo in body) {
+                            if (body[campo] === data[campo]) {
+                              iguales+=1;
+                            } 
+                        
+                        }
+                        console.log("paso por aqui 23")
+                        console.log(body);
+                        console.log(object.keys(data[0]).slice(0, 4))
+                       // console.log(data[0].includes(body));
+                        
+                        if (iguales === data.size) {
                             res.status(409).send("The resource already exists.");
                         } else {
                             console.log("paso por aqui")
