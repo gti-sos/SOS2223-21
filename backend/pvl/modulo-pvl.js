@@ -1,7 +1,7 @@
 //Importaciones
 const pvl = require("./index-PVL.js");
-module.exports = (app) => {
-
+module.exports =  {
+    api:(app) =>{
     var workinplaces_stats = pvl.datos_ejemplos_pablo;
     const ruta = "/api/v1/workingplaces-stats";
 
@@ -139,5 +139,5 @@ module.exports = (app) => {
             }
         }
     });
-
+}
 }
