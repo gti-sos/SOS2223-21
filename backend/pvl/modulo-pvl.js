@@ -71,27 +71,25 @@ module.exports =  {
 
 
         //GET a recurso específico
-        /*
-        app.get(ruta+'workingplaces-stats/:year/:province/:gender', (request,response)=>{
+        app.get(ruta+'/:province/:year', (request,response)=>{
             var year = request.params.year;
             var province = request.params.province;
-            var gender = request.params.gender;
-            db.find({"year":parseInt(year),"province":province,"gender":gender},(err,docs)=>{
+            db.find({"province":province,"year":parseInt(year)},(err,docs)=>{
                 if(err){
-                    console.log(`Error getting density-population/${year}/${province}/${gender}: ${err}`)
+                    console.log(`Error getting workingplaces-stats/${year}/${province}: ${err}`)
                     response.sendStatus(500);
                 }else if(docs.length == 0){
-                    console.log(`density-population/${year}/${province}/${gender} not found`);
+                    console.log(`workingplaces-stats/${year}/${province} not found`);
                     response.sendStatus(404);
                 }else{
-                    console.log(`Data of density-population/${year}/${province}/${gender} returned`);
+                    console.log(`Data of workingplaces-stats/${year}/${province} returned`);
                     response.json(docs.map((c) => {
                         delete c._id;
                         return(c);
                     }))
                 }
             });
-        });*/
+        });
 
         //__________________________________________________POSTS_________________________________________________\\
                                                         //POST ruta\\
