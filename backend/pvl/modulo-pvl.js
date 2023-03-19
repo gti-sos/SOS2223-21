@@ -72,7 +72,7 @@ module.exports =  {
 
         //GET a recurso específico
         /*
-        app.get(BASE_API_URL+'/density-population/:year/:province/:gender', (request,response)=>{
+        app.get(ruta+'workingplaces-stats/:year/:province/:gender', (request,response)=>{
             var year = request.params.year;
             var province = request.params.province;
             var gender = request.params.gender;
@@ -139,17 +139,50 @@ module.exports =  {
                                                 //DELETE ALL\\
         app.delete(ruta, (request,response) => {
             console.log(`New DELETE total`);
-            db.remove({},{multi:true},(err, numRemoved)=>{
+            db.remove({},{multi:true},(err, num)=>{
                 if(err){
                     console.log(`Error deleting density-population`);
                     response.sendStatus(500);
                 }else{
-                    console.log(`Data removed ${numRemoved}`);
+                    console.log(`Data removed ${num}`);
                     response.sendStatus(200);
                 }
             });
         });
+                                                //DELETE SPECIFICO\\
+        app.delete(ruta+"/:year/:province", (request,response) => {
+            var year = request.params.year;
+            var province = request.params.province;
+            var gender = request.params.gender;
+            console.log(`New DELETE`);
+            db.remove({"year":parseInt(year),"province":province},{},(err, num)=>{
+                if(err){
+                    console.log(`Error deleting density-population/${year}/${province}: ${err}`);
+                    response.sendStatus(500);
+                }else{
+                    console.log(`Data removed ${num}`);
+                    response.sendStatus(200);
+                }
+            });
+        });                                        
+
         //__________________________________________PUTS__________________________________________________\\
+                                            //DENIEGUED PUT\\
+        app.put(ruta, (request, response) => {
+            console.log('Metodo no permitido');
+            response.sendStatus(405);
+        });
+                                            //DENIEGUED PUT\\
+        app.put(ruta+'/:year', (request, response) => {
+            console.log('Metodo no permitido');
+            response.sendStatus(405);
+        });
+    
+                                            //DENIEGUED PUT\\
+        app.put(ruta+'/:year/:province', (request, response) => {
+            console.log('Metodo no permitido');
+            response.sendStatus(405);
+        });
     })
 
 
