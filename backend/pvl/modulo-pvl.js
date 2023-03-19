@@ -109,12 +109,17 @@ module.exports =  {
         app.post(ruta, (req, res) => {
             const body = req.body;
             console.log("new post attempt to /workingplaces-stats");
+            var vacios = 0;
+            for (const campo in request.body) {
+                if (request.body[campo] === '') {
+                  vacios+=1;
+                } }
             db.find({}, async (err, data) => {
                 if (err) {
                     console.log(`Something has gone wrong: ${err}.`);
                     res.sendStatus(500);
                 } else {
-                    if (!body || !body.province || !body.work_place || !body.percentage_structure || !body.variation_rate) {
+                    if (vacios !=0) {
                         res.status(400).send("Data needs to be inserted or fields are missing.");
                     } else {
                         if (data.some(x =>
@@ -128,7 +133,7 @@ module.exports =  {
                                 res.status(201).send("The resource has been created successfully.");
                             }
                             else {
-                                res.status(409).send("The province must be in Andalusia.");
+                                res.status(409).send("The province must be in Andalucia.");
                             }
                         }
                     }
@@ -194,22 +199,43 @@ module.exports =  {
             response.sendStatus(405);
         });
     
-                                            //COORECT PUT\\
-        app.put(ruta+'/:province/:year', (request, response) => {
-            const province = request.params.province;
-            const year = parseInt(request.params.year);
-            console.log(request.body);
-            /*
-            db.find({ province: province, year: year }, async (err, data) => {
-                if(err){
-                    console.log(`Something has gone wrong: ${err}.`);
-                    response.sendStatus(500);
-                }else{
-                    //if(request.body){}
+                                            //CORRECT PUT\\
+app.put(ruta + '/:province/:year', (request, response) => {
+    const province = request.params.province;
+    const year = parseInt(request.params.year);
+    var vacios = 0;
+    for (const campo in request.body) {
+        if (request.body[campo] === '' | request.body.length !=5) {
+          vacios+=1;
+        } }
+    db.find({ province: province, year: year }, async (err, data) => {
+        if (err) {
+            console.log(`Something has gone wrong: ${err}.`);
+            response.sendStatus(500);
+        }
+         else {
+            if (vacios !=0) {
+                response.status(400).send("Any field of the body is empty or the total is less than 5");
+            } else {
+                if (data.some(x => x.province === request.body.province)) {
+                    db.update({ province: province, year: year }, {
+                        $set: request.body}, {}, async (error, dat) => {
+                        if (error) {
+                            console.log(`Something has gone wrong: ${err}.`);
+                            response.sendStatus(500);
+                        } else {
+                            response.status(200).send("Stats updated successfully");
+                            console.log("New PUT to /market-prices-stats/" + province + "/" + year);
+                        }
+                    });
                 }
-            response.sendStatus(201);})*/
-        });
-
+                else {
+                    response.status(409).send("The province must be in Andalucia.");
+                }
+            }
+        }
+    });
+});
 
     })
 
