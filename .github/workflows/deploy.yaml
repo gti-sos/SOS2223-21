@@ -12,9 +12,12 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@v2
-      - run: npm install
-      - run: npm start & 
-      - run: npm run test-jorge-local
+      - name: 'Instalar modulos'
+        run: npm install
+      - name: 'Inicia servidor node'
+        run: npm start & 
+      - name: 'Pruebas métodos jorge en local'
+        run: npm run test-jorge-local
       
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
@@ -30,4 +33,5 @@ jobs:
       - name: Deploy
         run: gcloud app deploy
 
-      - run: npm run test-jorge-gcloud
+      - name: 'Pruebas métodos jorge en gcloud'
+        run: npm run test-jorge-gcloud
