@@ -80,7 +80,7 @@ module.exports = {
             if (!isNaN(year)) filteredConditions.set('year', year);
             const pib_current_price_over = parseFloat(req.query.pib_current_price_over);
             if (!isNaN(pib_current_price_over)) filteredConditions.set('pib_current_price', { '$gte': pib_current_price_over });
-            const pib_percentage_structure_over = parseFloat(req.query.pib_percentage_structure_over);
+            const pib_percentage_structure_over = parseFloat(req.query.pib_percentage_structure_over); /* */
             if (!isNaN(pib_percentage_structure_over)) filteredConditions.set('pib_percentage_structure', { '$gte': pib_percentage_structure_over });
             const pib_variation_rate_over = parseFloat(req.query.pib_variation_rate_over);
             if (!isNaN(pib_variation_rate_over)) filteredConditions.set('pib_variation_rate', { '$gte': pib_variation_rate_over });
