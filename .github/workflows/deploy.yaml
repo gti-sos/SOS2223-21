@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - uses: actions/checkout@v2.4
+      - uses: actions/checkout@v2
       - name: 'Instalar modulos'
         run: npm install
       - name: 'Inicia servidor node'
