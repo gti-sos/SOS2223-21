@@ -21,60 +21,60 @@ module.exports =  {
     });
 
 
-    //TAREA 10 GET PABLO
-    // GET LoadInitialData
-    app.get(ruta + "/loadInitialData", (req, resp) => {
-        console.log(`New Request /workingplaces-stats/loadInitialData.`);
-        db.find({}, async (error, data) => {
-            if(error){
-                console.log(`Error loading Initial Data: ${error}.`);
-                resp.sendStatus(500);
-            }else if(data.length != 0){
-                console.log(`There are data ${data.length} loaded.`);
-                response.sendStatus(200);
-            }else{
-                let datos = await csv.load('./backend/pvl/Datos/Datos.csv');
-                db.insert(datos);
-                console.log(`Inserted ${datos.length} data in the database.`);
-                resp.sendStatus(201);
-            }
-        });
-
-
-        //GET QUERY/NO QUERY
-        app.get(ruta, (request,response) => {
-            var year_query = request.query.year;
-            var province_query = request.query.province;
-            var work_place_query = request.query.work_place;
-            var percentage_structure = request.query.percentage_structure;
-            var variation_rating = request.query.variation_rating;
-            console.log(`New request to /workingplaces-stats.`);
-            db.find({}, {_id: 0}, (error, data) => {
+         //__________________________________________________GETS_________________________________________________\\
+                                                // GET LoadInitialData \\
+        app.get(ruta + "/loadInitialData", (req, resp) => {
+            console.log(`New Request /workingplaces-stats/loadInitialData.`);
+            db.find({}, async (error, data) => {
                 if(error){
-                    console.log(`Error getting workingplaces-stats.`);
-                    response.sendStatus(500);
-                }else if(data.length == 0){
-                    console.log(`workingplaces-stats not found`);
-                    response.sendStatus(404);
+                    console.log(`Error loading Initial Data: ${error}.`);
+                    resp.sendStatus(500);
+                }else if(data.length != 0){
+                    console.log(`There are data ${data.length} loaded.`);
+                    response.sendStatus(200);
                 }else{
-
+                    let datos = await csv.load('./backend/pvl/Datos/Datos.csv');
+                    db.insert(datos);
+                    console.log(`Inserted ${datos.length} data in the database.`);
+                    resp.sendStatus(201);
                 }
+            });
 
 
-            })
-        });
-        //GET a recurso provincia
+                                                    //GET GLOBAL\\
+            app.get(ruta, (request,response) => {
+                var year_query = request.query.year;
+                var province_query = request.query.province;
+                var work_place_query = request.query.work_place;
+                var percentage_structure = request.query.percentage_structure;
+                var variation_rating = request.query.variation_rating;
+                console.log(`New request to /workingplaces-stats.`);
+                db.find({}, {_id: 0}, (error, data) => {
+                    if(error){
+                        console.log(`Error getting workingplaces-stats.`);
+                        response.sendStatus(500);
+                    }else if(data.length == 0){
+                        console.log(`workingplaces-stats not found`);
+                        response.sendStatus(404);
+                    }else{
+
+                    }
+                })});
+
+
+
+                                    //GET a recurso provincia\\
         app.get(ruta+'/:province', (request,response)=>{
             var province = request.params.province;
             db.find({"province":province},(err,docs)=>{
                 if(err){
-                    console.log(`Error getting workingplaces-stats/${year}: ${err}`)
+                    console.log(`Error getting workingplaces-stats/${province}: ${err}`)
                     response.sendStatus(500);
                 }else if(docs.length == 0){
-                    console.log(`workingplaces-stats/${year} not found`);
+                    console.log(`workingplaces-stats/${province} not found`);
                     response.sendStatus(404);
                 }else{
-                    console.log(`Data of workingplaces-stats/${year} returned`);
+                    console.log(`Data of workingplaces-stats/${province} returned`);
                     response.json(docs.map((c) => {
                         delete c._id;
                         return(c);
@@ -108,35 +108,28 @@ module.exports =  {
                                                         //POST ruta\\
         app.post(ruta, (req, res) => {
             const body = req.body;
-            console.log("New POST to /workingplaces-stats");
+            console.log("new post attempt to /workingplaces-stats");
             db.find({}, async (err, data) => {
                 if (err) {
-                    console.log(`Algo ha salido mal: ${err}.`);
+                    console.log(`Something has gone wrong: ${err}.`);
                     res.sendStatus(500);
                 } else {
-                    console.log(body.province);
-                    console.log(body.work_place);
-                    console.log(body.percentage_structure);
-                    console.log(body.variation_rate);
-                    console.log(body);
                     if (!body || !body.province || !body.work_place || !body.percentage_structure || !body.variation_rate) {
-                        res.status(400).send("Hay que insertar datos o faltan campos.");
+                        res.status(400).send("Data needs to be inserted or fields are missing.");
                     } else {
                         if (data.some(x =>
-                            x.province === body.province &&
-                            x.work_place === body.work_place &&
-                            x.percentage_structure === body.percentage_structure &&
+                            x.province === body.province &&x.work_place === body.work_place && x.percentage_structure === body.percentage_structure &&
                             x.variation_rate === body.variation_rate)) {
-                            res.status(409).send("El recurso ya existe.");
+                            res.status(409).send("The resource already exists.");
                         } else {
-                            if (data.some(x => x.province === body.province)) {
+                            if (data.some(x => {x.province === body.province})) {
                                 db.insert(req.body);
                                 console.log(`newData = ${JSON.stringify(body, null, 2)}`);
                                 console.log("New POST to /workingplaces-stats");
-                                res.status(201).send("El recurso se ha creado correctamente.");
+                                res.status(201).send("The resource has been created successfully.");
                             }
                             else {
-                                res.status(409).send("La provincia tiene que ser de Andalucía.");
+                                res.status(409).send("The province must be in Andalusia.");
                             }
                         }
                     }
@@ -162,10 +155,9 @@ module.exports =  {
         });
                                                 //DELETE SPECIFICO\\
         app.delete(ruta+"/:province/:year/", (request,response) => {
-            var year = request.params.year;
             var province = request.params.province;
-            var gender = request.params.gender;
-            console.log(`New DELETE`);
+            var year = request.params.year;
+            console.log(`New DELETE /province/`);
             db.remove({"province":province, "year":parseInt(year)},{},(err, numRemoved)=>{
                 if(err){
                     console.log(`Error deleting workingplaces-stats/${province}/${year}: ${err}`);
@@ -175,7 +167,21 @@ module.exports =  {
                     response.sendStatus(200);
                 }
             });
-        });                                        
+        });        
+                                        //DELETE MULTIPLE SPECIFICO\\
+        app.delete(ruta+"/:province", (request,response) => {
+            var province = request.params.province;
+            console.log(`New DELETE for ${province}`);
+            db.remove({"province":province},{multi:true},(err, numRemoved)=>{
+                if(err){
+                    console.log(`Error deleting workingplaces-stats/${province}: ${err}`);
+                    response.sendStatus(500);
+                }else{
+                    console.log(`Data removed ${numRemoved}`);
+                    response.sendStatus(200);
+                }
+            });
+        });
 
         //__________________________________________PUTS__________________________________________________\\
                                             //DENIEGUED PUT\\
