@@ -20,13 +20,6 @@ module.exports =  {
         console.log("New request for pvl exercise");
     });
 
-    //GET LISTA
-
-    app.get(ruta, (req, resp) => {
-        resp.send(pvl.datos_ejemplos_pablo);
-        resp.status(200);
-        console.log("New request for pvl exercise");
-    });
 
     //TAREA 10 GET PABLO
     // GET LoadInitialData
@@ -68,9 +61,27 @@ module.exports =  {
 
             })
         });
+        //GET a recurso provincia
+        app.get(ruta+'/:province', (request,response)=>{
+            var province = request.params.province;
+            db.find({"province":province},(err,docs)=>{
+                if(err){
+                    console.log(`Error getting workingplaces-stats/${year}: ${err}`)
+                    response.sendStatus(500);
+                }else if(docs.length == 0){
+                    console.log(`workingplaces-stats/${year} not found`);
+                    response.sendStatus(404);
+                }else{
+                    console.log(`Data of workingplaces-stats/${year} returned`);
+                    response.json(docs.map((c) => {
+                        delete c._id;
+                        return(c);
+                    }))
+                }
+            });
+        });
 
-
-        //GET a recurso específico
+        //GET a recurso provincia y año
         app.get(ruta+'/:province/:year', (request,response)=>{
             var year = request.params.year;
             var province = request.params.province;
@@ -137,12 +148,12 @@ module.exports =  {
                                                 //DELETE ALL\\
         app.delete(ruta, (request,response) => {
             console.log(`New DELETE total`);
-            db.remove({},{multi:true},(err, num)=>{
+            db.remove({},{multi:true},(err, numRemoved)=>{
                 if(err){
-                    console.log(`Error deleting density-population`);
+                    console.log(`Error deleting workingplaces-stats`);
                     response.sendStatus(500);
                 }else{
-                    console.log(`Data removed ${num}`);
+                    console.log(`Data removed ${numRemoved}`);
                     response.sendStatus(200);
                 }
             });
@@ -153,12 +164,12 @@ module.exports =  {
             var province = request.params.province;
             var gender = request.params.gender;
             console.log(`New DELETE`);
-            db.remove({"year":parseInt(year),"province":province},{},(err, num)=>{
+            db.remove({"year":parseInt(year),"province":province},{},(err, numRemoved)=>{
                 if(err){
-                    console.log(`Error deleting density-population/${year}/${province}: ${err}`);
+                    console.log(`Error deleting workingplaces-stats/${year}/${province}: ${err}`);
                     response.sendStatus(500);
                 }else{
-                    console.log(`Data removed ${num}`);
+                    console.log(`Data removed ${numRemoved}`);
                     response.sendStatus(200);
                 }
             });
@@ -167,18 +178,18 @@ module.exports =  {
         //__________________________________________PUTS__________________________________________________\\
                                             //DENIEGUED PUT\\
         app.put(ruta, (request, response) => {
-            console.log('Metodo no permitido');
+            console.log('Method Not Allowed');
             response.sendStatus(405);
         });
                                             //DENIEGUED PUT\\
         app.put(ruta+'/:year', (request, response) => {
-            console.log('Metodo no permitido');
+            console.log('Method Not Allowed');
             response.sendStatus(405);
         });
     
                                             //DENIEGUED PUT\\
         app.put(ruta+'/:year/:province', (request, response) => {
-            console.log('Metodo no permitido');
+            console.log('Method Not Allowed');
             response.sendStatus(405);
         });
     })
