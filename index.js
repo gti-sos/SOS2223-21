@@ -1,6 +1,5 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-//var modulo_pablo = require('modulos/pvl/modulo-PVL.js');
 //var backend_jorge = require('./backend/jfs/modulo-jfs.js');
 var modulo_pablo = require("./backend/pvl/modulo-pvl.js");
 
