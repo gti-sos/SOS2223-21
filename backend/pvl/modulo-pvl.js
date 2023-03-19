@@ -124,7 +124,6 @@ module.exports =  {
                         } else {
                             if (data.some(x => {x.province === body.province})) {
                                 db.insert(req.body);
-                                console.log(`newData = ${JSON.stringify(body, null, 2)}`);
                                 console.log("New POST to /workingplaces-stats");
                                 res.status(201).send("The resource has been created successfully.");
                             }
@@ -190,16 +189,28 @@ module.exports =  {
             response.sendStatus(405);
         });
                                             //DENIEGUED PUT\\
-        app.put(ruta+'/:year', (request, response) => {
+        app.put(ruta+'/:province', (request, response) => {
             console.log('Method Not Allowed');
             response.sendStatus(405);
         });
     
-                                            //DENIEGUED PUT\\
-        app.put(ruta+'/:year/:province', (request, response) => {
-            console.log('Method Not Allowed');
-            response.sendStatus(405);
+                                            //COORECT PUT\\
+        app.put(ruta+'/:province/:year', (request, response) => {
+            const province = request.params.province;
+            const year = parseInt(request.params.year);
+            console.log(request.body);
+            /*
+            db.find({ province: province, year: year }, async (err, data) => {
+                if(err){
+                    console.log(`Something has gone wrong: ${err}.`);
+                    response.sendStatus(500);
+                }else{
+                    //if(request.body){}
+                }
+            response.sendStatus(201);})*/
         });
+
+
     })
 
 
