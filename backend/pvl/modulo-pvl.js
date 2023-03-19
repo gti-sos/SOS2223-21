@@ -110,8 +110,8 @@ module.exports =  {
             const body = req.body;
             console.log("new post attempt to /workingplaces-stats");
             var vacios = 0;
-            for (const campo in request.body) {
-                if (request.body[campo] === '') {
+            for (const campo in body) {
+                if (body[campo] === '') {
                   vacios+=1;
                 } }
             db.find({}, async (err, data) => {
@@ -122,12 +122,11 @@ module.exports =  {
                     if (vacios !=0) {
                         res.status(400).send("Data needs to be inserted or fields are missing.");
                     } else {
-                        if (data.some(x =>
-                            x.province === body.province &&x.work_place === body.work_place && x.percentage_structure === body.percentage_structure &&
-                            x.variation_rate === body.variation_rate)) {
+                        if (data === body) {
                             res.status(409).send("The resource already exists.");
                         } else {
-                            if (data.some(x => {x.province === body.province})) {
+                            console.log("paso por aqui")
+                            if (data.some(x => x.province.includes(body.province))) {
                                 db.insert(req.body);
                                 console.log("New POST to /workingplaces-stats");
                                 res.status(201).send("The resource has been created successfully.");
@@ -141,6 +140,17 @@ module.exports =  {
             });
 
         });
+                                   //POST NOT ALLOWED\\
+        app.put(ruta, (request, response) => {
+            console.log('POST not Allowed');
+            response.sendStatus(405);
+        });
+                                    //POST NOT ALLOWED\\
+        app.put(ruta+'/:province', (request, response) => {
+            console.log('POST not Allowed');
+            response.sendStatus(405);
+        });
+
 
 
         //__________________________________________DELETES__________________________________________________\\
@@ -188,14 +198,14 @@ module.exports =  {
         });
 
         //__________________________________________PUTS__________________________________________________\\
-                                            //DENIEGUED PUT\\
+                                            //PUT NOT ALLOWED\\
         app.put(ruta, (request, response) => {
-            console.log('Method Not Allowed');
+            console.log('Put not Allowed');
             response.sendStatus(405);
         });
-                                            //DENIEGUED PUT\\
+                                            //PUT NOT ALLOWED\\
         app.put(ruta+'/:province', (request, response) => {
-            console.log('Method Not Allowed');
+            console.log('Put not Allowed');
             response.sendStatus(405);
         });
     
