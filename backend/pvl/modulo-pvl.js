@@ -19,7 +19,7 @@ module.exports =  {
 
         //__________________________________________________GETS__________________________________________________\\
                                                 // GET LoadInitialData \\
-        app.get(ruta + "/loadInitialData", (req, resp) => {
+        app.get(ruta + "/loadInitialData", (req, response) => {
             console.log(`New Request /workingplaces-stats/loadInitialData.`);
             db.find({}, async (error, data) => {
                 if(error){
@@ -32,37 +32,50 @@ module.exports =  {
                     let datos = await csv.load('./backend/pvl/Datos/Datos.csv');
                     db.insert(datos);
                     console.log(`Inserted ${datos.length} data in the database.`);
-                    resp.sendStatus(201);
+                    response.sendStatus(201);
                 }
             });
 
 
                                                     //GET GLOBAL\\
-            /*                                
-           app.get(ruta, (request,response) => {
-                console.log(`New request to /workingplaces-stats.`);
-                db.find({}, {_id: 0}, (error, data) => {
-                    if(error){
-                        console.log(`Error getting workingplaces-stats.`);
-                        response.sendStatus(500);
-                    }else if(data.length == 0){
-                        console.log(`workingplaces-stats not found`);
-                        response.sendStatus(404);
-                    }else{
+                                          
+           app.get('/api/v1/workingplaces-stats', (req, res) => {
+  const { province, year, work_place, percentage_structure, variation_rate, limit = 1000, offset = 0 } = req.query;
+  const query = {};
 
-                        let datos = data.filter(x=> {
-                            var todos_undefined = request.query.province == undefined && request.query.year == undefined && request.query.work_place == undefined && request.query.variation_rate == undefined && request.query.percentage_structure == undefined;
-                            //|| parseFloat(request.query.work_place) == x.work_place || parseFloat(request.query.variation_rate) == x.variation_rate||parseFloat(request.query.percentage_structure) == x.percentage_structure
-                            var solos = request.query.province === x.province || parseInteger(request.query.year) === x.year ;
-                            var todos = request.query.province === x.province && parseInteger(request.query.year) === x.year ;
+  if (province) {
+    query.province = { $regex: new RegExp(province, 'i') };
+  }
+  if (year) {
+    parseInt(query.year) = { $regex: new RegExp(year, 'i') };
+  }
+  if (work_place) {
+    parseInt(query.work_place) = { $regex: new RegExp(work_place, 'i') };
+  }
+  if (percentage_structure) {
+    parseInt(query.percentage_structure) = new Date(percentage_structure);
+  }
+  if (variation_rate) {
+    parseInt(query.variation_rate) = parseInt(variation_rate);
+  }
 
-                            return todos_undefined || solos || todos;
-                        })
-                    response.send(datos);
-                    }    
-                        
-                        })});*/
+  const limitValue = parseInt(limit);
+  const offsetValue = parseInt(offset);
 
+  db
+    .find(query)
+    .limit(limitValue)
+    .skip(offsetValue)
+    .exec((err, db) => {
+      if (err) {
+        console.log(`Error getting /db: ${err}`);
+        res.sendStatus(500);
+      } else {
+        console.log(`db returned = ${db.length}`);
+        res.json(db);
+      }
+    });
+});
 
 
                                     //GET recurso especifico\\
