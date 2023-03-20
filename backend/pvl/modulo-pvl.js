@@ -100,6 +100,44 @@ module.exports =  {
 
         //__________________________________________________POSTS_________________________________________________\\
                                                         //POST ruta\\
+        app.post(rutaoua, (req, res) => {
+        console.log("new post attempt to /workingplaces-stats");
+        var vacios = 0;
+            for (const campo in body) {
+                if (body[campo] === '') {
+                  vacios+=1;
+                } }
+        if (vacios !=0) {
+            res.status(400).send("Data needs to be inserted or fields are missing.");
+        } else {
+            const newData = req.body;
+            db.find({
+                province: newData.province,
+                year: newData.year,
+                work_place: newData.work_place,
+                percentage_structure:newData.percentage_structure,
+                variation_rate:newData.variation_rate,
+            }, (err, docs) => {
+                console.log(docs);
+                if (docs.length > 0) {
+                    res.status(409).send("The resource already exists.");
+                } else {
+                    db.insert(newData, (err, doc) => {
+                        if (err) {
+                            res.status(500).send(`Something has gone wrong: ${err}.`);
+                        } else {
+                            console.log(`newData = ${JSON.stringify(doc, null, 2)}`);
+                            console.log("New POST to /workingplaces-stats");
+                            res.status(201).send("The resource has been created successfully.");
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+
+        /*                                                
         app.post(ruta, (req, res) => {
             const body = req.body;
             console.log("new post attempt to /workingplaces-stats");
@@ -144,7 +182,7 @@ module.exports =  {
                 };
             });
 
-        });
+        });*/
                                    //POST NOT ALLOWED\\
         app.put(ruta, (request, response) => {
             console.log('POST not Allowed');
