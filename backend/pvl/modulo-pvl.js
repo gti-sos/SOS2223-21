@@ -61,7 +61,7 @@ module.exports =  {
 
 
 
-                                    //GET con todos los recursos provincia\\
+                                    //GET recurso especifico\\
         app.get(ruta+'/:province/:year', (request,response)=>{
             var province = request.params.province;
             var year = request.params.year;
@@ -75,27 +75,6 @@ module.exports =  {
                 }else{
                     console.log(`Data of workingplaces-stats/${province} returned`);
                     response.json(data.filter(x =>x.province === province && x.year===year).map(x=>delete x._id));
-                }
-            });
-        });
-
-        //GET a recurso provincia y año
-        app.get(ruta+'/:province/:year', (request,response)=>{
-            var year = request.params.year;
-            var province = request.params.province;
-            db.find({"province":province,"year":parseInt(year)},(err,docs)=>{
-                if(err){
-                    console.log(`Error getting workingplaces-stats/${year}/${province}: ${err}`)
-                    response.sendStatus(500);
-                }else if(docs.length == 0){
-                    console.log(`workingplaces-stats/${year}/${province} not found`);
-                    response.sendStatus(404);
-                }else{
-                    console.log(`Data of workingplaces-stats/${year}/${province} returned`);
-                    response.json(docs.map((c) => {
-                        delete c._id;
-                        return(c);
-                    }))
                 }
             });
         });
