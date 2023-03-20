@@ -20,6 +20,5 @@ app.get("/samples/SRC", (req, res) => {
     console.log("Cálculo algoritmo");
 });
 */
-
 module.exports.media_remuneration_of_employees_province = media_remuneration_of_employees_province;
 module.exports.datos_ejemplos_sete = datos_ejemplos_sete;
