@@ -129,7 +129,6 @@ module.exports =  {
                             } 
                         
                         }
-                        console.log("paso por aqui 23")
                         console.log(body);
                         console.log(object.keys(data[0]).limit(4))
                        // console.log(data[0].includes(body));
