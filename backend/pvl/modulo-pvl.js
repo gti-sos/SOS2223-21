@@ -218,18 +218,25 @@ app.put(ruta + '/:province/:year', (request, response) => {
     const province = request.params.province;
     const year = parseInt(request.params.year);
     var vacios = 0;
-    console.log(req.body);
-    for (const campo in request.body) {
-        if (request.body[campo] === '') {
-          vacios+=1;
-        } }
     db.find({ province: province, year: year }, async (err, data) => {
+        console.log(province, "D",request.body.province);
+        console.log(year, "Y",request.body.year);
+        for (const campo in request.body) {
+            
+            if (request.body[campo] === '') {
+              vacios+=1;
+            } }
         if (err) {
             console.log(`Something has gone wrong: ${err}.`);
             response.sendStatus(500);
+            console.log("Body", Object.keys(request.body).length)
+            
+        }else if(province != request.body.province || year != request.body.year){
+            response.status(400).send("Data not found")
         }
          else {
-            if (vacios !=0 ) {
+            console.log(vacios,Object.keys(request.body).length)
+            if (vacios !=0 || Object.keys(request.body).length != 5) {
                 response.status(400).send("Any field of the body is empty or the total is less than 5");
             } else {
                 if (provincias.includes(request.body.province)) {
