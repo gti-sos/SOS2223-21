@@ -65,20 +65,20 @@ module.exports =  {
         app.get(ruta+'/:province/:year', (request,response)=>{
             var province = request.params.province;
             var year = request.params.year;
-            db.find({"province":province},(err,docs)=>{
+            console.log(province , year)
+            db.find({"province":province, "year":parseInt(year)},(err,data)=>{
+                console.log(data[0].province)
                 if(err){
                     console.log(`Error getting workingplaces-stats/${province}: ${err}`)
                     response.sendStatus(500);
-                }else if(docs.length == 0){
+                }else if(data.length == 0){
                     console.log(`workingplaces-stats/${province} not found`);
                     response.sendStatus(404);
                 }else{
                     console.log(`Data of workingplaces-stats/${province} returned`);
-                    response.json(data.filter(x =>x.province === province && x.year===year).map(x=>delete x._id));
-                }
-            });
-        });
-
+                    response.json(data.filter(x =>x.province === province && parseInt(x.year)===parseInt(year)).map(x => {delete x._id; return x[0]}));
+                    }
+                });});
         //__________________________________________________POSTS_________________________________________________\\
                                                         //POST ruta\\
         app.post(ruta, (req, res) => {
