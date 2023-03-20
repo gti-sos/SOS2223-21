@@ -7,6 +7,7 @@ var db = new Datastore();
 
 module.exports =  {
     api:(app) =>{
+        const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba"];
     var workinplaces_stats = pvl.datos_ejemplos_pablo;
     const ruta = "/api/v1/workingplaces-stats";
     
@@ -100,11 +101,11 @@ module.exports =  {
 
         //__________________________________________________POSTS_________________________________________________\\
                                                         //POST ruta\\
-        app.post(rutaoua, (req, res) => {
+        app.post(ruta, (req, res) => {
         console.log("new post attempt to /workingplaces-stats");
         var vacios = 0;
-            for (const campo in body) {
-                if (body[campo] === '') {
+            for (const campo in req.body) {
+                if (req.body[campo] === '') {
                   vacios+=1;
                 } }
         if (vacios !=0) {
@@ -118,10 +119,14 @@ module.exports =  {
                 percentage_structure:newData.percentage_structure,
                 variation_rate:newData.variation_rate,
             }, (err, docs) => {
+                console.log("Este es el doc")
                 console.log(docs);
                 if (docs.length > 0) {
                     res.status(409).send("The resource already exists.");
-                } else {
+                } else if (!provincias.includes(req.body.province)){
+                    res.status(409).send("The province must be in Andalucía.");
+                }                 
+                else {
                     db.insert(newData, (err, doc) => {
                         if (err) {
                             res.status(500).send(`Something has gone wrong: ${err}.`);
