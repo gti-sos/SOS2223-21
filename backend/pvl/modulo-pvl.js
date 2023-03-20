@@ -7,16 +7,17 @@ var db = new Datastore();
 
 module.exports =  {
     api:(app) =>{
+        const ruta = "/api/v1/workingplaces-stats";
         const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba"];
-    var workinplaces_stats = pvl.datos_ejemplos_pablo;
-    const ruta = "/api/v1/workingplaces-stats";
+        var workinplaces_stats = pvl.datos_ejemplos_pablo;
+        
     
         //___________________________________________________DOCS________________________________________________\\
         app.get(ruta + '/docs', function (req, res) {
             res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93K1oKMy');
                 });
 
-         //__________________________________________________GETS_________________________________________________\\
+        //__________________________________________________GETS__________________________________________________\\
                                                 // GET LoadInitialData \\
         app.get(ruta + "/loadInitialData", (req, resp) => {
             console.log(`New Request /workingplaces-stats/loadInitialData.`);
@@ -38,6 +39,8 @@ module.exports =  {
 
                                                     //GET GLOBAL\\
             app.get(ruta, (request,response) => {
+                var year_params = request.params.year;
+                var province_params = request.params.province;
                 var year_query = request.query.year;
                 var province_query = request.query.province;
                 var work_place_query = request.query.work_place;
@@ -58,9 +61,10 @@ module.exports =  {
 
 
 
-                                    //GET a recurso provincia\\
-        app.get(ruta+'/:province', (request,response)=>{
+                                    //GET con todos los recursos provincia\\
+        app.get(ruta+'/:province/:year', (request,response)=>{
             var province = request.params.province;
+            var year = request.params.year;
             db.find({"province":province},(err,docs)=>{
                 if(err){
                     console.log(`Error getting workingplaces-stats/${province}: ${err}`)
@@ -70,10 +74,7 @@ module.exports =  {
                     response.sendStatus(404);
                 }else{
                     console.log(`Data of workingplaces-stats/${province} returned`);
-                    response.json(docs.map((c) => {
-                        delete c._id;
-                        return(c);
-                    }))
+                    response.json(data.filter(x =>x.province === province && x.year===year).map(x=>delete x._id));
                 }
             });
         });
@@ -144,12 +145,12 @@ module.exports =  {
 
        
                                    //POST NOT ALLOWED\\
-        app.put(ruta, (request, response) => {
+        app.post(ruta+'/:province', (request, response) => {
             console.log('POST not Allowed');
             response.sendStatus(405);
         });
                                     //POST NOT ALLOWED\\
-        app.put(ruta+'/:province', (request, response) => {
+        app.post(ruta+'/:province/:year', (request, response) => {
             console.log('POST not Allowed');
             response.sendStatus(405);
         });
@@ -228,13 +229,11 @@ app.put(ruta + '/:province/:year', (request, response) => {
         if (err) {
             console.log(`Something has gone wrong: ${err}.`);
             response.sendStatus(500);
-            console.log("Body", Object.keys(request.body).length)
             
         }else if(province != request.body.province || year != request.body.year){
             response.status(400).send("Data not found")
         }
          else {
-            console.log(vacios,Object.keys(request.body).length)
             if (vacios !=0 || Object.keys(request.body).length != 5) {
                 response.status(400).send("Any field of the body is empty or the total is less than 5");
             } else {
