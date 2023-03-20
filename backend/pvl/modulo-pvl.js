@@ -39,13 +39,6 @@ module.exports =  {
 
                                                     //GET GLOBAL\\
             app.get(ruta, (request,response) => {
-                var year_params = request.params.year;
-                var province_params = request.params.province;
-                var year_query = request.query.year;
-                var province_query = request.query.province;
-                var work_place_query = request.query.work_place;
-                var percentage_structure = request.query.percentage_structure;
-                var variation_rating = request.query.variation_rating;
                 console.log(`New request to /workingplaces-stats.`);
                 db.find({}, {_id: 0}, (error, data) => {
                     if(error){
@@ -55,6 +48,34 @@ module.exports =  {
                         console.log(`workingplaces-stats not found`);
                         response.sendStatus(404);
                     }else{
+                        let i = -1;
+                        if(request.query.province){ 
+                            var province_ = request.query.province;
+                            console.log("Busqueda: ", province_);
+                        }
+                        else if (request.query.year){
+                            var year_ = request.query.year
+                            console.log("Busqueda: ", year_);
+                        }else if (request.query.work_place){
+                            var work_place_ = request.query.work_place
+                            console.log("Busqueda: ", work_place_);
+                        }else if (request.query.percentage_structure){
+                            var percentage_structure_ = request.query.percentage_structure
+                            console.log("Busqueda: ", percentage_structure_);
+                        }
+                        else if (request.query.variation_rate){
+                            var variation_rate_ = request.query.variation_rate
+                            console.log("Busqueda: ", variation_rate_);
+                        }
+                        else if (request.query.limit){
+                            var limit = request.query.limit
+                            console.log("limite: ", limit);
+                        }
+                        else{
+                            var offset = parseInt(request.query.offset);
+                            console.log("offset: ", offset);
+                        }
+                        
                         
                     }
                 })});
