@@ -108,7 +108,7 @@ module.exports =  {
                 if (req.body[campo] === '') {
                   vacios+=1;
                 } }
-        if (vacios !=0) {
+        if (vacios !=0 || !req.body || !req.body.province || !req.body.work_place || !req.body.percentage_structure || !req.body.variation_rate) {
             res.status(400).send("Data needs to be inserted or fields are missing.");
         } else {
             const newData = req.body;
@@ -120,7 +120,7 @@ module.exports =  {
                 variation_rate:newData.variation_rate,
             }, (err, docs) => {
                 console.log("Este es el doc")
-                console.log(docs);
+                console.log(docs[0]);
                 if (docs.length > 0) {
                     res.status(409).send("The resource already exists.");
                 } else if (!provincias.includes(req.body.province)){
@@ -218,8 +218,9 @@ app.put(ruta + '/:province/:year', (request, response) => {
     const province = request.params.province;
     const year = parseInt(request.params.year);
     var vacios = 0;
+    console.log(req.body);
     for (const campo in request.body) {
-        if (request.body[campo] === '' | request.body.length !=5) {
+        if (request.body[campo] === '') {
           vacios+=1;
         } }
     db.find({ province: province, year: year }, async (err, data) => {
@@ -228,10 +229,10 @@ app.put(ruta + '/:province/:year', (request, response) => {
             response.sendStatus(500);
         }
          else {
-            if (vacios !=0) {
+            if (vacios !=0 ) {
                 response.status(400).send("Any field of the body is empty or the total is less than 5");
             } else {
-                if (data.some(x => x.province === request.body.province)) {
+                if (provincias.includes(request.body.province)) {
                     db.update({ province: province, year: year }, {
                         $set: request.body}, {}, async (error, dat) => {
                         if (error) {
