@@ -1,0 +1,1101 @@
+{
+	"info": {
+		"_postman_id": "794b81fd-b0dd-4180-97a5-d07921f26686",
+		"name": "SOS2223-21",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26063650"
+	},
+	"item": [
+		{
+			"name": "POSTMAN",
+			"item": [
+				{
+					"name": "/doc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/docs",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"docs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "workingplaces-stats SIN DATOS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"No hay datos en la api.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loadInitialData",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/loadInitialData",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"loadInitialData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/province/year 404 NOT FOUND",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Almería/2039",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Almería",
+								"2039"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/province/year",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Almería/2013",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Almería",
+								"2013"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/Province",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Granada",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Granada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "workingplaces-stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Hay datos en la api.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "workingplaces-stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2035,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLBASE}}{{API}}",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ERROR 409",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2035,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLBASE}}{{API}}",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ERROR 409 province incorrecta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"province\": \"Kazhajistan\",\r\n    \"year\": 2035,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLBASE}}{{API}}",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ERROR 400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Málaga\",\r\n    \"year\": 2030,\r\n    \"pib_current_price\": 149621412,\r\n    \"pib_variation_rate\": 292281107\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLBASE}}{{API}}",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ERROR 405 ruta no permitida",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Málaga\",\r\n    \"year\": 2030,\r\n    \"pib_current_price\": 149621412,\r\n    \"pib_variation_rate\": 292281107\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Málaga/2015",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Málaga",
+								"2015"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "405 ruta no permitida",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Granada\",\r\n    \"year\": 2015,\r\n    \"work_place\": 149621412,\r\n    \"percentage_structure\": 300,\r\n    \"variation_rate\": 292281107\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLBASE}}{{API}}",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ERROR 409 province incorrecta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Cataluña\",\r\n    \"year\": 2015,\r\n    \"work_place\": 12345678,\r\n    \"percentage_structure\": 400,\r\n    \"variation_rate\": 281107\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Almería/2010",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Almería",
+								"2010"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/province/year",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2035,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Almería/2035",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Almería",
+								"2035"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ERROR 400 url",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2099,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Almería/2030",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Almería",
+								"2030"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ERROR 400 body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Granada\",\r\n    \"year\": 2016,\r\n    \"pib_current_price\": 149621412,\r\n    \"pib_percentage_structure\": 300\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Granada/2016",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Granada",
+								"2016"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Búsquedas",
+			"item": [
+				{
+					"name": "?year=X",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}?year=2015",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2015"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "?province=X",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}?year=2015",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2015"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/Province?from=X&to=X",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/?province=granada&year=2015",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "province",
+									"value": "granada"
+								},
+								{
+									"key": "year",
+									"value": "2015"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Paginación",
+			"item": [
+				{
+					"name": "/Province?limit=1&offset=0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Granada?limit=1&offset=0",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Granada"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/Province?limit=1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Granada?limit=1",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Granada"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/Province?offset=1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Granada?offset=1",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Granada"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "?limit=10&offset=8",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}?limit=5&offset=8",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "offset",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "?limit=3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}?limit=3",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "?offset=5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}?offset=5",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "workingplaces-stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "workingplaces-stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"No hay datos en la api.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "workingplaces-stats/province/year Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Almeria",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Almeria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "workingplaces-stats Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"No hay datos en la api.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Almería",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Almería"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URLBASE",
+			"value": "localhost:12345",
+			"type": "string"
+		},
+		{
+			"key": "API",
+			"value": "/api/v1/workingplaces-stats",
+			"type": "string"
+		}
+	]
+}
