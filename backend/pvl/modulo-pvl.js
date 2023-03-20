@@ -39,13 +39,6 @@ module.exports =  {
 
                                                     //GET GLOBAL\\
             app.get(ruta, (request,response) => {
-                var year_params = request.params.year;
-                var province_params = request.params.province;
-                var year_query = request.query.year;
-                var province_query = request.query.province;
-                var work_place_query = request.query.work_place;
-                var percentage_structure = request.query.percentage_structure;
-                var variation_rating = request.query.variation_rating;
                 console.log(`New request to /workingplaces-stats.`);
                 db.find({}, {_id: 0}, (error, data) => {
                     if(error){
@@ -55,30 +48,58 @@ module.exports =  {
                         console.log(`workingplaces-stats not found`);
                         response.sendStatus(404);
                     }else{
-
+                        let i = -1;
+                        if(request.query.province){ 
+                            var province_ = request.query.province;
+                            console.log("Busqueda: ", province_);
+                        }
+                        else if (request.query.year){
+                            var year_ = request.query.year
+                            console.log("Busqueda: ", year_);
+                        }else if (request.query.work_place){
+                            var work_place_ = request.query.work_place
+                            console.log("Busqueda: ", work_place_);
+                        }else if (request.query.percentage_structure){
+                            var percentage_structure_ = request.query.percentage_structure
+                            console.log("Busqueda: ", percentage_structure_);
+                        }
+                        else if (request.query.variation_rate){
+                            var variation_rate_ = request.query.variation_rate
+                            console.log("Busqueda: ", variation_rate_);
+                        }
+                        else if (request.query.limit){
+                            var limit = request.query.limit
+                            console.log("limite: ", limit);
+                        }
+                        else{
+                            var offset = parseInt(request.query.offset);
+                            console.log("offset: ", offset);
+                        }
+                        
+                        
                     }
                 })});
 
 
 
                                     //GET recurso especifico\\
-        app.get(ruta+'/:province/:year', (request,response)=>{
-            var province = request.params.province;
-            var year = request.params.year;
-            db.find({"province":province},(err,docs)=>{
-                if(err){
-                    console.log(`Error getting workingplaces-stats/${province}: ${err}`)
-                    response.sendStatus(500);
-                }else if(docs.length == 0){
-                    console.log(`workingplaces-stats/${province} not found`);
-                    response.sendStatus(404);
-                }else{
-                    console.log(`Data of workingplaces-stats/${province} returned`);
-                    response.json(data.filter(x =>x.province === province && x.year===year).map(x=>delete x._id));
-                }
-            });
-        });
-
+            app.get(ruta+'/:province/:year', (request,response)=>{
+                var province = request.params.province;
+                var year = request.params.year;
+                console.log(province , year)
+                db.find({"province":province, "year":parseInt(year)},(err,data)=>{
+                    console.log(data[0].province)
+                    if(err){
+                        console.log(`Error getting workingplaces-stats/${province}: ${err}`)
+                        response.sendStatus(500);
+                    }else if(data.length == 0){
+                        console.log(`workingplaces-stats/${province} not found`);
+                        response.sendStatus(404);
+                    }else{
+                        console.log(`Data of workingplaces-stats/${province} returned`);
+                        response.json(data.filter(x =>x.province === province && parseInt(x.year)===parseInt(year)).map(x => {delete x._id; return x[0]}));
+                        }
+                    });});
         //__________________________________________________POSTS_________________________________________________\\
                                                         //POST ruta\\
         app.post(ruta, (req, res) => {
