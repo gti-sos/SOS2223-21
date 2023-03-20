@@ -131,7 +131,7 @@ module.exports =  {
                         }
                         console.log("paso por aqui 23")
                         console.log(body);
-                        console.log(object.keys(data[0]).slice(0, 4))
+                        console.log(object.keys(data[0]).limit(4))
                        // console.log(data[0].includes(body));
                         
                         if (iguales === data.size) {
@@ -195,6 +195,7 @@ module.exports =  {
             });
         });        
                                         //DELETE MULTIPLE SPECIFICO\\
+        /*
         app.delete(ruta+"/:province", (request,response) => {
             var province = request.params.province;
             console.log(`New DELETE for ${province}`);
@@ -208,7 +209,7 @@ module.exports =  {
                 }
             });
         });
-
+        */
         //__________________________________________PUTS__________________________________________________\\
                                             //PUT NOT ALLOWED\\
         app.put(ruta, (request, response) => {
