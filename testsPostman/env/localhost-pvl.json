@@ -1,10 +1,11 @@
 {
-	"id": "8f103d84-e085-4be5-b247-a46b8654f533",
-	"name": "localhost-jfs",
+	"id": "1acb26f7-2ddc-4629-9aca-ef379c39607c",
+	"name": "localhostpvl",
 	"values": [
 		{
-			"key": "URL_BASE",
+			"key": "URLBASE",
 			"value": "http://localhost:12345",
+			"type": "default",
 			"enabled": true
 		},
 		{
@@ -15,6 +16,6 @@
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2023-03-14T19:51:23.976Z",
-	"_postman_exported_using": "Postman/10.11.2-230309-0541"
+	"_postman_exported_at": "2023-03-20T14:52:49.580Z",
+	"_postman_exported_using": "Postman/10.12.3-230318-0431"
 }
