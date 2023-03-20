@@ -10,16 +10,10 @@ module.exports =  {
     var workinplaces_stats = pvl.datos_ejemplos_pablo;
     const ruta = "/api/v1/workingplaces-stats";
     
-    //DOCS
-    app.get(ruta + '/docs', function (req, res) {
-        res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93Jxr1Nx');
-    });
-    //GET FUNCION
-    app.get("/samples/pvl", (req, res) => {
-        res.send(pvl.variation_rating(pvl.datos_ejemplos_pablo, "Granada"));
-        console.log("New request for pvl exercise");
-    });
-
+        //___________________________________________________DOCS________________________________________________\\
+        app.get(ruta + '/docs', function (req, res) {
+            res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93K1oKMy');
+                });
 
          //__________________________________________________GETS_________________________________________________\\
                                                 // GET LoadInitialData \\
