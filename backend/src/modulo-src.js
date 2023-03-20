@@ -3,7 +3,7 @@
 //************************ CONSTANTS AND REQUIRES *************************************************
 
 const index_sete = require('./index-SRC.js');
-var Datastore = require('nedb');
+//var Datastore = require('nedb');
 var db = new Datastore();
 var datos_json_sete = [];
 const rutaSete = "/api/v1/salaried-stats";
@@ -18,13 +18,13 @@ module.exports = {
         //****************************************GET loadInitialData ******************************************************************
         app.get(rutaSete + "/loadInitialData", (req, res) => {
             if (datos_json_sete.length === 0) {
-                datos_json_sete.push([{
+                datos_json_sete.push({
                     province: "Almería",
                     year: 2010,
                     remuneration_of_employees: 149627412,
                     remuneration_percentage_structure: 100,
                     remuneration_variation_rate: 298281107
-                }, { province: "Cádiz", year: 2014, remuneration_of_employees: 19540300.38, remuneration_percentage_structure: 13.62894036, remuneration_variation_rate: -0.83632259 }, { province: "Granada", year: 2010, remuneration_of_employees: 21225978.10, remuneration_percentage_structure: 14.18588868, remuneration_variation_rate: 0.908546693 }, { province: "Cádiz", year: 2017, remuneration_of_employees: 10986877.00, remuneration_percentage_structure: 6.751839242, remuneration_variation_rate: 11.72504816 }, { province: "Jaén", year: 2010, remuneration_of_employees: 15922742.43, remuneration_percentage_structure: 10.64159449, remuneration_variation_rate: -2.5473448 }, { province: "Málaga", year: 2015, remuneration_of_employees: 30011963.99, remuneration_percentage_structure: 19.96043729, remuneration_variation_rate: 3.930404178 }, { province: "Almería", year: 2011, remuneration_of_employees: 12151269.59, remuneration_percentage_structure: 8.211824048, remuneration_variation_rate: -6.038435125 }, { province: "Cádiz", year: 2012, remuneration_of_employees: 30011963.99, remuneration_percentage_structure: 19.96043729, remuneration_variation_rate: 3.930404178 }, { province: "Cádiz", year: 2018, remuneration_of_employees: 14101232, remuneration_percentage_structure: 8.380260375, remuneration_variation_rate: 2.099969438 }, { province: "Granada", year: 2015, remuneration_of_employees: 16170570.78, remuneration_percentage_structure: 10.75476647, remuneration_variation_rate: 4.166229745 }]);
+                }, { province: "Cádiz", year: 2014, remuneration_of_employees: 19540300.38, remuneration_percentage_structure: 13.62894036, remuneration_variation_rate: -0.83632259 }, { province: "Granada", year: 2010, remuneration_of_employees: 21225978.10, remuneration_percentage_structure: 14.18588868, remuneration_variation_rate: 0.908546693 }, { province: "Cádiz", year: 2017, remuneration_of_employees: 10986877.00, remuneration_percentage_structure: 6.751839242, remuneration_variation_rate: 11.72504816 }, { province: "Jaén", year: 2010, remuneration_of_employees: 15922742.43, remuneration_percentage_structure: 10.64159449, remuneration_variation_rate: -2.5473448 }, { province: "Málaga", year: 2015, remuneration_of_employees: 30011963.99, remuneration_percentage_structure: 19.96043729, remuneration_variation_rate: 3.930404178 }, { province: "Almería", year: 2011, remuneration_of_employees: 12151269.59, remuneration_percentage_structure: 8.211824048, remuneration_variation_rate: -6.038435125 }, { province: "Cádiz", year: 2012, remuneration_of_employees: 30011963.99, remuneration_percentage_structure: 19.96043729, remuneration_variation_rate: 3.930404178 }, { province: "Cádiz", year: 2018, remuneration_of_employees: 14101232, remuneration_percentage_structure: 8.380260375, remuneration_variation_rate: 2.099969438 }, { province: "Granada", year: 2015, remuneration_of_employees: 16170570.78, remuneration_percentage_structure: 10.75476647, remuneration_variation_rate: 4.166229745 });
                 // Si se crean datos el estado es 200
                 res.status(200).send("Se ha insertado correctamente los datos.");
                 console.log("Se han insertado " + datos_json_sete[0].length + " datos.");
@@ -117,9 +117,9 @@ module.exports = {
                 newData = req.body;
                 if (datos_json_sete.some(x =>
                         x.province === newData.province &&
-                        x.pib_current_price === newData.pib_current_price &&
-                        x.pib_percentage_structure === newData.pib_percentage_structure &&
-                        x.pib_variation_rate === newData.pib_variation_rate)) {
+                        x.remuneration_of_employees === newData.remuneration_of_employees &&
+                        x.remuneration_percentage_structure === newData.remuneration_percentage_structure &&
+                        x.remuneration_variation_rate === newData.remuneration_variation_rate)) {
                     res.status(409).send("El recurso ya existe.");
                 } else {
                     datos_json_sete.push(req.body);
@@ -132,7 +132,7 @@ module.exports = {
 
         //POST NO PERMITIDO
         //********************************************POST a ruta específica *************************************
-        app.post(rutaSete + "/loadInitialData", (req, res) => {
+        app.post(rutaSete + '/*', (req, res) => {
             res.status(405).send("POST no está permitido en esta ruta.");
         });
 
@@ -146,13 +146,14 @@ module.exports = {
             if (!existe || province !== req.body.province || year !== req.body.year) {
                 return res.status(400).send("Estadística incorrecta.");
             } else {
-                existe.pib_current_price = req.body.pib_current_price || existe.pib_current_price;
-                existe.pib_percentage_structure = req.body.pib_percentage_structure || existe.pib_percentage_structure;
-                existe.pib_variation_rate = req.body.pib_variation_rate || existe.pib_variation_rate;
+                existe.remuneration_of_employees = req.body.remuneration_of_employees || existe.remuneration_of_employees;
+                existe.remuneration_percentage_structure = req.body.remuneration_percentage_structure || existe.remuneration_percentage_structure;
+                existe.remuneration_variation_rate = req.body.remuneration_variation_rate || existe.remuneration_variation_rate;
                 res.status(200).send("Estadística actualizada correctamente");
                 console.log("New PUT to /salaried-stats/" + province + "/" + year);
             }
         });
+
         //***********************************  PUT NO PERMITIDO A /salaried-stats ****************************
         app.put(rutaSete, (req, res) => {
             res.status(405).send("PUT no está permitido en esta ruta.");
