@@ -38,6 +38,7 @@ module.exports =  {
 
 
                                                     //GET GLOBAL\\
+                                                    /*
            app.get(ruta, (request,response) => {
                 console.log(`New request to /workingplaces-stats.`);
                 db.find({}, {_id: 0}, (error, data) => {
@@ -62,7 +63,7 @@ module.exports =  {
                         
                         })});
 
-
+*/
 
 
                                     //GET recurso especifico\\
