@@ -38,7 +38,8 @@ module.exports =  {
 
 
                                                     //GET GLOBAL\\
-            app.get(ruta, (request,response) => {
+                                                    /*
+           app.get(ruta, (request,response) => {
                 console.log(`New request to /workingplaces-stats.`);
                 db.find({}, {_id: 0}, (error, data) => {
                     if(error){
@@ -48,38 +49,21 @@ module.exports =  {
                         console.log(`workingplaces-stats not found`);
                         response.sendStatus(404);
                     }else{
-                        let i = -1;
-                        if(request.query.province){ 
-                            var province_ = request.query.province;
-                            console.log("Busqueda: ", province_);
-                        }
-                        else if (request.query.year){
-                            var year_ = request.query.year
-                            console.log("Busqueda: ", year_);
-                        }else if (request.query.work_place){
-                            var work_place_ = request.query.work_place
-                            console.log("Busqueda: ", work_place_);
-                        }else if (request.query.percentage_structure){
-                            var percentage_structure_ = request.query.percentage_structure
-                            console.log("Busqueda: ", percentage_structure_);
-                        }
-                        else if (request.query.variation_rate){
-                            var variation_rate_ = request.query.variation_rate
-                            console.log("Busqueda: ", variation_rate_);
-                        }
-                        else if (request.query.limit){
-                            var limit = request.query.limit
-                            console.log("limite: ", limit);
-                        }
-                        else{
-                            var offset = parseInt(request.query.offset);
-                            console.log("offset: ", offset);
-                        }
-                        
-                        
-                    }
-                })});
 
+                        let datos = data.filter(x=> {
+                            var todos_undefined = request.query.province == undefined && request.query.year == undefined && request.query.work_place == undefined && request.query.variation_rate == undefined && request.query.percentage_structure == undefined;
+                            //|| parseFloat(request.query.work_place) == x.work_place || parseFloat(request.query.variation_rate) == x.variation_rate||parseFloat(request.query.percentage_structure) == x.percentage_structure
+                            var solos = request.query.province === x.province || parseInteger(request.query.year) === x.year ;
+                            var todos = request.query.province === x.province && parseInteger(request.query.year) === x.year ;
+
+                            return todos_undefined || solos || todos;
+                        })
+                    response.send(datos);
+                    }    
+                        
+                        })});
+
+*/
 
 
                                     //GET recurso especifico\\
