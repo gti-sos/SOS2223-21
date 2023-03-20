@@ -1,5 +1,3 @@
-/*F05 SETEFILLA*/
-
 //************************ CONSTANTS AND REQUIRES *************************************************
 
 const index_sete = require('./index-SRC.js');
