@@ -7,6 +7,28 @@
 	},
 	"item": [
 		{
+			"name": "POSTMAN",
+			"item": [
+				{
+					"name": "/doc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/docs",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"docs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "GET",
 			"item": [
 				{
@@ -32,9 +54,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
+							"raw": "{{URLBASE}}{{API}}",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							]
 						}
 					},
@@ -59,9 +81,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/loadInitialData",
+							"raw": "{{URLBASE}}{{API}}/loadInitialData",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"loadInitialData"
@@ -89,9 +111,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Almería/2039",
+							"raw": "{{URLBASE}}{{API}}/Almería/2039",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"Almería",
@@ -120,13 +142,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Granada/2015",
+							"raw": "{{URLBASE}}{{API}}/Almería/2013",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
-								"Granada",
-								"2015"
+								"Almería",
+								"2013"
 							]
 						}
 					},
@@ -151,9 +173,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Granada",
+							"raw": "{{URLBASE}}{{API}}/Granada",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"Granada"
@@ -163,7 +185,7 @@
 					"response": []
 				},
 				{
-					"name": "market-prices-stats",
+					"name": "workingplaces-stats",
 					"event": [
 						{
 							"listen": "test",
@@ -185,9 +207,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
+							"raw": "{{URLBASE}}{{API}}",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							]
 						}
 					},
@@ -199,7 +221,7 @@
 			"name": "POST",
 			"item": [
 				{
-					"name": "workingplaces-stats-stats",
+					"name": "workingplaces-stats",
 					"event": [
 						{
 							"listen": "test",
@@ -218,7 +240,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Málaga\",\r\n    \"year\": 2020,\r\n    \"pib_current_price\": 149621412,\r\n    \"pib_percentage_structure\": 200,\r\n    \"pib_variation_rate\": 292281107\r\n}",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2035,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -226,9 +248,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
+							"raw": "{{URLBASE}}{{API}}",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							]
 						}
 					},
@@ -254,7 +276,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2010,\r\n    \"pib_current_price\": 149627412,\r\n    \"pib_percentage_structure\": 100,\r\n    \"pib_variation_rate\": 298281107\r\n}",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2035,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -262,9 +284,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
+							"raw": "{{URLBASE}}{{API}}",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							]
 						}
 					},
@@ -290,7 +312,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n        \"province\": \"Cataluña\",\r\n        \"year\": 2014,\r\n        \"pib_current_price\": 19540300.38,\r\n        \"pib_percentage_structure\": 13.62894036,\r\n        \"pib_variation_rate\": -0.83632259\r\n    }",
+							"raw": " {\r\n    \"province\": \"Kazhajistan\",\r\n    \"year\": 2035,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -298,9 +320,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
+							"raw": "{{URLBASE}}{{API}}",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							]
 						}
 					},
@@ -334,9 +356,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
+							"raw": "{{URLBASE}}{{API}}",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							]
 						}
 					},
@@ -370,9 +392,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Málaga/2015",
+							"raw": "{{URLBASE}}{{API}}/Málaga/2015",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"Málaga",
@@ -407,7 +429,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Granada\",\r\n    \"year\": 2015,\r\n    \"pib_current_price\": 149621412,\r\n    \"pib_percentage_structure\": 300,\r\n    \"pib_variation_rate\": 292281107\r\n}",
+							"raw": "{\r\n    \"province\": \"Granada\",\r\n    \"year\": 2015,\r\n    \"work_place\": 149621412,\r\n    \"percentage_structure\": 300,\r\n    \"variation_rate\": 292281107\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -415,9 +437,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
+							"raw": "{{URLBASE}}{{API}}",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							]
 						}
 					},
@@ -443,7 +465,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Cataluña\",\r\n    \"year\": 2015,\r\n    \"pib_current_price\": 12345678,\r\n    \"pib_percentage_structure\": 400,\r\n    \"pib_variation_rate\": 281107\r\n}",
+							"raw": "{\r\n    \"province\": \"Cataluña\",\r\n    \"year\": 2015,\r\n    \"work_place\": 12345678,\r\n    \"percentage_structure\": 400,\r\n    \"variation_rate\": 281107\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -451,9 +473,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Almería/2010",
+							"raw": "{{URLBASE}}{{API}}/Almería/2010",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"Almería",
@@ -483,7 +505,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2015,\r\n    \"pib_current_price\": 12345678,\r\n    \"pib_percentage_structure\": 400,\r\n    \"pib_variation_rate\": 281107\r\n}",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2035,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -491,13 +513,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Almería/2010",
+							"raw": "{{URLBASE}}{{API}}/Almería/2035",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"Almería",
-								"2010"
+								"2035"
 							]
 						}
 					},
@@ -523,7 +545,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Granada\",\r\n    \"year\": 2016,\r\n    \"pib_current_price\": 149621412,\r\n    \"pib_percentage_structure\": 300\r\n}",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2099,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -531,9 +553,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Almería/2030",
+							"raw": "{{URLBASE}}{{API}}/Almería/2030",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"Almería",
@@ -571,13 +593,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Almería/2010",
+							"raw": "{{URLBASE}}{{API}}/Granada/2016",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
-								"Almería",
-								"2010"
+								"Granada",
+								"2016"
 							]
 						}
 					},
@@ -607,9 +629,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}?year=2015",
+							"raw": "{{URLBASE}}{{API}}?year=2015",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"query": [
 								{
@@ -622,7 +644,7 @@
 					"response": []
 				},
 				{
-					"name": "?from=X&to=X",
+					"name": "?province=X",
 					"event": [
 						{
 							"listen": "test",
@@ -640,18 +662,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}?from=2010&to=2030",
+							"raw": "{{URLBASE}}{{API}}?year=2015",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"query": [
 								{
-									"key": "from",
-									"value": "2010"
-								},
-								{
-									"key": "to",
-									"value": "2030"
+									"key": "year",
+									"value": "2015"
 								}
 							]
 						}
@@ -677,21 +695,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Granada?from=2010&to=2011",
+							"raw": "{{URLBASE}}{{API}}/?province=granada&year=2015",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
-								"Granada"
+								""
 							],
 							"query": [
 								{
-									"key": "from",
-									"value": "2010"
+									"key": "province",
+									"value": "granada"
 								},
 								{
-									"key": "to",
-									"value": "2011"
+									"key": "year",
+									"value": "2015"
 								}
 							]
 						}
@@ -722,9 +740,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Granada?limit=1&offset=0",
+							"raw": "{{URLBASE}}{{API}}/Granada?limit=1&offset=0",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"Granada"
@@ -762,9 +780,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Granada?limit=1",
+							"raw": "{{URLBASE}}{{API}}/Granada?limit=1",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"Granada"
@@ -798,9 +816,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Granada?offset=1",
+							"raw": "{{URLBASE}}{{API}}/Granada?offset=1",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"Granada"
@@ -834,9 +852,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}?limit=5&offset=8",
+							"raw": "{{URLBASE}}{{API}}?limit=5&offset=8",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"query": [
 								{
@@ -871,9 +889,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}?limit=3",
+							"raw": "{{URLBASE}}{{API}}?limit=3",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"query": [
 								{
@@ -904,9 +922,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}?offset=5",
+							"raw": "{{URLBASE}}{{API}}?offset=5",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							],
 							"query": [
 								{
@@ -923,37 +941,6 @@
 		{
 			"name": "DELETE",
 			"item": [
-				{
-					"name": "workingplaces-stats/province/year",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Almería/2010",
-							"host": [
-								"{{URL_BASE}}{{API}}"
-							],
-							"path": [
-								"Almería",
-								"2010"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "workingplaces-stats",
 					"event": [
@@ -973,9 +960,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
+							"raw": "{{URLBASE}}{{API}}",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
 							]
 						}
 					},
@@ -1004,15 +991,111 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
+							"raw": "{{URLBASE}}{{API}}",
 							"host": [
-								"{{URL_BASE}}{{API}}"
+								"{{URLBASE}}{{API}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "workingplaces-stats/province/year Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Almeria",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Almeria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "workingplaces-stats Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"No hay datos en la api.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Almería",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Almería"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URLBASE",
+			"value": "localhost:12345",
+			"type": "string"
+		},
+		{
+			"key": "API",
+			"value": "/api/v1/workingplaces-stats",
+			"type": "string"
 		}
 	]
 }

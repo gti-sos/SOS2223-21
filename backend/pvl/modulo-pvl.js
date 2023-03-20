@@ -64,6 +64,21 @@ module.exports =  {
                         })});
 
 */
+                         //GET recurso especifico\\
+                         app.get(ruta, (request,response)=>{
+                            db.find({},(err,data)=>{
+                                console.log(data[0].province)
+                                if(err){
+                                    console.log(`Error getting workingplaces-stats/${province}: ${err}`)
+                                    response.sendStatus(500);
+                                }else if(data.length == 0){
+                                    console.log(`workingplaces-stats/${province} not found`);
+                                    response.sendStatus(404);
+                                }else{
+                                    console.log(`Data of workingplaces-stats/${province} returned`);
+                                    response.json(data);
+                                    }
+                                });});
 
 
                                     //GET recurso especifico\\
