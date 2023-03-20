@@ -1,0 +1,20 @@
+{
+	"id": "9565f8f0-3649-4745-8438-95eb5d636847",
+	"name": "gcloud-jfs",
+	"values": [
+		{
+			"key": "URL_BASE",
+			"value": "https://sos2223-21.ew.r.appspot.com",
+			"enabled": true
+		},
+		{
+			"key": "API",
+			"value": "/api/v1/workingplaces-stats",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-03-14T19:48:31.024Z",
+	"_postman_exported_using": "Postman/10.11.2-230309-0541"
+}
