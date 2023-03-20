@@ -222,7 +222,6 @@ app.put(ruta + '/:province/:year', (request, response) => {
         console.log(province, "D",request.body.province);
         console.log(year, "Y",request.body.year);
         for (const campo in request.body) {
-            
             if (request.body[campo] === '') {
               vacios+=1;
             } }
