@@ -38,7 +38,7 @@ module.exports =  {
 
 
                                                     //GET GLOBAL\\
-                                                    /*
+            /*                                
            app.get(ruta, (request,response) => {
                 console.log(`New request to /workingplaces-stats.`);
                 db.find({}, {_id: 0}, (error, data) => {
@@ -61,33 +61,16 @@ module.exports =  {
                     response.send(datos);
                     }    
                         
-                        })});
+                        })});*/
 
-*/
-                         //GET recurso especifico\\
-                         app.get(ruta, (request,response)=>{
-                            db.find({},(err,data)=>{
-                                console.log(data[0].province)
-                                if(err){
-                                    console.log(`Error getting workingplaces-stats/${province}: ${err}`)
-                                    response.sendStatus(500);
-                                }else if(data.length == 0){
-                                    console.log(`workingplaces-stats/${province} not found`);
-                                    response.sendStatus(404);
-                                }else{
-                                    console.log(`Data of workingplaces-stats/${province} returned`);
-                                    response.json(data);
-                                    }
-                                });});
 
 
                                     //GET recurso especifico\\
             app.get(ruta+'/:province/:year', (request,response)=>{
                 var province = request.params.province;
                 var year = request.params.year;
-                console.log(province , year)
+                
                 db.find({"province":province, "year":parseInt(year)},(err,data)=>{
-                    console.log(data[0].province)
                     if(err){
                         console.log(`Error getting workingplaces-stats/${province}: ${err}`)
                         response.sendStatus(500);
@@ -96,7 +79,7 @@ module.exports =  {
                         response.sendStatus(404);
                     }else{
                         console.log(`Data of workingplaces-stats/${province} returned`);
-                        response.json(data.filter(x =>x.province === province && parseInt(x.year)===parseInt(year)).map(x => {delete x._id; return x[0]}));
+                        response.json(data.filter(x =>x.province === province && parseInt(x.year)===parseInt(year)));
                         }
                     });});
         //__________________________________________________POSTS_________________________________________________\\
