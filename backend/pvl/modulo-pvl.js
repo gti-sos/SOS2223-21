@@ -55,8 +55,20 @@ module.exports =  {
             console.log(!!req.query.year && !!req.query.province && !!req.query.offset);
             console.log("New GET to /market-prices-stats/" + province + "/" + year);
             if (cond0){
-                console.log("tp")
+
+            } else if (cond1){
+                let datos = db.filter(x=>x.province === req.query.province &&x.province === req.query.year &&x.province === req.query.work_place &&x.province === req.query.percentage_structure &&x.province === req.query.variation_rate);
             }
+            else if (cond2){
+                
+            }
+            else if (cond3){
+                
+            }
+            else if (cond4){
+                let datos = db.filter(x=>x.year === parseInt(req.query.year));
+            }
+            return datos;
         });                             
             
 
