@@ -172,6 +172,91 @@
 					]
 				},
 				{
+					"name": "market-prices-stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Hay datos en la api.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "market-prices-stats",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "15932"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3e3c-d/tIuJrQbWLSG3VVI6wB5Qpebhs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 19 Mar 2023 08:50:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2017,\n        \"pib_current_price\": 10535759,\n        \"pib_percentage_estructure\": 6.474610671,\n        \"pib_variation_rate\": 2.934189783,\n        \"_id\": \"0DbH0RBnyR6Ut2B4\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2014,\n        \"pib_current_price\": 28876981.8898753,\n        \"pib_percentage_estructure\": 20.141075422,\n        \"pib_variation_rate\": 3.411758667,\n        \"_id\": \"0K12gLxGGGNZHIUT\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2014,\n        \"pib_current_price\": 12595676.7958826,\n        \"pib_percentage_estructure\": 8.785214373,\n        \"pib_variation_rate\": 2.312160909,\n        \"_id\": \"2Q5nKQyIMqS1yGND\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2012,\n        \"pib_current_price\": 20719832.7747681,\n        \"pib_percentage_estructure\": 14.43284013,\n        \"pib_variation_rate\": -2.120717328,\n        \"_id\": \"4S6RJgP5yZ377kyx\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2011,\n        \"pib_current_price\": 16023926.6615057,\n        \"pib_percentage_estructure\": 10.828964443,\n        \"pib_variation_rate\": 0.635469861,\n        \"_id\": \"4cXLKc35sBgkk25h\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2010,\n        \"pib_current_price\": 37175135.2164488,\n        \"pib_percentage_estructure\": 24.84513681,\n        \"pib_variation_rate\": 0.946704027,\n        \"_id\": \"5CegGPslxbpwiARf\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2017,\n        \"pib_current_price\": 39299863,\n        \"pib_percentage_estructure\": 24.151208503,\n        \"pib_variation_rate\": 4.309089879,\n        \"_id\": \"5KpwPid6po8Ms6Wk\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2011,\n        \"pib_current_price\": 28852964.2354658,\n        \"pib_percentage_estructure\": 19.498823876,\n        \"pib_variation_rate\": -1.652390902,\n        \"_id\": \"64cv7u8lJqiLMQRO\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2018,\n        \"pib_current_price\": 22984547,\n        \"pib_percentage_estructure\": 13.659550347,\n        \"pib_variation_rate\": 2.123867296,\n        \"_id\": \"64ijc2WstvfSnPju\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2016,\n        \"pib_current_price\": 13162487,\n        \"pib_percentage_estructure\": 8.521536357,\n        \"pib_variation_rate\": 1.450159531,\n        \"_id\": \"6wyuucjlA2vcJk5W\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2015,\n        \"pib_current_price\": 9456611.07135688,\n        \"pib_percentage_estructure\": 6.289428185,\n        \"pib_variation_rate\": 5.728349303,\n        \"_id\": \"8FJkaBlNNccdqx1e\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2008,\n        \"pib_current_price\": 30927134.2153002,\n        \"pib_percentage_estructure\": 19.73997725,\n        \"pib_variation_rate\": -2.111354335,\n        \"_id\": \"8RRDifkYjUItyMqC\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2013,\n        \"pib_current_price\": 9225407.91646719,\n        \"pib_percentage_estructure\": 6.505729201,\n        \"pib_variation_rate\": 2.44046931,\n        \"_id\": \"9Y1IsU9ai2ziv84l\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2013,\n        \"pib_current_price\": 15557101.611944,\n        \"pib_percentage_estructure\": 10.97082006,\n        \"pib_variation_rate\": 0.426951353,\n        \"_id\": \"AKlnvn3eZBIvq1cS\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2009,\n        \"pib_current_price\": 13350217.9372064,\n        \"pib_percentage_estructure\": 8.948921148,\n        \"pib_variation_rate\": -2.709905686,\n        \"_id\": \"Am6kzpT1yjQIGgRg\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2010,\n        \"pib_current_price\": 21225978.0990184,\n        \"pib_percentage_estructure\": 14.185888679,\n        \"pib_variation_rate\": 0.908546693,\n        \"_id\": \"Anbbk8VHiuupjqtT\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2010,\n        \"pib_current_price\": 9265442.84158686,\n        \"pib_percentage_estructure\": 6.192343179,\n        \"pib_variation_rate\": 3.155025942,\n        \"_id\": \"CRrYUUMHsq2XHWsn\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2011,\n        \"pib_current_price\": 10094725.4466485,\n        \"pib_percentage_estructure\": 6.822012184,\n        \"pib_variation_rate\": -2.079338814,\n        \"_id\": \"CfoncgCs2YsTFEYu\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2019,\n        \"pib_current_price\": 36337218,\n        \"pib_percentage_estructure\": 21.000579941,\n        \"pib_variation_rate\": 4.428117018,\n        \"_id\": \"CorKn7z7NS3OFDac\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2013,\n        \"pib_current_price\": 19705098.5745508,\n        \"pib_percentage_estructure\": 13.895974721,\n        \"pib_variation_rate\": -4.897405357,\n        \"_id\": \"CqB0r3WI9aJp2Tev\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2014,\n        \"pib_current_price\": 35637285.1448325,\n        \"pib_percentage_estructure\": 24.856241925,\n        \"pib_variation_rate\": -0.208712028,\n        \"_id\": \"Cr5X5YRxwKm4ydNj\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2018,\n        \"pib_current_price\": 11019352,\n        \"pib_percentage_estructure\": 6.54872134,\n        \"pib_variation_rate\": 4.590015774,\n        \"_id\": \"DpFltI6xbMCQqZvR\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2008,\n        \"pib_current_price\": 13722073.1785286,\n        \"pib_percentage_estructure\": 8.758438803,\n        \"pib_variation_rate\": 0.590121048,\n        \"_id\": \"Dx9tlp2kHxCzZQVa\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2015,\n        \"pib_current_price\": 9939047.28812306,\n        \"pib_percentage_estructure\": 6.610288155,\n        \"pib_variation_rate\": 7.0873272,\n        \"_id\": \"ECrZop7jvNdk1sqq\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2010,\n        \"pib_current_price\": 29337738.3550059,\n        \"pib_percentage_estructure\": 19.60719494,\n        \"pib_variation_rate\": 0.817331638,\n        \"_id\": \"FgBYvCB5G9BSPfdo\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2011,\n        \"pib_current_price\": 21168762.3869171,\n        \"pib_percentage_estructure\": 14.305842758,\n        \"pib_variation_rate\": -0.269555126,\n        \"_id\": \"Fqd9sI7jBDwDBL0s\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2017,\n        \"pib_current_price\": 15377518,\n        \"pib_percentage_estructure\": 9.450049316,\n        \"pib_variation_rate\": 7.467243757,\n        \"_id\": \"GfxA2PAgBB2PLQJL\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2012,\n        \"pib_current_price\": 28571563.0830473,\n        \"pib_percentage_estructure\": 19.902129845,\n        \"pib_variation_rate\": -0.975293735,\n        \"_id\": \"GpoisD1svmEYkTtz\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2018,\n        \"pib_current_price\": 40400859,\n        \"pib_percentage_estructure\": 24.009938834,\n        \"pib_variation_rate\": 2.801526306,\n        \"_id\": \"GtfX5fptupq9Bd5D\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2010,\n        \"pib_current_price\": 15922742.4323176,\n        \"pib_percentage_estructure\": 10.641594491,\n        \"pib_variation_rate\": -2.5473448,\n        \"_id\": \"HQ0S6iDn8ydsOqi3\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2014,\n        \"pib_current_price\": 12974020.2876508,\n        \"pib_percentage_estructure\": 9.049100842,\n        \"pib_variation_rate\": 1.61279372,\n        \"_id\": \"HQ0avsrZXwrUNOBZ\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2009,\n        \"pib_current_price\": 36826497.2836843,\n        \"pib_percentage_estructure\": 24.6855461,\n        \"pib_variation_rate\": -3.306127285,\n        \"_id\": \"IRFxow64kBeEgCH1\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2017,\n        \"pib_current_price\": 17008522,\n        \"pib_percentage_estructure\": 10.452361148,\n        \"pib_variation_rate\": 2.728875483,\n        \"_id\": \"JamgxODs7DsxwTpc\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2018,\n        \"pib_current_price\": 34796393,\n        \"pib_percentage_estructure\": 20.679245151,\n        \"pib_variation_rate\": 4.814944642,\n        \"_id\": \"JxAEjC9Na0hLhc6K\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2018,\n        \"pib_current_price\": 14101232,\n        \"pib_percentage_estructure\": 8.380260375,\n        \"pib_variation_rate\": 2.099969438,\n        \"_id\": \"K09j0nFDnN9YyTGm\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2012,\n        \"pib_current_price\": 35432401.3011568,\n        \"pib_percentage_estructure\": 24.681192602,\n        \"pib_variation_rate\": -5.161081638,\n        \"_id\": \"KjCeAlzaJxf0yiQd\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2008,\n        \"pib_current_price\": 10311179.0613307,\n        \"pib_percentage_estructure\": 6.581354699,\n        \"pib_variation_rate\": -1.123456789,\n        \"_id\": \"MWyqJ73cRCvf47no\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2018,\n        \"pib_current_price\": 11401167,\n        \"pib_percentage_estructure\": 6.775631238,\n        \"pib_variation_rate\": 3.770771257,\n        \"_id\": \"Mtu9dF8MH1FRACfq\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2019,\n        \"pib_current_price\": 14233455,\n        \"pib_percentage_estructure\": 8.22602351,\n        \"pib_variation_rate\": 0.937669843,\n        \"_id\": \"Mxx3cZGfTEYvNQCP\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2017,\n        \"pib_current_price\": 10986877,\n        \"pib_percentage_estructure\": 6.751839242,\n        \"pib_variation_rate\": 1.1725048158,\n        \"_id\": \"OKzomWumh9AjUjkt\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2008,\n        \"pib_current_price\": 9844393.2082066,\n        \"pib_percentage_estructure\": 6.283417552,\n        \"pib_variation_rate\": -1.000932275,\n        \"_id\": \"P8fJ7bS8BAKnjdts\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2008,\n        \"pib_current_price\": 14185570.8724393,\n        \"pib_percentage_estructure\": 9.054277204,\n        \"pib_variation_rate\": 3.091273797,\n        \"_id\": \"PQz0YeFJVgAzYyRr\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2011,\n        \"pib_current_price\": 9250728.31633828,\n        \"pib_percentage_estructure\": 6.251639197,\n        \"pib_variation_rate\": -0.158810815,\n        \"_id\": \"PiGIlsEkVIfiBTaI\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2017,\n        \"pib_current_price\": 22506538,\n        \"pib_percentage_estructure\": 13.831093811,\n        \"pib_variation_rate\": 5.785256738,\n        \"_id\": \"QGSnrpl13lY7bqmj\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2018,\n        \"pib_current_price\": 17616812,\n        \"pib_percentage_estructure\": 10.469544189,\n        \"pib_variation_rate\": 3.576383651,\n        \"_id\": \"QHDoOS4QSlEi1SWF\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2016,\n        \"pib_current_price\": 16556710,\n        \"pib_percentage_estructure\": 10.718993015,\n        \"pib_variation_rate\": 2.387913359,\n        \"_id\": \"QhuL2Kg7shEugkSq\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2014,\n        \"pib_current_price\": 19540300.3837954,\n        \"pib_percentage_estructure\": 13.628940355,\n        \"pib_variation_rate\": -0.83632259,\n        \"_id\": \"R4iBfLDqdwjNTxeR\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2009,\n        \"pib_current_price\": 10206474.8454378,\n        \"pib_percentage_estructure\": 6.841606558,\n        \"pib_variation_rate\": -1.015443678,\n        \"_id\": \"RTPCungHxT2VTHoU\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2015,\n        \"pib_current_price\": 20688677.5970727,\n        \"pib_percentage_estructure\": 13.759681033,\n        \"pib_variation_rate\": 5.876968065,\n        \"_id\": \"RyJl6qcEw4UPXIqf\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2009,\n        \"pib_current_price\": 21034866.5150151,\n        \"pib_percentage_estructure\": 14.100096544,\n        \"pib_variation_rate\": -6.330126601,\n        \"_id\": \"SZ9KYSJtfw8fJpuE\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2013,\n        \"pib_current_price\": 12768097.2175762,\n        \"pib_percentage_estructure\": 9.004022766,\n        \"pib_variation_rate\": 1.722564424,\n        \"_id\": \"SgAyHMYZynqvRfbn\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2015,\n        \"pib_current_price\": 37113834.8189008,\n        \"pib_percentage_estructure\": 24.683768531,\n        \"pib_variation_rate\": 4.143272048,\n        \"_id\": \"Tf9GFlB69K2cfDao\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2019,\n        \"pib_current_price\": 11737330,\n        \"pib_percentage_estructure\": 6.783423458,\n        \"pib_variation_rate\": 2.948496413,\n        \"_id\": \"UQ5MoIQVIMcMWwZN\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2013,\n        \"pib_current_price\": 12311026.063797,\n        \"pib_percentage_estructure\": 8.681697598,\n        \"pib_variation_rate\": -2.996842948,\n        \"_id\": \"UaBtEDvDyMqYp1KQ\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2012,\n        \"pib_current_price\": 12691366.3821625,\n        \"pib_percentage_estructure\": 8.840441138,\n        \"pib_variation_rate\": -2.895884935,\n        \"_id\": \"VwtfF3eC3VQgpEpr\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2019,\n        \"pib_current_price\": 16285761,\n        \"pib_percentage_estructure\": 9.412124665,\n        \"pib_variation_rate\": 2.125138303,\n        \"_id\": \"XNDn5AjoQxRVSTIZ\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2014,\n        \"pib_current_price\": 8944253.01601557,\n        \"pib_percentage_estructure\": 6.238424614,\n        \"pib_variation_rate\": 3.98432735,\n        \"_id\": \"XNNdMQuGdEf1EanJ\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2012,\n        \"pib_current_price\": 9096691.45351555,\n        \"pib_percentage_estructure\": 6.336493875,\n        \"pib_variation_rate\": -1.665132275,\n        \"_id\": \"YJK0JdX3PYV4Ri0Q\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2019,\n        \"pib_current_price\": 18197655,\n        \"pib_percentage_estructure\": 10.517076695,\n        \"pib_variation_rate\": 3.297094843,\n        \"_id\": \"aJTX2Yy0hRBBe4Xl\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2019,\n        \"pib_current_price\": 23731666,\n        \"pib_percentage_estructure\": 13.715379889,\n        \"pib_variation_rate\": 3.250527409,\n        \"_id\": \"aNi5bgTkt6ePNFzp\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2016,\n        \"pib_current_price\": 10235432,\n        \"pib_percentage_estructure\": 6.626529311,\n        \"pib_variation_rate\": 2.98202336,\n        \"_id\": \"dQv9EY1tqJbf1oZs\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2010,\n        \"pib_current_price\": 10309086.2790033,\n        \"pib_percentage_estructure\": 6.889837992,\n        \"pib_variation_rate\": 1.005356258,\n        \"_id\": \"dzfirQybo9Xlun6b\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2016,\n        \"pib_current_price\": 14309028,\n        \"pib_percentage_estructure\": 9.263819393,\n        \"pib_variation_rate\": 2.191261917,\n        \"_id\": \"et1boQejpVCVK9BA\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2009,\n        \"pib_current_price\": 13343468.2195588,\n        \"pib_percentage_estructure\": 8.944396675,\n        \"pib_variation_rate\": -5.936332492,\n        \"_id\": \"fY5fzCzpeFpmsKRQ\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2019,\n        \"pib_current_price\": 10993111,\n        \"pib_percentage_estructure\": 6.353312638,\n        \"pib_variation_rate\": -0.2381356,\n        \"_id\": \"ft2qiwjoRfAFovVW\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2013,\n        \"pib_current_price\": 27924273.0827813,\n        \"pib_percentage_estructure\": 19.692111226,\n        \"pib_variation_rate\": -2.265504335,\n        \"_id\": \"h5SplCUYCuTP3xsh\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2011,\n        \"pib_current_price\": 12151269.5877096,\n        \"pib_percentage_estructure\": 8.211824048,\n        \"pib_variation_rate\": -6.038435125,\n        \"_id\": \"hb1iyJ9ALXGM8Cb0\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2016,\n        \"pib_current_price\": 37676355,\n        \"pib_percentage_estructure\": 24.39207947,\n        \"pib_variation_rate\": 1.515661704,\n        \"_id\": \"iBvnFSId9ukgixRe\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2008,\n        \"pib_current_price\": 22456384.0557261,\n        \"pib_percentage_estructure\": 14.333319967,\n        \"pib_variation_rate\": -0.36179259,\n        \"_id\": \"jcE65kF8FKbj81T6\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2015,\n        \"pib_current_price\": 14002203.0568559,\n        \"pib_percentage_estructure\": 9.312622661,\n        \"pib_variation_rate\": 7.924935729,\n        \"_id\": \"k1ZmC7fagtqlYgvC\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2015,\n        \"pib_current_price\": 30011963.9924112,\n        \"pib_percentage_estructure\": 19.960437286,\n        \"pib_variation_rate\": 3.930404178,\n        \"_id\": \"l3DoCvvf0AXm4fzc\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2011,\n        \"pib_current_price\": 37360613.0408285,\n        \"pib_percentage_estructure\": 25.24829018,\n        \"pib_variation_rate\": 0.498929791,\n        \"_id\": \"lU1gsYwvhXV0RsYa\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2012,\n        \"pib_current_price\": 9005628.32112348,\n        \"pib_percentage_estructure\": 6.273061913,\n        \"pib_variation_rate\": -10.788774111,\n        \"_id\": \"lxOdvi2Lopijxj6Z\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2009,\n        \"pib_current_price\": 29099895.7008426,\n        \"pib_percentage_estructure\": 19.506248756,\n        \"pib_variation_rate\": -5.908205079,\n        \"_id\": \"mpKVirPXvf9aPkdZ\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2018,\n        \"pib_current_price\": 15946868,\n        \"pib_percentage_estructure\": 9.477108526,\n        \"pib_variation_rate\": 3.702483067,\n        \"_id\": \"nPOxkCVbIZJsaKxx\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2013,\n        \"pib_current_price\": 8601539.52423778,\n        \"pib_percentage_estructure\": 6.065779135,\n        \"pib_variation_rate\": -5.443209015,\n        \"_id\": \"nR50EaW9WGoKUQtQ\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2016,\n        \"pib_current_price\": 31411881,\n        \"pib_percentage_estructure\": 20.33639129,\n        \"pib_variation_rate\": 4.64529812,\n        \"_id\": \"p10CnrxYqU41UCNh\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2014,\n        \"pib_current_price\": 15523813.0627917,\n        \"pib_percentage_estructure\": 10.827526607,\n        \"pib_variation_rate\": -0.213976549,\n        \"_id\": \"pQPr7hsevyRa4Vpd\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2012,\n        \"pib_current_price\": 12551882.9473441,\n        \"pib_percentage_estructure\": 8.743280985,\n        \"pib_variation_rate\": 3.296884797,\n        \"_id\": \"pxZwy8RgBmU7jJAo\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2012,\n        \"pib_current_price\": 15490962.7368822,\n        \"pib_percentage_estructure\": 10.790559512,\n        \"pib_variation_rate\": -3.326050698,\n        \"_id\": \"rKIQNHvPpgnrrqOk\"\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2016,\n        \"pib_current_price\": 21275685,\n        \"pib_percentage_estructure\": 13.774108437,\n        \"pib_variation_rate\": 2.83733651,\n        \"_id\": \"rLGHNgKYN7IAZhyY\"\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2010,\n        \"pib_current_price\": 12932170.3016892,\n        \"pib_percentage_estructure\": 8.642915178,\n        \"pib_variation_rate\": -3.082391408,\n        \"_id\": \"uZObLZTaOxXRRt8E\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2008,\n        \"pib_current_price\": 38085657.6013325,\n        \"pib_percentage_estructure\": 24.309074658,\n        \"pib_variation_rate\": -2.654321285,\n        \"_id\": \"v62lLxxj2emusewL\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2009,\n        \"pib_current_price\": 16338951.8732772,\n        \"pib_percentage_estructure\": 10.952329965,\n        \"pib_variation_rate\": -4.674676469,\n        \"_id\": \"v79J9D3bFtFqhMkI\"\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2013,\n        \"pib_current_price\": 35711820.0086458,\n        \"pib_percentage_estructure\": 25.183865292,\n        \"pib_variation_rate\": 0.788596587,\n        \"_id\": \"vbI5S7tV138XBipm\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2015,\n        \"pib_current_price\": 16170570.7801264,\n        \"pib_percentage_estructure\": 10.754766466,\n        \"pib_variation_rate\": 4.166229745,\n        \"_id\": \"vlMypkqikbGc6fOK\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2016,\n        \"pib_current_price\": 9833853,\n        \"pib_percentage_estructure\": 6.366542726,\n        \"pib_variation_rate\": 3.989187308,\n        \"_id\": \"vrjpvnBOcGIa8GEH\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2011,\n        \"pib_current_price\": 13069854.3245865,\n        \"pib_percentage_estructure\": 8.832603315,\n        \"pib_variation_rate\": -2.892196477,\n        \"_id\": \"w2YJ1G6VUiKj2cjQ\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2010,\n        \"pib_current_price\": 13459118.47493,\n        \"pib_percentage_estructure\": 8.995088731,\n        \"pib_variation_rate\": 0.815721048,\n        \"_id\": \"xhsEDAWKMZtmW0mq\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2015,\n        \"pib_current_price\": 12974338.3951531,\n        \"pib_percentage_estructure\": 8.629007683,\n        \"pib_variation_rate\": 3.006282278,\n        \"_id\": \"xuBRkfyQYSXTiYyd\"\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2017,\n        \"pib_current_price\": 13811201,\n        \"pib_percentage_estructure\": 8.487490021,\n        \"pib_variation_rate\": 4.928506292,\n        \"_id\": \"yYLk0SxMOB3lBGFA\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2008,\n        \"pib_current_price\": 17140200.807136,\n        \"pib_percentage_estructure\": 10.940139867,\n        \"pib_variation_rate\": -3.184750698,\n        \"_id\": \"ygaZVtkcTF2yMR3c\"\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2017,\n        \"pib_current_price\": 33197931,\n        \"pib_percentage_estructure\": 20.401347288,\n        \"pib_variation_rate\": 5.685905916,\n        \"_id\": \"zB6AIsCXJ77roDyD\"\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2009,\n        \"pib_current_price\": 8982056.62497767,\n        \"pib_percentage_estructure\": 6.020854256,\n        \"pib_variation_rate\": -8.759672282,\n        \"_id\": \"zb9LXAqjhnvft93b\"\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2014,\n        \"pib_current_price\": 9281254.41915606,\n        \"pib_percentage_estructure\": 6.473475863,\n        \"pib_variation_rate\": 0.605355375,\n        \"_id\": \"zskCPlhwPzOjCpLo\"\n    }\n]"
+						}
+					]
+				},
+				{
 					"name": "/province/year 404 NOT FOUND",
 					"event": [
 						{
@@ -264,6 +349,24 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.province).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.year).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.pib_percentage_structure).to.be.an(\"number\");\r",
+									"    pm.expect(jsonData.pib_current_price).to.be.a(\"number\"); //to.be.undefined;\r",
+									"    pm.expect(jsonData.pib_variation_rate).to.be.a(\"number\"); //to.be.null;\r",
+									"});\r",
+									"pm.test(\"Contains the same province and year that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Granada\");\r",
+									"    pm.expect(jsonData.year == \"2015\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -348,7 +451,20 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"});\r",
+									"pm.test(\"Contains the same province that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Granada\");\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -434,6 +550,11 @@
 									"pm.test(\"Hay datos en la api.\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1505,6 +1626,15 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1593,6 +1723,15 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1689,6 +1828,15 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1777,7 +1925,20 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"});\r",
+									"pm.test(\"Contains the same province that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Sevilla\");\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1871,7 +2032,22 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"});\r",
+									"pm.test(\"Contains the same province and year that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Sevilla\");\r",
+									"    pm.expect(jsonData.year == \"2015\");\r",
+									"\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1967,6 +2143,15 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2063,6 +2248,15 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2175,6 +2369,15 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2271,7 +2474,21 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"});\r",
+									"pm.test(\"Contains the same province that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Sevilla\");\r",
+									"});\r",
+									"\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -2378,7 +2595,24 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"pm.test(\"Size of the response array is what limit request wanted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf(1);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"});\r",
+									"pm.test(\"Contains the same province that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Granada\");\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -2480,7 +2714,24 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Size of the response array is what limit request wanted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf(5);\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"});\r",
+									"pm.test(\"Contains the same province that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Granada\");\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -2490,7 +2741,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Granada?limit=1",
+							"raw": "{{URL_BASE}}{{API}}/Granada?limit=5",
 							"host": [
 								"{{URL_BASE}}{{API}}"
 							],
@@ -2500,7 +2751,7 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "1"
+									"value": "5"
 								}
 							]
 						}
@@ -2574,7 +2825,20 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"});\r",
+									"pm.test(\"Contains the same province that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Granada\");\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -2668,6 +2932,19 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Size of the response array is what limit request wanted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf(5);\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2764,6 +3041,19 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Size of the response array is what limit request wanted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf(3);\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2852,6 +3142,15 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2940,6 +3239,19 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Size of the response array is what limit request wanted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf(2);\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});"
 								],
 								"type": "text/javascript"
