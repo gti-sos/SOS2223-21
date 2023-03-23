@@ -33,6 +33,6 @@ jobs:
       - name: Deploy
         run: gcloud app deploy
       - name: 'Esperar antes de ejecutar las pruebas de gcloud'
-        run: sleep 10
+        run: sleep 15
       - name: 'Pruebas métodos jorge en gcloud'
         run: npm run test-jorge-gcloud
