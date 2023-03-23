@@ -38,44 +38,27 @@ module.exports =  {
 
 
                                                     //GET GLOBAL\\
-                                          
-           app.get('/api/v1/workingplaces-stats', (req, res) => {
-  const { province, year, work_place, percentage_structure, variation_rate, limit = 1000, offset = 0 } = req.query;
-  const query = {};
-
-  if (province) {
-    query.province = { $regex: new RegExp(province, 'i') };
-  }
-  if (year) {
-    parseInt(query.year) = { $regex: new RegExp(year, 'i') };
-  }
-  if (work_place) {
-    parseInt(query.work_place) = { $regex: new RegExp(work_place, 'i') };
-  }
-  if (percentage_structure) {
-    parseInt(query.percentage_structure) = new Date(percentage_structure);
-  }
-  if (variation_rate) {
-    parseInt(query.variation_rate) = parseInt(variation_rate);
-  }
-
-  const limitValue = parseInt(limit);
-  const offsetValue = parseInt(offset);
-
-  db
-    .find(query)
-    .limit(limitValue)
-    .skip(offsetValue)
-    .exec((err, db) => {
-      if (err) {
-        console.log(`Error getting /db: ${err}`);
-        res.sendStatus(500);
-      } else {
-        console.log(`db returned = ${db.length}`);
-        res.json(db);
-      }
-    });
-});
+            app.get(ruta , (req, res) => {
+            const year = parseInt(req.params.year);
+            const province = req.params.province;
+            const limit = req.query.limit;
+            const offset = req.query.offset;
+            const work_place = req.query.work_place;
+            const percentage_structure = req.query.percentage_structure;
+            const variation_rate = req.query.variation_rate;
+            console.log(req.query);
+            const cond0 = !!req.query.year && !!req.query.province && !!req.query.work_place && !!req.query.percentage_structure && !!req.query.variation_rate
+            const cond1 = !!req.query.year && !!req.query.province && !!req.query.work_place && !!req.query.percentage_structure 
+            const cond2 = !!req.query.year && !!req.query.province && !!req.query.work_place 
+            const cond3 = !!req.query.year && !!req.query.province 
+            const cond4 = !!req.query.year 
+            console.log(!!req.query.year && !!req.query.province && !!req.query.offset);
+            console.log("New GET to /market-prices-stats/" + province + "/" + year);
+            if (cond0){
+                console.log("tp")
+            }
+        });                             
+            
 
 
                                     //GET recurso especifico\\
