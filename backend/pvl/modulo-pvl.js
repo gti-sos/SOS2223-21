@@ -70,27 +70,31 @@ module.exports =  {
                     res.sendStatus(500);
                 } else {
                     console.log("From",from,"To",to,"Offset",offset,"limit", limit)
-                    let filteredData = data;
-                    // Filtrar por offset y limit
-                    if (offset && limit) {
-                        filteredData = filteredData.slice(offset, offset + limit);
-                    } else if (offset) {
-                        filteredData = filteredData.slice(offset);
-                    } else if (limit) {
-                        filteredData = filteredData.slice(0, limit);
-                    }
-                    // Filtrar por from y to
-                    if (from && to) {
-                        filteredData = filteredData.filter(item => item.year >= from && item.year <= to);
-                    } else if (from) {
-                        filteredData = filteredData.filter(item => item.year >= from);
-                    } else if (to) {
-                        filteredData = filteredData.filter(item => item.year <= to);
-                    }
-            
+                    let datosfiltrados = data;
                     
-            
-                    res.send(filteredData);
+                    if (from >= to) {
+                        res.sendStatus(400);
+                        console.log(`El rango desde ${from} hasta ${to} es incorrecto.`);
+                    }else{
+                        // Filtrar por from y to
+                        if (from && to) {
+                            datosfiltrados = datosfiltrados.filter(x => x.year >= from && x.year <= to);
+                        } else if (from) {
+                            datosfiltrados = datosfiltrados.filter(x => x.year >= from);
+                        } else if (to) {
+                            datosfiltrados = datosfiltrados.filter(x => x.year <= to);
+                        }
+                        
+                    }       
+                    if (offset && limit) {
+                        datosfiltrados = datosfiltrados.slice(offset, offset + limit);
+                    } else if (offset) {
+                        datosfiltrados = datosfiltrados.slice(offset);
+                    } else if (limit) {
+                        datosfiltrados = datosfiltrados.slice(0, limit);
+                    }
+                    // Filtrar por offset y limit
+                    res.status(200).send(datosfiltrados.map(x=>{delete x._id; return x}));
                 };
             });
 
