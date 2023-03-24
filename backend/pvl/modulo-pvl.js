@@ -38,38 +38,46 @@ module.exports =  {
 
 
                                                     //GET GLOBAL\\
+                                                    /*
             app.get(ruta , (req, res) => {
-            const year = parseInt(req.params.year);
-            const province = req.params.province;
-            const limit = req.query.limit;
-            const offset = req.query.offset;
-            const work_place = req.query.work_place;
-            const percentage_structure = req.query.percentage_structure;
-            const variation_rate = req.query.variation_rate;
             console.log(req.query);
-            const cond0 = !!req.query.year && !!req.query.province && !!req.query.work_place && !!req.query.percentage_structure && !!req.query.variation_rate
-            const cond1 = !!req.query.year && !!req.query.province && !!req.query.work_place && !!req.query.percentage_structure 
-            const cond2 = !!req.query.year && !!req.query.province && !!req.query.work_place 
-            const cond3 = !!req.query.year && !!req.query.province 
-            const cond4 = !!req.query.year 
-            console.log(!!req.query.year && !!req.query.province && !!req.query.offset);
-            console.log("New GET to /market-prices-stats/" + province + "/" + year);
+            const cond0 = parseInt(req.query.year)!==NaN && req.query.province!==undefined && parseInt(req.query.work_place)!==undefined && parseFloat(req.query.percentage_structure)!==undefined && parseFloat(req.query.variation_rate)!==undefined
+            const cond1 = parseInt(req.query.year)!==NaN && req.query.province!==undefined && parseInt(req.query.work_place)!==undefined && parseFloat(req.query.percentage_structure)!==undefined && parseFloat(req.query.variation_rate)==undefined
+            const cond2 = parseInt(req.query.year)!==NaN && req.query.province!==undefined && parseInt(req.query.work_place)!==undefined 
+            const cond3 = parseInt(req.query.year)!==NaN && req.query.province!==undefined
+            const cond4 = parseInt(req.query.year)!==NaN 
+            const cond5 = req.query.province !==undefined
+            console.log("cond0: ",cond0, "cond1: ",cond1, "cond2:",cond2, "cond3: ",cond3, "cond4:",cond4);
+            let datos = null;
+            db.find({}, {_id: 0}, (error, data) => {
+            console.log(req.query.year)
+            console.log(req.query.work_place)
+            console.log(req.query.percentage_structure)
             if (cond0){
-
+                console.log("cap")
+                console.log(req.query.province);
+                console.log(parseInt(req.query.year))
+                let datos =data.filter(x=>x.province === req.query.province &&x.year === parseInt(req.query.year) &&x.work_place === parseInt(req.query.work_place) &&x.percentage_structure === parseFloat(req.query.percentage_structure) &&x.variation_rate === parseFloat(req.query.variation_rate));
+                console.log(datos);
             } else if (cond1){
-                let datos = db.filter(x=>x.province === req.query.province &&x.province === req.query.year &&x.province === req.query.work_place &&x.province === req.query.percentage_structure &&x.province === req.query.variation_rate);
-            }
+               }
             else if (cond2){
                 
             }
             else if (cond3){
-                
+                let datos = data.filter(x=>x.year === parseInt(req.query.year) && x.province === req.query.province);
+                console.log(datos)
             }
             else if (cond4){
-                let datos = db.filter(x=>x.year === parseInt(req.query.year));
+                let datos = data.filter(x=>x.year === parseInt(req.query.year));
+                console.log(datos)
+            }else if (cond5){
+                let datos = data.filter(x=>x.province === req.query.province);
+                console.log(datos)
             }
             return datos;
-        });                             
+        });
+        });  */                           
             
 
 
