@@ -39,6 +39,10 @@ module.exports =  {
 
                                                     //GET GLOBAL\\
             app.get(ruta , (req, res) => {
+            const from = parseInt(req.query.from);
+            const to = parseInt(req.query.to);
+            const limit = parseInt(req.query.limit);
+            const offset = parseInt(req.query.offset);
             function jsonContainsParam(json, param) {
                 return Object.keys(json).indexOf(param) !== -1;
             }
@@ -59,15 +63,34 @@ module.exports =  {
             console.log(queryParams);
             console.log(requer);
             obj = Object.fromEntries(queryParams);
-            const from = req.query.from;
-            const to = req.query.to;
-            const limit = req.query.limit;
-            const offset = req.query.offset;
+            
             db.find(obj, async (err, data) => {
                 if (err) {
                     console.log(`Sometime has grown: ${err}.`);
                     res.sendStatus(500);
                 } else {
+                    console.log("From",from,"To",to,"Offset",offset,"limit", limit)
+                    let filteredData = data;
+                    // Filtrar por offset y limit
+                    if (offset && limit) {
+                        filteredData = filteredData.slice(offset, offset + limit);
+                    } else if (offset) {
+                        filteredData = filteredData.slice(offset);
+                    } else if (limit) {
+                        filteredData = filteredData.slice(0, limit);
+                    }
+                    // Filtrar por from y to
+                    if (from && to) {
+                        filteredData = filteredData.filter(item => item.year >= from && item.year <= to);
+                    } else if (from) {
+                        filteredData = filteredData.filter(item => item.year >= from);
+                    } else if (to) {
+                        filteredData = filteredData.filter(item => item.year <= to);
+                    }
+            
+                    
+            
+                    res.send(filteredData);
                 };
             });
 
