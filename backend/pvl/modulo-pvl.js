@@ -38,46 +38,41 @@ module.exports =  {
 
 
                                                     //GET GLOBAL\\
-                                                    /*
             app.get(ruta , (req, res) => {
-            console.log(req.query);
-            const cond0 = parseInt(req.query.year)!==NaN && req.query.province!==undefined && parseInt(req.query.work_place)!==undefined && parseFloat(req.query.percentage_structure)!==undefined && parseFloat(req.query.variation_rate)!==undefined
-            const cond1 = parseInt(req.query.year)!==NaN && req.query.province!==undefined && parseInt(req.query.work_place)!==undefined && parseFloat(req.query.percentage_structure)!==undefined && parseFloat(req.query.variation_rate)==undefined
-            const cond2 = parseInt(req.query.year)!==NaN && req.query.province!==undefined && parseInt(req.query.work_place)!==undefined 
-            const cond3 = parseInt(req.query.year)!==NaN && req.query.province!==undefined
-            const cond4 = parseInt(req.query.year)!==NaN 
-            const cond5 = req.query.province !==undefined
-            console.log("cond0: ",cond0, "cond1: ",cond1, "cond2:",cond2, "cond3: ",cond3, "cond4:",cond4);
-            let datos = null;
-            db.find({}, {_id: 0}, (error, data) => {
-            console.log(req.query.year)
-            console.log(req.query.work_place)
-            console.log(req.query.percentage_structure)
-            if (cond0){
-                console.log("cap")
-                console.log(req.query.province);
-                console.log(parseInt(req.query.year))
-                let datos =data.filter(x=>x.province === req.query.province &&x.year === parseInt(req.query.year) &&x.work_place === parseInt(req.query.work_place) &&x.percentage_structure === parseFloat(req.query.percentage_structure) &&x.variation_rate === parseFloat(req.query.variation_rate));
-                console.log(datos);
-            } else if (cond1){
-               }
-            else if (cond2){
-                
+            function jsonContainsParam(json, param) {
+                return Object.keys(json).indexOf(param) !== -1;
             }
-            else if (cond3){
-                let datos = data.filter(x=>x.year === parseInt(req.query.year) && x.province === req.query.province);
-                console.log(datos)
+            var requer = req.query;
+            if (jsonContainsParam(requer, "offset")) delete requer.offset
+            if (jsonContainsParam(requer, "limit")) delete requer.limit
+            if (jsonContainsParam(requer, "from")) delete requer.from
+            if (jsonContainsParam(requer, "to")) delete requer.to
+            const queryParams = new Map();
+            for (const [key, value] of Object.entries(requer)) {
+              if (!isNaN(value)) {
+                queryParams.set(key, parseFloat(value));
+              } 
+              else {
+                queryParams.set(key, value);
+              }
             }
-            else if (cond4){
-                let datos = data.filter(x=>x.year === parseInt(req.query.year));
-                console.log(datos)
-            }else if (cond5){
-                let datos = data.filter(x=>x.province === req.query.province);
-                console.log(datos)
-            }
-            return datos;
-        });
-        });  */                           
+            console.log(queryParams);
+            console.log(requer);
+            obj = Object.fromEntries(queryParams);
+            const from = req.query.from;
+            const to = req.query.to;
+            const limit = req.query.limit;
+            const offset = req.query.offset;
+            db.find(obj, async (err, data) => {
+                if (err) {
+                    console.log(`Sometime has grown: ${err}.`);
+                    res.sendStatus(500);
+                } else {
+                };
+            });
+
+
+        });                            
             
 
 
