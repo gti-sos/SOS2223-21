@@ -39,63 +39,63 @@ module.exports =  {
 
                                                     //GET GLOBAL\\
             app.get(ruta , (req, res) => {
-            const from = parseInt(req.query.from);
-            const to = parseInt(req.query.to);
-            const limit = parseInt(req.query.limit);
-            const offset = parseInt(req.query.offset);
-            function jsonContainsParam(json, param) {
-                return Object.keys(json).indexOf(param) !== -1;
-            }
-            var requer = req.query;
-            if (jsonContainsParam(requer, "offset")) delete requer.offset
-            if (jsonContainsParam(requer, "limit")) delete requer.limit
-            if (jsonContainsParam(requer, "from")) delete requer.from
-            if (jsonContainsParam(requer, "to")) delete requer.to
-            const queryParams = new Map();
-            for (const [key, value] of Object.entries(requer)) {
-              if (!isNaN(value)) {
-                queryParams.set(key, parseFloat(value));
-              } 
-              else {
-                queryParams.set(key, value);
-              }
-            }
-            console.log(queryParams);
-            console.log(requer);
-            obj = Object.fromEntries(queryParams);
-            
-            db.find(obj, async (err, data) => {
-                if (err) {
-                    console.log(`Sometime has grown: ${err}.`);
-                    res.sendStatus(500);
-                } else {
-                    console.log("From",from,"To",to,"Offset",offset,"limit", limit)
-                    let datosfiltrados = data;
-                    
-                    if (from >= to) {
-                        res.sendStatus(400);
-                        console.log(`Range of ${from} to ${to} not valid.`);
-                    }else{
-                        // Filtrar por from y to
-                        if (from && to) {
-                            datosfiltrados = datosfiltrados.filter(x => x.year >= from && x.year <= to);
-                        } else if (from) {
-                            datosfiltrados = datosfiltrados.filter(x => x.year >= from);
-                        } else if (to) {
-                            datosfiltrados = datosfiltrados.filter(x => x.year <= to);
-                        }
+                const from = parseInt(req.query.from);
+                const to = parseInt(req.query.to);
+                const limit = parseInt(req.query.limit);
+                const offset = parseInt(req.query.offset);
+                function jsonContainsParam(json, param) {
+                    return Object.keys(json).indexOf(param) !== -1;
+                }
+                var requer = req.query;
+                if (jsonContainsParam(requer, "offset")) delete requer.offset
+                if (jsonContainsParam(requer, "limit")) delete requer.limit
+                if (jsonContainsParam(requer, "from")) delete requer.from
+                if (jsonContainsParam(requer, "to")) delete requer.to
+                const queryParams = new Map();
+                for (const [key, value] of Object.entries(requer)) {
+                if (!isNaN(value)) {
+                    queryParams.set(key, parseFloat(value));
+                } 
+                else {
+                    queryParams.set(key, value);
+                }
+                }
+                console.log(queryParams);
+                console.log(requer);
+                obj = Object.fromEntries(queryParams);
+                console.log(obj);
+                db.find(obj, async (err, data) => {
+                    if (err) {
+                        console.log(`Sometime has grown: ${err}.`);
+                        res.sendStatus(500);
+                    } else {
+                        console.log("From: ",from,"To: ",to,"Offset: ",offset,"limit: ", limit)
+                        let datosfiltrados = data;
                         
-                    }       
-                    if (offset && limit) {
-                        datosfiltrados = datosfiltrados.slice(offset, offset + limit);
-                    } else if (offset) {
-                        datosfiltrados = datosfiltrados.slice(offset);
-                    } else if (limit) {
-                        datosfiltrados = datosfiltrados.slice(0, limit);
-                    }
-                    // Filtrar por offset y limit
-                    res.status(200).send(datosfiltrados.map(x=>{delete x._id; return x}));
-                };
+                        if (from >= to) {
+                            res.sendStatus(400);
+                            console.log(`Range of ${from} to ${to} not valid.`);
+                        }else{
+                            // Filtrar por from y to
+                            if (from && to) {
+                                datosfiltrados = datosfiltrados.filter(x => x.year >= from && x.year <= to);
+                            } else if (from) {
+                                datosfiltrados = datosfiltrados.filter(x => x.year >= from);
+                            } else if (to) {
+                                datosfiltrados = datosfiltrados.filter(x => x.year <= to);
+                            }
+                            
+                        }       
+                        if (offset && limit) {
+                            datosfiltrados = datosfiltrados.slice(offset, offset + limit);
+                        } else if (offset) {
+                            datosfiltrados = datosfiltrados.slice(offset);
+                        } else if (limit) {
+                            datosfiltrados = datosfiltrados.slice(0, limit);
+                        }
+                        // Filtrar por offset y limit
+                        res.status(200).send(datosfiltrados.map(x=>{delete x._id; return x}));
+                    };
             });
 
 
@@ -122,11 +122,11 @@ module.exports =  {
                 queryParams.set(key, value);
               }
             }
-            console.log(queryParams);
-            console.log(requer);
+            
             if(!jsonContainsParam(queryParams, "province")) queryParams.set("province", req.params.province)
             if(!jsonContainsParam(queryParams, "year")) queryParams.set("year", parseInt(req.params.year))
-            
+            console.log(requer);
+            console.log(queryParams);
             obj = Object.fromEntries(queryParams);
             
             db.find(obj, async (err, data) => {
