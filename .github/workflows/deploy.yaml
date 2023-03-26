@@ -16,7 +16,7 @@ jobs:
         run: npm install
       - name: 'Inicia servidor node'
         run: npm start & 
-      - name: 'Pruebas métodos jorge en local'
+      - name: 'Pruebas métodos en local'
         run: npm run test-jorge-local
       
       - id: 'auth'
@@ -34,5 +34,5 @@ jobs:
         run: gcloud app deploy
       - name: 'Esperar antes de ejecutar las pruebas de gcloud'
         run: sleep 15
-      - name: 'Pruebas métodos jorge en gcloud'
+      - name: 'Pruebas métodos en gcloud'
         run: npm run test-jorge-gcloud
