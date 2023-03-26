@@ -7,7 +7,7 @@
     "start": "node index",
     "test-jorge-local": "npx newman run ./testsPostman/backend-jfs.json -e ./testsPostman/env/localhost-jfs.json",
     "test-jorge-gcloud": "npx newman run ./testsPostman/backend-jfs.json -e ./testsPostman/env/gcloud-jfs.json",
-    "test": "npm run test-jorge-local && npm run test-jorge-gcloud"
+    "test": "npm run test-jorge-local"
   },
   "repository": {
     "type": "git",
