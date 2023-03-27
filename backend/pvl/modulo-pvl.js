@@ -168,7 +168,7 @@ module.exports =  {
                         // Filtrar por offset y limit
                         let datos = datosfiltrados.map(x=>{delete x._id; return x});
                         if(datos.length > 0){
-                            res.status(200).send(datos);
+                            res.status(200).send(datos[0]);
                         }else {
                             res.sendStatus(404);
                             console.log("Data not found");
