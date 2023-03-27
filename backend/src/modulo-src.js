@@ -38,23 +38,61 @@ module.exports = {
             const provSelec = index_sete.datos_ejemplos_sete.filter(x => x.province === province);
             const yearSelec = provSelec.filter(x => x.year === year);
             if (yearSelec) {
-                response.json(yearSelec).status(200);
+                response.json(yearSelec[0]).status(200);
                 console.log("New Request to /salaried-stats/" + province + "/" + year);
+            } else if (data.length == 0) {
+                console.log(`salaried-stats/${province}/${year} not found`);
+                res.sendStatus(404);
             } else {
-                response.status(404).json({ message: `No existe ningún recurso para la provincia: $ { province }
-                en el año: $ { year }.` });
-            }
+                response.status(404)
+            };
         });
 
         //*********************************************** //GET /salaried-stats: Lista de Recursos ***********************************************
         app.get(BASI_API_URL, (request, response) => {
-            if (index_sete.datos_ejemplos_sete) {
-                response.json(index_sete.datos_ejemplos_sete).status(200);
-                console.log("New Request to /salaried-stats/");
-            } else {
-                response.status(404).json({ message: `salaried-stats not found: ` });
-            }
+            var year_query = request.query.year;
+            var province_query = request.query.province;
+            var remuneration_of_employees_under = request.query.remuneration_of_employees;
+            var remuneration_percentage_structure_under = request.query.remuneration_percentage_structure_under;
+            var remuneration_variation_rate_under = request.query.remuneration_variation_rate_under;
+            db.find({}, async(error, data) => {
+                if (error) {
+                    console.log(`Error loading Initial Data: ${error}.`);
+                    response.sendStatus(5000);
+                } else {
+                    let i = -1;
+                    if (!request.query.offset) {
+                        var offset = -1;
+                    } else {
+                        var offset = parseInt(request.query.offset);
+                    }
+                    var datos = data.filter((x) => {
+                        return (((year_query == undefined) || parseInt(year_query) === x.year) &&
+                            ((province_query == undefined) || (parseInt(province_query) === x.province)) &&
+                            ((remuneration_of_employees_under == undefined) || (parseInt(remuneration_of_employees_under) >= x.remuneration_of_employees)) &&
+                            ((remuneration_percentage_structure_under == undefined) || (parseInt(remuneration_percentage_structure_under) >= x.remuneration_of_employees)) &&
+                            ((remuneration_variation_rate_under == undefined) || (parseInt(remuneration_variation_rate_under) >= x.remuneration_variation_rate))
+                        )
+                    }).filter((x) => {
+                        i = i + 1;
+                        if (request.query.limit == undefined) {
+                            var cond = true;
+                        } else {
+                            var cond = (offset + parseInt(request.query.limit)) >= i;
+                        }
+                        return (i > offset) && cond;
+                    });
+                    if (data.length == 0) {
+                        console.log(`salaried- stats not found`);
+                        response.sendStatus(404);
+                    } else {
+                        console.log(`Data of salaried-stats returned: ${data.length}`);
+                        response.json(datos);
+                    }
+                }
+            });
         });
+
 
 
         //**************************   Recursos por provincia   GET /salaried-stats/province ****************************
@@ -114,19 +152,19 @@ module.exports = {
         });
 
         //----------------------------------------- PUTS-----------------------------------------------------------
-        //*************************** PUT  CORRECTO A  /salaried-stats/province/year  *******************************
+        //*************************** PUT A /salaried-stats/province/year  *******************************
         app.put(BASI_API_URL + '/:province' + '/:year', (request, response) => {
             const province = request.params.province;
             const year = parseInt(request.params.year);
 
             const existe = index_sete.datos_ejemplos_sete.find(p => p.province === province && p.year === year);
             if (!existe || province !== request.body.province || year !== request.body.year) {
-                return response.status(400).send("Estadística incorrecta.");
+                return response.status(400).send("No se puede actualizar");
             } else {
                 existe.remuneration_of_employees = request.body.remuneration_of_employees || existe.remuneration_of_employees;
                 existe.remuneration_percentage_structure = request.body.remuneration_percentage_structure || existe.remuneration_percentage_structure;
                 existe.remuneration_variation_rate = request.body.remuneration_variation_rate || existe.remuneration_variation_rate;
-                response.status(200).send("Estadística actualizada correctamente");
+                response.status(200).send("Actualizado correctamente");
                 console.log("New PUT to /salaried-stats/" + province + "/" + year);
             }
         });
