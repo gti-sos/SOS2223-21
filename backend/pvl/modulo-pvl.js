@@ -96,12 +96,7 @@ module.exports =  {
                         }
                         let datos = datosfiltrados.map(x=>{delete x._id; return x});
                         if(datos.length > 0){
-                            let objeto = datos.reduce((acc, current) => {
-                                acc[current.id] = current;
-                                return acc;
-                              }, {});
-
-                            res.status(200).send(objeto);
+                            res.status(200).send(datos);
                         }else {
                             res.sendStatus(404);
                             console.log("Data not found");
