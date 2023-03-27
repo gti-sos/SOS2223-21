@@ -193,7 +193,7 @@ module.exports = {
                                 x.pib_variation_rate === body.pib_variation_rate)) {
                             res.status(409).send("El recurso ya existe.");
                         } else {
-                            if (data.some(x => x.province === body.province)) {
+                            if (index_jorge.datos_jorge.some(x => x.province === body.province)) {
                                 db.insert(req.body);
                                 console.log(`newData = ${JSON.stringify(body, null, 2)}`);
                                 console.log("New POST to /market-prices-stats");
@@ -272,13 +272,13 @@ module.exports = {
         //DELETE recurso especifido
         app.delete(rutaJorge + "/:province/:year", (req, res) => {
             const province = req.params.province;
-            const year = req.params.year;
+            const year = parseInt(req.params.year);
             db.remove({ province: province, year: year }, (err, dataRemoved) => {
                 if (err) {
                     console.log(`Ha habido un error borrando /${province}/${year}: ${err}`);
                     res.sendStatus(500);
                 } else {
-                    console.log(`Recurso /${province}/${year} borrado correctamnte.`);
+                    console.log(`Recurso /${province}/${year} borrado correctamnte.${dataRemoved}`);
                     res.status(200).send("El recurso se ha borrado correctamente.");
                 }
             });
