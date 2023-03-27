@@ -94,8 +94,13 @@ module.exports =  {
                         } else if (limit) {
                             datosfiltrados = datosfiltrados.slice(0, limit);
                         }
-                        // Filtrar por offset y limit
-                        res.status(200).send(datosfiltrados.map(x=>{delete x._id; return x}));
+                        let datos = datosfiltrados.map(x=>{delete x._id; return x});
+                        if(datos.length > 0){
+                            res.status(200).send(datos);
+                        }else {
+                            res.sendStatus(404);
+                            console.log("Data not found");
+                        }
                     };
             });
 
