@@ -40,10 +40,12 @@ module.exports = {
             if (yearSelec) {
                 response.json(yearSelec).status(200);
                 console.log("New Request to /salaried-stats/" + province + "/" + year);
+            } else if (data.length == 0) {
+                console.log(`salaried-stats/${province}/${year} not found`);
+                res.sendStatus(404);
             } else {
                 response.status(404).json({ message: `No existe ningún recurso para la provincia: $ { province }
                 en el año: $ { year }.` });
-                console.log("No existe ningún recurso para esa provincia y año")
             }
         });
 
