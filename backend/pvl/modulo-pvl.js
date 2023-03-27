@@ -27,7 +27,7 @@ module.exports =  {
                     resp.sendStatus(500);
                 }else if(data.length != 0){
                     console.log(`There are data ${data.length} loaded.`);
-                    response.sendStatus(200);
+                    response.sendStatus(201);
                 }else{
                     let datos = await csv.load('./backend/pvl/Datos/Datos.csv');
                     db.insert(datos);
@@ -168,7 +168,7 @@ module.exports =  {
                         // Filtrar por offset y limit
                         let datos = datosfiltrados.map(x=>{delete x._id; return x});
                         if(datos.length > 0){
-                            res.status(200).send(datos);
+                            res.status(200).send(datos[0]);
                         }else {
                             res.sendStatus(404);
                             console.log("Data not found");
