@@ -8,7 +8,7 @@ var db = new Datastore();
 module.exports =  {
     api:(app) =>{
         const ruta = "/api/v1/workingplaces-stats";
-        const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba"];
+        const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
         var workinplaces_stats = pvl.datos_ejemplos_pablo;
         
     
@@ -76,6 +76,7 @@ module.exports =  {
                             res.sendStatus(400);
                             console.log(`Range of ${from} to ${to} not valid.`);
                         }else{
+                            console.log(`New Request /workingplaces-stats/`);
                             // Filtrar por from y to
                             if (from && to) {
                                 datosfiltrados = datosfiltrados.filter(x => x.year >= from && x.year <= to);
@@ -141,6 +142,7 @@ module.exports =  {
                         res.sendStatus(400);
                         console.log(`Range of ${from} to ${to} not valid.`);
                     }else{
+                        console.log(`New Request /workingplaces-stats/${req.params.province}/${req.params.year}`);
                         // Filtrar por from y to
                         if (from && to) {
                             datosfiltrados = datosfiltrados.filter(x => x.year >= from && x.year <= to);
@@ -150,40 +152,30 @@ module.exports =  {
                             datosfiltrados = datosfiltrados.filter(x => x.year <= to);
                         }
                         
-                    }       
-                    if (offset && limit) {
-                        datosfiltrados = datosfiltrados.slice(offset, offset + limit);
-                    } else if (offset) {
-                        datosfiltrados = datosfiltrados.slice(offset);
-                    } else if (limit) {
-                        datosfiltrados = datosfiltrados.slice(0, limit);
+                           
+                        if (offset && limit) {
+                            datosfiltrados = datosfiltrados.slice(offset, offset + limit);
+                        } else if (offset) {
+                            datosfiltrados = datosfiltrados.slice(offset);
+                        } else if (limit) {
+                            datosfiltrados = datosfiltrados.slice(0, limit);
+                        }
+                        // Filtrar por offset y limit
+                        let datos = datosfiltrados.map(x=>{delete x._id; return x});
+                        if(datos.length > 0){
+                            res.status(200).send(datos);
+                        }else {
+                            res.sendStatus(404);
+                            console.log("Data not found");
+                        }
                     }
-                    // Filtrar por offset y limit
-                    res.status(200).send(datosfiltrados.map(x=>{delete x._id; return x}));
                 };
             });
-
-
         }); 
-
-
-                                    //GET recurso especifico\\
-            /*app.get(ruta+'/:province/:year', (request,response)=>{
-                var province = request.params.province;
-                var year = request.params.year;
-                
-                db.find({"province":province, "year":parseInt(year)},(err,data)=>{
-                    if(err){
-                        console.log(`Error getting workingplaces-stats/${province}: ${err}`)
-                        response.sendStatus(500);
-                    }else if(data.length == 0){
-                        console.log(`workingplaces-stats/${province} not found`);
-                        response.sendStatus(404);
-                    }else{
-                        console.log(`Data of workingplaces-stats/${province} returned`);
-                        response.json(data.filter(x =>x.province === province && parseInt(x.year)===parseInt(year)));
-                        }
-                    });});*/
+        app.get(ruta+'/:province', (request, response) => {
+            console.log('GET not Allowed');
+            response.sendStatus(405);
+        });
             
         //__________________________________________________POSTS_________________________________________________\\
                                                         //POST ruta\\
@@ -194,7 +186,7 @@ module.exports =  {
                 if (req.body[campo] === '') {
                   vacios+=1;
                 } }
-        if (vacios !=0 || !req.body || !req.body.province || !req.body.work_place || !req.body.percentage_structure || !req.body.variation_rate) {
+        if (vacios !=0 || !req.body || !req.body.province || !req.body.work_place || !req.body.percentage_structure || !req.body.variation_rating) {
             res.status(400).send("Data needs to be inserted or fields are missing.");
         } else {
             const newData = req.body;
@@ -203,7 +195,7 @@ module.exports =  {
                 year: newData.year,
                 work_place: newData.work_place,
                 percentage_structure:newData.percentage_structure,
-                variation_rate:newData.variation_rate,
+                variation_rating:newData.variation_rating,
             }, (err, docs) => {
                 console.log("Este es el doc")
                 console.log(docs[0]);
@@ -315,7 +307,7 @@ app.put(ruta + '/:province/:year', (request, response) => {
             console.log(`Something has gone wrong: ${err}.`);
             response.sendStatus(500);
             
-        }else if(province != request.body.province || year != request.body.year){
+        }else if(province != request.body.province || year != request.body.year || data.length == 0){
             response.status(400).send("Data not found")
         }
          else {
