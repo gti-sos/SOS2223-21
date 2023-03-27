@@ -27,7 +27,7 @@ module.exports =  {
                     resp.sendStatus(500);
                 }else if(data.length != 0){
                     console.log(`There are data ${data.length} loaded.`);
-                    response.sendStatus(200);
+                    response.sendStatus(201);
                 }else{
                     let datos = await csv.load('./backend/pvl/Datos/Datos.csv');
                     db.insert(datos);

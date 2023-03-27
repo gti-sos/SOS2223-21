@@ -1234,6 +1234,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "workingplaces-stats all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URLBASE}}{{API}}/Almería/2100",
+							"host": [
+								"{{URLBASE}}{{API}}"
+							],
+							"path": [
+								"Almería",
+								"2100"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

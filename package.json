@@ -9,7 +9,7 @@
     "test-jorge-gcloud": "npx newman run ./testsPostman/backend-jfs.json -e ./testsPostman/env/gcloud-jfs.json",
     "test-pvl-local": "npx newman run ./testsPostman/backend-pvl.json -e ./testsPostman/env/localhost-pvl.json",
     "test-pvl-gcloud": "npx newman run ./testsPostman/backend-pvl.json -e ./testsPostman/env/gcloud-pvl.json",
-    "test": "npm run test-jorge-local && npm run test-pvl-local"
+    "test": "npm run test-jorge-local && npm run test-pvl-gcloud"
   },
   "repository": {
     "type": "git",
