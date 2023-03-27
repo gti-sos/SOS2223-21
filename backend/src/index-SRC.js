@@ -11,8 +11,7 @@ var datos_ejemplos_sete = [
     { province: "Granada", year: 2015, remuneration_of_employees: 16170570.78, remuneration_percentage_structure: 10.75476647, remuneration_variation_rate: 4.166229745 }
 ];
 
-var media_remuneration_of_employees_province = datos_ejemplos_sete.filter((n) => n.province === "Cádiz").map((n) => { return n.remuneration_of_employees });
-console.log("La media de la remuneración de los empleados en Cádiz es: " + media_remuneration_of_employees_province.reduce((a, b) => a + b, 0) / media_remuneration_of_employees_province.length);
+//var media_remuneration_of_employees_province = datos_ejemplos_sete.filter((n) => n.province === "Cádiz").map((n) => { return n.remuneration_of_employees });
+//console.log("La media de la remuneración de los empleados en Cádiz es: " + media_remuneration_of_employees_province.reduce((a, b) => a + b, 0) / media_remuneration_of_employees_province.length);
 
-module.exports.media_remuneration_of_employees_province = media_remuneration_of_employees_province;
 module.exports.datos_ejemplos_sete = datos_ejemplos_sete;
