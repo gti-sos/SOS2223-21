@@ -43,6 +43,7 @@ module.exports = {
             } else {
                 response.status(404).json({ message: `No existe ningún recurso para la provincia: $ { province }
                 en el año: $ { year }.` });
+                console.log("No existe ningún recurso para esa provincia y año")
             }
         });
 
@@ -114,19 +115,19 @@ module.exports = {
         });
 
         //----------------------------------------- PUTS-----------------------------------------------------------
-        //*************************** PUT  CORRECTO A  /salaried-stats/province/year  *******************************
+        //*************************** PUT A /salaried-stats/province/year  *******************************
         app.put(BASI_API_URL + '/:province' + '/:year', (request, response) => {
             const province = request.params.province;
             const year = parseInt(request.params.year);
 
             const existe = index_sete.datos_ejemplos_sete.find(p => p.province === province && p.year === year);
             if (!existe || province !== request.body.province || year !== request.body.year) {
-                return response.status(400).send("Estadística incorrecta.");
+                return response.status(400).send("El dato JSON no tiene los campos esperados.");
             } else {
                 existe.remuneration_of_employees = request.body.remuneration_of_employees || existe.remuneration_of_employees;
                 existe.remuneration_percentage_structure = request.body.remuneration_percentage_structure || existe.remuneration_percentage_structure;
                 existe.remuneration_variation_rate = request.body.remuneration_variation_rate || existe.remuneration_variation_rate;
-                response.status(200).send("Estadística actualizada correctamente");
+                response.status(200).send("Actualizado correctamente");
                 console.log("New PUT to /salaried-stats/" + province + "/" + year);
             }
         });
