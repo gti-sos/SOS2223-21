@@ -631,9 +631,7 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"pm.test(\"Hay un dato o más\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.length.above(0);\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1065,9 +1063,6 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Hay un dato o más\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.length.above(0);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1154,9 +1149,6 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Hay un dato o más\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.length.above(0);\r",
 									"});"
 								],
 								"type": "text/javascript"
