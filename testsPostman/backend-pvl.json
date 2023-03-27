@@ -40,9 +40,7 @@
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {\r",
 									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"\r",
-									""
+									"});\r"
 								],
 								"type": "text/javascript"
 							}
@@ -69,7 +67,8 @@
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
-									"});\r",
+									"   \r",
+									"}); \r",
 									""
 								],
 								"type": "text/javascript"
@@ -631,7 +630,20 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									""
+									"if(pm.response.to.have.status(200)) {\r",
+									"  if(Array.isArray(pm.response.json())) {\r",
+									"    // Si la respuesta es un array\r",
+									"    pm.test(\"Hay un dato o más\", function () {\r",
+									"        pm.expect(pm.response.json()).to.have.length.above(0);\r",
+									"    });\r",
+									"  } \r",
+									"  else {\r",
+									"    // Si la respuesta es un objeto\r",
+									"    pm.test(\"El objeto no está vacío\", function () {\r",
+									"        pm.expect(pm.response.json()).to.not.eql({});\r",
+									"    });\r",
+									"  }\r",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -1063,7 +1075,21 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"if(pm.response.to.have.status(200)) {\r",
+									"  if(Array.isArray(pm.response.json())) {\r",
+									"    // Si la respuesta es un array\r",
+									"    pm.test(\"Hay un dato o más\", function () {\r",
+									"        pm.expect(pm.response.json()).to.have.length.above(0);\r",
+									"    });\r",
+									"  } \r",
+									"  else {\r",
+									"    // Si la respuesta es un objeto\r",
+									"    pm.test(\"El objeto no está vacío\", function () {\r",
+									"        pm.expect(pm.response.json()).to.not.eql({});\r",
+									"    });\r",
+									"  }\r",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -1149,7 +1175,21 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"if(pm.response.to.have.status(200)) {\r",
+									"  if(Array.isArray(pm.response.json())) {\r",
+									"    // Si la respuesta es un array\r",
+									"    pm.test(\"Hay un dato o más\", function () {\r",
+									"        pm.expect(pm.response.json()).to.have.length.above(0);\r",
+									"    });\r",
+									"  } \r",
+									"  else {\r",
+									"    // Si la respuesta es un objeto\r",
+									"    pm.test(\"El objeto no está vacío\", function () {\r",
+									"        pm.expect(pm.response.json()).to.not.eql({});\r",
+									"    });\r",
+									"  }\r",
+									"}"
 								],
 								"type": "text/javascript"
 							}

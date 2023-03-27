@@ -9,7 +9,7 @@
     "test-market-prices-stats-gcloud": "npx newman run ./testsPostman/backend-jfs.json -e ./testsPostman/env/gcloud-jfs.json",
     "test-workingplaces-stats": "npx newman run ./testsPostman/backend-pvl.json -e ./testsPostman/env/localhost-pvl.json",
     "test-workingplaces-stats-gcloud": "npx newman run ./testsPostman/backend-pvl.json -e ./testsPostman/env/gcloud-pvl.json",
-    "test": "npm run market-prices-stats && npm run test-workingplaces-stats-gcloud"
+    "test": "npm run test-market-prices-stats-gcloud && npm run test-workingplaces-stats-gcloud"
   },
   "repository": {
     "type": "git",
