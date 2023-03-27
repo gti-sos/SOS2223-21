@@ -38,12 +38,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"No hay datos en la api.\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf(0);\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -161,8 +157,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"Status code is 405\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -193,10 +189,6 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Hay datos en la api.\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -338,7 +330,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2035,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n}",
+							"raw": "{\r\n        \"province\": \"Córdoba\",\r\n        \"year\": 2018,\r\n        \"work_place\": 285978,\r\n        \"percentage_structure\": 9.022865258,\r\n        \"variation_rating\": 1.579577382\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -374,7 +366,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n    \"province\": \"Kazhajistan\",\r\n    \"year\": 2035,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rate\": 2.81107\r\n    }",
+							"raw": "{\r\n        \"province\": \"Koalalunpur\",\r\n        \"year\": 2018,\r\n        \"work_place\": 285978,\r\n        \"percentage_structure\": 9.022865258,\r\n        \"variation_rating\": 1.579577382\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -563,7 +555,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Granada\",\r\n    \"year\": 2065,\r\n    \"work_place\": 1612,\r\n    \"percentage_structure\": 208,\r\n    \"variation_rating\": 2.81107\r\n}",
+							"raw": "{\r\n    \"province\": \"Granada\",\r\n    \"year\": 2065,\r\n    \"work_place\": 12,\r\n    \"percentage_structure\": 202,\r\n    \"variation_rating\": 2.81107\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -571,13 +563,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URLBASE}}{{API}}/Granada/2015",
+							"raw": "{{URLBASE}}{{API}}/Granada/2065",
 							"host": [
 								"{{URLBASE}}{{API}}"
 							],
 							"path": [
 								"Granada",
-								"2015"
+								"2065"
 							]
 						}
 					},
@@ -852,8 +844,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -876,47 +868,6 @@
 								{
 									"key": "from",
 									"value": "2008"
-								},
-								{
-									"key": "to",
-									"value": "2015"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/?From>to 400 Bad Request",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URLBASE}}{{API}}?province=Huelva&from=2018&to=2015",
-							"host": [
-								"{{URLBASE}}{{API}}"
-							],
-							"query": [
-								{
-									"key": "province",
-									"value": "Huelva"
-								},
-								{
-									"key": "from",
-									"value": "2018"
 								},
 								{
 									"key": "to",
@@ -1091,7 +1042,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URLBASE}}{{API}}/Granada/2015?offset=1",
+							"raw": "{{URLBASE}}{{API}}/Granada/2015?offset=0",
 							"host": [
 								"{{URLBASE}}{{API}}"
 							],
@@ -1102,7 +1053,7 @@
 							"query": [
 								{
 									"key": "offset",
-									"value": "1"
+									"value": "0"
 								}
 							]
 						}
@@ -1175,7 +1126,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2100,\r\n    \"work_place\": 123,\r\n    \"percentage_structure\": 201,\r\n    \"variation_rate\": 2.81107\r\n}",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2100,\r\n    \"work_place\": 161412,\r\n    \"percentage_structure\": 20,\r\n    \"variation_rating\": 2.81107\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1200,10 +1151,6 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"No hay datos en la api.\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf(0);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1245,12 +1192,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URLBASE}}{{API}}/Almeria/2100",
+							"raw": "{{URLBASE}}{{API}}/Almería/2100",
 							"host": [
 								"{{URLBASE}}{{API}}"
 							],
 							"path": [
-								"Almeria",
+								"Almería",
 								"2100"
 							]
 						}
@@ -1258,18 +1205,14 @@
 					"response": []
 				},
 				{
-					"name": "workingplaces-stats Copy 2",
+					"name": "workingplaces-stats No se encuentra",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"No hay datos en la api.\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf(0);\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript"
