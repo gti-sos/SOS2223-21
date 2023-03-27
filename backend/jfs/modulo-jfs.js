@@ -8,7 +8,7 @@ module.exports = {
     api: (app) => {
         //POSTMAN DOCUMENTATION
         app.get(rutaJorge + '/docs', function(req, res) {
-            res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93Jxr1Nx');
+            res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93RQTZb2');
         });
         /*------------GET------------*/
         //GET carga de datos
@@ -278,7 +278,7 @@ module.exports = {
                     console.log(`Ha habido un error borrando /${province}/${year}: ${err}`);
                     res.sendStatus(500);
                 } else {
-                    console.log(`Recurso /${province}/${year} borrado correctamnte.${dataRemoved}`);
+                    console.log(`Recurso /${province}/${year} borrado correctamnte.Datos borrados: ${dataRemoved}`);
                     res.status(200).send("El recurso se ha borrado correctamente.");
                 }
             });

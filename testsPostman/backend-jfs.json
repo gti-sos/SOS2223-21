@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "49929eb5-198d-4a07-9bd2-441be07dc148",
-		"name": "F06",
+		"_postman_id": "f8a341ee-1bc3-46a7-9129-432f7df6f587",
+		"name": "D01",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26013124"
 	},
@@ -10,278 +10,7 @@
 			"name": "GET",
 			"item": [
 				{
-					"name": "market-prices-stats SIN DATOS",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"No hay datos en la api.\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf(0);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
-							"host": [
-								"{{URL_BASE}}{{API}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "market-prices-stats SIN DATOS",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL_BASE}}{{API}}",
-									"host": [
-										"{{URL_BASE}}{{API}}"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "5dd4f3970948aece57ec460e4c65d85d;o=1"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 23 Mar 2023 14:17:33 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Google Frontend"
-								},
-								{
-									"key": "Content-Length",
-									"value": "2"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
-								}
-							],
-							"cookie": [],
-							"body": "[]"
-						}
-					]
-				},
-				{
-					"name": "loadInitialData",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL_BASE}}{{API}}/loadInitialData",
-							"host": [
-								"{{URL_BASE}}{{API}}"
-							],
-							"path": [
-								"loadInitialData"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "loadInitialData",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL_BASE}}{{API}}/loadInitialData",
-									"host": [
-										"{{URL_BASE}}{{API}}"
-									],
-									"path": [
-										"loadInitialData"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain; charset=utf-8"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"7-rM9AyJuqT6iOan/xHh+AW+7K/T8\""
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "9bf418b653087c7aa77a76e4dacd876e"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 23 Mar 2023 14:17:43 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Google Frontend"
-								},
-								{
-									"key": "Content-Length",
-									"value": "7"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
-								}
-							],
-							"cookie": [],
-							"body": "Created"
-						}
-					]
-				},
-				{
-					"name": "market-prices-stats",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Hay datos en la api.\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
-									"});\r",
-									"pm.test(\"Response must be valid and have a body\", function(){\r",
-									"    pm.response.to.be.ok;\r",
-									"    pm.response.to.be.withBody;\r",
-									"    pm.response.to.be.json;\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
-							"host": [
-								"{{URL_BASE}}{{API}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "market-prices-stats",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL_BASE}}{{API}}",
-									"host": [
-										"{{URL_BASE}}{{API}}"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"3496-DQ5FNUm0DnDJyQFYeLHsqt2jhOw\""
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "538cb587b5908d51d512d6d0b13120de"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 23 Mar 2023 14:18:02 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Google Frontend"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "private"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2015,\n        \"pib_current_price\": 37113834.8189008,\n        \"pib_percentage_structure\": 24.683768531,\n        \"pib_variation_rate\": 4.143272048\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2016,\n        \"pib_current_price\": 37676355,\n        \"pib_percentage_structure\": 24.39207947,\n        \"pib_variation_rate\": 1.515661704\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2015,\n        \"pib_current_price\": 9456611.07135688,\n        \"pib_percentage_structure\": 6.289428185,\n        \"pib_variation_rate\": 5.728349303\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2018,\n        \"pib_current_price\": 15946868,\n        \"pib_percentage_structure\": 9.477108526,\n        \"pib_variation_rate\": 3.702483067\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2008,\n        \"pib_current_price\": 10311179.0613307,\n        \"pib_percentage_structure\": 6.581354699,\n        \"pib_variation_rate\": -1.123456789\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2013,\n        \"pib_current_price\": 12768097.2175762,\n        \"pib_percentage_structure\": 9.004022766,\n        \"pib_variation_rate\": 1.722564424\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2017,\n        \"pib_current_price\": 33197931,\n        \"pib_percentage_structure\": 20.401347288,\n        \"pib_variation_rate\": 5.685905916\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2016,\n        \"pib_current_price\": 9833853,\n        \"pib_percentage_structure\": 6.366542726,\n        \"pib_variation_rate\": 3.989187308\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2012,\n        \"pib_current_price\": 9096691.45351555,\n        \"pib_percentage_structure\": 6.336493875,\n        \"pib_variation_rate\": -1.665132275\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2009,\n        \"pib_current_price\": 21034866.5150151,\n        \"pib_percentage_structure\": 14.100096544,\n        \"pib_variation_rate\": -6.330126601\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2014,\n        \"pib_current_price\": 15523813.0627917,\n        \"pib_percentage_structure\": 10.827526607,\n        \"pib_variation_rate\": -0.213976549\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2008,\n        \"pib_current_price\": 17140200.807136,\n        \"pib_percentage_structure\": 10.940139867,\n        \"pib_variation_rate\": -3.184750698\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2014,\n        \"pib_current_price\": 28876981.8898753,\n        \"pib_percentage_structure\": 20.141075422,\n        \"pib_variation_rate\": 3.411758667\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2017,\n        \"pib_current_price\": 39299863,\n        \"pib_percentage_structure\": 24.151208503,\n        \"pib_variation_rate\": 4.309089879\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2015,\n        \"pib_current_price\": 16170570.7801264,\n        \"pib_percentage_structure\": 10.754766466,\n        \"pib_variation_rate\": 4.166229745\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2019,\n        \"pib_current_price\": 23731666,\n        \"pib_percentage_structure\": 13.715379889,\n        \"pib_variation_rate\": 3.250527409\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2018,\n        \"pib_current_price\": 11019352,\n        \"pib_percentage_structure\": 6.54872134,\n        \"pib_variation_rate\": 4.590015774\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2016,\n        \"pib_current_price\": 16556710,\n        \"pib_percentage_structure\": 10.718993015,\n        \"pib_variation_rate\": 2.387913359\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2008,\n        \"pib_current_price\": 14185570.8724393,\n        \"pib_percentage_structure\": 9.054277204,\n        \"pib_variation_rate\": 3.091273797\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2011,\n        \"pib_current_price\": 13069854.3245865,\n        \"pib_percentage_structure\": 8.832603315,\n        \"pib_variation_rate\": -2.892196477\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2009,\n        \"pib_current_price\": 36826497.2836843,\n        \"pib_percentage_structure\": 24.6855461,\n        \"pib_variation_rate\": -3.306127285\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2011,\n        \"pib_current_price\": 28852964.2354658,\n        \"pib_percentage_structure\": 19.498823876,\n        \"pib_variation_rate\": -1.652390902\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2008,\n        \"pib_current_price\": 13722073.1785286,\n        \"pib_percentage_structure\": 8.758438803,\n        \"pib_variation_rate\": 0.590121048\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2011,\n        \"pib_current_price\": 16023926.6615057,\n        \"pib_percentage_structure\": 10.828964443,\n        \"pib_variation_rate\": 0.635469861\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2016,\n        \"pib_current_price\": 13162487,\n        \"pib_percentage_structure\": 8.521536357,\n        \"pib_variation_rate\": 1.450159531\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2015,\n        \"pib_current_price\": 12974338.3951531,\n        \"pib_percentage_structure\": 8.629007683,\n        \"pib_variation_rate\": 3.006282278\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2012,\n        \"pib_current_price\": 15490962.7368822,\n        \"pib_percentage_structure\": 10.790559512,\n        \"pib_variation_rate\": -3.326050698\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2010,\n        \"pib_current_price\": 21225978.0990184,\n        \"pib_percentage_structure\": 14.185888679,\n        \"pib_variation_rate\": 0.908546693\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2018,\n        \"pib_current_price\": 14101232,\n        \"pib_percentage_structure\": 8.380260375,\n        \"pib_variation_rate\": 2.099969438\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2010,\n        \"pib_current_price\": 37175135.2164488,\n        \"pib_percentage_structure\": 24.84513681,\n        \"pib_variation_rate\": 0.946704027\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2017,\n        \"pib_current_price\": 22506538,\n        \"pib_percentage_structure\": 13.831093811,\n        \"pib_variation_rate\": 5.785256738\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2008,\n        \"pib_current_price\": 9844393.2082066,\n        \"pib_percentage_structure\": 6.283417552,\n        \"pib_variation_rate\": -1.000932275\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2013,\n        \"pib_current_price\": 27924273.0827813,\n        \"pib_percentage_structure\": 19.692111226,\n        \"pib_variation_rate\": -2.265504335\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2009,\n        \"pib_current_price\": 10206474.8454378,\n        \"pib_percentage_structure\": 6.841606558,\n        \"pib_variation_rate\": -1.015443678\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2016,\n        \"pib_current_price\": 14309028,\n        \"pib_percentage_structure\": 9.263819393,\n        \"pib_variation_rate\": 2.191261917\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2019,\n        \"pib_current_price\": 16285761,\n        \"pib_percentage_structure\": 9.412124665,\n        \"pib_variation_rate\": 2.125138303\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2013,\n        \"pib_current_price\": 8601539.52423778,\n        \"pib_percentage_structure\": 6.065779135,\n        \"pib_variation_rate\": -5.443209015\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2010,\n        \"pib_current_price\": 9265442.84158686,\n        \"pib_percentage_structure\": 6.192343179,\n        \"pib_variation_rate\": 3.155025942\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2014,\n        \"pib_current_price\": 8944253.01601557,\n        \"pib_percentage_structure\": 6.238424614,\n        \"pib_variation_rate\": 3.98432735\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2010,\n        \"pib_current_price\": 15922742.4323176,\n        \"pib_percentage_structure\": 10.641594491,\n        \"pib_variation_rate\": -2.5473448\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2013,\n        \"pib_current_price\": 35711820.0086458,\n        \"pib_percentage_structure\": 25.183865292,\n        \"pib_variation_rate\": 0.788596587\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2009,\n        \"pib_current_price\": 8982056.62497767,\n        \"pib_percentage_structure\": 6.020854256,\n        \"pib_variation_rate\": -8.759672282\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2019,\n        \"pib_current_price\": 14233455,\n        \"pib_percentage_structure\": 8.22602351,\n        \"pib_variation_rate\": 0.937669843\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2014,\n        \"pib_current_price\": 35637285.1448325,\n        \"pib_percentage_structure\": 24.856241925,\n        \"pib_variation_rate\": -0.208712028\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2012,\n        \"pib_current_price\": 35432401.3011568,\n        \"pib_percentage_structure\": 24.681192602,\n        \"pib_variation_rate\": -5.161081638\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2014,\n        \"pib_current_price\": 12595676.7958826,\n        \"pib_percentage_structure\": 8.785214373,\n        \"pib_variation_rate\": 2.312160909\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2018,\n        \"pib_current_price\": 22984547,\n        \"pib_percentage_structure\": 13.659550347,\n        \"pib_variation_rate\": 2.123867296\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2015,\n        \"pib_current_price\": 14002203.0568559,\n        \"pib_percentage_structure\": 9.312622661,\n        \"pib_variation_rate\": 7.924935729\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2011,\n        \"pib_current_price\": 12151269.5877096,\n        \"pib_percentage_structure\": 8.211824048,\n        \"pib_variation_rate\": -6.038435125\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2015,\n        \"pib_current_price\": 30011963.9924112,\n        \"pib_percentage_structure\": 19.960437286,\n        \"pib_variation_rate\": 3.930404178\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2010,\n        \"pib_current_price\": 13459118.47493,\n        \"pib_percentage_structure\": 8.995088731,\n        \"pib_variation_rate\": 0.815721048\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2019,\n        \"pib_current_price\": 10993111,\n        \"pib_percentage_structure\": 6.353312638,\n        \"pib_variation_rate\": -0.2381356\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2012,\n        \"pib_current_price\": 12691366.3821625,\n        \"pib_percentage_structure\": 8.840441138,\n        \"pib_variation_rate\": -2.895884935\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2009,\n        \"pib_current_price\": 29099895.7008426,\n        \"pib_percentage_structure\": 19.506248756,\n        \"pib_variation_rate\": -5.908205079\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2016,\n        \"pib_current_price\": 21275685,\n        \"pib_percentage_structure\": 13.774108437,\n        \"pib_variation_rate\": 2.83733651\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2019,\n        \"pib_current_price\": 18197655,\n        \"pib_percentage_structure\": 10.517076695,\n        \"pib_variation_rate\": 3.297094843\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2019,\n        \"pib_current_price\": 36337218,\n        \"pib_percentage_structure\": 21.000579941,\n        \"pib_variation_rate\": 4.428117018\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2017,\n        \"pib_current_price\": 17008522,\n        \"pib_percentage_structure\": 10.452361148,\n        \"pib_variation_rate\": 2.728875483\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2018,\n        \"pib_current_price\": 11401167,\n        \"pib_percentage_structure\": 6.775631238,\n        \"pib_variation_rate\": 3.770771257\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2009,\n        \"pib_current_price\": 13350217.9372064,\n        \"pib_percentage_structure\": 8.948921148,\n        \"pib_variation_rate\": -2.709905686\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2011,\n        \"pib_current_price\": 10094725.4466485,\n        \"pib_percentage_structure\": 6.822012184,\n        \"pib_variation_rate\": -2.079338814\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2010,\n        \"pib_current_price\": 29337738.3550059,\n        \"pib_percentage_structure\": 19.60719494,\n        \"pib_variation_rate\": 0.817331638\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2017,\n        \"pib_current_price\": 10986877,\n        \"pib_percentage_structure\": 6.751839242,\n        \"pib_variation_rate\": 1.1725048158\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2010,\n        \"pib_current_price\": 12932170.3016892,\n        \"pib_percentage_structure\": 8.642915178,\n        \"pib_variation_rate\": -3.082391408\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2009,\n        \"pib_current_price\": 13343468.2195588,\n        \"pib_percentage_structure\": 8.944396675,\n        \"pib_variation_rate\": -5.936332492\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2012,\n        \"pib_current_price\": 9005628.32112348,\n        \"pib_percentage_structure\": 6.273061913,\n        \"pib_variation_rate\": -10.788774111\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2012,\n        \"pib_current_price\": 28571563.0830473,\n        \"pib_percentage_structure\": 19.902129845,\n        \"pib_variation_rate\": -0.975293735\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2013,\n        \"pib_current_price\": 12311026.063797,\n        \"pib_percentage_structure\": 8.681697598,\n        \"pib_variation_rate\": -2.996842948\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2010,\n        \"pib_current_price\": 10309086.2790033,\n        \"pib_percentage_structure\": 6.889837992,\n        \"pib_variation_rate\": 1.005356258\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2012,\n        \"pib_current_price\": 12551882.9473441,\n        \"pib_percentage_structure\": 8.743280985,\n        \"pib_variation_rate\": 3.296884797\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2016,\n        \"pib_current_price\": 31411881,\n        \"pib_percentage_structure\": 20.33639129,\n        \"pib_variation_rate\": 4.64529812\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2019,\n        \"pib_current_price\": 11737330,\n        \"pib_percentage_structure\": 6.783423458,\n        \"pib_variation_rate\": 2.948496413\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2018,\n        \"pib_current_price\": 34796393,\n        \"pib_percentage_structure\": 20.679245151,\n        \"pib_variation_rate\": 4.814944642\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2011,\n        \"pib_current_price\": 37360613.0408285,\n        \"pib_percentage_structure\": 25.24829018,\n        \"pib_variation_rate\": 0.498929791\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2009,\n        \"pib_current_price\": 16338951.8732772,\n        \"pib_percentage_structure\": 10.952329965,\n        \"pib_variation_rate\": -4.674676469\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2011,\n        \"pib_current_price\": 9250728.31633828,\n        \"pib_percentage_structure\": 6.251639197,\n        \"pib_variation_rate\": -0.158810815\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2012,\n        \"pib_current_price\": 20719832.7747681,\n        \"pib_percentage_structure\": 14.43284013,\n        \"pib_variation_rate\": -2.120717328\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2008,\n        \"pib_current_price\": 30927134.2153002,\n        \"pib_percentage_structure\": 19.73997725,\n        \"pib_variation_rate\": -2.111354335\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2017,\n        \"pib_current_price\": 10535759,\n        \"pib_percentage_structure\": 6.474610671,\n        \"pib_variation_rate\": 2.934189783\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2018,\n        \"pib_current_price\": 40400859,\n        \"pib_percentage_structure\": 24.009938834,\n        \"pib_variation_rate\": 2.801526306\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2017,\n        \"pib_current_price\": 13811201,\n        \"pib_percentage_structure\": 8.487490021,\n        \"pib_variation_rate\": 4.928506292\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2013,\n        \"pib_current_price\": 19705098.5745508,\n        \"pib_percentage_structure\": 13.895974721,\n        \"pib_variation_rate\": -4.897405357\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2014,\n        \"pib_current_price\": 12974020.2876508,\n        \"pib_percentage_structure\": 9.049100842,\n        \"pib_variation_rate\": 1.61279372\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2013,\n        \"pib_current_price\": 9225407.91646719,\n        \"pib_percentage_structure\": 6.505729201,\n        \"pib_variation_rate\": 2.44046931\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2011,\n        \"pib_current_price\": 21168762.3869171,\n        \"pib_percentage_structure\": 14.305842758,\n        \"pib_variation_rate\": -0.269555126\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2015,\n        \"pib_current_price\": 20688677.5970727,\n        \"pib_percentage_structure\": 13.759681033,\n        \"pib_variation_rate\": 5.876968065\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2014,\n        \"pib_current_price\": 19540300.3837954,\n        \"pib_percentage_structure\": 13.628940355,\n        \"pib_variation_rate\": -0.83632259\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2016,\n        \"pib_current_price\": 10235432,\n        \"pib_percentage_structure\": 6.626529311,\n        \"pib_variation_rate\": 2.98202336\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2015,\n        \"pib_current_price\": 9939047.28812306,\n        \"pib_percentage_structure\": 6.610288155,\n        \"pib_variation_rate\": 7.0873272\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2017,\n        \"pib_current_price\": 15377518,\n        \"pib_percentage_structure\": 9.450049316,\n        \"pib_variation_rate\": 7.467243757\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2014,\n        \"pib_current_price\": 9281254.41915606,\n        \"pib_percentage_structure\": 6.473475863,\n        \"pib_variation_rate\": 0.605355375\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2008,\n        \"pib_current_price\": 22456384.0557261,\n        \"pib_percentage_structure\": 14.333319967,\n        \"pib_variation_rate\": -0.36179259\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2018,\n        \"pib_current_price\": 17616812,\n        \"pib_percentage_structure\": 10.469544189,\n        \"pib_variation_rate\": 3.576383651\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2013,\n        \"pib_current_price\": 15557101.611944,\n        \"pib_percentage_structure\": 10.97082006,\n        \"pib_variation_rate\": 0.426951353\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2008,\n        \"pib_current_price\": 38085657.6013325,\n        \"pib_percentage_structure\": 24.309074658,\n        \"pib_variation_rate\": -2.654321285\n    }\n]"
-						}
-					]
-				},
-				{
-					"name": "/Almería/2039 404 NOT FOUND",
+					"name": "/Málaga/2020 404 NOT FOUND",
 					"event": [
 						{
 							"listen": "test",
@@ -299,30 +28,30 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Almería/2039",
+							"raw": "{{URL_BASE}}{{API}}/Málaga/2020",
 							"host": [
 								"{{URL_BASE}}{{API}}"
 							],
 							"path": [
-								"Almería",
-								"2039"
+								"Málaga",
+								"2020"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "/province/year 404 NOT FOUND",
+							"name": "/Málaga/2020 404 NOT FOUND",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL_BASE}}{{API}}/Almería/2039",
+									"raw": "{{URL_BASE}}{{API}}/Málaga/2020",
 									"host": [
 										"{{URL_BASE}}{{API}}"
 									],
 									"path": [
-										"Almería",
-										"2039"
+										"Málaga",
+										"2020"
 									]
 								}
 							},
@@ -331,40 +60,764 @@
 							"_postman_previewlanguage": "plain",
 							"header": [
 								{
-									"key": "Content-Type",
-									"value": "text/plain; charset=utf-8"
-								},
-								{
 									"key": "X-Powered-By",
 									"value": "Express"
 								},
 								{
-									"key": "ETag",
-									"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "5af16d74888f917847ba229977a88179;o=1"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 23 Mar 2023 14:18:07 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Google Frontend"
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
 								},
 								{
 									"key": "Content-Length",
 									"value": "9"
 								},
 								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+									"key": "ETag",
+									"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:00:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
 								}
 							],
 							"cookie": [],
 							"body": "Not Found"
+						}
+					]
+				},
+				{
+					"name": "/Granada/2015 404 NOT FOUND",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Granada/2015",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Granada",
+								"2015"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Granada/2015 404 NOT FOUND",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Granada/2015",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Granada",
+										"2015"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "9"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:00:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "Not Found"
+						}
+					]
+				},
+				{
+					"name": "/Sevilla/2015 404 NOT FOUND Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Sevilla/2015",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Sevilla",
+								"2015"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Sevilla/2015 404 NOT FOUND Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Sevilla/2015",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Sevilla",
+										"2015"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "9"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:00:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "Not Found"
+						}
+					]
+				},
+				{
+					"name": "/Almería/2010 404 NOT FOUND",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Almería/2010",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Almería",
+								"2010"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Almería/2010 404 NOT FOUND",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Almería/2010",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Almería",
+										"2010"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "9"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:00:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "Not Found"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "market-prices-stats malaga 2020",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Málaga\",\r\n    \"year\": 2020,\r\n    \"pib_current_price\": 149621412,\r\n    \"pib_percentage_structure\": 200,\r\n    \"pib_variation_rate\": 292281107\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "market-prices-stats malaga 2020",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"province\": \"Málaga\",\r\n    \"year\": 2020,\r\n    \"pib_current_price\": 149621412,\r\n    \"pib_percentage_structure\": 200,\r\n    \"pib_variation_rate\": 292281107\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"26-AHFjWGrPWDj7SSL3t2RKK9dcpFM\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:01:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "El recurso se ha creado correctamente."
+						}
+					]
+				},
+				{
+					"name": "market-prices-stats Granada 2015",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"province\": \"Granada\", \r\n    \"year\": 2015, \r\n    \"pib_current_price\": 16170570.7801264, \r\n    \"pib_percentage_structure\": 10.754766466, \r\n    \"pib_variation_rate\": 4.166229745\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "market-prices-stats Granada 2015",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"province\": \"Granada\", \r\n    \"year\": 2015, \r\n    \"pib_current_price\": 16170570.7801264, \r\n    \"pib_percentage_structure\": 10.754766466, \r\n    \"pib_variation_rate\": 4.166229745\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"26-AHFjWGrPWDj7SSL3t2RKK9dcpFM\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:01:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "El recurso se ha creado correctamente."
+						}
+					]
+				},
+				{
+					"name": "market-prices-stats sevilla 2015",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Sevilla\",\r\n    \"year\": 2015,\r\n    \"pib_current_price\": 37113834.8189008,\r\n    \"pib_percentage_structure\": 24.683768531,\r\n    \"pib_variation_rate\": 4.143272048\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "market-prices-stats sevilla 2015",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"province\": \"Sevilla\",\r\n    \"year\": 2015,\r\n    \"pib_current_price\": 37113834.8189008,\r\n    \"pib_percentage_structure\": 24.683768531,\r\n    \"pib_variation_rate\": 4.143272048\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"26-AHFjWGrPWDj7SSL3t2RKK9dcpFM\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:01:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "El recurso se ha creado correctamente."
+						}
+					]
+				},
+				{
+					"name": "market-prices-stats almeria 2010",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2010,\r\n    \"pib_current_price\": 12932170.301689200,\r\n    \"pib_percentage_structure\": 8.642915178,\r\n    \"pib_variation_rate\": -3.082391408\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "market-prices-stats almeria 2010",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2010,\r\n    \"pib_current_price\": 12932170.301689200,\r\n    \"pib_percentage_structure\": 8.642915178,\r\n    \"pib_variation_rate\": -3.082391408\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"26-AHFjWGrPWDj7SSL3t2RKK9dcpFM\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:01:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "El recurso se ha creado correctamente."
+						}
+					]
+				},
+				{
+					"name": "/Granada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"});\r",
+									"pm.test(\"Contains the same province that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Granada\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Granada",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Granada"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Granada",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Granada",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Granada"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "146"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"92-dUqKk+I4Y7FOenDNIcBAmSfQbAo\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:05:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"province\": \"Granada\",\n        \"year\": 2015,\n        \"pib_current_price\": 16170570.7801264,\n        \"pib_percentage_structure\": 10.754766466,\n        \"pib_variation_rate\": 4.166229745\n    }\n]"
 						}
 					]
 				},
@@ -417,7 +870,7 @@
 					},
 					"response": [
 						{
-							"name": "/province/year",
+							"name": "/Granada/2015",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -437,48 +890,32 @@
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8"
 								},
 								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
+									"key": "Content-Length",
+									"value": "144"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"90-v/pRas3LgyixZjMRaMhRaM++6NU\""
 								},
 								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "388d694ab76c51040117baaf3bf41fb7;o=1"
-								},
-								{
 									"key": "Date",
-									"value": "Thu, 23 Mar 2023 14:18:18 GMT"
+									"value": "Mon, 27 Mar 2023 19:05:14 GMT"
 								},
 								{
-									"key": "Server",
-									"value": "Google Frontend"
+									"key": "Connection",
+									"value": "keep-alive"
 								},
 								{
-									"key": "Cache-Control",
-									"value": "private"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
+									"key": "Keep-Alive",
+									"value": "timeout=5"
 								}
 							],
 							"cookie": [],
@@ -487,7 +924,7 @@
 					]
 				},
 				{
-					"name": "/Granada",
+					"name": "/Málaga/2020",
 					"event": [
 						{
 							"listen": "test",
@@ -503,12 +940,17 @@
 									"});\r",
 									"const jsonData = pm.response.json();\r",
 									"pm.test(\"Test data type of the response\", () => {\r",
-									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.province).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.year).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.pib_percentage_structure).to.be.an(\"number\");\r",
+									"    pm.expect(jsonData.pib_current_price).to.be.a(\"number\"); //to.be.undefined;\r",
+									"    pm.expect(jsonData.pib_variation_rate).to.be.a(\"number\"); //to.be.null;\r",
 									"});\r",
-									"pm.test(\"Contains the same province that requested\", () => {\r",
+									"pm.test(\"Contains the same province and year that requested\", () => {\r",
 									"    pm.expect(jsonData.province == \"Granada\");\r",
-									"});\r",
-									""
+									"    pm.expect(jsonData.year == \"2015\");\r",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -518,28 +960,30 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Granada",
+							"raw": "{{URL_BASE}}{{API}}/Málaga/2020",
 							"host": [
 								"{{URL_BASE}}{{API}}"
 							],
 							"path": [
-								"Granada"
+								"Málaga",
+								"2020"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "/Province",
+							"name": "/Málaga/2020",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL_BASE}}{{API}}/Granada",
+									"raw": "{{URL_BASE}}{{API}}/Málaga/2020",
 									"host": [
 										"{{URL_BASE}}{{API}}"
 									],
 									"path": [
-										"Granada"
+										"Málaga",
+										"2020"
 									]
 								}
 							},
@@ -548,52 +992,240 @@
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8"
 								},
 								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
+									"key": "Content-Length",
+									"value": "126"
 								},
+								{
+									"key": "ETag",
+									"value": "W/\"7e-Z34Tvouth3nnCmXUMc42e24a1cQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:05:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"province\": \"Málaga\",\n    \"year\": 2020,\n    \"pib_current_price\": 149621412,\n    \"pib_percentage_structure\": 200,\n    \"pib_variation_rate\": 292281107\n}"
+						}
+					]
+				},
+				{
+					"name": "/Almería/2010",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.province).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.year).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.pib_percentage_structure).to.be.an(\"number\");\r",
+									"    pm.expect(jsonData.pib_current_price).to.be.a(\"number\"); //to.be.undefined;\r",
+									"    pm.expect(jsonData.pib_variation_rate).to.be.a(\"number\"); //to.be.null;\r",
+									"});\r",
+									"pm.test(\"Contains the same province and year that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Granada\");\r",
+									"    pm.expect(jsonData.year == \"2015\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Almería/2010",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Almería",
+								"2010"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Almería/2010",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Almería/2010",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Almería",
+										"2010"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
 								{
 									"key": "X-Powered-By",
 									"value": "Express"
 								},
 								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "145"
+								},
+								{
 									"key": "ETag",
-									"value": "W/\"6ad-JA3fA/8XPyILHc+0ktDEvLdjxLQ\""
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "8f0b276b95bd087b0fe863023001420d"
+									"value": "W/\"91-726tDdUhw8ZibxZapTSbzIeLBoI\""
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 23 Mar 2023 14:18:24 GMT"
+									"value": "Mon, 27 Mar 2023 19:05:23 GMT"
 								},
 								{
-									"key": "Server",
-									"value": "Google Frontend"
+									"key": "Connection",
+									"value": "keep-alive"
 								},
 								{
-									"key": "Cache-Control",
-									"value": "private"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
+									"key": "Keep-Alive",
+									"value": "timeout=5"
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"province\": \"Granada\",\n        \"year\": 2014,\n        \"pib_current_price\": 15523813.0627917,\n        \"pib_percentage_structure\": 10.827526607,\n        \"pib_variation_rate\": -0.213976549\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2008,\n        \"pib_current_price\": 17140200.807136,\n        \"pib_percentage_structure\": 10.940139867,\n        \"pib_variation_rate\": -3.184750698\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2015,\n        \"pib_current_price\": 16170570.7801264,\n        \"pib_percentage_structure\": 10.754766466,\n        \"pib_variation_rate\": 4.166229745\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2016,\n        \"pib_current_price\": 16556710,\n        \"pib_percentage_structure\": 10.718993015,\n        \"pib_variation_rate\": 2.387913359\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2011,\n        \"pib_current_price\": 16023926.6615057,\n        \"pib_percentage_structure\": 10.828964443,\n        \"pib_variation_rate\": 0.635469861\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2012,\n        \"pib_current_price\": 15490962.7368822,\n        \"pib_percentage_structure\": 10.790559512,\n        \"pib_variation_rate\": -3.326050698\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2010,\n        \"pib_current_price\": 15922742.4323176,\n        \"pib_percentage_structure\": 10.641594491,\n        \"pib_variation_rate\": -2.5473448\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2019,\n        \"pib_current_price\": 18197655,\n        \"pib_percentage_structure\": 10.517076695,\n        \"pib_variation_rate\": 3.297094843\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2017,\n        \"pib_current_price\": 17008522,\n        \"pib_percentage_structure\": 10.452361148,\n        \"pib_variation_rate\": 2.728875483\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2009,\n        \"pib_current_price\": 16338951.8732772,\n        \"pib_percentage_structure\": 10.952329965,\n        \"pib_variation_rate\": -4.674676469\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2018,\n        \"pib_current_price\": 17616812,\n        \"pib_percentage_structure\": 10.469544189,\n        \"pib_variation_rate\": 3.576383651\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2013,\n        \"pib_current_price\": 15557101.611944,\n        \"pib_percentage_structure\": 10.97082006,\n        \"pib_variation_rate\": 0.426951353\n    }\n]"
+							"body": "{\n    \"province\": \"Almería\",\n    \"year\": 2010,\n    \"pib_current_price\": 12932170.3016892,\n    \"pib_percentage_structure\": 8.642915178,\n    \"pib_variation_rate\": -3.082391408\n}"
+						}
+					]
+				},
+				{
+					"name": "/Sevilla/2015",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData.province).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.year).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.pib_percentage_structure).to.be.an(\"number\");\r",
+									"    pm.expect(jsonData.pib_current_price).to.be.a(\"number\"); //to.be.undefined;\r",
+									"    pm.expect(jsonData.pib_variation_rate).to.be.a(\"number\"); //to.be.null;\r",
+									"});\r",
+									"pm.test(\"Contains the same province and year that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Granada\");\r",
+									"    pm.expect(jsonData.year == \"2015\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Sevilla/2015",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Sevilla",
+								"2015"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Sevilla/2015",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Sevilla/2015",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Sevilla",
+										"2015"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "144"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"90-DlxhIUL/Ib9Gbt/IrlgqJOjGreY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:05:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"province\": \"Sevilla\",\n    \"year\": 2015,\n    \"pib_current_price\": 37113834.8189008,\n    \"pib_percentage_structure\": 24.683768531,\n    \"pib_variation_rate\": 4.143272048\n}"
 						}
 					]
 				},
@@ -649,139 +1281,24 @@
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8"
 								},
 								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"3496-DQ5FNUm0DnDJyQFYeLHsqt2jhOw\""
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "dd51d60bc97f8f56a87469c24646dabb;o=1"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 23 Mar 2023 14:18:30 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Google Frontend"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "private"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2015,\n        \"pib_current_price\": 37113834.8189008,\n        \"pib_percentage_structure\": 24.683768531,\n        \"pib_variation_rate\": 4.143272048\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2016,\n        \"pib_current_price\": 37676355,\n        \"pib_percentage_structure\": 24.39207947,\n        \"pib_variation_rate\": 1.515661704\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2015,\n        \"pib_current_price\": 9456611.07135688,\n        \"pib_percentage_structure\": 6.289428185,\n        \"pib_variation_rate\": 5.728349303\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2018,\n        \"pib_current_price\": 15946868,\n        \"pib_percentage_structure\": 9.477108526,\n        \"pib_variation_rate\": 3.702483067\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2008,\n        \"pib_current_price\": 10311179.0613307,\n        \"pib_percentage_structure\": 6.581354699,\n        \"pib_variation_rate\": -1.123456789\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2013,\n        \"pib_current_price\": 12768097.2175762,\n        \"pib_percentage_structure\": 9.004022766,\n        \"pib_variation_rate\": 1.722564424\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2017,\n        \"pib_current_price\": 33197931,\n        \"pib_percentage_structure\": 20.401347288,\n        \"pib_variation_rate\": 5.685905916\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2016,\n        \"pib_current_price\": 9833853,\n        \"pib_percentage_structure\": 6.366542726,\n        \"pib_variation_rate\": 3.989187308\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2012,\n        \"pib_current_price\": 9096691.45351555,\n        \"pib_percentage_structure\": 6.336493875,\n        \"pib_variation_rate\": -1.665132275\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2009,\n        \"pib_current_price\": 21034866.5150151,\n        \"pib_percentage_structure\": 14.100096544,\n        \"pib_variation_rate\": -6.330126601\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2014,\n        \"pib_current_price\": 15523813.0627917,\n        \"pib_percentage_structure\": 10.827526607,\n        \"pib_variation_rate\": -0.213976549\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2008,\n        \"pib_current_price\": 17140200.807136,\n        \"pib_percentage_structure\": 10.940139867,\n        \"pib_variation_rate\": -3.184750698\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2014,\n        \"pib_current_price\": 28876981.8898753,\n        \"pib_percentage_structure\": 20.141075422,\n        \"pib_variation_rate\": 3.411758667\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2017,\n        \"pib_current_price\": 39299863,\n        \"pib_percentage_structure\": 24.151208503,\n        \"pib_variation_rate\": 4.309089879\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2015,\n        \"pib_current_price\": 16170570.7801264,\n        \"pib_percentage_structure\": 10.754766466,\n        \"pib_variation_rate\": 4.166229745\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2019,\n        \"pib_current_price\": 23731666,\n        \"pib_percentage_structure\": 13.715379889,\n        \"pib_variation_rate\": 3.250527409\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2018,\n        \"pib_current_price\": 11019352,\n        \"pib_percentage_structure\": 6.54872134,\n        \"pib_variation_rate\": 4.590015774\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2016,\n        \"pib_current_price\": 16556710,\n        \"pib_percentage_structure\": 10.718993015,\n        \"pib_variation_rate\": 2.387913359\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2008,\n        \"pib_current_price\": 14185570.8724393,\n        \"pib_percentage_structure\": 9.054277204,\n        \"pib_variation_rate\": 3.091273797\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2011,\n        \"pib_current_price\": 13069854.3245865,\n        \"pib_percentage_structure\": 8.832603315,\n        \"pib_variation_rate\": -2.892196477\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2009,\n        \"pib_current_price\": 36826497.2836843,\n        \"pib_percentage_structure\": 24.6855461,\n        \"pib_variation_rate\": -3.306127285\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2011,\n        \"pib_current_price\": 28852964.2354658,\n        \"pib_percentage_structure\": 19.498823876,\n        \"pib_variation_rate\": -1.652390902\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2008,\n        \"pib_current_price\": 13722073.1785286,\n        \"pib_percentage_structure\": 8.758438803,\n        \"pib_variation_rate\": 0.590121048\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2011,\n        \"pib_current_price\": 16023926.6615057,\n        \"pib_percentage_structure\": 10.828964443,\n        \"pib_variation_rate\": 0.635469861\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2016,\n        \"pib_current_price\": 13162487,\n        \"pib_percentage_structure\": 8.521536357,\n        \"pib_variation_rate\": 1.450159531\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2015,\n        \"pib_current_price\": 12974338.3951531,\n        \"pib_percentage_structure\": 8.629007683,\n        \"pib_variation_rate\": 3.006282278\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2012,\n        \"pib_current_price\": 15490962.7368822,\n        \"pib_percentage_structure\": 10.790559512,\n        \"pib_variation_rate\": -3.326050698\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2010,\n        \"pib_current_price\": 21225978.0990184,\n        \"pib_percentage_structure\": 14.185888679,\n        \"pib_variation_rate\": 0.908546693\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2018,\n        \"pib_current_price\": 14101232,\n        \"pib_percentage_structure\": 8.380260375,\n        \"pib_variation_rate\": 2.099969438\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2010,\n        \"pib_current_price\": 37175135.2164488,\n        \"pib_percentage_structure\": 24.84513681,\n        \"pib_variation_rate\": 0.946704027\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2017,\n        \"pib_current_price\": 22506538,\n        \"pib_percentage_structure\": 13.831093811,\n        \"pib_variation_rate\": 5.785256738\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2008,\n        \"pib_current_price\": 9844393.2082066,\n        \"pib_percentage_structure\": 6.283417552,\n        \"pib_variation_rate\": -1.000932275\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2013,\n        \"pib_current_price\": 27924273.0827813,\n        \"pib_percentage_structure\": 19.692111226,\n        \"pib_variation_rate\": -2.265504335\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2009,\n        \"pib_current_price\": 10206474.8454378,\n        \"pib_percentage_structure\": 6.841606558,\n        \"pib_variation_rate\": -1.015443678\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2016,\n        \"pib_current_price\": 14309028,\n        \"pib_percentage_structure\": 9.263819393,\n        \"pib_variation_rate\": 2.191261917\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2019,\n        \"pib_current_price\": 16285761,\n        \"pib_percentage_structure\": 9.412124665,\n        \"pib_variation_rate\": 2.125138303\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2013,\n        \"pib_current_price\": 8601539.52423778,\n        \"pib_percentage_structure\": 6.065779135,\n        \"pib_variation_rate\": -5.443209015\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2010,\n        \"pib_current_price\": 9265442.84158686,\n        \"pib_percentage_structure\": 6.192343179,\n        \"pib_variation_rate\": 3.155025942\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2014,\n        \"pib_current_price\": 8944253.01601557,\n        \"pib_percentage_structure\": 6.238424614,\n        \"pib_variation_rate\": 3.98432735\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2010,\n        \"pib_current_price\": 15922742.4323176,\n        \"pib_percentage_structure\": 10.641594491,\n        \"pib_variation_rate\": -2.5473448\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2013,\n        \"pib_current_price\": 35711820.0086458,\n        \"pib_percentage_structure\": 25.183865292,\n        \"pib_variation_rate\": 0.788596587\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2009,\n        \"pib_current_price\": 8982056.62497767,\n        \"pib_percentage_structure\": 6.020854256,\n        \"pib_variation_rate\": -8.759672282\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2019,\n        \"pib_current_price\": 14233455,\n        \"pib_percentage_structure\": 8.22602351,\n        \"pib_variation_rate\": 0.937669843\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2014,\n        \"pib_current_price\": 35637285.1448325,\n        \"pib_percentage_structure\": 24.856241925,\n        \"pib_variation_rate\": -0.208712028\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2012,\n        \"pib_current_price\": 35432401.3011568,\n        \"pib_percentage_structure\": 24.681192602,\n        \"pib_variation_rate\": -5.161081638\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2014,\n        \"pib_current_price\": 12595676.7958826,\n        \"pib_percentage_structure\": 8.785214373,\n        \"pib_variation_rate\": 2.312160909\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2018,\n        \"pib_current_price\": 22984547,\n        \"pib_percentage_structure\": 13.659550347,\n        \"pib_variation_rate\": 2.123867296\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2015,\n        \"pib_current_price\": 14002203.0568559,\n        \"pib_percentage_structure\": 9.312622661,\n        \"pib_variation_rate\": 7.924935729\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2011,\n        \"pib_current_price\": 12151269.5877096,\n        \"pib_percentage_structure\": 8.211824048,\n        \"pib_variation_rate\": -6.038435125\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2015,\n        \"pib_current_price\": 30011963.9924112,\n        \"pib_percentage_structure\": 19.960437286,\n        \"pib_variation_rate\": 3.930404178\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2010,\n        \"pib_current_price\": 13459118.47493,\n        \"pib_percentage_structure\": 8.995088731,\n        \"pib_variation_rate\": 0.815721048\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2019,\n        \"pib_current_price\": 10993111,\n        \"pib_percentage_structure\": 6.353312638,\n        \"pib_variation_rate\": -0.2381356\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2012,\n        \"pib_current_price\": 12691366.3821625,\n        \"pib_percentage_structure\": 8.840441138,\n        \"pib_variation_rate\": -2.895884935\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2009,\n        \"pib_current_price\": 29099895.7008426,\n        \"pib_percentage_structure\": 19.506248756,\n        \"pib_variation_rate\": -5.908205079\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2016,\n        \"pib_current_price\": 21275685,\n        \"pib_percentage_structure\": 13.774108437,\n        \"pib_variation_rate\": 2.83733651\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2019,\n        \"pib_current_price\": 18197655,\n        \"pib_percentage_structure\": 10.517076695,\n        \"pib_variation_rate\": 3.297094843\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2019,\n        \"pib_current_price\": 36337218,\n        \"pib_percentage_structure\": 21.000579941,\n        \"pib_variation_rate\": 4.428117018\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2017,\n        \"pib_current_price\": 17008522,\n        \"pib_percentage_structure\": 10.452361148,\n        \"pib_variation_rate\": 2.728875483\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2018,\n        \"pib_current_price\": 11401167,\n        \"pib_percentage_structure\": 6.775631238,\n        \"pib_variation_rate\": 3.770771257\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2009,\n        \"pib_current_price\": 13350217.9372064,\n        \"pib_percentage_structure\": 8.948921148,\n        \"pib_variation_rate\": -2.709905686\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2011,\n        \"pib_current_price\": 10094725.4466485,\n        \"pib_percentage_structure\": 6.822012184,\n        \"pib_variation_rate\": -2.079338814\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2010,\n        \"pib_current_price\": 29337738.3550059,\n        \"pib_percentage_structure\": 19.60719494,\n        \"pib_variation_rate\": 0.817331638\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2017,\n        \"pib_current_price\": 10986877,\n        \"pib_percentage_structure\": 6.751839242,\n        \"pib_variation_rate\": 1.1725048158\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2010,\n        \"pib_current_price\": 12932170.3016892,\n        \"pib_percentage_structure\": 8.642915178,\n        \"pib_variation_rate\": -3.082391408\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2009,\n        \"pib_current_price\": 13343468.2195588,\n        \"pib_percentage_structure\": 8.944396675,\n        \"pib_variation_rate\": -5.936332492\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2012,\n        \"pib_current_price\": 9005628.32112348,\n        \"pib_percentage_structure\": 6.273061913,\n        \"pib_variation_rate\": -10.788774111\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2012,\n        \"pib_current_price\": 28571563.0830473,\n        \"pib_percentage_structure\": 19.902129845,\n        \"pib_variation_rate\": -0.975293735\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2013,\n        \"pib_current_price\": 12311026.063797,\n        \"pib_percentage_structure\": 8.681697598,\n        \"pib_variation_rate\": -2.996842948\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2010,\n        \"pib_current_price\": 10309086.2790033,\n        \"pib_percentage_structure\": 6.889837992,\n        \"pib_variation_rate\": 1.005356258\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2012,\n        \"pib_current_price\": 12551882.9473441,\n        \"pib_percentage_structure\": 8.743280985,\n        \"pib_variation_rate\": 3.296884797\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2016,\n        \"pib_current_price\": 31411881,\n        \"pib_percentage_structure\": 20.33639129,\n        \"pib_variation_rate\": 4.64529812\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2019,\n        \"pib_current_price\": 11737330,\n        \"pib_percentage_structure\": 6.783423458,\n        \"pib_variation_rate\": 2.948496413\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2018,\n        \"pib_current_price\": 34796393,\n        \"pib_percentage_structure\": 20.679245151,\n        \"pib_variation_rate\": 4.814944642\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2011,\n        \"pib_current_price\": 37360613.0408285,\n        \"pib_percentage_structure\": 25.24829018,\n        \"pib_variation_rate\": 0.498929791\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2009,\n        \"pib_current_price\": 16338951.8732772,\n        \"pib_percentage_structure\": 10.952329965,\n        \"pib_variation_rate\": -4.674676469\n    },\n    {\n        \"province\": \"Huelva\",\n        \"year\": 2011,\n        \"pib_current_price\": 9250728.31633828,\n        \"pib_percentage_structure\": 6.251639197,\n        \"pib_variation_rate\": -0.158810815\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2012,\n        \"pib_current_price\": 20719832.7747681,\n        \"pib_percentage_structure\": 14.43284013,\n        \"pib_variation_rate\": -2.120717328\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2008,\n        \"pib_current_price\": 30927134.2153002,\n        \"pib_percentage_structure\": 19.73997725,\n        \"pib_variation_rate\": -2.111354335\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2017,\n        \"pib_current_price\": 10535759,\n        \"pib_percentage_structure\": 6.474610671,\n        \"pib_variation_rate\": 2.934189783\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2018,\n        \"pib_current_price\": 40400859,\n        \"pib_percentage_structure\": 24.009938834,\n        \"pib_variation_rate\": 2.801526306\n    },\n    {\n        \"province\": \"Córdoba\",\n        \"year\": 2017,\n        \"pib_current_price\": 13811201,\n        \"pib_percentage_structure\": 8.487490021,\n        \"pib_variation_rate\": 4.928506292\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2013,\n        \"pib_current_price\": 19705098.5745508,\n        \"pib_percentage_structure\": 13.895974721,\n        \"pib_variation_rate\": -4.897405357\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2014,\n        \"pib_current_price\": 12974020.2876508,\n        \"pib_percentage_structure\": 9.049100842,\n        \"pib_variation_rate\": 1.61279372\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2013,\n        \"pib_current_price\": 9225407.91646719,\n        \"pib_percentage_structure\": 6.505729201,\n        \"pib_variation_rate\": 2.44046931\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2011,\n        \"pib_current_price\": 21168762.3869171,\n        \"pib_percentage_structure\": 14.305842758,\n        \"pib_variation_rate\": -0.269555126\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2015,\n        \"pib_current_price\": 20688677.5970727,\n        \"pib_percentage_structure\": 13.759681033,\n        \"pib_variation_rate\": 5.876968065\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2014,\n        \"pib_current_price\": 19540300.3837954,\n        \"pib_percentage_structure\": 13.628940355,\n        \"pib_variation_rate\": -0.83632259\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2016,\n        \"pib_current_price\": 10235432,\n        \"pib_percentage_structure\": 6.626529311,\n        \"pib_variation_rate\": 2.98202336\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2015,\n        \"pib_current_price\": 9939047.28812306,\n        \"pib_percentage_structure\": 6.610288155,\n        \"pib_variation_rate\": 7.0873272\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2017,\n        \"pib_current_price\": 15377518,\n        \"pib_percentage_structure\": 9.450049316,\n        \"pib_variation_rate\": 7.467243757\n    },\n    {\n        \"province\": \"Jaén\",\n        \"year\": 2014,\n        \"pib_current_price\": 9281254.41915606,\n        \"pib_percentage_structure\": 6.473475863,\n        \"pib_variation_rate\": 0.605355375\n    },\n    {\n        \"province\": \"Cádiz\",\n        \"year\": 2008,\n        \"pib_current_price\": 22456384.0557261,\n        \"pib_percentage_structure\": 14.333319967,\n        \"pib_variation_rate\": -0.36179259\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2018,\n        \"pib_current_price\": 17616812,\n        \"pib_percentage_structure\": 10.469544189,\n        \"pib_variation_rate\": 3.576383651\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2013,\n        \"pib_current_price\": 15557101.611944,\n        \"pib_percentage_structure\": 10.97082006,\n        \"pib_variation_rate\": 0.426951353\n    },\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2008,\n        \"pib_current_price\": 38085657.6013325,\n        \"pib_percentage_structure\": 24.309074658,\n        \"pib_variation_rate\": -2.654321285\n    }\n]"
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "POST",
-			"item": [
-				{
-					"name": "market-prices-stats",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Málaga\",\r\n    \"year\": 2020,\r\n    \"pib_current_price\": 149621412,\r\n    \"pib_percentage_structure\": 200,\r\n    \"pib_variation_rate\": 292281107\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
-							"host": [
-								"{{URL_BASE}}{{API}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "market-prices-stats",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"province\": \"Málaga\",\r\n    \"year\": 2020,\r\n    \"pib_current_price\": 149621412,\r\n    \"pib_percentage_structure\": 200,\r\n    \"pib_variation_rate\": 292281107\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{URL_BASE}}{{API}}",
-									"host": [
-										"{{URL_BASE}}{{API}}"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
 									"key": "Content-Length",
-									"value": "38"
+									"value": "564"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"26-AHFjWGrPWDj7SSL3t2RKK9dcpFM\""
+									"value": "W/\"234-DZ34iwAG15/jpLMUQOmLqq2LXcY\""
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 19 Mar 2023 08:50:26 GMT"
+									"value": "Mon, 27 Mar 2023 19:05:29 GMT"
 								},
 								{
 									"key": "Connection",
@@ -793,12 +1310,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "El recurso se ha creado correctamente."
+							"body": "[\n    {\n        \"province\": \"Sevilla\",\n        \"year\": 2015,\n        \"pib_current_price\": 37113834.8189008,\n        \"pib_percentage_structure\": 24.683768531,\n        \"pib_variation_rate\": 4.143272048\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2015,\n        \"pib_current_price\": 16170570.7801264,\n        \"pib_percentage_structure\": 10.754766466,\n        \"pib_variation_rate\": 4.166229745\n    },\n    {\n        \"province\": \"Málaga\",\n        \"year\": 2020,\n        \"pib_current_price\": 149621412,\n        \"pib_percentage_structure\": 200,\n        \"pib_variation_rate\": 292281107\n    },\n    {\n        \"province\": \"Almería\",\n        \"year\": 2010,\n        \"pib_current_price\": 12932170.3016892,\n        \"pib_percentage_structure\": 8.642915178,\n        \"pib_variation_rate\": -3.082391408\n    }\n]"
 						}
 					]
 				},
 				{
-					"name": "ERROR 409",
+					"name": "ERROR 409 existente",
 					"event": [
 						{
 							"listen": "test",
@@ -817,7 +1334,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Huelva\",\r\n    \"year\": 2012,\r\n    \"pib_current_price\": 9096691.45351555,\r\n    \"pib_percentage_structure\": 6.336493875,\r\n    \"pib_variation_rate\": -1.665132275\r\n}",
+							"raw": "{ \r\n    \"province\": \"Granada\", \r\n    \"year\": 2015, \r\n    \"pib_current_price\": 16170570.7801264, \r\n    \"pib_percentage_structure\": 10.754766466, \r\n    \"pib_variation_rate\": 4.166229745\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -833,13 +1350,13 @@
 					},
 					"response": [
 						{
-							"name": "ERROR 409",
+							"name": "ERROR 409 existente",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"province\": \"Huelva\",\r\n    \"year\": 2012,\r\n    \"pib_current_price\": 9096691.45351555,\r\n    \"pib_percentage_structure\": 6.336493875,\r\n    \"pib_variation_rate\": -1.665132275\r\n}",
+									"raw": "{ \r\n    \"province\": \"Granada\", \r\n    \"year\": 2015, \r\n    \"pib_current_price\": 16170570.7801264, \r\n    \"pib_percentage_structure\": 10.754766466, \r\n    \"pib_variation_rate\": 4.166229745\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -875,7 +1392,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 19 Mar 2023 09:10:24 GMT"
+									"value": "Mon, 27 Mar 2023 19:11:25 GMT"
 								},
 								{
 									"key": "Connection",
@@ -969,7 +1486,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 19 Mar 2023 08:51:07 GMT"
+									"value": "Mon, 27 Mar 2023 19:11:28 GMT"
 								},
 								{
 									"key": "Connection",
@@ -1063,7 +1580,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 19 Mar 2023 08:51:14 GMT"
+									"value": "Mon, 27 Mar 2023 19:11:32 GMT"
 								},
 								{
 									"key": "Connection",
@@ -1165,7 +1682,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 19 Mar 2023 08:51:19 GMT"
+									"value": "Mon, 27 Mar 2023 19:21:08 GMT"
 								},
 								{
 									"key": "Connection",
@@ -2958,7 +3475,7 @@
 									"});\r",
 									"pm.test(\"Size of the response array is what limit request wanted\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf(5);\r",
+									"    pm.expect(jsonData).to.have.lengthOf(1);\r",
 									"});\r",
 									"const jsonData = pm.response.json();\r",
 									"pm.test(\"Test data type of the response\", () => {\r",
@@ -2977,7 +3494,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Granada?limit=5",
+							"raw": "{{URL_BASE}}{{API}}/Granada?limit=1",
 							"host": [
 								"{{URL_BASE}}{{API}}"
 							],
@@ -2987,19 +3504,19 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "5"
+									"value": "1"
 								}
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "/Province?limit=1",
+							"name": "/Granada?limit=1",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL_BASE}}{{API}}/Granada?limit=5",
+									"raw": "{{URL_BASE}}{{API}}/Granada?limit=1",
 									"host": [
 										"{{URL_BASE}}{{API}}"
 									],
@@ -3009,7 +3526,7 @@
 									"query": [
 										{
 											"key": "limit",
-											"value": "5"
+											"value": "1"
 										}
 									]
 								}
@@ -3019,52 +3536,36 @@
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
 									"key": "X-Powered-By",
 									"value": "Express"
 								},
 								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "146"
+								},
+								{
 									"key": "ETag",
-									"value": "W/\"2cf-dUYv5ks+gNQpd5BdPAJ0kik2DXI\""
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "351a32ea8e416410f610d3140a840abc"
+									"value": "W/\"92-dUqKk+I4Y7FOenDNIcBAmSfQbAo\""
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 23 Mar 2023 14:20:05 GMT"
+									"value": "Mon, 27 Mar 2023 19:21:23 GMT"
 								},
 								{
-									"key": "Server",
-									"value": "Google Frontend"
+									"key": "Connection",
+									"value": "keep-alive"
 								},
 								{
-									"key": "Cache-Control",
-									"value": "private"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
+									"key": "Keep-Alive",
+									"value": "timeout=5"
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"province\": \"Granada\",\n        \"year\": 2014,\n        \"pib_current_price\": 15523813.0627917,\n        \"pib_percentage_structure\": 10.827526607,\n        \"pib_variation_rate\": -0.213976549\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2008,\n        \"pib_current_price\": 17140200.807136,\n        \"pib_percentage_structure\": 10.940139867,\n        \"pib_variation_rate\": -3.184750698\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2015,\n        \"pib_current_price\": 16170570.7801264,\n        \"pib_percentage_structure\": 10.754766466,\n        \"pib_variation_rate\": 4.166229745\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2016,\n        \"pib_current_price\": 16556710,\n        \"pib_percentage_structure\": 10.718993015,\n        \"pib_variation_rate\": 2.387913359\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2011,\n        \"pib_current_price\": 16023926.6615057,\n        \"pib_percentage_structure\": 10.828964443,\n        \"pib_variation_rate\": 0.635469861\n    }\n]"
+							"body": "[\n    {\n        \"province\": \"Granada\",\n        \"year\": 2015,\n        \"pib_current_price\": 16170570.7801264,\n        \"pib_percentage_structure\": 10.754766466,\n        \"pib_variation_rate\": 4.166229745\n    }\n]"
 						}
 					]
 				},
@@ -3208,7 +3709,7 @@
 									"});\r",
 									"pm.test(\"Size of the response array is what limit request wanted\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf(5);\r",
+									"    pm.expect(jsonData).to.have.lengthOf(2);\r",
 									"});\r",
 									"const jsonData = pm.response.json();\r",
 									"pm.test(\"Test data type of the response\", () => {\r",
@@ -3223,18 +3724,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}?limit=5&offset=8",
+							"raw": "{{URL_BASE}}{{API}}?limit=2&offset=1",
 							"host": [
 								"{{URL_BASE}}{{API}}"
 							],
 							"query": [
 								{
 									"key": "limit",
-									"value": "5"
+									"value": "2"
 								},
 								{
 									"key": "offset",
-									"value": "8"
+									"value": "1"
 								}
 							]
 						}
@@ -3547,7 +4048,7 @@
 					]
 				},
 				{
-					"name": "?pib_variation_rate_lower=0&limit=2&offset=25",
+					"name": "?pib_variation_rate_over=0&limit=1",
 					"event": [
 						{
 							"listen": "test",
@@ -3563,7 +4064,7 @@
 									"});\r",
 									"pm.test(\"Size of the response array is what limit request wanted\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf(2);\r",
+									"    pm.expect(jsonData).to.have.lengthOf(1);\r",
 									"});\r",
 									"const jsonData = pm.response.json();\r",
 									"pm.test(\"Test data type of the response\", () => {\r",
@@ -3578,22 +4079,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}?pib_variation_rate_lower=0&limit=2&offset=25",
+							"raw": "{{URL_BASE}}{{API}}?pib_variation_rate_over=0&limit=1",
 							"host": [
 								"{{URL_BASE}}{{API}}"
 							],
 							"query": [
 								{
-									"key": "pib_variation_rate_lower",
+									"key": "pib_variation_rate_over",
 									"value": "0"
 								},
 								{
 									"key": "limit",
-									"value": "2"
-								},
-								{
-									"key": "offset",
-									"value": "25"
+									"value": "1"
 								}
 							]
 						}
@@ -3685,7 +4182,7 @@
 			"name": "DELETE",
 			"item": [
 				{
-					"name": "market-prices-stats/province/year",
+					"name": "market-prices-stats/Málaga/2020",
 					"event": [
 						{
 							"listen": "test",
@@ -3703,13 +4200,517 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Almería/2010",
+							"raw": "{{URL_BASE}}{{API}}/Málaga/2020",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Málaga",
+								"2020"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "market-prices-stats/Málaga/2020",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Málaga/2020",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Málaga",
+										"2020"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "39"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"27-Xz80Elw1TFUQ8Hpdtq/K8/DjD8E\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:21:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "El recurso se ha borrado correctamente."
+						}
+					]
+				},
+				{
+					"name": "/Málaga/2020 404 NOT FOUND",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Málaga/2020",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Málaga",
+								"2020"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Málaga/2020 404 NOT FOUND",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Málaga/2020",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Málaga",
+										"2020"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "9"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:21:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "Not Found"
+						}
+					]
+				},
+				{
+					"name": "market-prices-stats/Granada/2015",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Granada/2015",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Granada",
+								"2015"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "market-prices-stats/Granada/2015",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Granada/2015",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Granada",
+										"2015"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "39"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"27-Xz80Elw1TFUQ8Hpdtq/K8/DjD8E\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:21:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "El recurso se ha borrado correctamente."
+						}
+					]
+				},
+				{
+					"name": "/Granada/2015 404 NOT FOUND",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Granada/2015",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Granada",
+								"2015"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Granada/2015 404 NOT FOUND",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Granada/2015",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Granada",
+										"2015"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "9"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:21:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "Not Found"
+						}
+					]
+				},
+				{
+					"name": "market-prices-stats/Sevilla/2015",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Sevilla/2015",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Sevilla",
+								"2015"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "market-prices-stats/Sevilla/2015",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Sevilla/2015",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Sevilla",
+										"2015"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "39"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"27-Xz80Elw1TFUQ8Hpdtq/K8/DjD8E\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:28:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "El recurso se ha borrado correctamente."
+						}
+					]
+				},
+				{
+					"name": "/Sevilla/2015 404 NOT FOUND",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Sevilla/2015",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Sevilla",
+								"2015"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Sevilla/2015 404 NOT FOUND",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_BASE}}{{API}}/Sevilla/2015",
+									"host": [
+										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Sevilla",
+										"2015"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "9"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Mar 2023 19:28:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "Not Found"
+						}
+					]
+				},
+				{
+					"name": "market-prices-stats/Almería/2010",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}/Almería/2015",
 							"host": [
 								"{{URL_BASE}}{{API}}"
 							],
 							"path": [
 								"Almería",
-								"2010"
+								"2015"
 							]
 						}
 					},
@@ -3769,14 +4770,14 @@
 					]
 				},
 				{
-					"name": "market-prices-stats",
+					"name": "/Almería/2010 404 NOT FOUND",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -3784,31 +4785,39 @@
 						}
 					],
 					"request": {
-						"method": "DELETE",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
+							"raw": "{{URL_BASE}}{{API}}/Almería/2015",
 							"host": [
 								"{{URL_BASE}}{{API}}"
+							],
+							"path": [
+								"Almería",
+								"2015"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "market-prices-stats",
+							"name": "/Almería/2010 404 NOT FOUND",
 							"originalRequest": {
-								"method": "DELETE",
+								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL_BASE}}{{API}}",
+									"raw": "{{URL_BASE}}{{API}}/Almería/2015",
 									"host": [
 										"{{URL_BASE}}{{API}}"
+									],
+									"path": [
+										"Almería",
+										"2015"
 									]
 								}
 							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -3816,19 +4825,19 @@
 								},
 								{
 									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
+									"value": "text/plain; charset=utf-8"
 								},
 								{
 									"key": "Content-Length",
-									"value": "39"
+									"value": "9"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"27-RD8578v8te+70u2zqPT1ByVz54A\""
+									"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 19 Mar 2023 08:54:23 GMT"
+									"value": "Mon, 27 Mar 2023 19:28:43 GMT"
 								},
 								{
 									"key": "Connection",
@@ -3840,7 +4849,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Los datos se han borrado correctamente."
+							"body": "Not Found"
 						}
 					]
 				},
@@ -3854,10 +4863,7 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"pm.test(\"No hay datos en la api.\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf(0);\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -3908,7 +4914,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sun, 19 Mar 2023 08:54:28 GMT"
+									"value": "Mon, 27 Mar 2023 19:29:31 GMT"
 								},
 								{
 									"key": "Connection",
