@@ -24,7 +24,7 @@ module.exports =  {
             db.find({}, async (error, data) => {
                 if(error){
                     console.log(`Error loading Initial Data: ${error}.`);
-                    resp.sendStatus(500);
+                    response.sendStatus(500);
                 }else if(data.length != 0){
                     console.log(`There are data ${data.length} loaded.`);
                     response.sendStatus(201);
@@ -32,7 +32,7 @@ module.exports =  {
                     let datos = await csv.load('./backend/pvl/Datos/Datos.csv');
                     db.insert(datos);
                     console.log(`Inserted ${datos.length} data in the database.`);
-                    response.status(201).json(datos);
+                    response.SendStatus(201);
                 }
             });
 
