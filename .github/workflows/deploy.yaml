@@ -17,7 +17,7 @@ jobs:
       - name: 'Inicia servidor node'
         run: npm start & 
       - name: 'Pruebas métodos en local'
-        run: npm run test-market-prices-stats
+        run: npm test
       
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
