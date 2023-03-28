@@ -32,7 +32,7 @@ module.exports =  {
                     let datos = await csv.load('./backend/pvl/Datos/Datos.csv');
                     db.insert(datos);
                     console.log(`Inserted ${datos.length} data in the database.`);
-                    response.SendStatus(201);
+                    response.sendStatus(201);
                 }
             });
 
