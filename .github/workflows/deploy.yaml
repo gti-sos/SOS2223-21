@@ -35,7 +35,4 @@ jobs:
       - name: 'Esperar antes de ejecutar las pruebas de gcloud'
         run: sleep 15
       - name: 'Pruebas métodos en gcloud'
-        run: npm run test-market-prices-stats-gcloud 
-
-      - name: 'Pruebas métodos en gcloud pvl'
-        run: npm run test-workingplaces-stats-gcloud 
+        run: npm run test-gcloud
