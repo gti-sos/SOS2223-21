@@ -17,7 +17,7 @@ jobs:
       - name: 'Inicia servidor node'
         run: npm start & 
       - name: 'Pruebas métodos en local'
-        run: npm run test-market-prices-stats
+        run: npm test
       
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
@@ -35,4 +35,4 @@ jobs:
       - name: 'Esperar antes de ejecutar las pruebas de gcloud'
         run: sleep 15
       - name: 'Pruebas métodos en gcloud'
-        run: npm run test-market-prices-stats-gcloud
+        run: npm run test-gcloud

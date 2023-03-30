@@ -1,20 +1,16 @@
 //Importaciones
 const pvl = require("./index-PVL.js");
-
 var csv = require('csvdata');
-var Datastore = require(`nedb`);
-var db = new Datastore();
+var Datastore = require(`nedb`), db = new Datastore();
+const ruta = "/api/v1/workingplaces-stats";
+const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
+var workinplaces_stats = pvl.datos_ejemplos_pablo;
 
 module.exports =  {
     api:(app) =>{
-        const ruta = "/api/v1/workingplaces-stats";
-        const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
-        var workinplaces_stats = pvl.datos_ejemplos_pablo;
-        
-    
         //___________________________________________________DOCS________________________________________________\\
         app.get(ruta + '/docs', function (req, res) {
-            res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93K1oKMy');
+            res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
                 });
 
         //__________________________________________________GETS__________________________________________________\\
@@ -32,13 +28,14 @@ module.exports =  {
                     let datos = await csv.load('./backend/pvl/Datos/Datos.csv');
                     db.insert(datos);
                     console.log(`Inserted ${datos.length} data in the database.`);
-                    response.SendStatus(201);
+                    response.sendStatus(201);
                 }
-            });
+            });});
 
 
                                                     //GET GLOBAL\\
-            app.get(ruta , (req, res) => {
+            app.get(ruta, (req, res) => {
+                console.log("Comienzo");
                 const from = parseInt(req.query.from);
                 const to = parseInt(req.query.to);
                 const limit = parseInt(req.query.limit);
@@ -62,8 +59,11 @@ module.exports =  {
                 }
                 console.log(queryParams);
                 console.log(requer);
-                obj = Object.fromEntries(queryParams);
-                console.log(obj);
+                if(queryParams.length ==0){
+                obj = {};
+                }else{
+                    obj = Object.fromEntries(queryParams);
+                
                 db.find(obj, async (err, data) => {
                     if (err) {
                         console.log(`Sometime has grown: ${err}.`);
@@ -102,11 +102,11 @@ module.exports =  {
                             console.log("Data not found");
                         }
                     };
-            });
+            });}
 
 
         });                            
-        app.get(ruta+"/:province/:year" , (req, res) => {
+        app.get(ruta+`/:province/:year` , (req, res) => {
             const from = parseInt(req.query.from);
             const to = parseInt(req.query.to);
             const limit = parseInt(req.query.limit);
@@ -186,12 +186,7 @@ module.exports =  {
                                                         //POST ruta\\
         app.post(ruta, (req, res) => {
         console.log("new post attempt to /workingplaces-stats");
-        var vacios = 0;
-            for (const campo in req.body) {
-                if (req.body[campo] === '') {
-                  vacios+=1;
-                } }
-        if (vacios !=0 || !req.body || !req.body.province || !req.body.work_place || !req.body.percentage_structure || !req.body.variation_rating) {
+        if (!req.body || !req.body.province || !req.body.work_place || !req.body.percentage_structure || !req.body.variation_rating) {
             res.status(400).send("Data needs to be inserted or fields are missing.");
         } else {
             const newData = req.body;
@@ -298,28 +293,26 @@ module.exports =  {
     
                                             //CORRECT PUT\\
 app.put(ruta + '/:province/:year', (request, response) => {
+    
     const province = request.params.province;
     const year = parseInt(request.params.year);
-    var vacios = 0;
+    console.log(`New PUT for ${province}`);
     db.find({ province: province, year: year }, async (err, data) => {
-        console.log(province, "D",request.body.province);
-        console.log(year, "Y",request.body.year);
-        for (const campo in request.body) {
-            if (request.body[campo] === '') {
-              vacios+=1;
-            } }
+        console.log(data);
         if (err) {
             console.log(`Something has gone wrong: ${err}.`);
             response.sendStatus(500);
             
-        }else if(province != request.body.province || year != request.body.year || data.length == 0){
-            response.status(400).send("Data not found")
+        }else if(province != request.body.province && provincias.includes(request.body.province)|| year != request.body.year && provincias.includes(request.body.province)){
+            
+                response.status(400).send("Data not found");
         }
          else {
-            if (vacios !=0 || Object.keys(request.body).length != 5) {
+            if (Object.keys(request.body).length != 5) {
                 response.status(400).send("Any field of the body is empty or the total is less than 5");
             } else {
                 if (provincias.includes(request.body.province)) {
+                    console.log(request.body.province)
                     db.update({ province: province, year: year }, {
                         $set: request.body}, {}, async (error, dat) => {
                         if (error) {
@@ -337,10 +330,4 @@ app.put(ruta + '/:province/:year', (request, response) => {
             }
         }
     });
-});
-
-    })
-
-
-}
-}
+});}}
