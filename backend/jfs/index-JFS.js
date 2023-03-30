@@ -95,6 +95,4 @@ var datos_jorge = [
     { province: "Sevilla", year: 2017, pib_current_price: 39299863, pib_percentage_structure: 24.151208503, pib_variation_rate: 4.309089879 },
     { province: "Sevilla", year: 2018, pib_current_price: 40400859, pib_percentage_structure: 24.009938834, pib_variation_rate: 2.801526306 },
 ];
-module.exports = {
-    datos_jorge: datos_jorge
-}
+export { datos_jorge }
