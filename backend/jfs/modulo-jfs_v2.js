@@ -215,6 +215,7 @@ function loadBackend_jorge(app) {
     app.put(rutaJorge + '/:province' + '/:year', (req, res) => {
         const province = req.params.province;
         const year = parseInt(req.params.year);
+        console.log("New PUT to /market-prices-stats/" + province + "/" + year);
         db.find({ province: province, year: year }, async (err, data) => {
             if (err) {
                 console.log(`Algo ha salido mal: ${err}.`);
@@ -235,13 +236,20 @@ function loadBackend_jorge(app) {
                                 pib_percentage_structure: req.body.pib_percentage_structure,
                                 pib_variation_rate: req.body.pib_variation_rate
                             }
-                        }, {}, async (error, dat) => {
+                        }, {}, async (error, dataRemoved) => {
+                            if (dataRemoved === 0) {
+                                res.sendStatus(404);
+                            } else {
+                                if (dataRemoved === 1) {
+                                    res.status(200).send("Estadística actualizada correctamente");
+                                }
+                                else {
+                                    res.sendStatus(500);
+                                }
+                            }
                             if (error) {
                                 console.log(`Algo ha salido mal: ${err}.`);
                                 res.sendStatus(500);
-                            } else {
-                                res.status(200).send("Estadística actualizada correctamente");
-                                console.log("New PUT to /market-prices-stats/" + province + "/" + year);
                             }
                         });
                     } else {

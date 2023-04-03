@@ -62,6 +62,48 @@
             getMks();
         }
     }
+    async function deleteMks() {
+        resultStatus = result = "";
+        const res = await fetch(API, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                province: newMks.province,
+                year: newMks.year,
+                pib_current_price: newMks.pib_current_price,
+                pib_percentage_structure: newMks.pib_percentage_structure,
+                pib_variation_rate: newMks.pib_variation_rate,
+            }),
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 200) {
+            getMks();
+        }
+    }
+    async function editMks() {
+        resultStatus = result = "";
+        const res = await fetch(API, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                province: newMks.province,
+                year: newMks.year,
+                pib_current_price: newMks.pib_current_price,
+                pib_percentage_structure: newMks.pib_percentage_structure,
+                pib_variation_rate: newMks.pib_variation_rate,
+            }),
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 200) {
+            getMks();
+        }
+    }
 </script>
 
 <h1>mks</h1>
@@ -88,11 +130,13 @@
 
         {#each mks as x}
             <tr>
-                <td>{x.province}</td>
+                <td><a href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
                 <td>{x.year}</td>
                 <td>{x.pib_current_price}</td>
                 <td>{x.pib_percentage_structure}</td>
                 <td>{x.pib_variation_rate}</td>
+                <td><Button on:click={deleteMks}>Delete</Button></td>
+                <td><Button on:click><a href="/market-prices-stats/{x.province}/{x.year}">Edit</Button></td>
                 <td>&nbsp</td>
             </tr>
         {/each}

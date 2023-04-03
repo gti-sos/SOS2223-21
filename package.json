@@ -11,7 +11,7 @@
     "test-workingplaces-stats": "npx newman run ./testsPostman/backend-pvl.json -e ./testsPostman/env/localhost-pvl.json",
     "test-workingplaces-stats-gcloud": "npx newman run ./testsPostman/backend-pvl.json -e ./testsPostman/env/gcloud-pvl.json",
     "test-gcloud": "npm run test-market-prices-stats-gcloud && npm run test-workingplaces-stats-gcloud",
-    "test": "npm run test-market-prices-stats && npm run test-workingplaces-stats"
+    "test": "npm run test-market-prices-stats "
   },
   "repository": {
     "type": "git",
