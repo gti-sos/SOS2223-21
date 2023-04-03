@@ -9,7 +9,7 @@
 		},
 		{
 			"key": "API",
-			"value": "/api/v1/market-prices-stats",
+			"value": "/api/v2/market-prices-stats",
 			"type": "default",
 			"enabled": true
 		}
