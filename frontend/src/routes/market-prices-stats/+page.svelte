@@ -1,13 +1,26 @@
 <script>
     // @ts-nocheck
+
     import { onMount } from "svelte";
     import { dev } from "$app/environment";
+    import { Button, Table } from "sveltestrap";
 
-    let API = "/api/v1/market-prices-stats";
+    onMount(async () => {
+        getMks();
+    });
+
+    let API = "/api/v2/market-prices-stats";
 
     if (dev) API = "http://localhost:12345" + API;
 
     let mks = [];
+    let newMks = {
+        province: "Cádiz",
+        year: 2008,
+        pib_current_price: 22456384.0557261,
+        pib_percentage_structure: 14.333319967,
+        pib_variation_rate: -0.36179259,
+    };
 
     let result = "";
     let resultStatus = "";
@@ -18,7 +31,7 @@
             method: "GET",
         });
         try {
-            const data = await res.json(); //dats siendo objeto
+            const data = await res.json();
             result = JSON.stringify(data, null, 2);
             mks = data;
         } catch (error) {
@@ -27,22 +40,69 @@
         const status = await res.status;
         resultStatus = status;
     }
-    //cuando cargue al componente que llame a la funcion
-    onMount(async () => {
-        getMks();
-    });
+    
+    async function createMks() {
+        resultStatus = result = "";
+        const res = await fetch(API, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                province: newMks.province,
+                year: newMks.year,
+                pib_current_price: newMks.pib_current_price,
+                pib_percentage_structure: newMks.pib_percentage_structure,
+                pib_variation_rate: newMks.pib_variation_rate,
+            }),
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 201) {
+            getMks();
+        }
+    }
 </script>
-<h1>Market-prices-stats</h1>
-<ul>
-    {#each mks as mks}
-        <li>{mks.name}</li>
-    {/each}
-</ul>
+
+<h1>mks</h1>
+
+<Table>
+    <thead>
+        <tr>
+            <th>Province</th>
+            <th>Year</th>
+            <th>PIB Current Price</th>
+            <th>PIB Percentage Structure</th>
+            <th>PIB Variation Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input bind:value={newMks.province} /></td>
+            <td><input bind:value={newMks.year} /></td>
+            <td><input bind:value={newMks.pib_current_price} /></td>
+            <td><input bind:value={newMks.pib_percentage_structure} /></td>
+            <td><input bind:value={newMks.pib_variation_rate} /></td>
+            <td><Button on:click={createMks}>Create</Button></td>
+        </tr>
+
+        {#each mks as x}
+            <tr>
+                <td>{x.province}</td>
+                <td>{x.year}</td>
+                <td>{x.pib_current_price}</td>
+                <td>{x.pib_percentage_structure}</td>
+                <td>{x.pib_variation_rate}</td>
+                <td>&nbsp</td>
+            </tr>
+        {/each}
+    </tbody>
+</Table>
 
 {#if resultStatus != ""}
-    <p>Result:</p>
+    <p>Depuración:</p>
     <pre>
-    {resultStatus}
-    {result}
-        </pre>
+{resultStatus}
+{result}
+    </pre>
 {/if}

@@ -1,6 +1,6 @@
 <nav>
     <a href="/">Home</a>
-    <a href="/market-prices-stats">mks</a>
+    <a href="/market-prices-stats">MKS</a>
     <a href="/about">About</a>
 
 </nav>

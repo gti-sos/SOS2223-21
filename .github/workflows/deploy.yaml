@@ -18,6 +18,8 @@ jobs:
         run: npm start & 
       - name: 'Pruebas métodos en local'
         run: npm test
+      - name: 'Actualizando frontend producción'
+        run: cd frontend; npm run build
       
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
