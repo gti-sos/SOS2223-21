@@ -20,8 +20,7 @@ jobs:
         run: npm start & 
       - name: 'Pruebas métodos en local'
         run: npm test
-      
-      
+
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
         with:
@@ -36,6 +35,6 @@ jobs:
       - name: Deploy
         run: gcloud app deploy
       - name: 'Esperar antes de ejecutar las pruebas de gcloud'
-        run: sleep 15
+        run: sleep 20
       - name: 'Pruebas métodos en gcloud'
         run: npm run test-gcloud

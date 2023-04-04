@@ -50,7 +50,7 @@
             },
             body: JSON.stringify({
                 province: newMks.province,
-                year: newMks.year,
+                year: parseInt(newMks.year),
                 pib_current_price: newMks.pib_current_price,
                 pib_percentage_structure: newMks.pib_percentage_structure,
                 pib_variation_rate: newMks.pib_variation_rate,
@@ -62,20 +62,10 @@
             getMks();
         }
     }
-    async function deleteMks() {
+    async function deleteMks(province, year) {
         resultStatus = result = "";
-        const res = await fetch(API+"/"+newMks.province+"/"+newMks.year, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                province: newMks.province,
-                year: newMks.year,
-                pib_current_price: newMks.pib_current_price,
-                pib_percentage_structure: newMks.pib_percentage_structure,
-                pib_variation_rate: newMks.pib_variation_rate,
-            }),
+        const res = await fetch(API+"/"+ province+"/"+ year, {
+            method: "DELETE"
         });
         const status = await res.status;
         resultStatus = status;
@@ -114,7 +104,7 @@
                 <td>{x.pib_current_price}</td>
                 <td>{x.pib_percentage_structure}</td>
                 <td>{x.pib_variation_rate}</td>
-                <td><Button color="danger" on:click={deleteMks}>Delete</Button></td>
+                <td><Button color="danger" on:click={deleteMks(x.province, x.year)}>Delete</Button></td>
                 <td><Button on:click><a href="/market-prices-stats/{x.province}/{x.year}">Edit</a></Button></td>
                 <td>&nbsp</td>
             </tr>

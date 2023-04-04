@@ -53,6 +53,7 @@ function loadBackend_jorge(app) {
         if (!isNaN(pib_variation_rate_lower)) filteredConditions.set('pib_variation_rate', { '$lte': pib_variation_rate_lower });
         if (filteredConditions.length === 0) obj = {};
         else obj = Object.fromEntries(filteredConditions);
+        console.log(obj);
         db.find(obj).skip(offset).limit(limit).exec(async (err, data) => {
             if (err) {
                 console.log(`Algo ha salido mal: ${err}.`);
@@ -268,7 +269,7 @@ function loadBackend_jorge(app) {
                 console.log(`Ha habido un error borrando ${dataRemoved.length} datos: ${err}`);
                 res.sendStatus(500);
             } else {
-                res.status(200).send("Los datos se han borrado correctamente.");
+                res.status(200).send(`Los datos se han borrado correctamente. Datos borrados: ${dataRemoved}`);
                 console.log(`Se han borrado los datos correctamente.`)
             }
         });
@@ -282,7 +283,7 @@ function loadBackend_jorge(app) {
                 console.log(`Ha habido un error borrando /${province}/${year}: ${err}`);
                 res.sendStatus(500);
             } else {
-                console.log(`Recurso /${province}/${year} borrado correctamnte.Datos borrados: ${dataRemoved}`);
+                console.log(`Recurso /${province}/${year} borrado correctamnte. Datos borrados: ${dataRemoved}`);
                 res.status(200).send("El recurso se ha borrado correctamente.");
             }
         });
