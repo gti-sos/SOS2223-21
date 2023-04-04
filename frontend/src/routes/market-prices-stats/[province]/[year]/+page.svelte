@@ -11,7 +11,7 @@
     });
 
     let province = $page.params.province;
-    let year = parseInt($page.params.year);
+    let year = $page.params.year;
 
     let API = "/api/v2/market-prices-stats" + "/" + province + "/" + year;
 
@@ -19,9 +19,9 @@
 
     let updatedMks_province = province;
     let updatedMks_year = year;
-    let updatedMks_pib_current_price = 0;
-    let updatedMks_pib_percentage_structure = 0;
-    let updatedMks_pib_variation_rate = 0;
+    let updatedMks_pib_current_price = "";
+    let updatedMks_pib_percentage_structure = "";
+    let updatedMks_pib_variation_rate = "";
 
     let result = "";
     let resultStatus = "";
@@ -69,7 +69,7 @@
     }
 </script>
 
-<h1>Resource details</h1>
+<h2>Resource details</h2>
 
 <Table>
     <thead>
@@ -88,15 +88,21 @@
             <td><input bind:value={updatedMks_pib_current_price} /></td>
             <td><input bind:value={updatedMks_pib_percentage_structure} /></td>
             <td><input bind:value={updatedMks_pib_variation_rate} /></td>
-            <td><Button on:click={updateMks}>Update</Button></td>
+            <td><Button color="primary" on:click={updateMks}>Update</Button></td>
         </tr>
     </tbody>
 </Table>
 
 {#if resultStatus != ""}
-    <p>Depuración:</p>
+    <h6>Depuración:</h6>    
     <pre>
-{resultStatus}
+    {resultStatus}
 {result}
     </pre>
 {/if}
+
+<style>
+    h6,h2 {
+        margin-left: 1%;
+    }
+</style>

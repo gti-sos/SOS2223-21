@@ -7,7 +7,7 @@ var db = new Datastore();
 function loadBackend_jorge(app) {
     //POSTMAN DOCUMENTATION
     app.get(rutaJorge + '/docs', function (req, res) {
-        res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93RQTZb2');
+        res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93Jxr1Nx');
     });
     /*------------GET------------*/
     //GET carga de datos

@@ -40,7 +40,7 @@
         const status = await res.status;
         resultStatus = status;
     }
-    
+
     async function createMks() {
         resultStatus = result = "";
         const res = await fetch(API, {
@@ -64,29 +64,8 @@
     }
     async function deleteMks() {
         resultStatus = result = "";
-        const res = await fetch(API, {
+        const res = await fetch(API+"/"+newMks.province+"/"+newMks.year, {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                province: newMks.province,
-                year: newMks.year,
-                pib_current_price: newMks.pib_current_price,
-                pib_percentage_structure: newMks.pib_percentage_structure,
-                pib_variation_rate: newMks.pib_variation_rate,
-            }),
-        });
-        const status = await res.status;
-        resultStatus = status;
-        if (status == 200) {
-            getMks();
-        }
-    }
-    async function editMks() {
-        resultStatus = result = "";
-        const res = await fetch(API, {
-            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -106,9 +85,9 @@
     }
 </script>
 
-<h1>mks</h1>
+<h2>Market-prices-stats</h2>
 
-<Table>
+<Table bordered striped >
     <thead>
         <tr>
             <th>Province</th>
@@ -125,28 +104,40 @@
             <td><input bind:value={newMks.pib_current_price} /></td>
             <td><input bind:value={newMks.pib_percentage_structure} /></td>
             <td><input bind:value={newMks.pib_variation_rate} /></td>
-            <td><Button on:click={createMks}>Create</Button></td>
+            <td><Button color="primary" on:click={createMks}>Create</Button></td>
         </tr>
 
         {#each mks as x}
             <tr>
-                <td><a href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
+                <td><a class="perso"href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
                 <td>{x.year}</td>
                 <td>{x.pib_current_price}</td>
                 <td>{x.pib_percentage_structure}</td>
                 <td>{x.pib_variation_rate}</td>
-                <td><Button on:click={deleteMks}>Delete</Button></td>
-                <td><Button on:click><a href="/market-prices-stats/{x.province}/{x.year}">Edit</Button></td>
+                <td><Button color="danger" on:click={deleteMks}>Delete</Button></td>
+                <td><Button on:click><a href="/market-prices-stats/{x.province}/{x.year}">Edit</a></Button></td>
                 <td>&nbsp</td>
             </tr>
         {/each}
     </tbody>
 </Table>
-
 {#if resultStatus != ""}
-    <p>Depuración:</p>
+    <h6>Depuración:</h6>    
     <pre>
-{resultStatus}
+    {resultStatus}
 {result}
     </pre>
 {/if}
+
+<style>
+    a {
+        text-decoration: none;
+        color: white;
+    }
+    .perso{
+        color: #1e90ff;
+    }
+    h2,h6{
+        margin-left: 2%;
+    }
+</style>

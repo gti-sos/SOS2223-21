@@ -186,10 +186,7 @@ function loadBackend_jorge(app) {
                     res.status(400).send("Hay que insertar datos o faltan campos.");
                 } else {
                     if (data.some(x =>
-                        x.province === body.province &&
-                        x.pib_current_price === body.pib_current_price &&
-                        x.pib_percentage_structure === body.pib_percentage_structure &&
-                        x.pib_variation_rate === body.pib_variation_rate)) {
+                        x.province === body.province && x.year === body.year)) {
                         res.status(409).send("El recurso ya existe.");
                     } else {
                         if (datos_jorge.some(x => x.province === body.province)) {

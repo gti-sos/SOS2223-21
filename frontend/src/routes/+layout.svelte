@@ -4,9 +4,6 @@
 </script>
 
 <main>
-    <Header/>
-    <hr/>
-        <slot></slot>
-    <hr/>
-    <Footer/>
+    <Header />
+    <slot />
 </main>
