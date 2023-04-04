@@ -1,14 +1,11 @@
 <p>
-    Our sources of information are oriented to analyze the data of the annual
-    provincial accounting of Andalusia. More specifically, comparing the gross
-    domestic product at market prices, total jobs and the remuneration of
-    employees.
+    Nuestras fuentes de información esta orientadas a analizar los datos de la contabilidad pronvincial anual de Andalucía. Más concretamente comparando entre producto interior bruto a precios de mercado, puestos de trabajo totales y la remuneración de asalariados.
 </p>
 <p>
-    Made with love from <a
+    Hecho con cariño desde <a
         href="https://en.wikipedia.org/wiki/Seville">☀️</a
     >
-    by <a href="https://github.com/gti-sos/SOS2223-21">SOS2223-21 team</a>
+    , del equipo <a href="https://github.com/gti-sos/SOS2223-21">SOS2223-21.</a>
 </p>
 
 <style>
@@ -17,5 +14,7 @@
     }
     p {
         margin-left: 2%;
+        margin-top: 3%;
+        margin-right: 2%;
     }
 </style>

@@ -69,16 +69,16 @@
     }
 </script>
 
-<h2>Resource details</h2>
+<h2>Detalles del recurso</h2>
 
 <Table>
     <thead>
         <tr>
-            <th>Province</th>
-            <th>Year</th>
-            <th>PIB Current Price</th>
-            <th>PIB Percentage Structure</th>
-            <th>PIB Variation Rate</th>
+            <th>Provincia</th>
+            <th>Año</th>
+            <th>PIB Precios corrientes</th>
+            <th>PIB Estructura porcentual</th>
+            <th>PIB Tasas de variación</th>
         </tr>
     </thead>
     <tbody>
@@ -88,7 +88,7 @@
             <td><input bind:value={updatedMks_pib_current_price} /></td>
             <td><input bind:value={updatedMks_pib_percentage_structure} /></td>
             <td><input bind:value={updatedMks_pib_variation_rate} /></td>
-            <td><Button color="primary" on:click={updateMks}>Update</Button></td>
+            <td><Button color="primary" on:click={updateMks}>Actualizar</Button></td>
         </tr>
     </tbody>
 </Table>
@@ -102,7 +102,11 @@
 {/if}
 
 <style>
-    h6,h2 {
+    h6{
         margin-left: 1%;
+    }
+    h2{
+        margin-left: 1%;
+        margin-top: 0.5%;
     }
 </style>

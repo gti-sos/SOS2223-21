@@ -1,6 +1,6 @@
 
 <section>
-    <h2>Team</h2>
+    <h2>Equipo</h2>
     <ul>
         <li>
             <a href="https://github.com/jorgefl8">Jorge Florentino Serra</a> : market-prices-stats
@@ -24,25 +24,25 @@
         </li>
     </ul>
 
-    <h2>Repository</h2>
+    <h2>Repositorio</h2>
     <ul>
         <li>
             <a href="https://github.com/gti-sos/SOS2223-21">gti-sos/SOS2223-21</a>
         </li>
     </ul>
-    <h2>Documentation POSTMAN</h2>
+    <h2>Documentación POSTMAN</h2>
     <ul>
         <li>
             <a href="https://sos2223-21.ew.r.appspot.com/api/v2/market-prices-stats/docs">
-                /market-prices-stats/docs</a>(developed by<a href="https://github.com/jorgefl8">Jorge Florentino Serra</a>)
+                /market-prices-stats/docs</a>(hecho por <a href="https://github.com/jorgefl8">Jorge Florentino Serra</a>)
         </li>
         <li>
             <a href="https://sos2223-21.ew.r.appspot.com/api/v1/workingplaces-stats/docs">
-            /workingplaces-stats/docs</a>(developed by<a href="https://github.com/pablovl95">Pablo Vera López</a>)
+            /workingplaces-stats/docs</a>(hecho por <a href="https://github.com/pablovl95">Pablo Vera López</a>)
         </li>
         <li>
             <a href="https://sos2223-21.ew.r.appspot.com/api/v1/salaried-stats/docs">
-                /salaried-stats/docs</a>(developed by<a href="https://github.com/SetefillaRuano">Setefilla Ruano Calzado</a>)
+                /salaried-stats/docs</a>(hecho por <a href="https://github.com/SetefillaRuano">Setefilla Ruano Calzado</a>)
         </li>
     </ul>
 </section>

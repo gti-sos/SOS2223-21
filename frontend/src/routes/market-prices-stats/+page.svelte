@@ -3,7 +3,10 @@
 
     import { onMount } from "svelte";
     import { dev } from "$app/environment";
-    import { Button, Table } from "sveltestrap";
+    import {Button,Table,Modal,ModalBody,ModalFooter,ModalHeader,} from "sveltestrap";
+
+    let open = false;
+    const toggle = () => (open = !open);
 
     onMount(async () => {
         getMks();
@@ -62,10 +65,21 @@
             getMks();
         }
     }
-    async function deleteMks(province, year) {
+    async function deleteMks() {
         resultStatus = result = "";
-        const res = await fetch(API+"/"+ province+"/"+ year, {
-            method: "DELETE"
+        const res = await fetch(API, {
+            method: "DELETE",
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 200) {
+            getMks();
+        }
+    }
+    async function deleteMks_one(province, year) {
+        resultStatus = result = "";
+        const res = await fetch(API + "/" + province + "/" + year, {
+            method: "DELETE",
         });
         const status = await res.status;
         resultStatus = status;
@@ -75,16 +89,27 @@
     }
 </script>
 
-<h2>Market-prices-stats</h2>
+<h2> Producto interior bruto a precios de mercado  <Button color="danger" on:click={toggle}>Borrar recursos</Button>
+    <Modal isOpen={open} {toggle}>
+        <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
+        <ModalBody>
+            ¿Estás seguro?
+        </ModalBody>
+        <ModalFooter>
+            <Button color="primary" on:click={deleteMks}>Proceder</Button>
+            <Button color="secondary" on:click={toggle}>Cancelar</Button>
+        </ModalFooter>
+    </Modal>
+</h2>
 
-<Table bordered striped >
+<Table bordered striped>
     <thead>
         <tr>
-            <th>Province</th>
-            <th>Year</th>
-            <th>PIB Current Price</th>
-            <th>PIB Percentage Structure</th>
-            <th>PIB Variation Rate</th>
+            <th>Provincia</th>
+            <th>Año</th>
+            <th>PIB Precios corrientes</th>
+            <th>PIB Estructura porcentual</th>
+            <th>PIB Tasas de variación</th>
         </tr>
     </thead>
     <tbody>
@@ -94,29 +119,48 @@
             <td><input bind:value={newMks.pib_current_price} /></td>
             <td><input bind:value={newMks.pib_percentage_structure} /></td>
             <td><input bind:value={newMks.pib_variation_rate} /></td>
-            <td><Button color="primary" on:click={createMks}>Create</Button></td>
+            <td><Button color="primary" on:click={createMks}>Crear recurso</Button></td>
+            
         </tr>
 
         {#each mks as x}
             <tr>
-                <td><a class="perso"href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
+                <td
+                    ><a
+                        class="perso"
+                        href="/market-prices-stats/{x.province}/{x.year}"
+                        >{x.province}</a
+                    ></td
+                >
                 <td>{x.year}</td>
                 <td>{x.pib_current_price}</td>
                 <td>{x.pib_percentage_structure}</td>
                 <td>{x.pib_variation_rate}</td>
-                <td><Button color="danger" on:click={deleteMks(x.province, x.year)}>Delete</Button></td>
-                <td><Button on:click><a href="/market-prices-stats/{x.province}/{x.year}">Edit</a></Button></td>
+                <td
+                    ><Button
+                        color="danger"
+                        on:click={deleteMks_one(x.province, x.year)}
+                        >Borrar</Button
+                    ></td
+                >
+                <td
+                    ><Button on:click
+                        ><a href="/market-prices-stats/{x.province}/{x.year}"
+                            >Editar</a
+                        ></Button
+                    ></td
+                >
                 <td>&nbsp</td>
             </tr>
         {/each}
     </tbody>
 </Table>
 {#if resultStatus != ""}
-    <h6>Depuración:</h6>    
+    <h6>Depuración:</h6>
     <pre>
     {resultStatus}
 {result}
-    </pre>
+    </pre> 
 {/if}
 
 <style>
@@ -124,10 +168,18 @@
         text-decoration: none;
         color: white;
     }
-    .perso{
+    .perso {
         color: #1e90ff;
     }
-    h2,h6{
+    .perso:hover{
+        color: rgb(21, 41, 124);
+        text-decoration: underline;
+    }
+    h2{
+        margin-left: 2%;
+        margin-top: 0.5%;
+    }
+    h6 {
         margin-left: 2%;
     }
 </style>
