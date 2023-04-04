@@ -53,7 +53,6 @@ function loadBackend_jorge(app) {
         if (!isNaN(pib_variation_rate_lower)) filteredConditions.set('pib_variation_rate', { '$lte': pib_variation_rate_lower });
         if (filteredConditions.length === 0) obj = {};
         else obj = Object.fromEntries(filteredConditions);
-        console.log(obj);
         db.find(obj).skip(offset).limit(limit).exec(async (err, data) => {
             if (err) {
                 console.log(`Algo ha salido mal: ${err}.`);
