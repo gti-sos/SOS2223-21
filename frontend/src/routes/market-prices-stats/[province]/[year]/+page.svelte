@@ -3,7 +3,11 @@
 
     import { onMount } from "svelte";
     import { dev } from "$app/environment";
-    import { Button, Table } from "sveltestrap";
+    import {
+        Button,
+        Table,
+        Alert, Col, Row
+    } from "sveltestrap";    
     import { page } from "$app/stores";
 
     onMount(async () => {
@@ -23,6 +27,8 @@
     let updatedMks_pib_percentage_structure = "";
     let updatedMks_pib_variation_rate = "";
 
+    let message = "";
+    let color_alert;
     let result = "";
     let resultStatus = "";
 
@@ -44,6 +50,15 @@
         }
         const status = await res.status;
         resultStatus = status;
+        if(status == 404){
+            message = `No existe ningún recurso para la provincia: ${updatedMks_province}, en el año: ${updatedMks_year}.`;
+            color_alert = "danger";
+        }else{
+            if(status == 400){
+                message = "Ha habido un error en la petición";
+                color_alert = "danger";
+            }
+        }
     }
 
     async function updateMks() {
@@ -64,14 +79,43 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 200) {
+            message = "Recurso actualizado correctamente";
+            color_alert = "success";
             getMks_one();
+        }else{
+            if(status == 404){
+            message = `No existe ningún recurso para la provincia: ${updatedMks_province}, en el año: ${updatedMks_year}.`;
+            color_alert = "danger";
+            }else{
+                if(status == 400){
+                    message = "Ha habido un error en la petición";
+                    color_alert = "danger";
+                }else{
+                    if(status == 409){
+                        message = "La provincia tiene que ser de Andalucía";
+                        color_alert = "danger";
+                    }
+                }
+            }
         }
     }
+        
 </script>
 
-<h2>Detalles del recurso</h2>
+<div class="cabecera">
+    <Row >
+        <Col xs="3">
+            <h2>Detalles del recurso</h2>
+        </Col>
+        <Col xs="3"> 
+            {#if message != ""}
+            <Alert fade={true} color={color_alert} dismissible>{message}</Alert>
+        {/if}
+        </Col>
+    </Row>
+</div>
 
-<Table>
+<Table bordered striped>
     <thead>
         <tr>
             <th>Provincia</th>
@@ -93,20 +137,11 @@
     </tbody>
 </Table>
 
-{#if resultStatus != ""}
-    <h6>Depuración:</h6>    
-    <pre>
-    {resultStatus}
-{result}
-    </pre>
-{/if}
 
 <style>
-    h6{
-        margin-left: 1%;
-    }
-    h2{
-        margin-left: 1%;
-        margin-top: 0.5%;
+    .cabecera {
+        margin-top: 1%;
+        margin-left: 1.5%;
+        margin-bottom: 1%;
     }
 </style>

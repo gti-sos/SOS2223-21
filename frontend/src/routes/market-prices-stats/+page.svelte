@@ -3,7 +3,15 @@
 
     import { onMount } from "svelte";
     import { dev } from "$app/environment";
-    import {Button,Table,Modal,ModalBody,ModalFooter,ModalHeader,} from "sveltestrap";
+    import {
+        Button,
+        Table,
+        Modal,
+        ModalBody,
+        ModalFooter,
+        ModalHeader,
+        Alert, Col, Row
+    } from "sveltestrap";
 
     let open = false;
     const toggle = () => (open = !open);
@@ -24,7 +32,8 @@
         pib_percentage_structure: 14.333319967,
         pib_variation_rate: -0.36179259,
     };
-
+    let message = "";
+    let color_alert;
     let result = "";
     let resultStatus = "";
 
@@ -42,6 +51,10 @@
         }
         const status = await res.status;
         resultStatus = status;
+        if (status == 400) {
+            message = "Ha habido un error en la petición";
+            color_alert = "danger";
+        }
     }
 
     async function createMks() {
@@ -62,7 +75,19 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 201) {
+            message = "Recurso creado correctamente";
+            color_alert = "success";
             getMks();
+        }else{
+            if (status == 400) {
+                message = "Hay que insertar datos o faltan campos";
+                color_alert = "danger";
+            }else{
+                if(status == 409){
+                    message = "El recurso ya existe o la provincia tiene que ser de Andalucía";
+                    color_alert = "danger";
+                }
+            }
         }
     }
     async function deleteMks() {
@@ -73,6 +98,8 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 200) {
+            message = "Recursos borrados correctamente";
+            color_alert = "success";
             getMks();
         }
     }
@@ -84,24 +111,35 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 200) {
+            message = "Recurso borrado correctamente";
+            color_alert = "success";
             getMks();
         }
     }
 </script>
-
-<h2> Producto interior bruto a precios de mercado  <Button color="danger" on:click={toggle}>Borrar recursos</Button>
-    <Modal isOpen={open} {toggle}>
-        <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
-        <ModalBody>
-            ¿Estás seguro?
-        </ModalBody>
-        <ModalFooter>
-            <Button color="primary" on:click={deleteMks}>Proceder</Button>
-            <Button color="secondary" on:click={toggle}>Cancelar</Button>
-        </ModalFooter>
-    </Modal>
-</h2>
-
+    <div class="cabecera">
+    <Row >
+        <Col xs="7">
+            <h2>
+                Producto interior bruto a precios de mercado 
+                <Button color="danger" on:click={toggle}>Borrar recursos</Button>
+                <Modal isOpen={open} {toggle}>
+                    <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
+                    <ModalBody>¿Estás seguro?</ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" on:click={deleteMks}>Proceder</Button>
+                        <Button color="secondary" on:click={toggle}>Cancelar</Button>
+                    </ModalFooter>
+                </Modal>
+            </h2>
+        </Col>
+        <Col xs="4"> 
+            {#if message != ""}
+            <Alert fade={true} color={color_alert} dismissible>{message}</Alert>
+        {/if}
+        </Col>
+    </Row>
+</div>
 <Table bordered striped>
     <thead>
         <tr>
@@ -119,8 +157,11 @@
             <td><input bind:value={newMks.pib_current_price} /></td>
             <td><input bind:value={newMks.pib_percentage_structure} /></td>
             <td><input bind:value={newMks.pib_variation_rate} /></td>
-            <td><Button color="primary" on:click={createMks}>Crear recurso</Button></td>
-            
+            <td
+                ><Button color="primary" on:click={createMks}
+                    >Crear recurso</Button
+                ></td
+            >
         </tr>
 
         {#each mks as x}
@@ -155,13 +196,6 @@
         {/each}
     </tbody>
 </Table>
-{#if resultStatus != ""}
-    <h6>Depuración:</h6>
-    <pre>
-    {resultStatus}
-{result}
-    </pre> 
-{/if}
 
 <style>
     a {
@@ -171,15 +205,18 @@
     .perso {
         color: #1e90ff;
     }
-    .perso:hover{
+    .perso:hover {
         color: rgb(21, 41, 124);
         text-decoration: underline;
     }
-    h2{
+    h2 {
         margin-left: 2%;
         margin-top: 0.5%;
     }
-    h6 {
-        margin-left: 2%;
+    .cabecera {
+        margin-top: 1%;
+        margin-left: 1.5%;
+        margin-bottom: 1%;
     }
+    
 </style>

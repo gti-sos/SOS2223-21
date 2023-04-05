@@ -5,7 +5,7 @@
 <div>
     <Nav>
         <h2>SOS2223-21 </h2>
-        <NavLink href="/"><h6>Inicio</h6><Icon name="house-fill" /></NavLink>
+        <NavLink href="/"><h6>Inicio</h6> <Icon name="house-fill"/></NavLink>
         <NavLink href="/about"><h6>Acerca de</h6></NavLink>
         <NavItem><ButtonDropdown>
                 <DropdownToggle color="" style="font-weight:bold" caret>Front-ends</DropdownToggle>
