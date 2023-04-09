@@ -1,14 +1,20 @@
 //Importaciones
 const pvl = require("./index-PVL.js");
 var csv = require('csvdata');
-var Datastore = require(`nedb`), db = new Datastore();
-const ruta = "/api/v1/workingplaces-stats";
+import Datastore from 'nedb';
+var db = new Datastore();
+const ruta = "/api/v2/workingplaces-stats";
+const ruta1 = "/api/v1/workingplaces-stats";
 const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
 var workinplaces_stats = pvl.datos_ejemplos_pablo;
 
     function loadBackend_Pablo(app) {
         //___________________________________________________DOCS________________________________________________\\
         app.get(ruta + '/docs', function (req, res) {
+            res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
+                });
+
+        app.get(ruta1 + '/docs', function (req, res) {
             res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
                 });
 

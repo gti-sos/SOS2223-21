@@ -24,7 +24,7 @@
 
     if (dev) API = "http://localhost:12345" + API;
 
-    let data = [];
+    let dataWP = [];
     let newData = {
         province: "Granada",
         year: 2045,
@@ -37,25 +37,6 @@
     let result = "";
     let resultStatus = "";
 
-    async function getData() {
-        resultStatus = result = "";
-        const res = await fetch(API, {
-            method: "GET",
-        });
-        try {
-            const data = await res.json();
-            result = JSON.stringify(data, null, 2);
-            data = data;
-        } catch (error) {
-            console.log(`Error parsing result: ${error}`);
-        }
-        const status = await res.status;
-        resultStatus = status;
-        if (status == 400) {
-            message = "Ha ocurrido un error en la petición";
-            color_alert = "danger";
-        }
-    }
 
 </script>
     <div class="Headboard">
