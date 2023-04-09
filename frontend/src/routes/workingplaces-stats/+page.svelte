@@ -121,10 +121,10 @@
     <Row >
         <Col xs="7">
             <h2>
-                Producto interior bruto a precios de mercado 
+                Lugares de trabajo por Provincia
                 <Button color="danger" on:click={toggle}>Borrar recursos</Button>
                 <Modal isOpen={open} {toggle}>
-                    <ModalHeader {toggle}>Proce a borrar todos los recursos</ModalHeader>
+                    <ModalHeader {toggle}>Procede a borrar todos los recursos</ModalHeader>
                     <ModalBody>¿Esta seguro?</ModalBody>
                     <ModalFooter>
                         <Button color="primary" on:click={delete_All}>Proceder</Button>
@@ -218,5 +218,7 @@
         margin-left: 1.5%;
         margin-bottom: 1%;
     }
-    
+    *[bind^=""] {
+        background-color: #f2f2f2;
+    }
 </style>

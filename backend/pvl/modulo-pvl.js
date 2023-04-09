@@ -2,7 +2,7 @@
 const pvl = require("./index-PVL.js");
 var csv = require('csvdata');
 var Datastore = require(`nedb`), db = new Datastore();
-const ruta = "/api/v1/workingplaces-stats";
+const ruta = "/api/v2/workingplaces-stats";
 const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
 var workinplaces_stats = pvl.datos_ejemplos_pablo;
 
