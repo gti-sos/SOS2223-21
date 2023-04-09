@@ -6,7 +6,8 @@ const ruta = "/api/v1/workingplaces-stats";
 const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
 var workinplaces_stats = pvl.datos_ejemplos_pablo;
 
-    function loadBackend_Pablo(app) {
+module.exports =  {
+    api:(app) =>{
         //___________________________________________________DOCS________________________________________________\\
         app.get(ruta + '/docs', function (req, res) {
             res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
@@ -262,6 +263,22 @@ var workinplaces_stats = pvl.datos_ejemplos_pablo;
                 }
             });
         });        
+                                        //DELETE MULTIPLE SPECIFICO\\
+        /*
+        app.delete(ruta+"/:province", (request,response) => {
+            var province = request.params.province;
+            console.log(`New DELETE for ${province}`);
+            db.remove({"province":province},{multi:true},(err, numRemoved)=>{
+                if(err){
+                    console.log(`Error deleting workingplaces-stats/${province}: ${err}`);
+                    response.sendStatus(500);
+                }else{
+                    console.log(`Data removed ${numRemoved}`);
+                    response.sendStatus(200);
+                }
+            });
+        });
+        */
         //__________________________________________PUTS__________________________________________________\\
                                             //PUT NOT ALLOWED\\
         app.put(ruta, (request, response) => {
@@ -313,6 +330,4 @@ app.put(ruta + '/:province/:year', (request, response) => {
             }
         }
     });
-});};
-
-export { loadBackend_Pablo};
+});}}
