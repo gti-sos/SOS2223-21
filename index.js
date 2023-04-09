@@ -12,7 +12,7 @@ var port = process.env.PORT || 12345;
 app.use(express.json());
 //BACKEND
 loadBackend_jorge(app);
-loadBackend_Pablo(app);
+//loadBackend_Pablo(app);
 //modulo_sete.api(app);
 
 app.use(handler); //configurador svelte
