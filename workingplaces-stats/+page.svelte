@@ -24,7 +24,7 @@
 
     if (dev) API = "http://localhost:12345" + API;
 
-    let dataWP = [];
+    let data = [];
     let newData = {
         province: "Granada",
         year: 2045,
@@ -37,13 +37,91 @@
     let result = "";
     let resultStatus = "";
 
+    async function getData() {
+        resultStatus = result = "";
+        const res = await fetch(API, {
+            method: "GET",
+        });
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            data = data;
+        } catch (error) {
+            console.log(`Error parsing result: ${error}`);
+        }
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 400) {
+            message = "Ha ocurrido un error en la petición";
+            color_alert = "danger";
+        }
+    }
 
+    async function createData() {
+        resultStatus = result = "";
+        const res = await fetch(API, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                province: newData.province,
+                year: parseInt(newData.year),
+                work_place: newData.work_place,
+                percentage_structure: newData.percentage_structure,
+                variation_rate: newData.variation_rate,
+            }),
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 201) {
+            message = "Recurso creado correctamente";
+            color_alert = "success";
+            getData();
+        }else{
+            if (status == 400) {
+                message = "Hay que insertar datos o faltan campos";
+                color_alert = "danger";
+            }else{
+                if(status == 409){
+                    message = "El recurso ya existe o la provincia tiene que ser de Andalucía";
+                    color_alert = "danger";
+                }
+            }
+        }
+    }
+    async function delete_All() {
+        resultStatus = result = "";
+        const res = await fetch(API, {
+            method: "DELETE",
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 200) {
+            message = "Recursos borrados correctamente";
+            color_alert = "success";
+            getData();
+        }
+    }
+    async function delete_Specif(province, year) {
+        resultStatus = result = "";
+        const res = await fetch(API + "/" + province + "/" + year, {
+            method: "DELETE",
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 200) {
+            message = "Recurso borrado correctamente";
+            color_alert = "success";
+            getData();
+        }
+    }
 </script>
     <div class="Headboard">
     <Row >
         <Col xs="7">
             <h2>
-                Puestos de trabajo totales 
+                Producto interior bruto a precios de mercado 
                 <Button color="danger" on:click={toggle}>Borrar recursos</Button>
                 <Modal isOpen={open} {toggle}>
                     <ModalHeader {toggle}>Proce a borrar todos los recursos</ModalHeader>
