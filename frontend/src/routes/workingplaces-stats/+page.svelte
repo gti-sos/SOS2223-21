@@ -37,7 +37,7 @@
     let result = "";
     let resultStatus = "";
 
-    async function getData() {
+   async function getData() {
         resultStatus = result = "";
         const res = await fetch(API, {
             method: "GET",
@@ -45,14 +45,14 @@
         try {
             const data = await res.json();
             result = JSON.stringify(data, null, 2);
-            data = data;
+            dataWP = data;
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
         }
         const status = await res.status;
         resultStatus = status;
         if (status == 400) {
-            message = "Ha ocurrido un error en la petición";
+            message = "Ha habido un error en la petición";
             color_alert = "danger";
         }
     }
@@ -67,9 +67,9 @@
             body: JSON.stringify({
                 province: newData.province,
                 year: parseInt(newData.year),
-                work_place: newData.work_place,
-                percentage_structure: newData.percentage_structure,
-                variation_rate: newData.variation_rate,
+                pib_current_price: newData.pib_current_price,
+                pib_percentage_structure: newData.pib_percentage_structure,
+                pib_variation_rate: newData.pib_variation_rate,
             }),
         });
         const status = await res.status;
