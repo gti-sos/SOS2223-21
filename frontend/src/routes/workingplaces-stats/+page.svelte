@@ -1,3 +1,122 @@
+<script>
+    // @ts-nocheck
+
+    import { onMount } from "svelte";
+    import { dev } from "$app/environment";
+    import {
+        Button,
+        Table,
+        Modal,
+        ModalBody,
+        ModalFooter,
+        ModalHeader,
+        Alert, Col, Row
+    } from "sveltestrap";
+
+    let open = false;
+    const toggle = () => (open = !open);
+
+    onMount(async () => {
+        getData();
+    });
+
+    let API = "/api/v2/workingplaces-stats";
+
+    if (dev) API = "http://localhost:12345" + API;
+
+    let data = [];
+    let newData = {
+        province: "Granada",
+        year: 2045,
+        work_place: 224.61,
+        percentage_structure: 11.67,
+        variation_rate: -0.3259,
+    };
+    let message = "";
+    let color_alert;
+    let result = "";
+    let resultStatus = "";
+
+    async function getData() {
+        resultStatus = result = "";
+        const res = await fetch(API, {
+            method: "GET",
+        });
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            data = data;
+        } catch (error) {
+            console.log(`Error parsing result: ${error}`);
+        }
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 400) {
+            message = "Ha ocurrido un error en la petición";
+            color_alert = "danger";
+        }
+    }
+
+    async function createData() {
+        resultStatus = result = "";
+        const res = await fetch(API, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                province: newData.province,
+                year: parseInt(newData.year),
+                work_place: newData.work_place,
+                percentage_structure: newData.percentage_structure,
+                variation_rate: newData.variation_rate,
+            }),
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 201) {
+            message = "Recurso creado correctamente";
+            color_alert = "success";
+            getData();
+        }else{
+            if (status == 400) {
+                message = "Hay que insertar datos o faltan campos";
+                color_alert = "danger";
+            }else{
+                if(status == 409){
+                    message = "El recurso ya existe o la provincia tiene que ser de Andalucía";
+                    color_alert = "danger";
+                }
+            }
+        }
+    }
+    async function delete_All() {
+        resultStatus = result = "";
+        const res = await fetch(API, {
+            method: "DELETE",
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 200) {
+            message = "Recursos borrados correctamente";
+            color_alert = "success";
+            getData();
+        }
+    }
+    async function delete_Specif(province, year) {
+        resultStatus = result = "";
+        const res = await fetch(API + "/" + province + "/" + year, {
+            method: "DELETE",
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 200) {
+            message = "Recurso borrado correctamente";
+            color_alert = "success";
+            getData();
+        }
+    }
+</script>
     <div class="Headboard">
     <Row >
         <Col xs="7">
