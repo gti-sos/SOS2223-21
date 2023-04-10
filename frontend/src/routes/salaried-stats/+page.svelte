@@ -218,7 +218,4 @@
         margin-left: 1.5%;
         margin-bottom: 1%;
     }
-    *[bind^=""] {
-        color: #808080;
-    }
 </style>
