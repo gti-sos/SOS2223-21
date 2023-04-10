@@ -1,12 +1,12 @@
 //Importaciones
 import {JSONWP} from './Datos/Datos.js'
 
-const ruta = "/api/v1/workingplaces-stats";
+const ruta = "/api/v2/workingplaces-stats";
 const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
 import Datastore from 'nedb';
 var db = new Datastore();
 
-function LoadModulo_Pablo(app){
+function LoadModulo_Pablo_v2(app){
         //___________________________________________________DOCS________________________________________________\\
         app.get(ruta + '/docs', function (req, res) {
             res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
@@ -26,7 +26,7 @@ function LoadModulo_Pablo(app){
                     let datos = JSONWP;
                     db.insert(datos);
                     console.log(`Inserted ${datos.length} data in the database.`);
-                    response.sendStatus(201);
+                    response.sendStatus(200);
                 }
             });});
 
@@ -186,6 +186,7 @@ function LoadModulo_Pablo(app){
                                                         //POST ruta\\
         app.post(ruta, (req, res) => {
         console.log("new post attempt to /workingplaces-stats");
+        console.log(req.body);
         if (!req.body || !req.body.province || !req.body.work_place || !req.body.percentage_structure || !req.body.variation_rating) {
             res.status(400).send("Data needs to be inserted or fields are missing.");
         } else {
@@ -316,4 +317,4 @@ app.put(ruta + '/:province/:year', (request, response) => {
     });
 });}
 
-export {LoadModulo_Pablo};
+export {LoadModulo_Pablo_v2};
