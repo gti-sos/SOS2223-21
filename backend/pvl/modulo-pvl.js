@@ -11,9 +11,6 @@ function LoadModulo_Pablo(app){
         app.get(ruta + '/docs', function (req, res) {
             res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
                 });
-        app.get(ruta + '/docs', function (req, res) {
-            res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
-                });
         //__________________________________________________GETS__________________________________________________\\
                                                 // GET LoadInitialData \\
         app.get(ruta + "/loadInitialData", (req, response) => {
