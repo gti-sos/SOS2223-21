@@ -67,9 +67,9 @@
             body: JSON.stringify({
                 province: newData.province,
                 year: parseInt(newData.year),
-                pib_current_price: newData.pib_current_price,
-                pib_percentage_structure: newData.pib_percentage_structure,
-                pib_variation_rate: newData.pib_variation_rate,
+                work_place: newData.work_place,
+                percentage_structure: newData.percentage_structure,
+                variation_rate: newData.variation_rate,
             }),
         });
         const status = await res.status;
@@ -219,6 +219,6 @@
         margin-bottom: 1%;
     }
     *[bind^=""] {
-        background-color: #f2f2f2;
+        color: #808080;
     }
 </style>

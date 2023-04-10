@@ -1,13 +1,12 @@
 //Importaciones
-const pvl = require("./index-PVL.js");
-var csv = require('csvdata');
-var Datastore = require(`nedb`), db = new Datastore();
+import JSONWP from './backend/pvl/Datos/Datos.js'
+import Datastore from 'nedb';
+var db = new Datastore();
+
 const ruta = "/api/v2/workingplaces-stats";
 const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
-var workinplaces_stats = pvl.datos_ejemplos_pablo;
 
-module.exports =  {
-    api:(app) =>{
+function LoadModulo_Pablo(app){
         //___________________________________________________DOCS________________________________________________\\
         app.get(ruta + '/docs', function (req, res) {
             res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
@@ -25,7 +24,7 @@ module.exports =  {
                     console.log(`There are data ${data.length} loaded.`);
                     response.sendStatus(201);
                 }else{
-                    let datos = await csv.load('./backend/pvl/Datos/Datos.csv');
+                    let datos = JSONWP;
                     db.insert(datos);
                     console.log(`Inserted ${datos.length} data in the database.`);
                     response.sendStatus(201);
@@ -262,23 +261,7 @@ module.exports =  {
                     response.sendStatus(200);
                 }
             });
-        });        
-                                        //DELETE MULTIPLE SPECIFICO\\
-        /*
-        app.delete(ruta+"/:province", (request,response) => {
-            var province = request.params.province;
-            console.log(`New DELETE for ${province}`);
-            db.remove({"province":province},{multi:true},(err, numRemoved)=>{
-                if(err){
-                    console.log(`Error deleting workingplaces-stats/${province}: ${err}`);
-                    response.sendStatus(500);
-                }else{
-                    console.log(`Data removed ${numRemoved}`);
-                    response.sendStatus(200);
-                }
-            });
-        });
-        */
+        });       
         //__________________________________________PUTS__________________________________________________\\
                                             //PUT NOT ALLOWED\\
         app.put(ruta, (request, response) => {
@@ -330,4 +313,6 @@ app.put(ruta + '/:province/:year', (request, response) => {
             }
         }
     });
-});}}
+});}
+
+export {LoadModulo_Pablo};
