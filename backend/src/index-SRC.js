@@ -14,4 +14,5 @@ var datos_ejemplos_sete = [
 //var media_remuneration_of_employees_province = datos_ejemplos_sete.filter((n) => n.province === "Cádiz").map((n) => { return n.remuneration_of_employees });
 //console.log("La media de la remuneración de los empleados en Cádiz es: " + media_remuneration_of_employees_province.reduce((a, b) => a + b, 0) / media_remuneration_of_employees_province.length);
 
-module.exports.datos_ejemplos_sete = datos_ejemplos_sete;
+//module.exports.datos_ejemplos_sete = datos_ejemplos_sete;
+export { datos_ejemplos_sete }

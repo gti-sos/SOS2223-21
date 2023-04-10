@@ -1,7 +1,7 @@
 //************************ CONSTANTS AND REQUIRES *************************************************
 
 import { datos_ejemplos_sete } from './index-SRC.js';
-const BASI_API_URL = "/api/v1/salaried-stats";
+const BASI_API_URL = "/api/v2/salaried-stats";
 import Datastore from 'nedb';
 var db = new Datastore();
 

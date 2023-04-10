@@ -7,7 +7,7 @@
         </li>
         <li><a href="https://github.com/pablovl95">Pablo Vera López</a> : workingplaces-stats</li>
         <li>
-            <a href="https://github.com/SetefillaRuano">Setefilla Ruano Calzado</a>
+            <a href="https://github.com/SetefillaRuano">Setefilla Ruano Calzado</a> : salaried-stats
         </li>
     </ul>
 
@@ -19,6 +19,9 @@
 	  <li>
             <a href="/workingplaces-stats">/workingplaces-stats</a>
         </li>
+        <li>
+            <a href="/salaried-stats">/salaried-stats</a>
+        </li>
     </ul>
     <h2>APIs</h2>
     <ul>
@@ -27,6 +30,9 @@
         </li>
 	  <li>
             <a href="https://sos2223-21.ew.r.appspot.com/api/v2/workingplaces-stats">/workingplaces-stats</a>
+        </li>
+        <li>
+            <a href="https://sos2223-21.ew.r.appspot.com/api/v2/salaried-stats">/salaried-stats</a>
         </li>
     </ul>
 
