@@ -169,7 +169,7 @@
                 <td
                     ><a
                         class="perso"
-                        href="/workingplaces-stats/{x.province}/{x.year}"
+                        href="/salaried-stats/{x.province}/{x.year}"
                         >{x.province}</a
                     ></td
                 >
@@ -186,7 +186,7 @@
                 >
                 <td
                     ><Button on:click
-                        ><a href="/workingplaces-stats/{x.province}/{x.year}"
+                        ><a href="/salaried-stats/{x.province}/{x.year}"
                             >Editar</a
                         ></Button
                     ></td
