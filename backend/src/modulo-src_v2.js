@@ -5,7 +5,7 @@ const BASI_API_URL = "/api/v2/salaried-stats";
 import Datastore from 'nedb';
 var db = new Datastore();
 
-function loadBackend_src(app) {
+function loadBackend_src_v2(app) {
     //The documentation of the API
     app.get(BASI_API_URL + '/docs', function(request, response) {
         response.status(301).redirect('https://documenter.getpostman.com/view/26077957/2s93K1ozB2');
@@ -193,4 +193,4 @@ function loadBackend_src(app) {
 }
 
 
-export { loadBackend_src };
+export { loadBackend_src_v2 };
