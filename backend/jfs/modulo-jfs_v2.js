@@ -187,7 +187,8 @@ function loadBackend_jorge(app) {
                 console.log(`Algo ha salido mal: ${err}.`);
                 res.sendStatus(500);
             } else {
-                if (!body || !body.province || !body.pib_current_price || !body.pib_percentage_structure || !body.pib_variation_rate) {
+                if (!body || !body.province || !body.pib_current_price || !body.pib_percentage_structure || !body.pib_variation_rate ||
+                    !body.year == "" || !body.province == "" || !body.pib_current_price == "" || !body.pib_percentage_structure == "" ) {
                     res.status(400).send("Hay que insertar datos o faltan campos.");
                 } else {
                     if (data.some(x =>

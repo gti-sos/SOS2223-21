@@ -4,7 +4,7 @@ import Datastore from 'nedb';
 var db = new Datastore();
 
 
-function loadBackend_jorge(app) {
+function loadBackend_jorge_v1(app) {
     //POSTMAN DOCUMENTATION
     app.get(rutaJorge + '/docs', function (req, res) {
         res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93Jxr1Nx');
@@ -283,4 +283,4 @@ function loadBackend_jorge(app) {
         });
     });
 };
-export { loadBackend_jorge };
+export { loadBackend_jorge_v1 };
