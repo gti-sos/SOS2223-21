@@ -1,17 +1,19 @@
 //Importaciones
-import JSONWP from './backend/pvl/Datos/Datos.js'
-import Datastore from 'nedb';
-var db = new Datastore();
+import {JSONWP} from './backend/pvl/Datos/Datos.js'
 
 const ruta = "/api/v2/workingplaces-stats";
 const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
+import Datastore from 'nedb';
+var db = new Datastore();
 
 function LoadModulo_Pablo(app){
         //___________________________________________________DOCS________________________________________________\\
         app.get(ruta + '/docs', function (req, res) {
             res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
                 });
-
+        app.get(ruta + '/docs', function (req, res) {
+            res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
+                });
         //__________________________________________________GETS__________________________________________________\\
                                                 // GET LoadInitialData \\
         app.get(ruta + "/loadInitialData", (req, response) => {
