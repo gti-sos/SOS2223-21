@@ -57,7 +57,7 @@
         } else if (status == 200) {
             message = "Datos iniciales cargados correctamente";
             color_alert = "success";
-            location.reload();
+            getData();
         } else if (status == 201){
             message = "Ya hay datos cargados";
             color_alert = "danger";
@@ -111,7 +111,7 @@
                 color_alert = "danger";
             }else{
                 if(status == 409){
-                    message = "El recurso ya existe";
+                    message = "El recurso ya existe o la provincia no pertenece a Andalucia";
                     color_alert = "danger";
                 }
             }
@@ -151,27 +151,29 @@
     }
 </script>
     <div class="cabecera">
-    <Row >
-            <h2>
-                Puestos De Trabajo Totales de Mercado 
-                <Button color="danger" on:click={toggle}>Borrar recursos</Button>
-                <Button color="secondary" on:click={LoadInitial}>Cargar Datos Iniciales</Button>
-                <Button color="secondary" on:click={volverAtras}>Volver Atras</Button>
-                <Modal isOpen={open} {toggle}>
-                    <ModalHeader {toggle}>Procede a borrar todos los datos</ModalHeader>
-                    <ModalBody>¿Estás seguro?</ModalBody>
-                    <ModalFooter>
-                        <Button color="secondary" on:click={deleteDATA}>Proceder</Button>
-                        <Button color="secondary" on:click={toggle}>Cancelar</Button>
-                    </ModalFooter>
-                </Modal>
-            </h2>
-    </Row>
-    <Row> 
-            {#if message != ""}
-            <Alert fade={true} color={color_alert} dismissible>{message}</Alert>
-        {/if}
-    </Row>
+    <Col md>
+        <Row >
+                <h2>
+                    Puestos De Trabajo Totales de Mercado 
+                    <Button color="danger" on:click={toggle}>Borrar recursos</Button>
+                    <Button color="secondary" on:click={LoadInitial}>Cargar Datos Iniciales</Button>
+                    <Button color="secondary" on:click={volverAtras}>Volver Atras</Button>
+                    <Modal isOpen={open} {toggle}>
+                        <ModalHeader {toggle}>Procede a borrar todos los datos</ModalHeader>
+                        <ModalBody>¿Estás seguro?</ModalBody>
+                        <ModalFooter>
+                            <Button color="secondary" on:click={deleteDATA}>Proceder</Button>
+                            <Button color="secondary" on:click={toggle}>Cancelar</Button>
+                        </ModalFooter>
+                    </Modal>
+                </h2>
+        </Row>
+        <Row> 
+                {#if message != ""}
+                <Alert fade={true} color={color_alert} dismissible>{message}</Alert>
+            {/if}
+        </Row>
+    </Col>
 </div>
 <div  class = "wp">
     <Table>
@@ -225,7 +227,6 @@
     }
     .cuadricula:hover {
         color: rgb(21, 41, 124);
-        text-decoration: underline;
     }
     h2 {
         margin-left: 2%;
