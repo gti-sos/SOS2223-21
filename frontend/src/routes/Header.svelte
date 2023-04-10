@@ -14,7 +14,7 @@
                     <DropdownItem divider />
                     <DropdownItem><a href="/market-prices-stats">market-prices-stats</a></DropdownItem>
                     <DropdownItem><a href="/workingplaces-stats">workingplaces-stats</a></DropdownItem>
-                    <DropdownItem>salarieed-stats</DropdownItem>
+                    <DropdownItem>salaried-stats</DropdownItem>
                 </DropdownMenu>
             </ButtonDropdown></NavItem>
     </Nav>
