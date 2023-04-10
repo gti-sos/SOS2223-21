@@ -100,6 +100,7 @@
         if (status == 200) {
             message = "Recursos borrados correctamente";
             color_alert = "success";
+            open = false;
             getMks();
         }
     }

@@ -26,11 +26,11 @@
 
     let dataWP = [];
     let newBody = {
-        province: "Granada",
-        year: 2045,
-        work_place: 2123.0557261,
-        percentage_structure: 123.333319967,
-        variation_rating: -0.96465,
+        province: "",
+        year: "",
+        work_place: "",
+        percentage_structure: "",
+        variation_rating: "",
     };
     let message = "";
     let color_alert;
@@ -173,7 +173,7 @@
     </Row>
 </div>
 <div  class = "wp">
-    <Table bordered striped>
+    <Table>
         <thead>
             <tr>
                 <th>Provincia</th>
@@ -185,24 +185,18 @@
         </thead>
         <tbody>
             <tr>
-                <td><input bind:value={newBody.province} style="color: #888;" /></td>
-                <td><input bind:value={newBody.year} style="color: #888;" /></td>
-                <td><input bind:value={newBody.work_place} style="color: #888;" /></td>
-                <td><input bind:value={newBody.percentage_structure} style="color: #888;" /></td>
-                <td><input bind:value={newBody.variation_rating} style="color: #888;" /></td>
+                <td><input placeholder="Provincia"  bind:value={newBody.province} style="color: #888;" /></td>
+                <td><input placeholder="Año" bind:value={newBody.year} style="color: #888;" /></td>
+                <td><input placeholder="Puestos de Trabajo" bind:value={newBody.work_place} style="color: #888;" /></td>
+                <td><input placeholder="Estructura porcentual" bind:value={newBody.percentage_structure} style="color: #888;" /></td>
+                <td><input placeholder="Tasas de variación" bind:value={newBody.variation_rating} style="color: #888;" /></td>
                 <td><Button color="primary" on:click={createDATA}
                         >Crear</Button></td>
             </tr>
 
             {#each dataWP as x}
                 <tr>
-                    <td
-                        ><a
-                            class="perso"
-                            href="/workingplaces-stats/{x.province}/{x.year}"
-                            >{x.province}</a
-                        ></td
-                    >
+                    <td><a class="perso">{x.province}</a></td>
                     <td>{x.year}</td>
                     <td>{x.work_place}</td>
                     <td>{x.percentage_structure}</td>
@@ -214,14 +208,7 @@
                             >Borrar</Button
                         ></td
                     >
-                    <td
-                        ><Button on:click
-                            ><a href="/workingplaces-stats/{x.province}/{x.year}"
-                                >Editar</a
-                            ></Button
-                        ></td
-                    >
-                    <td>&nbsp</td>
+                    <td><Button on:click><a href="/workingplaces-stats/{x.province}/{x.year}">Editar</a></Button></td>
                 </tr>
             {/each}
         </tbody>

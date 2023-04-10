@@ -137,7 +137,7 @@
     
 </div>
 <div  class = "wp">
-    <Table bordered striped>
+    <Table>
         <thead>
             <tr>
                 <th>Provincia</th>
@@ -162,7 +162,7 @@
 <style>
     a {
         text-decoration: none;
-        color: white;
+        color: black;
     }
     .perso {
         color: #1e90ff;
