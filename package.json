@@ -8,10 +8,10 @@
     "start": "node index",
     "test-market-prices-stats": "npx newman run ./testsPostman/backend-jfs-v2.json -e ./testsPostman/env/localhost-jfs-v2.json",
     "test-market-prices-stats-gcloud": "npx newman run ./testsPostman/backend-jfs-v2.json -e ./testsPostman/env/gcloud-jfs-v2.json",
-    "test-workingplaces-stats": "npx newman run ./testsPostman/backend-pvl.json -e ./testsPostman/env/localhost-pvl-v2.json",
+    "test-workingplaces-stats": "npx newman run ./testsPostman/backend-pvl.json -e ./testsPostman/env/localhost-pvl.json",
     "test-workingplaces-stats-gcloud": "npx newman run ./testsPostman/backend-pvl.json -e ./testsPostman/env/gcloud-pvl-v2.json",
     "test-gcloud": "npm run test-market-prices-stats-gcloud",
-    "test": "npm run test-market-prices-stats "
+    "test": "npm run test-market-prices-stats && npm run test-workingplaces-stats"
   },
   "repository": {
     "type": "git",
