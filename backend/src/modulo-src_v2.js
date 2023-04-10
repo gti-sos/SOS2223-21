@@ -22,8 +22,8 @@ function loadBackend_src(app) {
                 console.log(`There are data ${data.lenght}loaded.`);
                 response.sendStatus(200);
             } else {
-                db.insert(index_sete.datos_ejemplos_sete)
-                console.log(`Inserted ${index_sete.datos_ejemplos_sete.length} data in database.`);
+                db.insert(datos_ejemplos_sete)
+                console.log(`Inserted ${datos_ejemplos_sete.length} data in database.`);
                 response.sendStatus(201);
             }
         });
@@ -34,7 +34,7 @@ function loadBackend_src(app) {
     app.get(BASI_API_URL + '/:province' + '/:year', (request, response) => {
         const year = parseInt(request.params.year);
         const province = request.params.province;
-        const provSelec = index_sete.datos_ejemplos_sete.filter(x => x.province === province);
+        const provSelec = datos_ejemplos_sete.filter(x => x.province === province);
         const yearSelec = provSelec.filter(x => x.year === year);
         if (yearSelec) {
             response.json(yearSelec[0]).status(200);
@@ -99,7 +99,7 @@ function loadBackend_src(app) {
         const province = request.params.province;
         const from = request.query.from;
         const to = request.query.to;
-        const yearSelec = index_sete.datos_ejemplos_sete.filter(x => x.year >= from && x.year <= to);
+        const yearSelec = datos_ejemplos_sete.filter(x => x.year >= from && x.year <= to);
         const provSelecc = yearSelec.filter(x => x.province == province);
         if (from && to) {
             if (from >= to) {
@@ -109,7 +109,7 @@ function loadBackend_src(app) {
                 console.log(` New Request to / salaried - stats / $ { province } ? from = $ { from } & to = $ { to }`);
             }
         } else {
-            const provSeleccionda = index_sete.datos_ejemplos_sete.filter(x => x.province === province);
+            const provSeleccionda = datos_ejemplos_sete.filter(x => x.province === province);
             response.json(provSeleccionda);
             console.log("New Request to /salaried-stats/" + province);
         }
@@ -124,14 +124,14 @@ function loadBackend_src(app) {
             response.status(400).send("Hay que insertar datos.");
         } else {
             newData = request.body;
-            if (index_sete.datos_ejemplos_sete.some(x =>
+            if (datos_ejemplos_sete.some(x =>
                     x.province === newData.province &&
                     x.remuneration_of_employees === newData.remuneration_of_employees &&
                     x.remuneration_percentage_structure === newData.remuneration_percentage_structure &&
                     x.remuneration_variation_rate === newData.remuneration_variation_rate)) {
                 response.status(409).send("The resource already exist");
             } else {
-                index_sete.datos_ejemplos_sete.push(request.body);
+                datos_ejemplos_sete.push(request.body);
                 console.log(`newData = $ { JSON.stringify(request.body, null, 2) }`);
                 console.log("New POST to /salaried-stats");
                 response.status(201).send("El recurso se ha creado correctamente.");
@@ -156,7 +156,7 @@ function loadBackend_src(app) {
         const province = request.params.province;
         const year = parseInt(request.params.year);
 
-        const existe = index_sete.datos_ejemplos_sete.find(p => p.province === province && p.year === year);
+        const existe = datos_ejemplos_sete.find(p => p.province === province && p.year === year);
         if (!existe || province !== request.body.province || year !== request.body.year) {
             return response.status(400).send("No se puede actualizar");
         } else {
@@ -182,12 +182,12 @@ function loadBackend_src(app) {
 
     //***********************************   DELETE A salaried-stats - all data    ****************************************
     app.delete(BASI_API_URL, (request, response) => {
-        index_sete.datos_ejemplos_sete = [];
+        datos_ejemplos_sete = [];
         response.status(200).send("All data delete");
     });
     //****************************  DELETE /salaried-stats/province/year  ******************************
     app.delete(BASI_API_URL + '/:province' + '/:year', (request, response) => {
-        index_sete.datos_ejemplos_sete = [];
+        datos_ejemplos_sete = [];
         response.status(200).send("Data remove");
     });
 }
