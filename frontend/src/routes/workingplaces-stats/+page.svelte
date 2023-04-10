@@ -130,8 +130,9 @@
         if (status == 200) {
             message = "Recursos borrados correctamente";
             color_alert = "success";
-            getData();
             open = false;
+            getData();
+            
         }
     }
     async function deleteDATA_Spef(province, year) {
@@ -155,12 +156,12 @@
                 Puestos De Trabajo Totales de Mercado 
                 <Button color="danger" on:click={toggle}>Borrar recursos</Button>
                 <Button color="secondary" on:click={LoadInitial}>Cargar Datos Iniciales</Button>
-                <Button color="primary" on:click={volverAtras}>Volver Atras</Button>
+                <Button color="secondary" on:click={volverAtras}>Volver Atras</Button>
                 <Modal isOpen={open} {toggle}>
                     <ModalHeader {toggle}>Procede a borrar todos los datos</ModalHeader>
                     <ModalBody>¿Estás seguro?</ModalBody>
                     <ModalFooter>
-                        <Button color="primary" on:click={deleteDATA}>Proceder</Button>
+                        <Button color="secondary" on:click={deleteDATA}>Proceder</Button>
                         <Button color="secondary" on:click={toggle}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
@@ -196,7 +197,7 @@
 
             {#each dataWP as x}
                 <tr>
-                    <td><a class="perso">{x.province}</a></td>
+                    <td><a class="cuadricula">{x.province}</a></td>
                     <td>{x.year}</td>
                     <td>{x.work_place}</td>
                     <td>{x.percentage_structure}</td>
@@ -219,10 +220,10 @@
         text-decoration: none;
         color: white;
     }
-    .perso {
+    .cuadricula {
         color: #1e90ff;
     }
-    .perso:hover {
+    .cuadricula:hover {
         color: rgb(21, 41, 124);
         text-decoration: underline;
     }

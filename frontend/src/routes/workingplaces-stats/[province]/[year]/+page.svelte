@@ -121,9 +121,9 @@
                 <Button color="primary" on:click={volverAtras}>Volver Atras</Button>
                 <Modal isOpen={open} {toggle}>
                     <ModalHeader {toggle}>Procede a la actualización de los datos de este recurso</ModalHeader>
-                    <ModalBody>¿Estás seguro?</ModalBody>
+                    <ModalBody>¿Esta seguro de realizar esta acción?</ModalBody>
                     <ModalFooter>
-                        <Button color="primary" on:click={actualizaDATA}>Proceder</Button>
+                        <Button color="secondary" on:click={actualizaDATA}>Proceder</Button>
                         <Button color="secondary" on:click={toggle}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
