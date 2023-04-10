@@ -115,25 +115,27 @@
 </script>
 
     <div class="cabecera">
-    <Row >
-            <h2>
-                Actualizacion del Recurso 
-                <Button color="primary" on:click={volverAtras}>Volver Atras</Button>
-                <Modal isOpen={open} {toggle}>
-                    <ModalHeader {toggle}>Procede a la actualización de los datos de este recurso</ModalHeader>
-                    <ModalBody>¿Esta seguro de realizar esta acción?</ModalBody>
-                    <ModalFooter>
-                        <Button color="secondary" on:click={actualizaDATA}>Proceder</Button>
-                        <Button color="secondary" on:click={toggle}>Cancelar</Button>
-                    </ModalFooter>
-                </Modal>
-            </h2>
-    </Row>
-    <Row> 
-            {#if message != ""}
-            <Alert fade={true} color={color_alert} dismissible>{message}</Alert>
-        {/if}
-    </Row>
+    <Col md>
+        <Row >
+                <h2>
+                    Actualizacion del Recurso 
+                    <Button color="primary" on:click={volverAtras}>Volver Atras</Button>
+                    <Modal isOpen={open} {toggle}>
+                        <ModalHeader {toggle}>Procede a la actualización de los datos de este recurso</ModalHeader>
+                        <ModalBody>¿Esta seguro de realizar esta acción?</ModalBody>
+                        <ModalFooter>
+                            <Button color="secondary" on:click={actualizaDATA}>Proceder</Button>
+                            <Button color="secondary" on:click={toggle}>Cancelar</Button>
+                        </ModalFooter>
+                    </Modal>
+                </h2>
+        </Row>
+        <Row> 
+                {#if message != ""}
+                <Alert fade={true} color={color_alert} dismissible>{message}</Alert>
+            {/if}
+        </Row>
+    </Col>
     
 </div>
 <div  class = "wp">
@@ -149,8 +151,8 @@
         </thead>
         <tbody>
             <tr>
-                <td><input bind:value={ac_province} style="color: #888;" /></td>
-                <td><input bind:value={ac_year} style="color: #888;" /></td>
+                <td style="color: #888;">{ac_province}</td>
+                <td style="color: #888;">{ac_year}  </td>
                 <td><input bind:value={ac_work_place} style="color: #888;" /></td>
                 <td><input bind:value={ac_percentage_structure} style="color: #888;" /></td>
                 <td><input bind:value={ac_variation_rating} style="color: #888;" /></td>
@@ -164,12 +166,11 @@
         text-decoration: none;
         color: black;
     }
-    .perso {
+    .cuadricula {
         color: #1e90ff;
     }
-    .perso:hover {
+    .cuadricula:hover {
         color: rgb(21, 41, 124);
-        text-decoration: underline;
     }
     h2 {
         margin-left: 2%;
