@@ -14,7 +14,7 @@
     } from "sveltestrap";
 
     let open = false;
-    const toggle = () => (open = !open);
+    const toggle = () => (open = !open && getData());
 
     onMount(async () => {
         getData();
@@ -31,6 +31,12 @@
         work_place: "",
         percentage_structure: "",
         variation_rating: "",
+    };
+    let queryparams = {
+        from: "",
+        to: "",
+        offset: "",
+        limit: "",
     };
     let message = "";
     let color_alert;
@@ -65,6 +71,35 @@
     }
 
     async function getData() {
+        var params = "?";
+        let i = 0;
+        for (const [key, value] of Object.entries(queryparams)) {
+            
+            if (i==0){
+            params += key + "=" + value;
+            i+=1;
+            }
+            else{
+                params += "&" + key + "=" + value;
+            }
+        }
+
+        console.log(params);
+        if (queryparams){
+        resultStatus = result = "";
+        const res = await fetch(API+params, {
+            method: "GET",
+        });
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            dataWP = data;
+        } catch (error) {
+            console.log(`Error parsing result: ${error}`);
+        }
+        const status = await res.status;
+        resultStatus = status;
+    }else{
         resultStatus = result = "";
         const res = await fetch(API, {
             method: "GET",
@@ -78,11 +113,9 @@
         }
         const status = await res.status;
         resultStatus = status;
-        if (status == 400) {
-            message = "Ha habido un error en la petición";
-            color_alert = "danger";
-        }
-    }
+
+    }}
+
 
     async function createDATA() {
         resultStatus = result = "";
@@ -128,10 +161,12 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 200) {
+              open = false;
+            getData();
             message = "Recursos borrados correctamente";
             color_alert = "success";
-            open = false;
-            getData();
+          
+            
             
         }
     }
@@ -143,9 +178,9 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 200) {
+            getData();
             message = "Recurso borrado correctamente";
             color_alert = "success";
-            getData();
             
         }
     }
@@ -177,6 +212,24 @@
 </div>
 <div  class = "wp">
     <Table>
+        <thead>
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Limit</th>
+                <th>Offset</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input placeholder="From"  bind:value={queryparams.from} style="color: #888;" /></td>
+                <td><input placeholder="To"  bind:value={queryparams.to} style="color: #888;" /></td>
+                <td><input placeholder="Limit"  bind:value={queryparams.limit} style="color: #888;" /></td>
+                <td><input placeholder="Offset"  bind:value={queryparams.offset} style="color: #888;" /></td>
+                <td><Button color="primary" on:click={getData}
+                        >Filtrar</Button></td>
+            </tr>
+        </tbody>
         <thead>
             <tr>
                 <th>Provincia</th>
