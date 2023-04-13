@@ -14,14 +14,14 @@
     } from "sveltestrap";
 
     let open = false;
-    const toggle = () => (open = !open && getData());
+    const toggle = () => (open = !open);
 
     onMount(async () => {
         getData();
     });
 
     let API = "/api/v2/workingplaces-stats";
-
+    
     if (dev) API = "http://localhost:12345" + API;
 
     let dataWP = [];
@@ -34,14 +34,13 @@
     };
     let queryparams = {
         from: "",
-        to: "",
-        offset: "",
-        limit: "",
+        to: ""
     };
     let message = "";
     let color_alert;
     let result = "";
     let resultStatus = "";
+    let pagina = 1; // Inicializamos la variable 'pagina' en 1
 
     async function LoadInitial() {
         resultStatus = result = "";
@@ -70,22 +69,29 @@
         }
     }
 
+    async function sumarPagina() {
+        pagina++;
+        getData();
+    }
+    async function restarPagina() {
+        if (pagina > 1) { // Evitamos que la página sea menor que 1
+        pagina--;
+        getData()
+        }
+    }
+
     async function getData() {
         var params = "?";
         let i = 0;
-        for (const [key, value] of Object.entries(queryparams)) {
-            
-            if (i==0){
-            params += key + "=" + value;
-            i+=1;
-            }
-            else{
-                params += "&" + key + "=" + value;
-            }
+        let limit = 10;
+        let offset = (pagina-1)*limit;
+
+        for (const [key, value] of Object.entries(queryparams)) {     
+                    params += "limit="+limit+"&"+"offset="+offset+"&" + key + "=" + value;
         }
+        
 
         console.log(params);
-        if (queryparams){
         resultStatus = result = "";
         const res = await fetch(API+params, {
             method: "GET",
@@ -99,22 +105,8 @@
         }
         const status = await res.status;
         resultStatus = status;
-    }else{
-        resultStatus = result = "";
-        const res = await fetch(API, {
-            method: "GET",
-        });
-        try {
-            const data = await res.json();
-            result = JSON.stringify(data, null, 2);
-            dataWP = data;
-        } catch (error) {
-            console.log(`Error parsing result: ${error}`);
-        }
-        const status = await res.status;
-        resultStatus = status;
 
-    }}
+    }
 
 
     async function createDATA() {
@@ -250,6 +242,7 @@
                         >Crear</Button></td>
             </tr>
 
+
             {#each dataWP as x}
                 <tr>
                     <td><a class="cuadricula">{x.province}</a></td>
@@ -257,30 +250,39 @@
                     <td>{x.work_place}</td>
                     <td>{x.percentage_structure}</td>
                     <td>{x.variation_rating}</td>
-                    <td
-                        ><Button
+                    <td><Button
                             color="danger"
                             on:click={deleteDATA_Spef(x.province, x.year)}
                             >Borrar</Button
-                        ></td
-                    >
+                        ></td>
                     <td><Button on:click><a href="/workingplaces-stats/{x.province}/{x.year}">Editar</a></Button></td>
                 </tr>
             {/each}
+
+
+
+            <Row>
+                {#if Object.keys(dataWP).length >= 10}
+                    {#if Object.keys(dataWP).length/10 <= pagina} 
+                        <button on:click={restarPagina}>&lt;</button>
+                        <span>Página: {pagina}</span>
+                        <button on:click={sumarPagina}>&gt;</button>
+                    {:else}
+                        <button on:click={restarPagina}>&lt;</button>
+                        <span>Página: {pagina}</span>
+                        
+                    {/if}
+                {:else}
+                    <div style="display:none;">
+                    
+                    </div>
+                {/if}
+            </Row>
         </tbody>
     </Table>
 </div>
 <style>
-    a {
-        text-decoration: none;
-        color: white;
-    }
-    .cuadricula {
-        color: #1e90ff;
-    }
-    .cuadricula:hover {
-        color: rgb(21, 41, 124);
-    }
+
     h2 {
         margin-left: 2%;
         margin-top: 0.5%;
