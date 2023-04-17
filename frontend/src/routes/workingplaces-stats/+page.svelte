@@ -75,8 +75,14 @@
     }
 
     async function sumarPagina() {
-        pagina++;
-        getData();
+         if (Object.keys(dataWP).length >= 10) {
+            pagina++;
+            getData();
+         }else{
+            message = "Ya no hay más datos, estas en la ultima pagina";
+            color_alert = "danger";
+         }
+                      
     }
     async function restarPagina() {
         if (pagina > 1) { // Evitamos que la página sea menor que 1
@@ -208,10 +214,7 @@
 <div  class = "wp">
     <Table>
         <thead>
-            <tr>
-                <th>From</th>
-                <th>To</th>
-            </tr>
+            <tr>Filtro de Datos</tr>
         </thead>
         <tbody>
             <tr>
@@ -222,8 +225,7 @@
                 <td><input placeholder="Lugares De Trabajo"  bind:value={queryparams.work_place} style="color: #888;" /></td>
                 <td><input placeholder="Estructura porcentual"  bind:value={queryparams.percentage_structure} style="color: #888;" /></td>
                 <td><input placeholder="Tasas de variación"  bind:value={queryparams.variation_rating} style="color: #888;" /></td>
-                <td><Button color="primary" on:click={getData}
-                        >Filtrar</Button></td>
+                <td><Button color="primary" on:click={getData}>Filtrar</Button></td>
             </tr>
         </tbody>
         <thead>
@@ -266,11 +268,11 @@
 
 
             <Row>
-                {#if Object.keys(dataWP).length >= 10}
+                <Col class="wp">
                     <button on:click={restarPagina}>&lt;</button>
                     <span>Página: {pagina}</span>
-                    <button on:click={sumarPagina} class="boton-sumar">&gt;</button>
-                {/if}
+                    <button on:click={sumarPagina}>&gt;</button>  
+                </Col>
             </Row>
         </tbody>
     </Table>
