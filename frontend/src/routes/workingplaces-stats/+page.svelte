@@ -34,7 +34,12 @@
     };
     let queryparams = {
         from: "",
-        to: ""
+        to: "",
+        province: "",
+        year: "",
+        work_place: "",
+        percentage_structure: "",
+        variation_rating: "",
     };
     let message = "";
     let color_alert;
@@ -70,8 +75,14 @@
     }
 
     async function sumarPagina() {
-        pagina++;
-        getData();
+         if (Object.keys(dataWP).length >= 10) {
+            pagina++;
+            getData();
+         }else{
+            message = "Ya no hay más datos, estas en la ultima pagina";
+            color_alert = "danger";
+         }
+                      
     }
     async function restarPagina() {
         if (pagina > 1) { // Evitamos que la página sea menor que 1
@@ -81,13 +92,14 @@
     }
 
     async function getData() {
-        var params = "?";
+        
         let i = 0;
         let limit = 10;
         let offset = (pagina-1)*limit;
-
+        var params = "?offset="+offset+"&"+"limit="+limit;
         for (const [key, value] of Object.entries(queryparams)) {     
-                    params += "limit="+limit+"&"+"offset="+offset+"&" + key + "=" + value;
+                    if (value != ""){
+                    params += "&" + key + "=" + value;}
         }
         
 
@@ -156,10 +168,7 @@
               open = false;
             getData();
             message = "Recursos borrados correctamente";
-            color_alert = "success";
-          
-            
-            
+            color_alert = "success";            
         }
     }
     async function deleteDATA_Spef(province, year) {
@@ -205,19 +214,18 @@
 <div  class = "wp">
     <Table>
         <thead>
-            <tr>
-                <th>From</th>
-                <th>To</th>
-                <th>Limit</th>
-                <th>Offset</th>
-            </tr>
+            <tr>Filtro de Datos</tr>
         </thead>
         <tbody>
             <tr>
                 <td><input placeholder="Año Minimo"  bind:value={queryparams.from} style="color: #888;" /></td>
                 <td><input placeholder="Año Maximo"  bind:value={queryparams.to} style="color: #888;" /></td>
-                <td><Button color="primary" on:click={getData}
-                        >Filtrar</Button></td>
+                <td><input placeholder="Provincia"  bind:value={queryparams.province} style="color: #888;" /></td>
+                <td><input placeholder="Año"  bind:value={queryparams.year} style="color: #888;" /></td>
+                <td><input placeholder="Lugares De Trabajo"  bind:value={queryparams.work_place} style="color: #888;" /></td>
+                <td><input placeholder="Estructura porcentual"  bind:value={queryparams.percentage_structure} style="color: #888;" /></td>
+                <td><input placeholder="Tasas de variación"  bind:value={queryparams.variation_rating} style="color: #888;" /></td>
+                <td><Button color="primary" on:click={getData}>Filtrar</Button></td>
             </tr>
         </tbody>
         <thead>
@@ -260,17 +268,11 @@
 
 
             <Row>
-                {#if Object.keys(dataWP).length >= 10}
-                    {#if Object.keys(dataWP).length/10 <= pagina} 
-                        <button on:click={restarPagina}>&lt;</button>
-                        <span>Página: {pagina}</span>
-                        <button on:click={sumarPagina}>&gt;</button>
-                    {:else}
-                        <button on:click={restarPagina}>&lt;</button>
-                        <span>Página: {pagina}</span>
-                        
-                    {/if}
-                {/if}
+                <Col class="wp">
+                    <button on:click={restarPagina}>&lt;</button>
+                    <span>Página: {pagina}</span>
+                    <button on:click={sumarPagina}>&gt;</button>  
+                </Col>
             </Row>
         </tbody>
     </Table>
