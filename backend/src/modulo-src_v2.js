@@ -38,8 +38,8 @@ function loadBackend_src_v2(app) {
         const yearSelec = provSelec.filter(x => x.year === year);
         if (yearSelec) {
             response.json(yearSelec[0]).status(200);
-            console.log("New Request to /salaried-stats/" + province + "/" + year);
-        } else if (data.length == 0) {
+            console.log("New GET to /salaried-stats/" + province + "/" + year);
+        } else if (datos_ejemplos_sete.length == 0) {
             console.log(`salaried-stats/${province}/${year} not found`);
             res.sendStatus(404);
         } else {
