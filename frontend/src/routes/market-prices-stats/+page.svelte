@@ -94,8 +94,8 @@
         if (status == 400) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
-            open = false;
         }
+        open = false;
     }
     async function loadInitialData() {
         resultStatus = result = "";
@@ -228,7 +228,7 @@
         </Col>
         <Col xs="4"> 
             {#if message != ""}
-                <Alert fade={true} isOpen={visible} toggle={() => (visible = false)} color={color_alert} dismissible>{message}</Alert>
+                <Alert fade={true} isOpen={visible} on:keypress toggle={() => (visible = false)} color={color_alert} dismissible>{message}</Alert>
             {/if}
         </Col>
     </Row>
