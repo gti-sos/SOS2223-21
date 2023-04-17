@@ -114,6 +114,7 @@
             dataWP = data;
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
+            dataWP = [];
         }
         const status = await res.status;
         resultStatus = status;
@@ -165,7 +166,7 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 200) {
-              open = false;
+            open = false;
             getData();
             message = "Recursos borrados correctamente";
             color_alert = "success";            
