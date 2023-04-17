@@ -32,20 +32,59 @@
         pib_percentage_structure: 14.333319967,
         pib_variation_rate: -0.36179259,
     };
+    let search_province = "";
+    let search_year = "";
+    let search = {
+        pib_current_price_lower: "",
+        pib_current_price_over: "",
+        pib_percentage_structure_lower: "",
+        pib_percentage_structure_over: "",
+        pib_variation_rate_lower: "",
+        pib_variation_rate_over: "",
+        from: "",
+        to: "",
+    }
     let message = "";
     let color_alert;
     let result = "";
     let resultStatus = "";
+    let pagina = 1; 
 
     async function getMks() {
+        let limit = 10;
+        let offset = (pagina - 1) * limit;
+        let query = `?limit=${limit}&offset=${offset}`;
+        var params = query;
+        var params_ids = "";
+        for (const [key, value] of Object.entries(search)) {     
+                    if (value != ""){
+                    params += "&" + key + "=" + value;}
+        }
         resultStatus = result = "";
-        const res = await fetch(API, {
+        if(search_province && search_year){
+            params_ids = "/" + search_province + "/" + search_year + params;
+        }else{
+            if(search_province){
+                params_ids = "/" + search_province + params;
+            }else{
+                if(search_year){
+                    params_ids = "/" + search_year + params;
+                }else{
+                    params_ids = params;
+                }
+            }
+        }
+        const res = await fetch(API + params_ids, {
             method: "GET",
         });
         try {
             const data = await res.json();
             result = JSON.stringify(data, null, 2);
-            mks = data;
+            if(!Array.isArray(data)){
+                mks = [data];
+            }else{
+                mks = data;
+            }
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
         }
@@ -56,6 +95,28 @@
             color_alert = "danger";
         }
     }
+    async function loadInitialData() {
+        resultStatus = result = "";
+        const res = await fetch(API+"/loadInitialData", {
+            method: "GET",
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 500) {
+            message = "Ha habido un error en la petición";
+            color_alert = "danger";
+        }
+        if (status == 201) {
+            message = "Datos iniciales cargados correctamente";
+            color_alert = "success";
+            getMks();
+        } 
+        if (status == 400){
+            message = "Ya hay datos cargados";
+            color_alert = "danger";
+        }
+    }
+
 
     async function createMks() {
         resultStatus = result = "";
@@ -117,11 +178,30 @@
             getMks();
         }
     }
+    async function previousPage() {
+        if (pagina > 1) { 
+        pagina--;
+        getMks()
+        }else{
+            message = "Estás en la primera página";
+            color_alert = "danger";
+        }
+    }
+    async function nextPage() {
+        if (mks.length >= 10) {
+            pagina++;
+            getMks();
+         }else{
+            message = "No hay más páginas";
+            color_alert = "danger";
+         }
+                      
+    }
 </script>
     <div class="cabecera">
     <Row >
         <Col xs="7">
-            <h2>
+            <h4>
                 Producto interior bruto a precios de mercado 
                 <Button color="danger" on:click={toggle}>Borrar recursos</Button>
                 <Modal isOpen={open} {toggle}>
@@ -132,7 +212,8 @@
                         <Button color="secondary" on:click={toggle}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
-            </h2>
+                <Button color="info" on:click={loadInitialData}>Cargar datos iniciales</Button>
+            </h4>
         </Col>
         <Col xs="4"> 
             {#if message != ""}
@@ -141,6 +222,39 @@
         </Col>
     </Row>
 </div>
+<Table bordered striped>
+    <thead>
+        <tr>
+            <th>Provincia</th>
+            <th>Año</th>
+            <th>Desde</th>
+            <th>Hasta</th>
+            <th>PIB P.C menor</th>
+            <th>PIB P.C mayor</th>
+            <th>PIB E.P menor</th>
+            <th>PIB E.P mayor</th>
+            <th>PIB TdeV menor</th>
+            <th>PIB TdeV mayor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input bind:value={search_province} /></td>
+            <td><input bind:value={search_year} /></td>
+            <td><input bind:value={search.from} /></td>
+            <td><input bind:value={search.to} /></td>
+            <td><input bind:value={search.pib_current_price_lower} /></td>
+            <td><input bind:value={search.pib_current_price_over} /></td>
+            <td><input bind:value={search.pib_percentage_structure_lower} /></td>
+            <td><input bind:value={search.pib_percentage_structure_over} /></td>
+            <td><input bind:value={search.pib_variation_rate_lower} /></td>
+            <td><input bind:value={search.pib_variation_rate_over} /></td>
+            <td>
+                <Button color="success" on:click={getMks}>Buscar</Button>
+            </td>
+        </tr>
+    </tbody>
+</Table>
 <Table bordered striped>
     <thead>
         <tr>
@@ -158,45 +272,38 @@
             <td><input bind:value={newMks.pib_current_price} /></td>
             <td><input bind:value={newMks.pib_percentage_structure} /></td>
             <td><input bind:value={newMks.pib_variation_rate} /></td>
-            <td
-                ><Button color="primary" on:click={createMks}
-                    >Crear recurso</Button
-                ></td
-            >
+            <td><Button color="primary" on:click={createMks}>Crear recurso</Button></td>
         </tr>
-
         {#each mks as x}
             <tr>
-                <td
-                    ><a
-                        class="perso"
-                        href="/market-prices-stats/{x.province}/{x.year}"
-                        >{x.province}</a
-                    ></td
-                >
+                <td><a class="perso" href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
                 <td>{x.year}</td>
                 <td>{x.pib_current_price}</td>
                 <td>{x.pib_percentage_structure}</td>
                 <td>{x.pib_variation_rate}</td>
-                <td
-                    ><Button
-                        color="danger"
-                        on:click={deleteMks_one(x.province, x.year)}
-                        >Borrar</Button
-                    ></td
-                >
-                <td
-                    ><Button on:click
-                        ><a href="/market-prices-stats/{x.province}/{x.year}"
-                            >Editar</a
-                        ></Button
-                    ></td
-                >
+                <td><Button color="danger" on:click={deleteMks_one(x.province, x.year)}>Borrar</Button></td>
+                <td><Button on:click><a href="/market-prices-stats/{x.province}/{x.year}">Editar</a></Button></td>
                 <td>&nbsp</td>
             </tr>
         {/each}
     </tbody>
 </Table>
+<Row>
+    <Col class="wp">
+          
+    </Col>
+</Row>
+<div class="cabecera">
+    <Row>
+        <Col xs="5">
+        </Col>
+        <Col xs="4">
+            <button on:click={previousPage}>&lt;</button>
+            <span>Página: {pagina}</span>
+            <button on:click={nextPage}>&gt;</button>
+        </Col>
+    </Row>
+</div>
 
 <style>
     a {
@@ -210,7 +317,7 @@
         color: rgb(21, 41, 124);
         text-decoration: underline;
     }
-    h2 {
+    h4 {
         margin-left: 2%;
         margin-top: 0.5%;
     }

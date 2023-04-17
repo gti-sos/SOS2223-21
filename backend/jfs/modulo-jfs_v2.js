@@ -24,7 +24,7 @@ function loadBackend_jorge(app) {
                 res.sendStatus(500);
             } else if (data.length != 0) {
                 console.log(`Ya hay datos cargados.`);
-                res.sendStatus(200);
+                res.sendStatus(400);
             } else {
                 db.insert(datos_jorge);
                 console.log(`Se han insertado ${datos_jorge.length} datos.`);
