@@ -17,7 +17,7 @@
     const toggle = () => (open = !open);
 
     onMount(async () => {
-        getMks();
+        getsrc();
     });
 
     let API = "/api/v2/salaried-stats";
@@ -47,7 +47,7 @@
     let resultStatus = "";
     let pagina = 1; 
 
-    async function getMks() {
+    async function getsrc() {
         let limit = 10;
         let offset = (pagina - 1) * limit;
         let query = `?limit=${limit}&offset=${offset}`;
@@ -106,7 +106,7 @@
         if (status == 201) {
             message = "Datos iniciales cargados correctamente";
             color_alert = "success";
-            getMks();
+            getsrc();
         } 
         if (status == 400){
             message = "Ya hay datos cargados";
@@ -135,7 +135,7 @@
         if (status == 201) {
             message = "Recurso creado correctamente";
             color_alert = "success";
-            getMks();
+            getsrc();
         }else{
             if (status == 400) {
                 message = "Hay que insertar datos o faltan campos";
@@ -148,7 +148,7 @@
             }
         }
     }
-    async function deleteMks() {
+    async function deleteSrc() {
         resultStatus = result = "";
         const res = await fetch(API, {
             method: "DELETE",
@@ -159,10 +159,10 @@
             message = "Recursos borrados correctamente";
             color_alert = "success";
             open = false;
-            getMks();
+            getsrc();
         }
     }
-    async function deleteMks_one(province, year) {
+    async function deleteSrc_one(province, year) {
         resultStatus = result = "";
         const res = await fetch(API + "/" + province + "/" + year, {
             method: "DELETE",
@@ -172,13 +172,13 @@
         if (status == 200) {
             message = "Recurso borrado correctamente";
             color_alert = "success";
-            getMks();
+            getsrc();
         }
     }
     async function previousPage() {
         if (pagina > 1) { 
         pagina--;
-        getMks()
+        getsrc()
         }else{
             message = "Estás en la primera página";
             color_alert = "danger";
@@ -187,7 +187,7 @@
     async function nextPage() {
         if (mks.length >= 10) {
             pagina++;
-            getMks();
+            getsrc();
          }else{
             message = "No hay más páginas";
             color_alert = "danger";
@@ -199,13 +199,13 @@
     <Row >
         <Col xs="7">
             <h4>
-                Producto interior bruto a precios de mercado 
+                Salarios
                 <Button color="danger" on:click={toggle}>Borrar recursos</Button>
                 <Modal isOpen={open} {toggle}>
                     <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
                     <ModalBody>¿Estás seguro?</ModalBody>
                     <ModalFooter>
-                        <Button color="primary" on:click={deleteMks}>Proceder</Button>
+                        <Button color="primary" on:click={deleteSrc}>Proceder</Button>
                         <Button color="secondary" on:click={toggle}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
@@ -237,7 +237,7 @@
             <td><input bind:value={search.remuneration_percentage_structure} /></td>
             <td><input bind:value={search.remuneration_variation_rate} /></td>
             <td>
-                <Button color="success" on:click={getMks}>Buscar</Button>
+                <Button color="success" on:click={getsrc}>Buscar</Button>
             </td>
         </tr>
     </tbody>
@@ -268,7 +268,7 @@
                 <td>{x.remuneration_of_employees}</td>
                 <td>{x.remuneration_percentage_structure}</td>
                 <td>{x.remuneration_variation_rate}</td>
-                <td><Button color="danger" on:click={deleteMks_one(x.province, x.year)}>Borrar</Button></td>
+                <td><Button color="danger" on:click={deleteSrc_one(x.province, x.year)}>Borrar</Button></td>
                 <td><Button on:click><a href="/salaried-stats/{x.province}/{x.year}">Editar</a></Button></td>
                 <td>&nbsp</td>
             </tr>
