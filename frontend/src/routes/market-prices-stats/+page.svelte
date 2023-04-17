@@ -13,8 +13,10 @@
         Alert, Col, Row
     } from "sveltestrap";
 
+    let visible = true;
     let open = false;
-    const toggle = () => (open = !open);
+    const toggle = () => (visible = false);
+    const toggle1 = () => ( open = !open );
 
     onMount(async () => {
         getMks();
@@ -109,6 +111,7 @@
         if (status == 201) {
             message = "Datos iniciales cargados correctamente";
             color_alert = "success";
+            
             getMks();
         } 
         if (status == 400){
@@ -161,7 +164,6 @@
         if (status == 200) {
             message = "Recursos borrados correctamente";
             color_alert = "success";
-            open = false;
             getMks();
         }
     }
@@ -203,13 +205,13 @@
         <Col xs="7">
             <h4>
                 Producto interior bruto a precios de mercado 
-                <Button color="danger" on:click={toggle}>Borrar recursos</Button>
-                <Modal isOpen={open} {toggle}>
-                    <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
+                <Button color="danger" on:click={toggle1}>Borrar recursos</Button>
+                <Modal isOpen={open} {toggle1}>
+                    <ModalHeader {toggle1}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
                     <ModalBody>¿Estás seguro?</ModalBody>
                     <ModalFooter>
                         <Button color="primary" on:click={deleteMks}>Proceder</Button>
-                        <Button color="secondary" on:click={toggle}>Cancelar</Button>
+                        <Button color="secondary" on:click={toggle1}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
                 <Button color="info" on:click={loadInitialData}>Cargar datos iniciales</Button>
@@ -217,7 +219,7 @@
         </Col>
         <Col xs="4"> 
             {#if message != ""}
-            <Alert fade={true} color={color_alert} dismissible>{message}</Alert>
+            <Alert fade={true} isOpen={visible} color={color_alert} dismissible>{message}</Alert>
         {/if}
         </Col>
     </Row>
