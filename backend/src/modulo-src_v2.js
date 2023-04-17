@@ -95,7 +95,6 @@ function loadBackend_src_v2(app) {
     });
 
 
-
     //**************************   Recursos por provincia   GET /salaried-stats/province ****************************
     app.get(BASI_API_URL + '/:province', (request, response) => {
         const province = request.params.province;
@@ -134,7 +133,7 @@ function loadBackend_src_v2(app) {
                 response.status(409).send("The resource already exist");
             } else {
                 db.insert(request.body);
-                console.log(`Created ${BASI_API_URL}/${request.body.province}/${request.body.year}`);
+                console.log(`Created`);
                 res.sendStatus(201);
             }
         }
