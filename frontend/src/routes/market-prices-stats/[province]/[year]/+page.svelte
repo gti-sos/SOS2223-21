@@ -104,8 +104,11 @@
 
 <div class="cabecera">
     <Row >
-        <Col xs="3">
-            <h2>Detalles del recurso</h2>
+        <Col xs="7">
+            <h2>
+                Detalles del recurso
+                <Button color="info" on:click><a href="/market-prices-stats">Volver</a></Button>
+            </h2>
         </Col>
         <Col xs="3"> 
             {#if message != ""}
@@ -143,5 +146,9 @@
         margin-top: 1%;
         margin-left: 1.5%;
         margin-bottom: 1%;
+    }
+    a {
+        text-decoration: none;
+        color: white;
     }
 </style>
