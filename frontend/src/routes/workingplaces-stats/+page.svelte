@@ -214,10 +214,8 @@
         </thead>
         <tbody>
             <tr>
-                <td><input placeholder="From"  bind:value={queryparams.from} style="color: #888;" /></td>
-                <td><input placeholder="To"  bind:value={queryparams.to} style="color: #888;" /></td>
-                <td><input placeholder="Limit"  bind:value={queryparams.limit} style="color: #888;" /></td>
-                <td><input placeholder="Offset"  bind:value={queryparams.offset} style="color: #888;" /></td>
+                <td><input placeholder="Año Minimo"  bind:value={queryparams.from} style="color: #888;" /></td>
+                <td><input placeholder="Año Maximo"  bind:value={queryparams.to} style="color: #888;" /></td>
                 <td><Button color="primary" on:click={getData}
                         >Filtrar</Button></td>
             </tr>
@@ -272,10 +270,6 @@
                         <span>Página: {pagina}</span>
                         
                     {/if}
-                {:else}
-                    <div style="display:none;">
-                    
-                    </div>
                 {/if}
             </Row>
         </tbody>
