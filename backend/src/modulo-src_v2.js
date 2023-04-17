@@ -197,4 +197,3 @@ function loadBackend_src_v2(app) {
 
 
 export { loadBackend_src_v2 };
-export { loadBackend_src_v2 };
