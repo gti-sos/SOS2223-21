@@ -23,7 +23,22 @@
             <a href="/salaried-stats">/salaried-stats</a>
         </li>
     </ul>
-    <h2>APIs</h2>
+
+    <h2>APIs v1</h2>
+    <ul>
+        <li>
+            <a href="https://sos2223-21.ew.r.appspot.com/api/v2/market-prices-stats">/market-prices-stats</a>
+        </li>
+	  <li>
+            <a href="https://sos2223-21.ew.r.appspot.com/api/v2/workingplaces-stats">/workingplaces-stats</a>
+        </li>
+        <li>
+            <a href="https://sos2223-21.ew.r.appspot.com/api/v1/salaried-stats">/salaried-stats</a>
+        </li>
+    </ul>
+
+
+    <h2>APIs v2</h2>
     <ul>
         <li>
             <a href="https://sos2223-21.ew.r.appspot.com/api/v2/market-prices-stats">/market-prices-stats</a>
@@ -55,6 +70,9 @@
         <li>
             <a href="https://sos2223-21.ew.r.appspot.com/api/v1/salaried-stats/docs">
                 /salaried-stats/docs</a>(hecho por <a href="https://github.com/SetefillaRuano">Setefilla Ruano Calzado</a>)
+
+                <a href="https://sos2223-21.ew.r.appspot.com/api/v2/salaried-stats/docs">
+                    /salaried-stats/docs</a>(hecho por <a href="https://github.com/SetefillaRuano">Setefilla Ruano Calzado</a>)
         </li>
     </ul>
 </section>

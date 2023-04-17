@@ -1,0 +1,401 @@
+{
+    "info": {
+        "_postman_id": "4c8b8352-b841-4a6a-be6d-6d1bbfd45e97",
+        "name": "salaried-stats",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "26077957"
+    },
+    "item": [{
+            "name": "GET",
+            "item": [{
+                    "name": "GET loadInitialData",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 201\", function(){\r",
+                                "    pm.response.to.have.status(201);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}/loadInitialData",
+                            "host": [
+                                "{{variable}}"
+                            ],
+                            "path": [
+                                "loadInitialData"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET  /salaried-stats/province/year",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function(){\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}/Granada/2015",
+                            "host": [
+                                "{{variable}}"
+                            ],
+                            "path": [
+                                "Granada",
+                                "2015"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET /salaried-stats",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function(){\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}",
+                            "host": [
+                                "{{variable}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET /salaried-stats/province",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function(){\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}/Granada",
+                            "host": [
+                                "{{variable}}"
+                            ],
+                            "path": [
+                                "Granada"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET a recurso inexistente",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 404\", function(){\r",
+                                "    pm.response.to.have.status(404);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}/Sevilla/2024",
+                            "host": [
+                                "{{variable}}"
+                            ],
+                            "path": [
+                                "Sevilla",
+                                "2024"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "POST",
+            "item": [{
+                    "name": "POST crear recurso",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 201\", function(){\r",
+                                "    pm.response.to.have.status(201);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"province\": \"Sevilla\",\r\n        \"year\": 2024,\r\n        \"pib_current_price\": 16170570.78,\r\n        \"pib_percentage_structure\": 10.75476647,\r\n        \"pib_variation_rate\": 4.166229745\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{variable}}",
+                            "host": [
+                                "{{variable}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST NO PERMITIDO A /salaried-stats/province/year",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 405\", function(){\r",
+                                "    pm.response.to.have.status(405);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}/Granada/2015",
+                            "host": [
+                                "{{variable}}"
+                            ],
+                            "path": [
+                                "Granada",
+                                "2015"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST NO PERMITIDO A /salaried-stats/province",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 405\", function(){\r",
+                                "    pm.response.to.have.status(405);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}/Granada",
+                            "host": [
+                                "{{variable}}"
+                            ],
+                            "path": [
+                                "Granada"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "PUT",
+            "item": [{
+                    "name": "PUT NO PERMITIDO A /salaried-stats",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 405\", function(){\r",
+                                "    pm.response.to.have.status(405);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}",
+                            "host": [
+                                "{{variable}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "PUT NO PERMITIDO A /salaried-stats Copy",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 405\", function(){\r",
+                                "    pm.response.to.have.status(405);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}",
+                            "host": [
+                                "{{variable}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "PUT /salaried-stats/province/year",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 400\", function(){\r",
+                                "    pm.response.to.have.status(400);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}/Granada/2015",
+                            "host": [
+                                "{{variable}}"
+                            ],
+                            "path": [
+                                "Granada",
+                                "2015"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "DELETE",
+            "item": [{
+                    "name": "DELETE /salaried-stats/province/year",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function(){\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}/Granada/2015",
+                            "host": [
+                                "{{variable}}"
+                            ],
+                            "path": [
+                                "Granada",
+                                "2015"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "DELETE all data",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function(){\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }],
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{variable}}",
+                            "host": [
+                                "{{variable}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
