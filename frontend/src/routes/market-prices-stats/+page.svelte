@@ -78,19 +78,7 @@
         const res = await fetch(API + params_ids, {
             method: "GET",
         });
-        try {
-            const data = await res.json();
-            result = JSON.stringify(data, null, 2);
-            if(!Array.isArray(data)){
-                mks = [data];
-            }else{
-                mks = data;
-            }
-        } catch (error) {
-            console.log(`Error parsing result: ${error}`);
-        }
-        const status = await res.status;
-        resultStatus = status;
+        const status = await res.status
         if (status == 400) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
@@ -102,6 +90,15 @@
         if (status == 404) {
             message = "No se ha encontrado el recurso";
             color_alert = "danger";
+        }
+        if( status == 200){
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            if(!Array.isArray(data)){
+                mks = [data];
+            }else{
+                mks = data;
+            }
         }
         open = false;
     }
@@ -192,6 +189,7 @@
             open = false;
             getMks();
         }
+
     }
     async function previousPage() {
         if (pagina > 1) { 
@@ -220,21 +218,21 @@
         <Col xs="7">
             <h4>
                 Producto interior bruto a precios de mercado 
-                <Button color="danger" on:click={toggle}>Borrar recursos</Button>
+                <Button color="danger" on:keypress on:click={toggle}>Borrar recursos</Button>
                 <Modal isOpen={open} {toggle}>
                     <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
                     <ModalBody>¿Estás seguro?</ModalBody>
                     <ModalFooter>
-                        <Button color="primary" on:click={deleteMks}>Proceder</Button>
-                        <Button color="secondary" on:click={toggle}>Cancelar</Button>
+                        <Button color="primary" on:keypress on:click={deleteMks}>Proceder</Button>
+                        <Button color="secondary" on:keypress on:click={toggle}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
-                <Button color="info" on:click={loadInitialData}>Cargar datos iniciales</Button>
+                <Button color="info" on:keypress on:click={loadInitialData}>Cargar datos iniciales</Button>
             </h4>
         </Col>
         <Col xs="4"> 
             {#if message != ""}
-                <Alert fade={true} isOpen={visible} on:keypress toggle={() => (visible = false)} color={color_alert} dismissible>{message}</Alert>
+                <Alert fade={true} isOpen={visible} toggle={() => (visible = false)} color={color_alert} dismissible>{message}</Alert>
             {/if}
         </Col>
     </Row>
@@ -267,7 +265,7 @@
             <td><input bind:value={search.pib_variation_rate_lower} /></td>
             <td><input bind:value={search.pib_variation_rate_over} /></td>
             <td>
-                <Button color="success" on:click={getMks}>Buscar</Button>
+                <Button color="success" on:keypress on:click={getMks}>Buscar</Button>
             </td>
         </tr>
     </tbody>
@@ -289,7 +287,7 @@
             <td><input bind:value={newMks.pib_current_price} /></td>
             <td><input bind:value={newMks.pib_percentage_structure} /></td>
             <td><input bind:value={newMks.pib_variation_rate} /></td>
-            <td><Button color="primary" on:click={createMks}>Crear recurso</Button></td>
+            <td><Button color="primary" on:keypress on:click={createMks}>Crear recurso</Button></td>
         </tr>
         {#each mks as x}
             <tr>
@@ -298,8 +296,8 @@
                 <td>{x.pib_current_price}</td>
                 <td>{x.pib_percentage_structure}</td>
                 <td>{x.pib_variation_rate}</td>
-                <td><Button color="danger" on:click={deleteMks_one(x.province, x.year)}>Borrar</Button></td>
-                <td><Button on:click><a href="/market-prices-stats/{x.province}/{x.year}">Editar</a></Button></td>
+                <td><Button color="danger" on:keypress on:click={deleteMks_one(x.province, x.year)}>Borrar</Button></td>
+                <td><Button on:keypress on:click><a href="/market-prices-stats/{x.province}/{x.year}">Editar</a></Button></td>
                 <td>&nbsp</td>
             </tr>
         {/each}
@@ -311,9 +309,9 @@
         <Col xs="5">
         </Col>
         <Col xs="4">
-            <Button on:click={previousPage}>&lt;</Button>
+            <Button on:keypress on:click={previousPage}>&lt;</Button>
             <span>Página: {pagina}</span>
-            <Button on:click={nextPage}>&gt;</Button>
+            <Button on:keypress on:click={nextPage}>&gt;</Button>
         </Col>
     </Row>
 </div>
