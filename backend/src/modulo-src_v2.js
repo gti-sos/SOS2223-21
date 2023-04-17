@@ -48,7 +48,7 @@ function loadBackend_src_v2(app) {
         });
 */
 
-    app.get(`${BASE_API_URL}/:province/:year`, (req, res) => {
+    app.get(`${BASI_API_URL}/:province/:year`, (req, res) => {
 
         // Inicializamos los valores que necesitaremos
         let year = req.params.year;
