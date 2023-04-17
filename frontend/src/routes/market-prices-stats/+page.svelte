@@ -95,6 +95,14 @@
             message = "Ha habido un error en la petición";
             color_alert = "danger";
         }
+        if (status == 500) {
+            message = "Ha habido un error en la petición";
+            color_alert = "danger";
+        }
+        if (status == 404) {
+            message = "No se ha encontrado el recurso";
+            color_alert = "danger";
+        }
         open = false;
     }
     async function loadInitialData() {
@@ -107,19 +115,17 @@
         if (status == 500) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
-            open = false;
         }
         if (status == 201) {
             message = "Datos iniciales cargados correctamente";
             color_alert = "success";
-            open = false;
             getMks();
         } 
         if (status == 400){
             message = "Ya hay datos cargados";
             color_alert = "danger";
-            open = false;
         }
+        open = false;
     }
 
 
