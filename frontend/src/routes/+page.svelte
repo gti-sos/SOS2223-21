@@ -32,7 +32,7 @@
             <a href="https://sos2223-21.ew.r.appspot.com/api/v2/workingplaces-stats">/workingplaces-stats</a>
         </li>
         <li>
-            <a href="https://sos2223-21.ew.r.appspot.com/api/v1/salaried-stats">/salaried-stats</a>
+            <a href="https://sos2223-21.ew.r.appspot.com/api/v2/salaried-stats">/salaried-stats</a>
         </li>
     </ul>
 
