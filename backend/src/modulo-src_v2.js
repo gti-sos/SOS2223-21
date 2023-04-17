@@ -141,23 +141,14 @@ function loadBackend_src_v2(app) {
         });
 */
     app.post(BASI_API_URL, (request, response) => {
-        var newReq = request.body;
-        console.log("New POST to /hired-people.");
-        if (!newReq.hasOwnProperty('year') || !newReq.hasOwnProperty('province') ||
-            !newReq.hasOwnProperty('remuneration_of_employees') ||
-            !newReq.hasOwnProperty('remuneration_percentage_structure') || !newReq.hasOwnProperty('remuneration_variation_rate')) {
-            //Falta algun dato
-            console.log("Falta algún dato en el JSON.");
-            response.sendStatus(400);
-        } else {
-            db.find({ 'year': parseInt(newReq.year), 'province': newReq.province, 'remuneration_of_employees': newReq.remuneration_of_employees }, (error, data) => {
+            var newReq = request.body;
+            console.log("New POST to /salaried-stats");
+            db.find({ 'province': parseInt(newReq.province), 'year': newReq.year, 'remuneration_of_employees': newReq.remuneration_of_employees }, (error, data) => {
                 if (error) {
-                    console.log(`Error getting /hired-people/${year}/${province}/${remuneration_of_employees}: ${error}.`);
+                    console.log(`Error getting /salaried-stats/${year}/${province}/${remuneration_of_employees}: ${error}.`);
                     response.sendStatus(500);
                 } else if (data.length == 0) {
-                    //Modificar valores a Integer
                     newReq.year = parseInt(newReq.year);
-                    newReq.remuneration_of_employees = parseInt(newReq.remuneration_of_employees);
                     newReq.remuneration_percentage_structure = parseInt(newReq.remuneration_percentage_structure);
                     newReq.remuneration_variation_rate = parseInt(newReq.remuneration_variation_rate);
                     db.insert(newReq);
@@ -171,59 +162,59 @@ function loadBackend_src_v2(app) {
             });
         }
     });
-    //************************************ POST NO PERMITIDO A /salaried-stats/province *********************************
+//************************************ POST NO PERMITIDO A /salaried-stats/province *********************************
 
-    app.post(BASI_API_URL + '/:province', (request, response) => {
-        response.status(405).send("POST no permitido");
-    });
+app.post(BASI_API_URL + '/:province', (request, response) => {
+    response.status(405).send("POST no permitido");
+});
 
-    //************************************ POST NO PERMITIDO A /salaried-stats/province/year *********************************
-    app.post(BASI_API_URL + '/:province' + '/:year', (request, response) => {
-        response.status(405).send("POST no permitido");
-    });
+//************************************ POST NO PERMITIDO A /salaried-stats/province/year *********************************
+app.post(BASI_API_URL + '/:province' + '/:year', (request, response) => {
+    response.status(405).send("POST no permitido");
+});
 
-    //----------------------------------------- PUTS-----------------------------------------------------------
-    //*************************** PUT A /salaried-stats/province/year  *******************************
-    app.put(BASI_API_URL + '/:province' + '/:year', (request, response) => {
-        const province = request.params.province;
-        const year = parseInt(request.params.year);
+//----------------------------------------- PUTS-----------------------------------------------------------
+//*************************** PUT A /salaried-stats/province/year  *******************************
+app.put(BASI_API_URL + '/:province' + '/:year', (request, response) => {
+    const province = request.params.province;
+    const year = parseInt(request.params.year);
 
-        const existe = datos_ejemplos_sete.find(p => p.province === province && p.year === year);
-        if (!existe || province !== request.body.province || year !== request.body.year) {
-            return response.status(400).send("No se puede actualizar");
-        } else {
-            existe.remuneration_of_employees = request.body.remuneration_of_employees || existe.remuneration_of_employees;
-            existe.remuneration_percentage_structure = request.body.remuneration_percentage_structure || existe.remuneration_percentage_structure;
-            existe.remuneration_variation_rate = request.body.remuneration_variation_rate || existe.remuneration_variation_rate;
-            response.status(200).send("Actualizado correctamente");
-            console.log("New PUT to /salaried-stats/" + province + "/" + year);
-        }
-    });
+    const existe = datos_ejemplos_sete.find(p => p.province === province && p.year === year);
+    if (!existe || province !== request.body.province || year !== request.body.year) {
+        return response.status(400).send("No se puede actualizar");
+    } else {
+        existe.remuneration_of_employees = request.body.remuneration_of_employees || existe.remuneration_of_employees;
+        existe.remuneration_percentage_structure = request.body.remuneration_percentage_structure || existe.remuneration_percentage_structure;
+        existe.remuneration_variation_rate = request.body.remuneration_variation_rate || existe.remuneration_variation_rate;
+        response.status(200).send("Actualizado correctamente");
+        console.log("New PUT to /salaried-stats/" + province + "/" + year);
+    }
+});
 
-    //***********************************  PUT NO PERMITIDO A /salaried-stats ****************************
-    app.put(BASI_API_URL, (request, response) => {
-        response.status(405).send("PUT no permitido a /salaried-stats.");
-    });
+//***********************************  PUT NO PERMITIDO A /salaried-stats ****************************
+app.put(BASI_API_URL, (request, response) => {
+    response.status(405).send("PUT no permitido a /salaried-stats.");
+});
 
-    //***********************************  PUT NO PERMITIDO A /salaried-stats/province ****************************
+//***********************************  PUT NO PERMITIDO A /salaried-stats/province ****************************
 
-    app.put(BASI_API_URL + '/:province', (request, response) => {
-        response.status(405).send("PUT no permitido a /salaried-stats" + province);
+app.put(BASI_API_URL + '/:province', (request, response) => {
+    response.status(405).send("PUT no permitido a /salaried-stats" + province);
 
-    });
+});
 
-    //***********************************   DELETE A salaried-stats - all data    ****************************************
-    app.delete(BASI_API_URL, (request, response) => {
-        datos_ejemplos_sete = [];
-        response.status(200).send("All data delete");
-    });
-    //****************************  DELETE /salaried-stats/province/year  ******************************
-    app.delete(BASI_API_URL + '/:province/:year', (request, response) => {
-        const province = request.params.province;
-        const year = request.params.year;
-        db.remove({ province: province, year: year });
-        response.status(200).send("Data remove");
-    });
+//***********************************   DELETE A salaried-stats - all data    ****************************************
+app.delete(BASI_API_URL, (request, response) => {
+    datos_ejemplos_sete = [];
+    response.status(200).send("All data delete");
+});
+//****************************  DELETE /salaried-stats/province/year  ******************************
+app.delete(BASI_API_URL + '/:province/:year', (request, response) => {
+    const province = request.params.province;
+    const year = request.params.year;
+    db.remove({ province: province, year: year });
+    response.status(200).send("Data remove");
+});
 }
 
 
