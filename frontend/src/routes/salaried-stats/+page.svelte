@@ -233,9 +233,9 @@
         <tr>
             <td><input bind:value={search_province} /></td>
             <td><input bind:value={search_year} /></td>
-            <td><input bind:value={search.pib_current_price} /></td>
-            <td><input bind:value={search.pib_percentage_structure} /></td>
-            <td><input bind:value={search.pib_variation_rate} /></td>
+            <td><input bind:value={search.remuneration_of_employees} /></td>
+            <td><input bind:value={search.remuneration_percentage_structure} /></td>
+            <td><input bind:value={search.remuneration_variation_rate} /></td>
             <td>
                 <Button color="success" on:click={getMks}>Buscar</Button>
             </td>
@@ -256,18 +256,18 @@
         <tr>
             <td><input bind:value={newMks.province} /></td>
             <td><input bind:value={newMks.year} /></td>
-            <td><input bind:value={newMks.pib_current_price} /></td>
-            <td><input bind:value={newMks.pib_percentage_structure} /></td>
-            <td><input bind:value={newMks.pib_variation_rate} /></td>
+            <td><input bind:value={newMks.remuneration_of_employees} /></td>
+            <td><input bind:value={newMks.remuneration_percentage_structure} /></td>
+            <td><input bind:value={newMks.remuneration_variation_rate} /></td>
             <td><Button color="primary" on:click={createMks}>Crear recurso</Button></td>
         </tr>
         {#each mks as x}
             <tr>
                 <td><a class="perso" href="/salaried-stats/{x.province}/{x.year}">{x.province}</a></td>
                 <td>{x.year}</td>
-                <td>{x.pib_current_price}</td>
-                <td>{x.pib_percentage_structure}</td>
-                <td>{x.pib_variation_rate}</td>
+                <td>{x.remuneration_of_employees}</td>
+                <td>{x.remuneration_percentage_structure}</td>
+                <td>{x.remuneration_variation_rate}</td>
                 <td><Button color="danger" on:click={deleteMks_one(x.province, x.year)}>Borrar</Button></td>
                 <td><Button on:click><a href="/salaried-stats/{x.province}/{x.year}">Editar</a></Button></td>
                 <td>&nbsp</td>
