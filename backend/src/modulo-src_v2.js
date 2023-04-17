@@ -119,26 +119,58 @@ function loadBackend_src_v2(app) {
     //--------------------------------------- POST ---------------------------------------------
 
     //**********************************************POST crear recurso***********************************************
-    app.post(BASI_API_URL, (request, response) => {
-        console.log(request.body);
-        if (!request.body) {
-            response.status(400).send("Hay que insertar datos.");
-        } else {
-            newData = request.body;
-            if (datos_ejemplos_sete.some(x =>
-                    x.province === newData.province &&
-                    x.remuneration_of_employees === newData.remuneration_of_employees &&
-                    x.remuneration_percentage_structure === newData.remuneration_percentage_structure &&
-                    x.remuneration_variation_rate === newData.remuneration_variation_rate)) {
-                response.status(409).send("The resource already exist");
+    /*
+        app.post(BASI_API_URL, (request, response) => {
+            console.log(request.body);
+            if (!request.body) {
+                response.status(400).send("Hay que insertar datos.");
             } else {
-                db.insert(request.body);
-                console.log(`Created`);
-                res.sendStatus(201);
+                newData = request.body;
+                if (datos_ejemplos_sete.some(x =>
+                        x.province === newData.province &&
+                        x.remuneration_of_employees === newData.remuneration_of_employees &&
+                        x.remuneration_percentage_structure === newData.remuneration_percentage_structure &&
+                        x.remuneration_variation_rate === newData.remuneration_variation_rate)) {
+                    response.status(409).send("The resource already exist");
+                } else {
+                    db.insert(request.body);
+                    console.log(`Created`);
+                    res.sendStatus(201);
+                }
             }
+        });
+*/
+    app.post(BASI_API_URL, (request, response) => {
+        var newReq = request.body;
+        console.log("New POST to /hired-people.");
+        if (!newReq.hasOwnProperty('year') || !newReq.hasOwnProperty('province') ||
+            !newReq.hasOwnProperty('remuneration_of_employees') ||
+            !newReq.hasOwnProperty('remuneration_percentage_structure') || !newReq.hasOwnProperty('remuneration_variation_rate')) {
+            //Falta algun dato
+            console.log("Falta algún dato en el JSON.");
+            response.sendStatus(400);
+        } else {
+            db.find({ 'year': parseInt(newReq.year), 'province': newReq.province, 'remuneration_of_employees': newReq.remuneration_of_employees }, (error, data) => {
+                if (error) {
+                    console.log(`Error getting /hired-people/${year}/${province}/${remuneration_of_employees}: ${error}.`);
+                    response.sendStatus(500);
+                } else if (data.length == 0) {
+                    //Modificar valores a Integer
+                    newReq.year = parseInt(newReq.year);
+                    newReq.remuneration_of_employees = parseInt(newReq.remuneration_of_employees);
+                    newReq.remuneration_percentage_structure = parseInt(newReq.remuneration_percentage_structure);
+                    newReq.remuneration_variation_rate = parseInt(newReq.remuneration_variation_rate);
+                    db.insert(newReq);
+
+                    console.log(BASI_API_URL + `/${newReq.year}/${newReq.province}/${newReq.remuneration_of_employees}`);
+                    response.sendStatus(201);
+                } else {
+                    console.log(`/salaried-stats/${newReq.year}/${newReq.province} already exist.`);
+                    response.sendStatus(409);
+                }
+            });
         }
     });
-
     //************************************ POST NO PERMITIDO A /salaried-stats/province *********************************
 
     app.post(BASI_API_URL + '/:province', (request, response) => {
