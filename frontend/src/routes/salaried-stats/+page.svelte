@@ -17,35 +17,71 @@
     const toggle = () => (open = !open);
 
     onMount(async () => {
-        getData();
+        getMks();
     });
 
     let API = "/api/v2/salaried-stats";
 
     if (dev) API = "http://localhost:12345" + API;
 
-    let data = [];
-    let newData = {
+    let mks = [];
+    let newMks = {
         province: "Almería",
         year: 2010,
         remuneration_of_employees: 149627412,
         remuneration_percentage_structure: 100,
         remuneration_variation_rate: 298281107,
     };
+    let search_province = "";
+    let search_year = "";
+    let search = {
+        remuneration_of_employees: "",
+        remuneration_percentage_structure: "",
+        remuneration_variation_rate: "",
+        from: "",
+        to: "",
+    }
     let message = "";
     let color_alert;
     let result = "";
     let resultStatus = "";
+    let pagina = 1; 
 
-   async function getData() {
+    async function getMks() {
+        let limit = 10;
+        let offset = (pagina - 1) * limit;
+        let query = `?limit=${limit}&offset=${offset}`;
+        var params = query;
+        var params_ids = "";
+        for (const [key, value] of Object.entries(search)) {     
+                    if (value != ""){
+                    params += "&" + key + "=" + value;}
+        }
         resultStatus = result = "";
-        const res = await fetch(API, {
+        if(search_province && search_year){
+            params_ids = "/" + search_province + "/" + search_year + params;
+        }else{
+            if(search_province){
+                params_ids = "/" + search_province + params;
+            }else{
+                if(search_year){
+                    params_ids = "/" + search_year + params;
+                }else{
+                    params_ids = params;
+                }
+            }
+        }
+        const res = await fetch(API + params_ids, {
             method: "GET",
         });
         try {
             const data = await res.json();
             result = JSON.stringify(data, null, 2);
-            dataWP = data;
+            if(!Array.isArray(data)){
+                mks = [data];
+            }else{
+                mks = data;
+            }
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
         }
@@ -56,8 +92,30 @@
             color_alert = "danger";
         }
     }
+    async function loadInitialData() {
+        resultStatus = result = "";
+        const res = await fetch(API+"/loadInitialData", {
+            method: "GET",
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 500) {
+            message = "Ha habido un error en la petición";
+            color_alert = "danger";
+        }
+        if (status == 201) {
+            message = "Datos iniciales cargados correctamente";
+            color_alert = "success";
+            getMks();
+        } 
+        if (status == 400){
+            message = "Ya hay datos cargados";
+            color_alert = "danger";
+        }
+    }
 
-    async function createData() {
+
+    async function createMks() {
         resultStatus = result = "";
         const res = await fetch(API, {
             method: "POST",
@@ -65,11 +123,11 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                province: newData.province,
-                year: parseInt(newData.year),
-                remuneration_of_employees: newData.remuneration_of_employees,
-                remuneration_percentage_structure: newData.remuneration_percentage_structure,
-                remuneration_variation_rate: newData.remuneration_variation_rate,
+                province: newMks.province,
+                year: parseInt(newMks.year),
+                remuneration_of_employees: newMks.remuneration_of_employees,
+                remuneration_percentage_structure: newMks.remuneration_percentage_structure,
+                remuneration_variation_rate: newMks.remuneration_variation_rate,
             }),
         });
         const status = await res.status;
@@ -77,7 +135,7 @@
         if (status == 201) {
             message = "Recurso creado correctamente";
             color_alert = "success";
-            getData();
+            getMks();
         }else{
             if (status == 400) {
                 message = "Hay que insertar datos o faltan campos";
@@ -90,7 +148,7 @@
             }
         }
     }
-    async function delete_All() {
+    async function deleteMks() {
         resultStatus = result = "";
         const res = await fetch(API, {
             method: "DELETE",
@@ -100,10 +158,11 @@
         if (status == 200) {
             message = "Recursos borrados correctamente";
             color_alert = "success";
-            getData();
+            open = false;
+            getMks();
         }
     }
-    async function delete_Specif(province, year) {
+    async function deleteMks_one(province, year) {
         resultStatus = result = "";
         const res = await fetch(API + "/" + province + "/" + year, {
             method: "DELETE",
@@ -113,25 +172,45 @@
         if (status == 200) {
             message = "Recurso borrado correctamente";
             color_alert = "success";
-            getData();
+            getMks();
         }
     }
+    async function previousPage() {
+        if (pagina > 1) { 
+        pagina--;
+        getMks()
+        }else{
+            message = "Estás en la primera página";
+            color_alert = "danger";
+        }
+    }
+    async function nextPage() {
+        if (mks.length >= 10) {
+            pagina++;
+            getMks();
+         }else{
+            message = "No hay más páginas";
+            color_alert = "danger";
+         }
+                      
+    }
 </script>
-    <div class="Headboard">
+    <div class="cabecera">
     <Row >
         <Col xs="7">
-            <h2>
-                Salarios por Provincia
+            <h4>
+                Producto interior bruto a precios de mercado 
                 <Button color="danger" on:click={toggle}>Borrar recursos</Button>
                 <Modal isOpen={open} {toggle}>
-                    <ModalHeader {toggle}>Procede a borrar todos los recursos</ModalHeader>
-                    <ModalBody>¿Esta seguro?</ModalBody>
+                    <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
+                    <ModalBody>¿Estás seguro?</ModalBody>
                     <ModalFooter>
-                        <Button color="primary" on:click={delete_All}>Proceder</Button>
+                        <Button color="primary" on:click={deleteMks}>Proceder</Button>
                         <Button color="secondary" on:click={toggle}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
-            </h2>
+                <Button color="info" on:click={loadInitialData}>Cargar datos iniciales</Button>
+            </h4>
         </Col>
         <Col xs="4"> 
             {#if message != ""}
@@ -145,57 +224,73 @@
         <tr>
             <th>Provincia</th>
             <th>Año</th>
-            <th>Remuneracion</th>
+            <th>Remuneracion de empleados</th>
             <th>Estructura porcentual</th>
-            <th>Tasas de variación</th>
+            <th>Tasas de variacion</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td><input bind:value={newData.province} /></td>
-            <td><input bind:value={newData.year} /></td>
-            <td><input bind:value={newData.remuneration_of_employees} /></td>
-            <td><input bind:value={newData.remuneration_percentage_structure} /></td>
-            <td><input bind:value={newData.remuneration_variation_rate} /></td>
-            <td
-                ><Button color="primary" on:click={createData}
-                    >Crear recurso</Button
-                ></td
-            >
+            <td><input bind:value={search_province} /></td>
+            <td><input bind:value={search_year} /></td>
+            <td><input bind:value={search.pib_current_price} /></td>
+            <td><input bind:value={search.pib_percentage_structure} /></td>
+            <td><input bind:value={search.pib_variation_rate} /></td>
+            <td>
+                <Button color="success" on:click={getMks}>Buscar</Button>
+            </td>
         </tr>
-
-        {#each data as x}
+    </tbody>
+</Table>
+<Table bordered striped>
+    <thead>
+        <tr>
+            <th>Provincia</th>
+            <th>Año</th>
+            <th>PIB Precios corrientes</th>
+            <th>PIB Estructura porcentual</th>
+            <th>PIB Tasas de variación</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input bind:value={newMks.province} /></td>
+            <td><input bind:value={newMks.year} /></td>
+            <td><input bind:value={newMks.pib_current_price} /></td>
+            <td><input bind:value={newMks.pib_percentage_structure} /></td>
+            <td><input bind:value={newMks.pib_variation_rate} /></td>
+            <td><Button color="primary" on:click={createMks}>Crear recurso</Button></td>
+        </tr>
+        {#each mks as x}
             <tr>
-                <td
-                    ><a
-                        class="perso"
-                        href="/salaried-stats/{x.province}/{x.year}"
-                        >{x.province}</a
-                    ></td
-                >
+                <td><a class="perso" href="/salaried-stats/{x.province}/{x.year}">{x.province}</a></td>
                 <td>{x.year}</td>
-                <td>{x.remuneration_of_employees}</td>
-                <td>{x.remuneration_percentage_structure}</td>
-                <td>{x.remuneration_variation_rate}</td>
-                <td
-                    ><Button
-                        color="danger"
-                        on:click={delete_Specif(x.province, x.year)}
-                        >Borrar</Button
-                    ></td
-                >
-                <td
-                    ><Button on:click
-                        ><a href="/salaried-stats/{x.province}/{x.year}"
-                            >Editar</a
-                        ></Button
-                    ></td
-                >
+                <td>{x.pib_current_price}</td>
+                <td>{x.pib_percentage_structure}</td>
+                <td>{x.pib_variation_rate}</td>
+                <td><Button color="danger" on:click={deleteMks_one(x.province, x.year)}>Borrar</Button></td>
+                <td><Button on:click><a href="/salaried-stats/{x.province}/{x.year}">Editar</a></Button></td>
                 <td>&nbsp</td>
             </tr>
         {/each}
     </tbody>
 </Table>
+<Row>
+    <Col class="wp">
+          
+    </Col>
+</Row>
+<div class="cabecera">
+    <Row>
+        <Col xs="5">
+        </Col>
+        <Col xs="4">
+            <button on:click={previousPage}>&lt;</button>
+            <span>Página: {pagina}</span>
+            <button on:click={nextPage}>&gt;</button>
+        </Col>
+    </Row>
+</div>
 
 <style>
     a {
@@ -209,13 +304,14 @@
         color: rgb(21, 41, 124);
         text-decoration: underline;
     }
-    h2 {
+    h4 {
         margin-left: 2%;
         margin-top: 0.5%;
     }
-    .Headboard {
+    .cabecera {
         margin-top: 1%;
         margin-left: 1.5%;
         margin-bottom: 1%;
     }
+    
 </style>
