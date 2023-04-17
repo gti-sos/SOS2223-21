@@ -30,54 +30,21 @@ function loadBackend_src_v2(app) {
     });
 
     //************************************* GET /salaried-stats/province/year *****************************************************
-    /*
-        app.get(BASI_API_URL + '/:province' + '/:year', (request, response) => {
-            const year = parseInt(request.params.year);
-            const province = request.params.province;
-            const provSelec = datos_ejemplos_sete.filter(x => x.province === province);
-            const yearSelec = provSelec.filter(x => x.year === year);
-            if (yearSelec) {
-                response.json(yearSelec[0]).status(200);
-                console.log("New GET to /salaried-stats/" + province + "/" + year);
-            } else if (datos_ejemplos_sete.length == 0) {
-                console.log(`salaried-stats/${province}/${year} not found`);
-                res.sendStatus(404);
-            } else {
-                response.status(404)
-            };
-        });
-*/
-
     app.get(`${BASI_API_URL}/:province/:year`, (req, res) => {
-
-        // Inicializamos los valores que necesitaremos
         let year = req.params.year;
         let province = req.params.province;
-
         console.log(`New request to /salaried-stats/${province}/${year}`);
-
-        // Recuperamos el registro concreto que se nos pide
         db.find({ 'year': parseInt(year), 'province': province }, { _id: 0 }, (err, data) => {
-
-            // Si existen errores:
             if (err) {
-
                 console.log(`Error getting salaried-stats/${province}/${year}: ${err}`);
                 // Estado 500: Internal Server Error
                 res.sendStatus(500);
-
-                // Si no existen datos 
             } else if (data.length == 0) {
-
                 console.log(`salaried-stats/${province}/${year} not found`);
                 // Estado 404: Not Found
                 res.sendStatus(404);
-
-                // Si existen datos
             } else {
-
                 console.log(`Data salaried-stats/${province}/${year} returned`);
-                // Estado 200: Ok
                 res.json(data[0]);
             }
         });
@@ -167,9 +134,8 @@ function loadBackend_src_v2(app) {
                 response.status(409).send("The resource already exist");
             } else {
                 db.insert(request.body);
-                console.log(`newData = $ { JSON.stringify(request.body, null, 2) }`);
-                console.log("New POST to /salaried-stats");
-                response.status(201).send("El recurso se ha creado correctamente.");
+                console.log(`Created ${BASE_API_URL_ss_affiliates}/${request.body.province}/${request.body.year}`);
+                res.sendStatus(201);
             }
         }
     });
@@ -230,4 +196,5 @@ function loadBackend_src_v2(app) {
 }
 
 
+export { loadBackend_src_v2 };
 export { loadBackend_src_v2 };
