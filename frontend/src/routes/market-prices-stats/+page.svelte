@@ -70,7 +70,7 @@
                 params_ids = "/" + search_province + params;
             }else{
                 if(search_year){
-                    params_ids = "/" + search_year + params;
+                    params_ids = params + "&year=" + search_year ;
                 }else{
                     params_ids = params;
                 }

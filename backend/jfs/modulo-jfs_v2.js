@@ -126,6 +126,7 @@ function loadBackend_jorge(app) {
             };
         });
     });
+    
     //GET periodo concreto/año concreto/datos DB
     app.get(rutaJorge, (req, res) => {
         const from = req.query.from;
