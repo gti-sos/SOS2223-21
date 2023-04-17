@@ -19,7 +19,7 @@ function loadBackend_src_v2(app) {
                 console.log(`Error loading Initial Data: ${error}.`);
                 response.sendStatus(5000);
             } else if (data.length != 0) {
-                console.log(`There are data ${data.lenght}loaded.`);
+                console.log(`There are data ${data.length}loaded.`);
                 response.sendStatus(200);
             } else {
                 db.insert(datos_ejemplos_sete)
@@ -39,7 +39,7 @@ function loadBackend_src_v2(app) {
         if (yearSelec) {
             response.json(yearSelec[0]).status(200);
             console.log("New Request to /salaried-stats/" + province + "/" + year);
-        } else if (data.length == 0) {
+        } else if (yearSelec.length == 0) {
             console.log(`salaried-stats/${province}/${year} not found`);
             res.sendStatus(404);
         } else {
@@ -131,7 +131,7 @@ function loadBackend_src_v2(app) {
                     x.remuneration_variation_rate === newData.remuneration_variation_rate)) {
                 response.status(409).send("The resource already exist");
             } else {
-                datos_ejemplos_sete.push(request.body);
+                db.insert(request.body);
                 console.log(`newData = $ { JSON.stringify(request.body, null, 2) }`);
                 console.log("New POST to /salaried-stats");
                 response.status(201).send("El recurso se ha creado correctamente.");
@@ -186,8 +186,10 @@ function loadBackend_src_v2(app) {
         response.status(200).send("All data delete");
     });
     //****************************  DELETE /salaried-stats/province/year  ******************************
-    app.delete(BASI_API_URL + '/:province' + '/:year', (request, response) => {
-        datos_ejemplos_sete = [];
+    app.delete(BASI_API_URL + '/:province/:year', (request, response) => {
+        const province = request.params.province;
+        const year = request.params.year;
+        db.remove({ province: province, year: year });
         response.status(200).send("Data remove");
     });
 }
