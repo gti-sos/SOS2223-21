@@ -132,7 +132,6 @@ function loadBackend_src_v2(app) {
                 response.status(409).send("The resource already exist");
             } else {
                 db.insert(request.body);
-                datos_ejemplos_sete.push(request.body);
                 console.log(`newData = $ { JSON.stringify(request.body, null, 2) }`);
                 console.log("New POST to /salaried-stats");
                 response.status(201).send("El recurso se ha creado correctamente.");
