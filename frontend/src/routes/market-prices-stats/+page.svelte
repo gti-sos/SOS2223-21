@@ -219,8 +219,8 @@
         </Col>
         <Col xs="4"> 
             {#if message != ""}
-            <Alert fade={true} isOpen={visible} color={color_alert} dismissible>{message}</Alert>
-        {/if}
+                <Alert fade={true} isOpen={visible} color={color_alert} dismissible>{message}</Alert>
+            {/if}
         </Col>
     </Row>
 </div>
