@@ -195,17 +195,27 @@ function loadBackend_src_v2(app) {
         response.status(405).send("PUT no permitido a /salaried-stats.");
     });
 
+    /*
     //***********************************  PUT NO PERMITIDO A /salaried-stats/province ****************************
 
     app.put(BASI_API_URL + '/:province', (request, response) => {
-        response.status(405).send("PUT no permitido a /salaried-stats" + province);
+        response.status(405).send("PUT no permitido a /salaried-stats/" + province);
 
     });
+    */
 
     //***********************************   DELETE A salaried-stats - all data    ****************************************
     app.delete(BASI_API_URL, (request, response) => {
-        datos_ejemplos_sete = [];
-        response.status(200).send("All data delete");
+        console.log("New DELETE to all data.");
+        db.remove({}, { multi: true }, (error, data) => {
+            if (error) {
+                console.log("Error deleting /salaried-stats");
+                response.sendStatus(500);
+            } else {
+                console.log(`All data removed: ${data}.`);
+                response.sendStatus(200);
+            }
+        });
     });
     //****************************  DELETE /salaried-stats/province/year  ******************************
     app.delete(BASI_API_URL + '/:province/:year', (request, response) => {
