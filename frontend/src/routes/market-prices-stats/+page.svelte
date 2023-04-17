@@ -15,8 +15,7 @@
 
     let visible = true;
     let open = false;
-    const toggle = () => (visible = false);
-    const toggle1 = () => ( open = !open );
+    const toggle = () => ( open = !open );
 
     onMount(async () => {
         getMks();
@@ -95,6 +94,7 @@
         if (status == 400) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
+            open = false;
         }
     }
     async function loadInitialData() {
@@ -107,16 +107,18 @@
         if (status == 500) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
+            open = false;
         }
         if (status == 201) {
             message = "Datos iniciales cargados correctamente";
             color_alert = "success";
-            
+            open = false;
             getMks();
         } 
         if (status == 400){
             message = "Ya hay datos cargados";
             color_alert = "danger";
+            open = false;
         }
     }
 
@@ -141,15 +143,18 @@
         if (status == 201) {
             message = "Recurso creado correctamente";
             color_alert = "success";
+            open = false;
             getMks();
         }else{
             if (status == 400) {
                 message = "Hay que insertar datos o faltan campos";
                 color_alert = "danger";
+                open = false;
             }else{
                 if(status == 409){
                     message = "El recurso ya existe o la provincia tiene que ser de Andalucía";
                     color_alert = "danger";
+                    open = false;
                 }
             }
         }
@@ -164,6 +169,7 @@
         if (status == 200) {
             message = "Recursos borrados correctamente";
             color_alert = "success";
+            open = false;
             getMks();
         }
     }
@@ -177,6 +183,7 @@
         if (status == 200) {
             message = "Recurso borrado correctamente";
             color_alert = "success";
+            open = false;
             getMks();
         }
     }
@@ -187,6 +194,7 @@
         }else{
             message = "Estás en la primera página";
             color_alert = "danger";
+            open = false;
         }
     }
     async function nextPage() {
@@ -196,6 +204,7 @@
          }else{
             message = "No hay más páginas";
             color_alert = "danger";
+            open = false;
          }
                       
     }
@@ -205,13 +214,13 @@
         <Col xs="7">
             <h4>
                 Producto interior bruto a precios de mercado 
-                <Button color="danger" on:click={toggle1}>Borrar recursos</Button>
-                <Modal isOpen={open} {toggle1}>
-                    <ModalHeader {toggle1}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
+                <Button color="danger" on:click={toggle}>Borrar recursos</Button>
+                <Modal isOpen={open} {toggle}>
+                    <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
                     <ModalBody>¿Estás seguro?</ModalBody>
                     <ModalFooter>
                         <Button color="primary" on:click={deleteMks}>Proceder</Button>
-                        <Button color="secondary" on:click={toggle1}>Cancelar</Button>
+                        <Button color="secondary" on:click={toggle}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
                 <Button color="info" on:click={loadInitialData}>Cargar datos iniciales</Button>
@@ -219,7 +228,7 @@
         </Col>
         <Col xs="4"> 
             {#if message != ""}
-                <Alert fade={true} isOpen={visible} color={color_alert} dismissible>{message}</Alert>
+                <Alert fade={true} isOpen={visible} toggle={() => (visible = false)} color={color_alert} dismissible>{message}</Alert>
             {/if}
         </Col>
     </Row>
@@ -290,19 +299,15 @@
         {/each}
     </tbody>
 </Table>
-<Row>
-    <Col class="wp">
-          
-    </Col>
-</Row>
+
 <div class="cabecera">
     <Row>
         <Col xs="5">
         </Col>
         <Col xs="4">
-            <button on:click={previousPage}>&lt;</button>
+            <Button on:click={previousPage}>&lt;</Button>
             <span>Página: {pagina}</span>
-            <button on:click={nextPage}>&gt;</button>
+            <Button on:click={nextPage}>&gt;</Button>
         </Col>
     </Row>
 </div>
