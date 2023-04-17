@@ -134,7 +134,7 @@ function loadBackend_src_v2(app) {
                 response.status(409).send("The resource already exist");
             } else {
                 db.insert(request.body);
-                console.log(`Created ${BASE_API_URL_ss_affiliates}/${request.body.province}/${request.body.year}`);
+                console.log(`Created ${BASI_API_URL}/${request.body.province}/${request.body.year}`);
                 res.sendStatus(201);
             }
         }
