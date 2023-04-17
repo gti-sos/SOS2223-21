@@ -9,6 +9,7 @@ function loadBackend_src_v2(app) {
     //The documentation of the API
     app.get(BASI_API_URL + '/docs', function(request, response) {
         response.status(301).redirect('https://documenter.getpostman.com/view/26077957/2s93K1ozB2');
+        response.status(301).redirect('https://documenter.getpostman.com/view/26077957/2s93Xzvh7c');
     });
     //--------------------------------------------- GET ---------------------------------------------------------
     //****************************************GET loadInitialData ******************************************************************

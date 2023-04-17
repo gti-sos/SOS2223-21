@@ -70,6 +70,9 @@
         <li>
             <a href="https://sos2223-21.ew.r.appspot.com/api/v1/salaried-stats/docs">
                 /salaried-stats/docs</a>(hecho por <a href="https://github.com/SetefillaRuano">Setefilla Ruano Calzado</a>)
+
+                <a href="https://sos2223-21.ew.r.appspot.com/api/v2/salaried-stats/docs">
+                    /salaried-stats/docs</a>(hecho por <a href="https://github.com/SetefillaRuano">Setefilla Ruano Calzado</a>)
         </li>
     </ul>
 </section>
