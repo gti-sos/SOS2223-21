@@ -212,111 +212,182 @@
          }
                       
     }
+ 
 </script>
-    <div class="cabecera">
+<div class="cabecera">
     <Row >
-        <Col xs="7">
+        <Col xs="6">
             <h4>
                 Producto interior bruto a precios de mercado 
-                <Button color="danger" on:keypress on:click={toggle}>Borrar recursos</Button>
+                <Button color="danger" on:click={toggle}>Borrar recursos</Button>
                 <Modal isOpen={open} {toggle}>
                     <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
                     <ModalBody>¿Estás seguro?</ModalBody>
                     <ModalFooter>
-                        <Button color="primary" on:keypress on:click={deleteMks}>Proceder</Button>
-                        <Button color="secondary" on:keypress on:click={toggle}>Cancelar</Button>
+                        <Button color="primary" on:click={deleteMks}>Proceder</Button>
+                        <Button color="secondary" on:click={toggle}>Cancelar</Button>
                     </ModalFooter>
                 </Modal>
-                <Button color="info" on:keypress on:click={loadInitialData}>Cargar datos iniciales</Button>
+                <Button color="info" on:click={loadInitialData}>Cargar datos iniciales</Button>
             </h4>
         </Col>
-        <Col xs="4"> 
+        <Col xs="3"> 
             {#if message != ""}
                 <Alert fade={true} isOpen={visible} toggle={() => (visible = false)} color={color_alert} dismissible>{message}</Alert>
             {/if}
         </Col>
     </Row>
 </div>
-<Table bordered striped>
-    <thead>
-        <tr>
-            <th>Provincia</th>
-            <th>Año</th>
-            <th>Desde</th>
-            <th>Hasta</th>
-            <th>PIB P.C menor</th>
-            <th>PIB P.C mayor</th>
-            <th>PIB E.P menor</th>
-            <th>PIB E.P mayor</th>
-            <th>PIB TdeV menor</th>
-            <th>PIB TdeV mayor</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input bind:value={search_province} /></td>
-            <td><input bind:value={search_year} /></td>
-            <td><input bind:value={search.from} /></td>
-            <td><input bind:value={search.to} /></td>
-            <td><input bind:value={search.pib_current_price_lower} /></td>
-            <td><input bind:value={search.pib_current_price_over} /></td>
-            <td><input bind:value={search.pib_percentage_structure_lower} /></td>
-            <td><input bind:value={search.pib_percentage_structure_over} /></td>
-            <td><input bind:value={search.pib_variation_rate_lower} /></td>
-            <td><input bind:value={search.pib_variation_rate_over} /></td>
-            <td>
-                <Button color="success" on:keypress on:click={getMks}>Buscar</Button>
-            </td>
-        </tr>
-    </tbody>
-</Table>
-<Table bordered striped>
-    <thead>
-        <tr>
-            <th>Provincia</th>
-            <th>Año</th>
-            <th>PIB Precios corrientes</th>
-            <th>PIB Estructura porcentual</th>
-            <th>PIB Tasas de variación</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input bind:value={newMks.province} /></td>
-            <td><input bind:value={newMks.year} /></td>
-            <td><input bind:value={newMks.pib_current_price} /></td>
-            <td><input bind:value={newMks.pib_percentage_structure} /></td>
-            <td><input bind:value={newMks.pib_variation_rate} /></td>
-            <td><Button color="primary" on:keypress on:click={createMks}>Crear recurso</Button></td>
-        </tr>
-        {#each mks as x}
+<div class="wp">
+    <div class= "filtros">
+        <Row>
+            <Col xs="4">
+                <Table  striped>
+                    <thead>
+                        <tr>
+                            <th>Provincia</th>
+                            <th>Año</th>
+                            <th>Desde</th>
+                            <th>Hasta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input bind:value={search_province} /></td>
+                            <td><input bind:value={search_year} /></td>
+                            <td><input bind:value={search.from} /></td>
+                            <td><input bind:value={search.to} /></td>
+                            <td>
+                                <Button color="success" on:click={getMks}>Buscar</Button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </Col>
+        </Row>
+        <Row>
+            <Col xs="4">
+                <Table  striped>
+                    <thead>
+                        <tr>
+                            <th>PIB Precios corrientes</th>
+                            <th>PIB Estructura porcentual</th>
+                            <th>PIB Tasas de variación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <Table >
+                                    <thead>
+                                        <tr>
+                                            <th>menor</th>
+                                            <th>mayor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input bind:value={search.pib_current_price_lower} /></td>
+                                            <td><input bind:value={search.pib_current_price_over} /></td>
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                            </td>
+                            <td>
+                                <Table>
+                                    <thead>
+                                        <tr>
+                                            <th>menor</th>
+                                            <th>mayor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td><input bind:value={search.pib_percentage_structure_lower} /></td>
+                                        <td><input bind:value={search.pib_percentage_structure_over} /></td>
+                                    </tr>
+                                    </tbody>
+                                </Table>
+                            </td>
+                            <td>
+                                <Table>
+                                    <thead>
+                                        <tr>
+                                            <th>menor</th>
+                                            <th>mayor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td><input bind:value={search.pib_variation_rate_lower} /></td>
+                                        <td><input bind:value={search.pib_variation_rate_over} /></td>
+                                    </tr>
+                                    </tbody>
+                                </Table>
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </Table>
+            </Col>
+        </Row>
+        
+    </div>
+    <Table  striped>
+        <thead>
             <tr>
-                <td><a class="perso" href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
-                <td>{x.year}</td>
-                <td>{x.pib_current_price}</td>
-                <td>{x.pib_percentage_structure}</td>
-                <td>{x.pib_variation_rate}</td>
-                <td><Button color="danger" on:keypress on:click={deleteMks_one(x.province, x.year)}>Borrar</Button></td>
-                <td><Button on:keypress on:click><a href="/market-prices-stats/{x.province}/{x.year}">Editar</a></Button></td>
-                <td>&nbsp</td>
+                <th>Provincia</th>
+                <th>Año</th>
+                <th>PIB Precios corrientes</th>
+                <th>PIB Estructura porcentual</th>
+                <th>PIB Tasas de variación</th>
             </tr>
-        {/each}
-    </tbody>
-</Table>
-
+        </thead>
+        <tbody>
+            <tr>
+                <td><input bind:value={newMks.province} /></td>
+                <td><input bind:value={newMks.year} /></td>
+                <td><input bind:value={newMks.pib_current_price} /></td>
+                <td><input bind:value={newMks.pib_percentage_structure} /></td>
+                <td><input bind:value={newMks.pib_variation_rate} /></td>
+                <td><Button color="primary" on:click={createMks}>Crear recurso</Button></td>
+            </tr>
+            {#each mks as x}
+                <tr>
+                    <td><a class="perso" href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
+                    <td>{x.year}</td>
+                    <td>{x.pib_current_price}</td>
+                    <td>{x.pib_percentage_structure}</td>
+                    <td>{x.pib_variation_rate}</td>
+                    <td><Button color="danger" on:click={deleteMks_one(x.province, x.year)}>Borrar</Button>
+                    <Button><a href="/market-prices-stats/{x.province}/{x.year}">Editar</a></Button></td>
+                    <td>&nbsp</td>
+                </tr>
+            {/each}
+        </tbody>
+    </Table>
+</div>
 <div class="cabecera">
     <Row>
         <Col xs="5">
         </Col>
         <Col xs="4">
-            <Button on:keypress on:click={previousPage}>&lt;</Button>
+            <Button on:click={previousPage}>&lt;</Button>
             <span>Página: {pagina}</span>
-            <Button on:keypress on:click={nextPage}>&gt;</Button>
+            <Button on:click={nextPage}>&gt;</Button>
         </Col>
     </Row>
 </div>
 
 <style>
+    .filtros {
+        max-width: 100%;
+    }
+    .wp {
+        margin-left: 2%;
+        margin-right: 2%;
+        max-width: 100%;
+    }
     a {
         text-decoration: none;
         color: white;
