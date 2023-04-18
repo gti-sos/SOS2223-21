@@ -10,16 +10,31 @@
         ModalBody,
         ModalFooter,
         ModalHeader,
-        Alert, Col, Row
+        Alert,
+        FormGroup,
+        Form,
+
+        Label,
+
+        Input
+
+
+
     } from "sveltestrap";
 
-    let visible = true;
     let open = false;
+    let open_create = false;
+
+    let visible = true;
+
     const toggle = () => ( open = !open );
+    const toggle_create = () => ( open_create = !open_create );
+
 
     onMount(async () => {
         getMks();
     });
+   
 
     let API = "/api/v2/market-prices-stats";
 
@@ -50,6 +65,7 @@
     let result = "";
     let resultStatus = "";
     let pagina = 1; 
+    let mostrar_create = false;
 
     async function getMks() {
         let limit = 10;
@@ -100,7 +116,8 @@
                 mks = data;
             }
         }
-        open = false;
+        visible = true;
+     
     }
     async function loadInitialData() {
         resultStatus = result = "";
@@ -122,7 +139,7 @@
             message = "Ya hay datos cargados";
             color_alert = "danger";
         }
-        open = false;
+        visible = true;
     }
 
 
@@ -146,21 +163,18 @@
         if (status == 201) {
             message = "Recurso creado correctamente";
             color_alert = "success";
-            open = false;
+            open_create = false;
             getMks();
-        }else{
-            if (status == 400) {
-                message = "Hay que insertar datos o faltan campos";
-                color_alert = "danger";
-                open = false;
-            }else{
-                if(status == 409){
-                    message = "El recurso ya existe o la provincia tiene que ser de Andalucía";
-                    color_alert = "danger";
-                    open = false;
-                }
-            }
         }
+        if (status == 400) {
+            message = "Hay que insertar datos o faltan campos";
+            color_alert = "danger";       
+        }
+        if(status == 409){
+            message = "El recurso ya existe o la provincia tiene que ser de Andalucía";
+            color_alert = "danger";
+        } 
+        visible = true;
     }
     async function deleteMks() {
         resultStatus = result = "";
@@ -175,6 +189,7 @@
             open = false;
             getMks();
         }
+        visible = true;
     }
     async function deleteMks_one(province, year) {
         resultStatus = result = "";
@@ -186,10 +201,9 @@
         if (status == 200) {
             message = "Recurso borrado correctamente";
             color_alert = "success";
-            open = false;
             getMks();
         }
-
+        visible = true;
     }
     async function previousPage() {
         if (pagina > 1) { 
@@ -198,195 +212,148 @@
         }else{
             message = "Estás en la primera página";
             color_alert = "danger";
-            open = false;
         }
+        visible = true;
     }
     async function nextPage() {
         if (mks.length >= 10) {
             pagina++;
             getMks();
-         }else{
+        }else{
             message = "No hay más páginas";
             color_alert = "danger";
-            open = false;
-         }
-                      
+        } 
+        visible = true;             
     }
- 
+   
 </script>
-<div class="cabecera">
-    <Row >
-        <Col xs="6">
-            <h4>
-                Producto interior bruto a precios de mercado 
-                <Button color="danger" on:click={toggle}>Borrar recursos</Button>
-                <Modal isOpen={open} {toggle}>
-                    <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
-                    <ModalBody>¿Estás seguro?</ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" on:click={deleteMks}>Proceder</Button>
-                        <Button color="secondary" on:click={toggle}>Cancelar</Button>
-                    </ModalFooter>
-                </Modal>
-                <Button color="info" on:click={loadInitialData}>Cargar datos iniciales</Button>
-            </h4>
-        </Col>
-        <Col xs="3"> 
-            {#if message != ""}
-                <Alert fade={true} isOpen={visible} toggle={() => (visible = false)} color={color_alert} dismissible>{message}</Alert>
-            {/if}
-        </Col>
-    </Row>
-</div>
-<div class="wp">
-    <div class= "filtros">
-        <Row>
-            <Col xs="4">
-                <Table  striped>
-                    <thead>
-                        <tr>
-                            <th>Provincia</th>
-                            <th>Año</th>
-                            <th>Desde</th>
-                            <th>Hasta</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input bind:value={search_province} /></td>
-                            <td><input bind:value={search_year} /></td>
-                            <td><input bind:value={search.from} /></td>
-                            <td><input bind:value={search.to} /></td>
-                            <td>
-                                <Button color="success" on:click={getMks}>Buscar</Button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </Table>
-            </Col>
-        </Row>
-        <Row>
-            <Col xs="4">
-                <Table  striped>
-                    <thead>
-                        <tr>
-                            <th>PIB Precios corrientes</th>
-                            <th>PIB Estructura porcentual</th>
-                            <th>PIB Tasas de variación</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <Table >
-                                    <thead>
-                                        <tr>
-                                            <th>menor</th>
-                                            <th>mayor</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input bind:value={search.pib_current_price_lower} /></td>
-                                            <td><input bind:value={search.pib_current_price_over} /></td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </td>
-                            <td>
-                                <Table>
-                                    <thead>
-                                        <tr>
-                                            <th>menor</th>
-                                            <th>mayor</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        <td><input bind:value={search.pib_percentage_structure_lower} /></td>
-                                        <td><input bind:value={search.pib_percentage_structure_over} /></td>
-                                    </tr>
-                                    </tbody>
-                                </Table>
-                            </td>
-                            <td>
-                                <Table>
-                                    <thead>
-                                        <tr>
-                                            <th>menor</th>
-                                            <th>mayor</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        <td><input bind:value={search.pib_variation_rate_lower} /></td>
-                                        <td><input bind:value={search.pib_variation_rate_over} /></td>
-                                    </tr>
-                                    </tbody>
-                                </Table>
-                            </td>
-                            
-                        </tr>
-                    </tbody>
-                </Table>
-            </Col>
-        </Row>
-        
-    </div>
-    <Table  striped>
-        <thead>
-            <tr>
-                <th>Provincia</th>
-                <th>Año</th>
-                <th>PIB Precios corrientes</th>
-                <th>PIB Estructura porcentual</th>
-                <th>PIB Tasas de variación</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><input bind:value={newMks.province} /></td>
-                <td><input bind:value={newMks.year} /></td>
-                <td><input bind:value={newMks.pib_current_price} /></td>
-                <td><input bind:value={newMks.pib_percentage_structure} /></td>
-                <td><input bind:value={newMks.pib_variation_rate} /></td>
-                <td><Button color="primary" on:click={createMks}>Crear recurso</Button></td>
-            </tr>
-            {#each mks as x}
+<main>
+    <div class="container" style="margin-top: 1%;">
+        <div class="row" style="margin-bottom: 1%;">
+            <div class="col-md-6">
+                <h4>
+                    Producto interior bruto a precios de mercado 
+                </h4>
+                <div display="flex">
+                    <Button color="danger" on:click={toggle}>Borrar recursos</Button>
+                    <Modal isOpen={open} {toggle}>
+                        <ModalHeader {toggle}>Vas a borrar todos los recursos de la base de datos</ModalHeader>
+                        <ModalBody>¿Estás seguro?</ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" on:click={deleteMks}>Proceder</Button>
+                            <Button color="secondary" on:click={toggle}>Cancelar</Button>
+                        </ModalFooter>
+                    </Modal>
+                    <Button color="warning" on:click={loadInitialData}>Cargar datos iniciales</Button>
+                    <Button color="primary" on:click={toggle_create}>Crear recurso</Button>
+                    <Modal isOpen={open_create} {toggle_create}>
+                        <ModalHeader {toggle_create}>Ingrese los datos del recurso a crear</ModalHeader>
+                        <ModalBody>
+                            <form>
+                                <div class="form-group">
+                                    <label for="province">Provincia</label>
+                                    <input type="text" class="form-control" bind:value={newMks.province} name="province" required>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="year">Año</label>
+                                    <input type="number" class="form-control" bind:value={newMks.year} name="year" required>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="pib_current_price">PIB Precios corrientes</label>
+                                    <input type="number" class="form-control" bind:value={newMks.pib_current_price} name="pib_current_price" required>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="pib_percentage_structure">PIB Estructura porcentual</label>
+                                    <input type="number" class="form-control" bind:value={newMks.pib_percentage_structure} name="pib_percentage_structure" required>
+                                </div>
+                                <br>    
+                                <div>
+                                    <label for="pib_variation_rate">PIB Tasa de variación</label>
+                                    <input type="number" class="form-control" bind:value={newMks.pib_variation_rate} name="pib_variation_rate" required>
+                                </div>
+                                <br>
+                                <div class="button_create">
+                                    <Button color="primary" on:click={createMks}>Crear</Button>
+                                    <span class="button_span"></span>
+                                    <Button color="secondary" on:click={toggle_create}>Cancelar</Button>
+                                </div>
+                            </form>
+                        </ModalBody>
+                        <ModalFooter></ModalFooter>
+                    </Modal>
+                    <Button color="success" on:click={getMks}>Buscar</Button>         
+                </div>
+            </div>
+            <div class="col-md-6">
+                {#if message != ""}
+                    {#if visible}
+                        <Alert color={color_alert} isOpen={visible} toggle={() => (visible = false)} dismissible>{message}</Alert>
+                    {/if}
+                {/if}
+            </div>
+        </div>
+        <Table  bordered striped>
+            <thead>
                 <tr>
-                    <td><a class="perso" href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
-                    <td>{x.year}</td>
-                    <td>{x.pib_current_price}</td>
-                    <td>{x.pib_percentage_structure}</td>
-                    <td>{x.pib_variation_rate}</td>
-                    <td><Button color="danger" on:click={deleteMks_one(x.province, x.year)}>Borrar</Button>
-                    <Button><a href="/market-prices-stats/{x.province}/{x.year}">Editar</a></Button></td>
-                    <td>&nbsp</td>
+                    <th>Provincia</th>
+                    <th>Año</th>
+                    <th>PIB Precios corrientes</th>
+                    <th>PIB Estructura porcentual</th>
+                    <th>PIB Tasas de variación</th>
                 </tr>
-            {/each}
-        </tbody>
-    </Table>
-</div>
-<div class="cabecera">
-    <Row>
-        <Col xs="5">
-        </Col>
-        <Col xs="4">
+            </thead>
+            <tbody>
+                {#if mks.length == 0}
+                    <td colspan="6"><p class="text-center">No hay ningún dato.</p></td>
+                {:else}
+                    {#each mks as x}
+                        <tr>
+                            <td><a class="perso" href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
+                            <td>{x.year}</td>
+                            <td>{x.pib_current_price}</td>
+                            <td>{x.pib_percentage_structure}</td>
+                            <td>{x.pib_variation_rate}</td>
+                            <td><Button color="danger" on:click={deleteMks_one(x.province, x.year)}>Borrar</Button>
+                            <Button><a  href="/market-prices-stats/{x.province}/{x.year}">Editar</a></Button></td>
+                        </tr>
+                    {/each}
+                {/if}
+            </tbody>
+        </Table>
+        <div class="pages">
             <Button on:click={previousPage}>&lt;</Button>
-            <span>Página: {pagina}</span>
-            <Button on:click={nextPage}>&gt;</Button>
-        </Col>
-    </Row>
-</div>
-
+            <span class="pages_span">Página: {pagina}</span>
+            <Button on:click={nextPage}>&gt;</Button> 
+        </div>
+    </div>
+</main>
 <style>
-    .filtros {
-        max-width: 100%;
+    .pages_span{
+        margin-right: 1%;   
+        margin-left: 1%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    .wp {
-        margin-left: 2%;
-        margin-right: 2%;
-        max-width: 100%;
+    .button_create {
+        display: flex;
+        justify-content: center;
+    }
+    .button_span {
+        margin-right: 1%;   
+        margin-left: 1%;
+    }
+    .pages {
+        display: flex;
+        justify-content: center;    
+    }
+    th {
+        background-color: #1e90ff;
+        color: white;
+        font-weight: bold;
     }
     a {
         text-decoration: none;
@@ -399,14 +366,6 @@
         color: rgb(21, 41, 124);
         text-decoration: underline;
     }
-    h4 {
-        margin-left: 2%;
-        margin-top: 0.5%;
-    }
-    .cabecera {
-        margin-top: 1%;
-        margin-left: 1.5%;
-        margin-bottom: 1%;
-    }
+    
     
 </style>
