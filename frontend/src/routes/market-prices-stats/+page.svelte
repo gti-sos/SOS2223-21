@@ -437,7 +437,8 @@
     }
     .pages {
         display: flex;
-        justify-content: center;    
+        justify-content: center;   
+        margin-bottom: 2%; 
     }
     th {
         background-color: #1e90ff;
