@@ -1919,7 +1919,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2015,\r\n    \"pib_current_price\": 12345678,\r\n    \"pib_percentage_structure\": 400,\r\n    \"pib_variation_rate\": 281107\r\n}",
+							"raw": "{\r\n    \"province\": \"Almería\",\r\n    \"year\": 2015,\r\n    \"pib_current_price\": 12345678,\r\n    \"pib_percentage_structure\": 400,\r\n    \"pib_variation_rate\": -2.81107\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2351,14 +2351,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}?year=2016&pib_percentage_structure_over=10",
+							"raw": "{{URL_BASE}}{{API}}?year=2015&pib_percentage_structure_over=10",
 							"host": [
 								"{{URL_BASE}}{{API}}"
 							],
 							"query": [
 								{
 									"key": "year",
-									"value": "2016"
+									"value": "2015"
 								},
 								{
 									"key": "pib_percentage_structure_over",
@@ -3238,85 +3238,7 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "/Province?from=X&to=X",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL_BASE}}{{API}}/Granada?from=2010&to=2011",
-									"host": [
-										"{{URL_BASE}}{{API}}"
-									],
-									"path": [
-										"Granada"
-									],
-									"query": [
-										{
-											"key": "from",
-											"value": "2010"
-										},
-										{
-											"key": "to",
-											"value": "2011"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"154-papu814bn/5HiV1ivuSQuJQpQ2M\""
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "bd3fff61835e074ef0f9a8c345dd3334"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 23 Mar 2023 14:19:42 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Google Frontend"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "private"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"province\": \"Granada\",\n        \"year\": 2011,\n        \"pib_current_price\": 16023926.6615057,\n        \"pib_percentage_structure\": 10.828964443,\n        \"pib_variation_rate\": 0.635469861,\n        \"_id\": \"FW4wXURUt9smCh09\"\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2010,\n        \"pib_current_price\": 15922742.4323176,\n        \"pib_percentage_structure\": 10.641594491,\n        \"pib_variation_rate\": -2.5473448,\n        \"_id\": \"MA8Y8VZLreEf9Qq2\"\n    }\n]"
-						}
-					]
+					"response": []
 				}
 			]
 		},
@@ -3459,6 +3381,64 @@
 					]
 				},
 				{
+					"name": "?limit=1&offset=0&province=Sevilla",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Size of the response array is what limit request wanted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf(1);\r",
+									"});\r",
+									"pm.test(\"Response must be valid and have a body\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"});\r",
+									"pm.test(\"Contains the same province that requested\", () => {\r",
+									"    pm.expect(jsonData.province == \"Granada\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}{{API}}?limit=1&offset=0&province=Sevilla",
+							"host": [
+								"{{URL_BASE}}{{API}}"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "province",
+									"value": "Sevilla"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/Granada?limit=1",
 					"event": [
 						{
@@ -3566,129 +3546,6 @@
 							],
 							"cookie": [],
 							"body": "[\n    {\n        \"province\": \"Granada\",\n        \"year\": 2015,\n        \"pib_current_price\": 16170570.7801264,\n        \"pib_percentage_structure\": 10.754766466,\n        \"pib_variation_rate\": 4.166229745\n    }\n]"
-						}
-					]
-				},
-				{
-					"name": "/Granada?offset=1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response must be valid and have a body\", function(){\r",
-									"    pm.response.to.be.ok;\r",
-									"    pm.response.to.be.withBody;\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"const jsonData = pm.response.json();\r",
-									"pm.test(\"Test data type of the response\", () => {\r",
-									"    pm.expect(jsonData).to.be.an(\"array\");\r",
-									"});\r",
-									"pm.test(\"Contains the same province that requested\", () => {\r",
-									"    pm.expect(jsonData.province == \"Granada\");\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL_BASE}}{{API}}/Granada?offset=1",
-							"host": [
-								"{{URL_BASE}}{{API}}"
-							],
-							"path": [
-								"Granada"
-							],
-							"query": [
-								{
-									"key": "offset",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "/Province?offset=1",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL_BASE}}{{API}}/Granada?offset=1",
-									"host": [
-										"{{URL_BASE}}{{API}}"
-									],
-									"path": [
-										"Granada"
-									],
-									"query": [
-										{
-											"key": "offset",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"61b-EtcWNh7ewL4FIf2gZf0Y3d+UhIY\""
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "d4136d7f0dc58dded8c74dbf96244188;o=1"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 23 Mar 2023 14:20:12 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Google Frontend"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "private"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"province\": \"Granada\",\n        \"year\": 2008,\n        \"pib_current_price\": 17140200.807136,\n        \"pib_percentage_structure\": 10.940139867,\n        \"pib_variation_rate\": -3.184750698\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2015,\n        \"pib_current_price\": 16170570.7801264,\n        \"pib_percentage_structure\": 10.754766466,\n        \"pib_variation_rate\": 4.166229745\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2016,\n        \"pib_current_price\": 16556710,\n        \"pib_percentage_structure\": 10.718993015,\n        \"pib_variation_rate\": 2.387913359\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2011,\n        \"pib_current_price\": 16023926.6615057,\n        \"pib_percentage_structure\": 10.828964443,\n        \"pib_variation_rate\": 0.635469861\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2012,\n        \"pib_current_price\": 15490962.7368822,\n        \"pib_percentage_structure\": 10.790559512,\n        \"pib_variation_rate\": -3.326050698\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2010,\n        \"pib_current_price\": 15922742.4323176,\n        \"pib_percentage_structure\": 10.641594491,\n        \"pib_variation_rate\": -2.5473448\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2019,\n        \"pib_current_price\": 18197655,\n        \"pib_percentage_structure\": 10.517076695,\n        \"pib_variation_rate\": 3.297094843\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2017,\n        \"pib_current_price\": 17008522,\n        \"pib_percentage_structure\": 10.452361148,\n        \"pib_variation_rate\": 2.728875483\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2009,\n        \"pib_current_price\": 16338951.8732772,\n        \"pib_percentage_structure\": 10.952329965,\n        \"pib_variation_rate\": -4.674676469\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2018,\n        \"pib_current_price\": 17616812,\n        \"pib_percentage_structure\": 10.469544189,\n        \"pib_variation_rate\": 3.576383651\n    },\n    {\n        \"province\": \"Granada\",\n        \"year\": 2013,\n        \"pib_current_price\": 15557101.611944,\n        \"pib_percentage_structure\": 10.97082006,\n        \"pib_variation_rate\": 0.426951353\n    }\n]"
 						}
 					]
 				},
@@ -3935,7 +3792,7 @@
 					]
 				},
 				{
-					"name": "?offset=5",
+					"name": "?offset=2",
 					"event": [
 						{
 							"listen": "test",
@@ -3962,14 +3819,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL_BASE}}{{API}}?offset=5",
+							"raw": "{{URL_BASE}}{{API}}?offset=2",
 							"host": [
 								"{{URL_BASE}}{{API}}"
 							],
 							"query": [
 								{
 									"key": "offset",
-									"value": "5"
+									"value": "2"
 								}
 							]
 						}
@@ -4686,7 +4543,7 @@
 					]
 				},
 				{
-					"name": "market-prices-stats/Almería/2010",
+					"name": "market-prices-stats/Almería/2015",
 					"event": [
 						{
 							"listen": "test",
@@ -4770,7 +4627,7 @@
 					]
 				},
 				{
-					"name": "/Almería/2010 404 NOT FOUND",
+					"name": "/Almería/2015 404 NOT FOUND",
 					"event": [
 						{
 							"listen": "test",
@@ -4850,83 +4707,6 @@
 							],
 							"cookie": [],
 							"body": "Not Found"
-						}
-					]
-				},
-				{
-					"name": "market-prices-stats",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL_BASE}}{{API}}",
-							"host": [
-								"{{URL_BASE}}{{API}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "market-prices-stats",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL_BASE}}{{API}}",
-									"host": [
-										"{{URL_BASE}}{{API}}"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "2"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 27 Mar 2023 19:29:31 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "[]"
 						}
 					]
 				}

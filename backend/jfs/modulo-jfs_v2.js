@@ -163,7 +163,7 @@ function loadBackend_jorge(app) {
             } else {
                 if (data.length === 0) {
                     res.sendStatus(404);
-                    console.log(`No existe ningún recurso para la provincia: ${province}.`);
+                    console.log(`No existe ningún recurso.`);
                 } else{
                     if (from && to) {
                         const dataSelec = data.filter(x => x.year >= from && x.year <= to);
