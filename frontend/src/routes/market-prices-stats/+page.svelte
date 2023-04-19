@@ -84,7 +84,8 @@
         const res = await fetch(API + params_ids, {
             method: "GET",
         });
-        const status = await res.status
+        const status = await res.status;
+        console.log(status);
         if (status == 400) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
@@ -94,8 +95,8 @@
             color_alert = "danger";
         }
         if (status == 404) {
-            message = "No se ha encontrado el recurso";
-            color_alert = "danger";
+            message = "";
+            mks = [];
         }
         if( status == 200){
             const data = await res.json();
@@ -216,7 +217,20 @@
         visible = true;             
     }
     let show_search = false;
-    const toggle_search = () => ( show_search = !show_search );
+    const toggle_search = () => ( 
+        show_search = !show_search, 
+        search_province = "",
+        search_year = "",
+        search.pib_current_price_lower = "",
+        search.pib_current_price_over = "",
+        search.pib_percentage_structure_lower = "",
+        search.pib_percentage_structure_over = "",
+        search.pib_variation_rate_lower = "",
+        search.pib_variation_rate_over = "",
+        search.from = "",
+        search.to = "",
+        getMks()
+    );
     async function searchMks() {
        show_search = true;
     }
