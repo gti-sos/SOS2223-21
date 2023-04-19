@@ -188,7 +188,7 @@ function loadBackend_jorge(app) {
                 console.log(`Algo ha salido mal: ${err}.`);
                 res.sendStatus(500);
             } else {
-                if (!body || !body.province || !body.pib_current_price || !body.pib_percentage_structure || !body.pib_variation_rate ||
+                if (!body || !body.province || !body.year || !body.pib_current_price || !body.pib_percentage_structure || !body.pib_variation_rate ||
                     body.year == "" || body.province == "" || body.pib_current_price == "" || body.pib_percentage_structure == "" || body.pib_variation_rate == "" ) {
                     res.status(400).send("Hay que insertar datos o faltan campos.");
                 } else {
@@ -230,7 +230,9 @@ function loadBackend_jorge(app) {
             } else {
                 if (!req.body.province || !req.body.year || !req.body.pib_current_price || !req.body.pib_percentage_structure || !req.body.pib_variation_rate) {
                     res.status(400).send("Faltan campos en el body.");
-                } else {
+                } else if(typeof req.body.province != "string" || typeof req.body.year != "number" || typeof req.body.pib_current_price != "number" || typeof req.body.pib_percentage_structure != "number" || typeof req.body.pib_variation_rate != "number"){
+                    res.status(400).send("Los campos del body no son correctos.");
+                }else{
                     if (data.some(x => x.province === req.body.province)) {
                         db.update({ province: province, year: year }, {
                             $set: {

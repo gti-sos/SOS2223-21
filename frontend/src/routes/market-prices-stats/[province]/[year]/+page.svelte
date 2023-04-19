@@ -24,6 +24,8 @@
     let color_alert;
     let result = "";
     let resultStatus = "";
+    let visible = true;
+
     async function getMks_one() {
         resultStatus = result = "";
         const res = await fetch(API, {
@@ -51,6 +53,7 @@
                 color_alert = "danger";
             }
         }
+        visible = true;
     }
     async function updateMks() {
         resultStatus = result = "";
@@ -89,57 +92,61 @@
                 }
             }
         }
+        visible = true;
     }
         
 </script>
+<main>
+    <div class="container" style="margin-top: 1%;">
+        <div class="row" style="margin-bottom: 1%;">
+            <div class="col-md-6">
+                <h4>
+                    Detalles del recurso
+                    <Button color="info" on:click><a href="/market-prices-stats">Volver</a></Button>
+                </h4>
+            </div>
+            <div class="col-md-6">
+                {#if message != ""}
+                    {#if visible}
+                        <Alert color={color_alert} isOpen={visible} toggle={() => (visible = false)} dismissible>{message}</Alert>
+                    {/if}
+                {/if}
+            </div>
+        </div>
+        <Table  bordered striped>
+            <thead>
+                <tr>
+                    <th>Provincia</th>
+                    <th>Año</th>
+                    <th>PIB Precios corrientes</th>
+                    <th>PIB Estructura porcentual</th>
+                    <th>PIB Tasas de variación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{updatedMks_province} </td>
+                    <td>{updatedMks_year} </td>
+                    <td><input bind:value={updatedMks_pib_current_price} /></td>
+                    <td><input bind:value={updatedMks_pib_percentage_structure} /></td>
+                    <td><input bind:value={updatedMks_pib_variation_rate} /></td>
+                    <td><Button color="primary" on:click={updateMks}>Actualizar</Button></td>
+                </tr>
+            </tbody>
+        </Table>
+    </div>
+</main>
 
-<div class="cabecera">
-    <Row >
-        <Col xs="7">
-            <h2>
-                Detalles del recurso
-                <Button color="info" on:click><a href="/market-prices-stats">Volver</a></Button>
-            </h2>
-        </Col>
-        <Col xs="3"> 
-            {#if message != ""}
-            <Alert fade={true} color={color_alert} dismissible>{message}</Alert>
-        {/if}
-        </Col>
-    </Row>
-</div>
-
-<Table bordered striped>
-    <thead>
-        <tr>
-            <th>Provincia</th>
-            <th>Año</th>
-            <th>PIB Precios corrientes</th>
-            <th>PIB Estructura porcentual</th>
-            <th>PIB Tasas de variación</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{updatedMks_province} </td>
-            <td>{updatedMks_year} </td>
-            <td><input bind:value={updatedMks_pib_current_price} /></td>
-            <td><input bind:value={updatedMks_pib_percentage_structure} /></td>
-            <td><input bind:value={updatedMks_pib_variation_rate} /></td>
-            <td><Button color="primary" on:click={updateMks}>Actualizar</Button></td>
-        </tr>
-    </tbody>
-</Table>
 
 
 <style>
-    .cabecera {
-        margin-top: 1%;
-        margin-left: 1.5%;
-        margin-bottom: 1%;
-    }
     a {
         text-decoration: none;
         color: white;
+    }
+    th {
+        background-color: #1e90ff;
+        color: white;
+        font-weight: bold;
     }
 </style>

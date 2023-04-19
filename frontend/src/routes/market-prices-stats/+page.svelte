@@ -10,16 +10,7 @@
         ModalBody,
         ModalFooter,
         ModalHeader,
-        Alert,
-        FormGroup,
-        Form,
-
-        Label,
-
-        Input
-
-
-
+        Alert
     } from "sveltestrap";
 
     let open = false;
@@ -65,8 +56,7 @@
     let result = "";
     let resultStatus = "";
     let pagina = 1; 
-    let mostrar_create = false;
-
+    
     async function getMks() {
         let limit = 10;
         let offset = (pagina - 1) * limit;
@@ -163,7 +153,6 @@
         if (status == 201) {
             message = "Recurso creado correctamente";
             color_alert = "success";
-            open_create = false;
             getMks();
         }
         if (status == 400) {
@@ -174,6 +163,7 @@
             message = "El recurso ya existe o la provincia tiene que ser de Andalucía";
             color_alert = "danger";
         } 
+        open_create = false;
         visible = true;
     }
     async function deleteMks() {
@@ -225,6 +215,11 @@
         } 
         visible = true;             
     }
+    let show_search = false;
+    const toggle_search = () => ( show_search = !show_search );
+    async function searchMks() {
+       show_search = true;
+    }
    
 </script>
 <main>
@@ -249,42 +244,45 @@
                     <Modal isOpen={open_create} {toggle_create}>
                         <ModalHeader {toggle_create}>Ingrese los datos del recurso a crear</ModalHeader>
                         <ModalBody>
-                            <form>
-                                <div class="form-group">
-                                    <label for="province">Provincia</label>
-                                    <input type="text" class="form-control" bind:value={newMks.province} name="province" required>
+                            <div class="row" id="create">
+                                <div class="col-md">
+                                    <p>Provincia</p>
+                                    <input style="width: 100%;" bind:value={newMks.province}>
                                 </div>
-                                <br>
-                                <div>
-                                    <label for="year">Año</label>
-                                    <input type="number" class="form-control" bind:value={newMks.year} name="year" required>
+                                <div class="col-md">    
+                                    <p>Año</p>
+                                    <input bind:value={newMks.year}>
                                 </div>
-                                <br>
-                                <div>
-                                    <label for="pib_current_price">PIB Precios corrientes</label>
-                                    <input type="number" class="form-control" bind:value={newMks.pib_current_price} name="pib_current_price" required>
+                            </div>
+                            <div class="row" id="create">
+                                <div class="col-md">
+                                    <p>PIB Precios corrientes</p>
+                                    <input bind:value={newMks.pib_current_price}>
                                 </div>
-                                <br>
-                                <div>
-                                    <label for="pib_percentage_structure">PIB Estructura porcentual</label>
-                                    <input type="number" class="form-control" bind:value={newMks.pib_percentage_structure} name="pib_percentage_structure" required>
+                                <div class="col-md">    
+                                    <p>PIB Estructura porcentual</p>
+                                    <input bind:value={newMks.pib_percentage_structure} required>
                                 </div>
-                                <br>    
-                                <div>
-                                    <label for="pib_variation_rate">PIB Tasa de variación</label>
-                                    <input type="number" class="form-control" bind:value={newMks.pib_variation_rate} name="pib_variation_rate" required>
-                                </div>
-                                <br>
-                                <div class="button_create">
-                                    <Button color="primary" on:click={createMks}>Crear</Button>
-                                    <span class="button_span"></span>
-                                    <Button color="secondary" on:click={toggle_create}>Cancelar</Button>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="row" id="create">
+                                <div class="col-md">
+                                    <p>PIB Tasa de variación</p>
+                                    <input bind:value={newMks.pib_variation_rate} required>
+                                </div>   
+                            </div>
                         </ModalBody>
-                        <ModalFooter></ModalFooter>
+                        <ModalFooter style="justify-content: center">
+                            <div class="row">
+                                <div class="col-md">
+                                    <Button color="primary" on:click={createMks}>Crear</Button>
+                                </div>
+                                <div class="col-md">
+                                    <Button color="secondary" on:click={toggle_create}>Cancelar</Button>
+                                </div>   
+                            </div>
+                        </ModalFooter>
                     </Modal>
-                    <Button color="success" on:click={getMks}>Buscar</Button>         
+                    <Button color="success" on:click={searchMks}>Buscar</Button>         
                 </div>
             </div>
             <div class="col-md-6">
@@ -295,6 +293,65 @@
                 {/if}
             </div>
         </div>
+        {#if show_search}
+            <div id="borde">
+                <div class="row" id="search">
+                    <div class="col-md">
+                       <p>Provincia</p>
+                        <input bind:value={search_province}>
+                    </div>
+                    <div class="col-md">
+                        <p>Año</p>
+                        <input bind:value={search_year}>
+                    </div>
+                    <div class="col-md">
+                        <p>Desde</p>
+                        <input bind:value={search.from}>
+                    </div>
+                    <div class="col-md">
+                        <p>Hasta</p>
+                        <input bind:value={search.to}>
+                    </div>
+                </div>
+                <div class="row" id="search">
+                    <div class="col-md">
+                       <p>PIB Precios corrientes menor</p>
+                        <input bind:value={search.pib_current_price_lower}>
+                    </div>
+                    <div class="col-md">
+                        <p>PIB Precios corrientes mayor</p>
+                        <input bind:value={search.pib_current_price_over}>
+                    </div>
+                    <div class="col-md">
+                        <p>PIB Estructura porcentual menor</p>
+                        <input bind:value={search.pib_percentage_structure_lower}>
+                    </div>
+                    <div class="col-md">
+                        <p>PIB Estructura porcentual mayor</p>
+                        <input bind:value={search.pib_percentage_structure_over}>
+                    </div>
+                </div>
+                <div class="row" id="search">
+                    <div class="col-md">
+                       <p>PIB Tasa de Variación menor</p>
+                        <input bind:value={search.pib_variation_rate_lower}>
+                    </div>
+                    <div class="col-md">
+                        <p>PIB Tasa de Variación mayor</p>
+                        <input bind:value={search.pib_variation_rate_over}>
+                    </div>
+                </div>
+                <div class="row" id="search">
+                    <div class="col-md-2">
+                        <Button color="primary" on:click={getMks}>Realizar búsqueda</Button>
+                    </div>
+                    <div class="col-md-2">
+                        <Button color="secondary" on:click={toggle_search}>Cancelar</Button>
+                    </div>   
+                </div>
+            </div>
+            
+        {/if}
         <Table  bordered striped>
             <thead>
                 <tr>
@@ -311,7 +368,7 @@
                 {:else}
                     {#each mks as x}
                         <tr>
-                            <td><a class="perso" href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
+                            <td><a class="ahref_perso" href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
                             <td>{x.year}</td>
                             <td>{x.pib_current_price}</td>
                             <td>{x.pib_percentage_structure}</td>
@@ -331,20 +388,52 @@
     </div>
 </main>
 <style>
+    #borde{
+        border: 2px solid #999999;
+        margin-bottom: 2%;
+        border-radius: 5px;
+    }
+    #borde div.row{
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+    #search {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1%;
+        margin-top: 1%;
+    }
+    #search p {
+        margin: 0;
+        padding-left: 2%;
+        background-color: #1e90ff;
+        color: white;
+    }
+    #search input {
+        margin: 0;
+        width: 100%;
+    }
+    #create {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2%;
+    }
+    #create p {
+        margin: 0;
+        padding-left: 3%;
+        background-color: #1e90ff;
+        color: white;
+    }
+    #create input {
+        margin: 0;
+        width: 100%;
+    }
     .pages_span{
         margin-right: 1%;   
         margin-left: 1%;
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-    .button_create {
-        display: flex;
-        justify-content: center;
-    }
-    .button_span {
-        margin-right: 1%;   
-        margin-left: 1%;
     }
     .pages {
         display: flex;
@@ -359,13 +448,12 @@
         text-decoration: none;
         color: white;
     }
-    .perso {
+    .ahref_perso {
         color: #1e90ff;
     }
-    .perso:hover {
+    .ahref_perso:hover {
         color: rgb(21, 41, 124);
         text-decoration: underline;
     }
-    
     
 </style>
