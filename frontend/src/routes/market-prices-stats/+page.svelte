@@ -85,7 +85,6 @@
             method: "GET",
         });
         const status = await res.status;
-        console.log(status);
         if (status == 400) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
