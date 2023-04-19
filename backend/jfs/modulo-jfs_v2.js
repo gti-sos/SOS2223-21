@@ -108,20 +108,25 @@ function loadBackend_jorge(app) {
                 console.log(`Algo ha salido mal: ${err}.`);
                 res.sendStatus(500);
             } else {
-                if (from && to) {
-                    if (from >= to) {
-                        res.sendStatus(400);
-                        console.log(`El rango desde: ${from} hasta ${to} es incorrecto.`);
+                if (data.length === 0) {
+                    res.sendStatus(404);
+                    console.log(`No existe ningún recurso para la provincia: ${province}.`);
+                } else{
+                    if (from && to) {
+                        if (from >= to) {
+                            res.sendStatus(400);
+                            console.log(`El rango desde: ${from} hasta ${to} es incorrecto.`);
+                        } else {
+                            res.json(dataSelec);
+                            console.log(`New GET to /market-prices-stats/${province}?from=${from}&to=${to}`);
+                        }
                     } else {
-                        res.json(dataSelec);
-                        console.log(`New GET to /market-prices-stats/${province}?from=${from}&to=${to}`);
+                        res.json(data.map((x) => {
+                            delete x._id;
+                            return x;
+                        }));
+                        console.log("New GET to /market-prices-stats/" + province);
                     }
-                } else {
-                    res.json(data.map((x) => {
-                        delete x._id;
-                        return x;
-                    }));
-                    console.log("New GET to /market-prices-stats/" + province);
                 }
             };
         });
@@ -156,24 +161,29 @@ function loadBackend_jorge(app) {
                 console.log(`Algo ha salido mal: ${err}.`);
                 res.sendStatus(500);
             } else {
-                if (from && to) {
-                    const dataSelec = data.filter(x => x.year >= from && x.year <= to);
-                    if (from >= to) {
-                        res.sendStatus(400);
-                        console.log(`El rango desde ${from} hasta ${to} es incorrecto.`);
+                if (data.length === 0) {
+                    res.sendStatus(404);
+                    console.log(`No existe ningún recurso para la provincia: ${province}.`);
+                } else{
+                    if (from && to) {
+                        const dataSelec = data.filter(x => x.year >= from && x.year <= to);
+                        if (from >= to) {
+                            res.sendStatus(400);
+                            console.log(`El rango desde ${from} hasta ${to} es incorrecto.`);
+                        } else {
+                            res.status(200).json(dataSelec.map((x) => {
+                                delete x._id;
+                                return x;
+                            }));
+                            console.log(`New GET to /market-prices-stats?from=${from}&to=${to}`);
+                        }
                     } else {
-                        res.status(200).json(dataSelec.map((x) => {
+                        res.status(200).json(data.map((x) => {
                             delete x._id;
                             return x;
                         }));
-                        console.log(`New GET to /market-prices-stats?from=${from}&to=${to}`);
+                        console.log("New GET to /market-prices-stats");
                     }
-                } else {
-                    res.status(200).json(data.map((x) => {
-                        delete x._id;
-                        return x;
-                    }));
-                    console.log("New GET to /market-prices-stats");
                 }
             };
         });
