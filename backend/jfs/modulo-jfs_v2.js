@@ -191,7 +191,9 @@ function loadBackend_jorge(app) {
                 if (!body || !body.province || !body.year || !body.pib_current_price || !body.pib_percentage_structure || !body.pib_variation_rate ||
                     body.year == "" || body.province == "" || body.pib_current_price == "" || body.pib_percentage_structure == "" || body.pib_variation_rate == "" ) {
                     res.status(400).send("Hay que insertar datos o faltan campos.");
-                } else {
+                } else if(typeof req.body.province != "string" || typeof req.body.year != "number" || typeof req.body.pib_current_price != "number" || typeof req.body.pib_percentage_structure != "number" || typeof req.body.pib_variation_rate != "number"){
+                    res.status(400).send("Los campos del body no son correctos.");
+                }else {
                     if (data.some(x =>
                         x.province === body.province && x.year === body.year)) {
                         res.status(409).send("El recurso ya existe.");
