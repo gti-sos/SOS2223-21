@@ -56,7 +56,6 @@
     let result = "";
     let resultStatus = "";
     let pagina = 1; 
-    
     async function getMks() {
         let limit = 10;
         let offset = (pagina - 1) * limit;
@@ -84,8 +83,18 @@
         const res = await fetch(API + params_ids, {
             method: "GET",
         });
+        try{
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            if(!Array.isArray(data)){
+                mks = [data];
+            }else{
+                mks = data;
+            }
+        }catch(error){
+            mks = [];
+        }
         const status = await res.status;
-        console.log(status);
         if (status == 400) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
@@ -94,22 +103,10 @@
             message = "Ha habido un error en la petición";
             color_alert = "danger";
         }
-        if (status == 404) {
-            message = "";
-            mks = [];
-        }
-        if( status == 200){
-            const data = await res.json();
-            result = JSON.stringify(data, null, 2);
-            if(!Array.isArray(data)){
-                mks = [data];
-            }else{
-                mks = data;
-            }
-        }
         visible = true;
      
     }
+
     async function loadInitialData() {
         resultStatus = result = "";
         const res = await fetch(API+"/loadInitialData", {
@@ -130,6 +127,10 @@
             message = "Ya hay datos cargados";
             color_alert = "danger";
         }
+        setTimeout(() => {
+                message = "";
+                color_alert = "";
+        }, 3500);
         visible = true;
     }
 
@@ -164,6 +165,10 @@
             message = "El recurso ya existe o la provincia tiene que ser de Andalucía";
             color_alert = "danger";
         } 
+        setTimeout(() => {
+                message = "";
+                color_alert = "";
+        }, 3500);
         open_create = false;
         visible = true;
     }
@@ -180,8 +185,14 @@
             open = false;
             getMks();
         }
+        setTimeout(() => {
+                message = "";
+                color_alert = "";
+        }, 3500);
+        
         visible = true;
     }
+    
     async function deleteMks_one(province, year) {
         resultStatus = result = "";
         const res = await fetch(API + "/" + province + "/" + year, {
@@ -194,6 +205,10 @@
             color_alert = "success";
             getMks();
         }
+        setTimeout(() => {
+                message = "";
+                color_alert = "";
+        }, 3500);
         visible = true;
     }
     async function previousPage() {
@@ -204,6 +219,10 @@
             message = "Estás en la primera página";
             color_alert = "danger";
         }
+        setTimeout(() => {
+                message = "";
+                color_alert = "";
+        }, 3500);
         visible = true;
     }
     async function nextPage() {
@@ -214,6 +233,10 @@
             message = "No hay más páginas";
             color_alert = "danger";
         } 
+        setTimeout(() => {
+                message = "";
+                color_alert = "";
+        }, 3500);
         visible = true;             
     }
     let show_search = false;
@@ -299,13 +322,14 @@
                     <Button color="success" on:click={searchMks}>Buscar</Button>         
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 {#if message != ""}
                     {#if visible}
                         <Alert color={color_alert} isOpen={visible} toggle={() => (visible = false)} dismissible>{message}</Alert>
                     {/if}
                 {/if}
             </div>
+            <div class="col-md-2"></div>
         </div>
         {#if show_search}
             <div id="borde">
