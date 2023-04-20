@@ -1,6 +1,5 @@
 <script>
     // @ts-nocheck
-
     import { onMount } from "svelte";
     import { dev } from "$app/environment";
     import {
@@ -12,18 +11,14 @@
         ModalHeader,
         Alert, Col, Row
     } from "sveltestrap";
-
     let open = false;
     const toggle = () => (open = !open);
-
     onMount(async () => {
         getData();
     });
-
     let API = "/api/v2/workingplaces-stats";
     
     if (dev) API = "http://localhost:12345" + API;
-
     let dataWP = [];
     let newBody = {
         province: "",
@@ -41,26 +36,11 @@
         percentage_structure: "",
         variation_rating: "",
     };
-
-    let busquedas = false;
-
     let message = "";
     let color_alert;
     let result = "";
     let resultStatus = "";
     let pagina = 1; // Inicializamos la variable 'pagina' en 1
-
-    let mensaje_visible = false;
-    
-    function contador_mensaje() {
-        let mensaje_visible = true;
-        setTimeout(function() {
-            mensaje_visible = false;
-            console.log("finalziacion");
-        }, 5000);
-    }
-
-
     async function LoadInitial() {
         resultStatus = result = "";
         const res = await fetch(API+"/loadInitialData", {
@@ -78,26 +58,15 @@
         if (status == 400) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
-            contador_mensaje()
         } else if (status == 200) {
             message = "Datos iniciales cargados correctamente";
             color_alert = "success";
-            contador_mensaje()
             getData();
         } else if (status == 201){
             message = "Ya hay datos cargados";
             color_alert = "danger";
-            contador_mensaje()
         }
     }
-    async function Busqueda() {
-             if (busquedas == true){
-                busquedas = false;
-             }         else{
-                busquedas = true
-             }         
-    }
-
     async function sumarPagina() {
          if (Object.keys(dataWP).length >= 10) {
             pagina++;
@@ -105,7 +74,6 @@
          }else{
             message = "Ya no hay más datos, estas en la ultima pagina";
             color_alert = "danger";
-            contador_mensaje();
          }
                       
     }
@@ -115,7 +83,6 @@
         getData()
         }
     }
-
     async function getData() {
         
         let i = 0;
@@ -127,7 +94,6 @@
                     params += "&" + key + "=" + value;}
         }
         
-
         console.log(params);
         resultStatus = result = "";
         const res = await fetch(API+params, {
@@ -143,10 +109,7 @@
         }
         const status = await res.status;
         resultStatus = status;
-
     }
-
-
     async function createDATA() {
         resultStatus = result = "";
         const res = await fetch(API, {
@@ -168,17 +131,14 @@
             message = "Recurso creado correctamente";
             color_alert = "success";
             getData();
-            contador_mensaje();
         }else{
             if (status == 400) {
                 message = "Hay que insertar datos o hay campos vacios";
                 color_alert = "danger";
-                contador_mensaje();
             }else{
                 if(status == 409){
                     message = "El recurso ya existe o la provincia no pertenece a Andalucia";
                     color_alert = "danger";
-                    contador_mensaje();
                 }
             }
         }
@@ -197,8 +157,7 @@
             open = false;
             getData();
             message = "Recursos borrados correctamente";
-            color_alert = "success";
-            contador_mensaje();          
+            color_alert = "success";            
         }
     }
     async function deleteDATA_Spef(province, year) {
@@ -212,19 +171,18 @@
             getData();
             message = "Recurso borrado correctamente";
             color_alert = "success";
-            contador_mensaje();
+            
         }
     }
 </script>
-    <div>
+    <div class="cabecera">
     <Col md>
-        <div class="wp" >
+        <Row >
                 <h2>
                     Puestos De Trabajo Totales de Mercado 
-                </h2>
                     <Button color="danger" on:click={toggle}>Borrar recursos</Button>
                     <Button color="secondary" on:click={LoadInitial}>Cargar Datos Iniciales</Button>
-                    <Button color="secondary" on:click={Busqueda}>Busquedas</Button>
+                    <Button color="secondary" on:click={volverAtras}>Volver Atras</Button>
                     <Modal isOpen={open} {toggle}>
                         <ModalHeader {toggle}>Procede a borrar todos los datos</ModalHeader>
                         <ModalBody>¿Estás seguro?</ModalBody>
@@ -233,48 +191,41 @@
                             <Button color="secondary" on:click={toggle}>Cancelar</Button>
                         </ModalFooter>
                     </Modal>
-                
-        </div>
-        {#if busquedas == true}
-            <div class="filter-square">
-                    <h6>
-                    Filtros Generales
-                    </h6>
-                    <tr>
-                        <td><input placeholder="Provincia"  bind:value={queryparams.province} style="color: #888;" /></td>
-                        <td><input placeholder="Año"  bind:value={queryparams.year} style="color: #888;" /></td>
-                        <td><input placeholder="Lugares De Trabajo"  bind:value={queryparams.work_place} style="color: #888;" /></td>
-                        <td><input placeholder="Estructura porcentual"  bind:value={queryparams.percentage_structure} style="color: #888;" /></td>
-                        <td><input placeholder="Tasas de variación"  bind:value={queryparams.variation_rating} style="color: #888;" /></td>
-                    </tr>
-                    <h6>
-                    Filtro por rango de Año
-                    </h6>
-                    <tr>
-                        <td><input placeholder="Año Minimo"  bind:value={queryparams.from} style="color: #888;" /></td>
-                        <td><input placeholder="Año Maximo"  bind:value={queryparams.to} style="color: #888;" /></td>
-                    </tr>
-                    <td><Button color="primary" on:click={getData}>Filtrar</Button></td>
-            </div>
-        {/if}
-        <div class ="mesage">
+                </h2>
+        </Row>
+        <Row> 
                 {#if message != ""}
-                        <Alert fade={true} color={color_alert}  dismissible>{message}</Alert>
-                {/if}
-        </div>
+                <Alert fade={true} color={color_alert} dismissible>{message}</Alert>
+            {/if}
+        </Row>
     </Col>
 </div>
 <div  class = "wp">
     <Table>
         <thead>
-                <tr>
-                    <th>Provincia</th>
-                    <th>Año</th>
-                    <th>Lugares De Trabajo</th>
-                    <th>Estructura porcentual</th>
-                    <th>Tasas de variación</th>
-                </tr>
-            </thead>        
+            <tr>Filtro de Datos</tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input placeholder="Año Minimo"  bind:value={queryparams.from} style="color: #888;" /></td>
+                <td><input placeholder="Año Maximo"  bind:value={queryparams.to} style="color: #888;" /></td>
+                <td><input placeholder="Provincia"  bind:value={queryparams.province} style="color: #888;" /></td>
+                <td><input placeholder="Año"  bind:value={queryparams.year} style="color: #888;" /></td>
+                <td><input placeholder="Lugares De Trabajo"  bind:value={queryparams.work_place} style="color: #888;" /></td>
+                <td><input placeholder="Estructura porcentual"  bind:value={queryparams.percentage_structure} style="color: #888;" /></td>
+                <td><input placeholder="Tasas de variación"  bind:value={queryparams.variation_rating} style="color: #888;" /></td>
+                <td><Button color="primary" on:click={getData}>Filtrar</Button></td>
+            </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th>Provincia</th>
+                <th>Año</th>
+                <th>Lugares De Trabajo</th>
+                <th>Estructura porcentual</th>
+                <th>Tasas de variación</th>
+            </tr>
+        </thead>
         <tbody>
             <tr>
                 <td><input placeholder="Provincia"  bind:value={newBody.province} style="color: #888;" /></td>
@@ -286,77 +237,51 @@
                         >Crear</Button></td>
             </tr>
 
-            {#if dataWP.length == 0}
-                    <td colspan="6"><p class="text-center">No existen datos, inserte o cargue los datos iniciales.</p></td>
-                {:else}
-                    {#each dataWP as x}
-                        <tr>
-                            <td><a class="cuadricula">{x.province}</a></td>
-                            <td>{x.year}</td>
-                            <td>{x.work_place}</td>
-                            <td>{x.percentage_structure}</td>
-                            <td>{x.variation_rating}</td>
-                            <td><Button
-                                    color="danger"
-                                    on:click={deleteDATA_Spef(x.province, x.year)}
-                                    >Borrar</Button
-                                ></td>
-                            <td><Button on:click><a href="/workingplaces-stats/{x.province}/{x.year}">Editar</a></Button></td>
-                        </tr>
-                    {/each}
-            {/if}
+
+            {#each dataWP as x}
+                <tr>
+                    <td><a class="cuadricula">{x.province}</a></td>
+                    <td>{x.year}</td>
+                    <td>{x.work_place}</td>
+                    <td>{x.percentage_structure}</td>
+                    <td>{x.variation_rating}</td>
+                    <td><Button
+                            color="danger"
+                            on:click={deleteDATA_Spef(x.province, x.year)}
+                            >Borrar</Button
+                        ></td>
+                    <td><Button on:click><a href="/workingplaces-stats/{x.province}/{x.year}">Editar</a></Button></td>
+                </tr>
+            {/each}
+
+
+
+            <Row>
+                <Col class="wp">
+                    <button on:click={restarPagina}>&lt;</button>
+                    <span>Página: {pagina}</span>
+                    <button on:click={sumarPagina}>&gt;</button>  
+                </Col>
+            </Row>
         </tbody>
     </Table>
-    <div class="pages">
-                    <button on:click={restarPagina}>&lt;</button>
-                    <span class="spanp">Página: {pagina}</span>
-                    <button on:click={sumarPagina}>&gt;</button>  
- </div>
 </div>
-
 <style>
-
-    .h2 {
+    h2 {
         margin-left: 2%;
         margin-top: 0.5%;
     }
-    .spanp{
-        margin-right: 1%;   
-        margin-left: 1%;
+    .cabecera {
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-    .filter-square {
-        margin-left: 8.5%;
-        margin-right: 8.5%;
-        background-color: #f1f1f1;
-        padding: 20px;
-        border: 1px solid #ccc;
-    }
-    .mesage {
-        margin-left: 8.5%;
-        margin-right: 8.5%;
-        padding: 20px;
-    }
-    .pagina{
-        margin-right: 1%;   
-        margin-left: 1%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .pages {
-        display: flex;
-        justify-content: center;   
-        margin-bottom: 2%; 
+        width: 100%; /* 100% del ancho de la pantalla */
     }
     .wp {
         margin-left: 8.5%;
         margin-right: 8.5%;
     }
     .colordefault{
-
     }
     
 </style>
