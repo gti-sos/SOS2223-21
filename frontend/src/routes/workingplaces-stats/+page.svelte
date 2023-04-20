@@ -216,11 +216,12 @@
         }
     }
 </script>
-    <div class="cabecera">
+    <div>
     <Col md>
-        <Row >
+        <div class="wp" >
                 <h2>
                     Puestos De Trabajo Totales de Mercado 
+                </h2>
                     <Button color="danger" on:click={toggle}>Borrar recursos</Button>
                     <Button color="secondary" on:click={LoadInitial}>Cargar Datos Iniciales</Button>
                     <Button color="secondary" on:click={Busqueda}>Busquedas</Button>
@@ -232,10 +233,13 @@
                             <Button color="secondary" on:click={toggle}>Cancelar</Button>
                         </ModalFooter>
                     </Modal>
-                </h2>
-        </Row>
+                
+        </div>
         {#if busquedas == true}
             <div class="filter-square">
+                    <h6>
+                    Filtros Generales
+                    </h6>
                     <tr>
                         <td><input placeholder="Provincia"  bind:value={queryparams.province} style="color: #888;" /></td>
                         <td><input placeholder="Año"  bind:value={queryparams.year} style="color: #888;" /></td>
@@ -243,7 +247,9 @@
                         <td><input placeholder="Estructura porcentual"  bind:value={queryparams.percentage_structure} style="color: #888;" /></td>
                         <td><input placeholder="Tasas de variación"  bind:value={queryparams.variation_rating} style="color: #888;" /></td>
                     </tr>
-                
+                    <h6>
+                    Filtro por rango de Año
+                    </h6>
                     <tr>
                         <td><input placeholder="Año Minimo"  bind:value={queryparams.from} style="color: #888;" /></td>
                         <td><input placeholder="Año Maximo"  bind:value={queryparams.to} style="color: #888;" /></td>
@@ -253,9 +259,7 @@
         {/if}
         <div class ="mesage">
                 {#if message != ""}
-                    {#if mensaje_visible=true}
                         <Alert fade={true} color={color_alert}  dismissible>{message}</Alert>
-                    {/if}
                 {/if}
         </div>
     </Col>
@@ -341,13 +345,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-    .cabecera {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 100%; /* 100% del ancho de la pantalla */
     }
     .pages {
         display: flex;
