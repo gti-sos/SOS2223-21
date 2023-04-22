@@ -32,13 +32,20 @@
     let ac_work_place = "";
     let ac_percentage_structure = "";
     let ac_variation_rating = "";
-
+    let mensaje_visible = false;
     let message = "";
     let color_alert;
     let result = "";
     let resultStatus = "";
 
-
+    function contador_mensaje() {
+        let mensaje_visible = true;
+        setTimeout(function() {
+            message ="";
+            mensaje_visible = false;
+            console.log("finalziacion");
+        }, 5000);
+    }
     async function getData_Spef() {
         resultStatus = result = "";
         const res = await fetch(API, {
@@ -60,10 +67,12 @@
         if(status == 404){
             message = `No existe ningún recurso para la provincia: ${ac_province}, en el año: ${ac_year}.`;
             color_alert = "danger";
+            contador_mensaje();
         }else{
             if(status == 400){
                 message = "Ha habido un error en la petición";
                 color_alert = "danger";
+                contador_mensaje();
             }
         }
     }
@@ -116,9 +125,14 @@
 
     <div class="cabecera">
     <Col md>
-        <Row >
+        <div class="wpcab" >
+            <row>
                 <h2>
-                    Actualizacion del Recurso 
+                    Actualizacion de recurso 
+                </h2>
+            </row>
+        </div>
+        <div class="wpcab">
                     <Button color="primary" on:click={volverAtras}>Volver Atras</Button>
                     <Modal isOpen={open} {toggle}>
                         <ModalHeader {toggle}>Procede a la actualización de los datos de este recurso</ModalHeader>
@@ -128,13 +142,14 @@
                             <Button color="secondary" on:click={toggle}>Cancelar</Button>
                         </ModalFooter>
                     </Modal>
-                </h2>
-        </Row>
-        <Row> 
+        </div>
+        <div class ="mesage">
                 {#if message != ""}
-                <Alert fade={true} color={color_alert} dismissible>{message}</Alert>
-            {/if}
-        </Row>
+                    {#if mensaje_visible=true}
+                        <Alert fade={true} color={color_alert}  dismissible>{message}</Alert>
+                    {/if}
+                {/if}
+        </div>
     </Col>
     
 </div>
@@ -162,33 +177,78 @@
     </Table>
 </div>
 <style>
-    a {
-        text-decoration: none;
-        color: black;
-    }
-    .cuadricula {
-        color: #1e90ff;
-    }
-    .cuadricula:hover {
-        color: rgb(21, 41, 124);
-    }
-    h2 {
+    .h2 {
         margin-left: 2%;
         margin-top: 0.5%;
+    }
+    .wpcab{
+        margin-left: 8.5%;
+        margin-right: 8.5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .button {
+    padding: 1%;
+    }
+    .spanp{
+        margin-right: 1%;   
+        margin-left: 1%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .filter-square {
+        margin-top: 1.5%;
+        margin-left: 8.5%;
+        margin-right: 8.5%;
+        background-color: #f1f1f1;
+        padding: 20px;
+        border: 1px solid #ccc;
+    }
+    .objetoscenter{
+        margin-right: 1%;   
+        margin-left: 1%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .butoncenter{
+        margin-top: 1%;
+        margin-right: 1%;   
+        margin-left: 1%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .mesage {
+        margin-left: 8.5%;
+        margin-right: 8.5%;
+        padding: 20px;
+    }
+    .pagina{
+        margin-right: 1%;   
+        margin-left: 1%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .cabecera {
         display: flex;
         justify-content: center;
         align-items: center;
-
         width: 100%; /* 100% del ancho de la pantalla */
+    }
+    .pages {
+        display: flex;
+        justify-content: center;   
+        margin-bottom: 2%; 
     }
     .wp {
         margin-left: 8.5%;
         margin-right: 8.5%;
     }
     .colordefault{
-
     }
     
 </style>

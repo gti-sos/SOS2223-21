@@ -131,6 +131,10 @@
         }
         const status = await res.status;
         resultStatus = status;
+        if (status == 404) {
+                message = "No hay datos, carga los datos iniciales o crea uno tu mismo!!";
+                color_alert = "info";
+                contador_mensaje();}
     }
     async function createDATA() {
         resultStatus = result = "";
@@ -203,11 +207,16 @@
 </script>
     <div class="cabecera">
     <Col md>
-        <Row >
+        <div class="wpcab" >
+            <row>
                 <h2>
                     Puestos De Trabajo Totales de Mercado 
+                </h2>
+            </row>
+        </div>
+        <div class="wpcab">
                     <Button color="danger" on:click={toggle}>Borrar recursos</Button>
-                    <Button color="secondary" on:click={LoadInitial}>Cargar Datos Iniciales</Button>
+                    <Button color="info" on:click={LoadInitial}>Cargar Datos Iniciales</Button>
                     <Button color="secondary" on:click={Busqueda}>Busquedas</Button>
                     <Modal isOpen={open} {toggle}>
                         <ModalHeader {toggle}>Procede a borrar todos los datos</ModalHeader>
@@ -217,10 +226,15 @@
                             <Button color="secondary" on:click={toggle}>Cancelar</Button>
                         </ModalFooter>
                     </Modal>
-                </h2>
-        </Row>
+        </div>
         {#if busquedas == true}
             <div class="filter-square">
+                    <div class ="objetoscenter">
+                        <h6>
+                            Filtros Generales
+                        </h6>
+                    </div>
+                    <div class ="objetoscenter">
                     <tr>
                         <td><input placeholder="Provincia"  bind:value={queryparams.province} style="color: #888;" /></td>
                         <td><input placeholder="Año"  bind:value={queryparams.year} style="color: #888;" /></td>
@@ -228,12 +242,22 @@
                         <td><input placeholder="Estructura porcentual"  bind:value={queryparams.percentage_structure} style="color: #888;" /></td>
                         <td><input placeholder="Tasas de variación"  bind:value={queryparams.variation_rating} style="color: #888;" /></td>
                     </tr>
-                
+                    </div>
+                     <div class ="objetoscenter">
+                        <h6>
+                    Filtro por rango de Año
+                    </h6>
+                     </div>
+                    <div class ="objetoscenter">
+                    
                     <tr>
                         <td><input placeholder="Año Minimo"  bind:value={queryparams.from} style="color: #888;" /></td>
                         <td><input placeholder="Año Maximo"  bind:value={queryparams.to} style="color: #888;" /></td>
                     </tr>
+                    </div>
+                    <div class ="butoncenter">
                     <td><Button color="primary" on:click={getData}>Filtrar</Button></td>
+                    </div>
             </div>
         {/if}
         <div class ="mesage">
@@ -272,7 +296,7 @@
                 {:else}
                     {#each dataWP as x}
                         <tr>
-                            <td><a class="cuadricula">{x.province}</a></td>
+                            <td><a class="cuadricula" href="/workingplaces-stats/{x.province}/{x.year}">{x.province}</a></td>
                             <td>{x.year}</td>
                             <td>{x.work_place}</td>
                             <td>{x.percentage_structure}</td>
@@ -300,6 +324,16 @@
         margin-left: 2%;
         margin-top: 0.5%;
     }
+    .wpcab{
+        margin-left: 8.5%;
+        margin-right: 8.5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .button {
+    padding: 1%;
+    }
     .spanp{
         margin-right: 1%;   
         margin-left: 1%;
@@ -308,11 +342,27 @@
         align-items: center;
     }
     .filter-square {
+        margin-top: 1.5%;
         margin-left: 8.5%;
         margin-right: 8.5%;
         background-color: #f1f1f1;
         padding: 20px;
         border: 1px solid #ccc;
+    }
+    .objetoscenter{
+        margin-right: 1%;   
+        margin-left: 1%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .butoncenter{
+        margin-top: 1%;
+        margin-right: 1%;   
+        margin-left: 1%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .mesage {
         margin-left: 8.5%;
