@@ -47,8 +47,9 @@
     function contador_mensaje() {
         let mensaje_visible = true;
         setTimeout(function() {
-            message ="";
             mensaje_visible = false;
+            message ="";
+            
             console.log("finalziacion");
         }, 5000);
     }
@@ -132,9 +133,21 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 404) {
-                message = "No hay datos, carga los datos iniciales o crea uno tu mismo!!";
-                color_alert = "info";
-                contador_mensaje();}
+            if (message ==="Recursos borrados correctamente"){
+                mensaje_visible=false;
+                console.log(message);
+                setTimeout(function() {mensaje_visible = false;
+                    message = "No hay datos, carga los datos iniciales o crea uno tu mismo!!";
+                    color_alert = "info";
+                    contador_mensaje();
+                     },5000);
+                     
+                }else{
+                    mensaje_visible = false;
+                    message = "No hay datos, carga los datos iniciales o crea uno tu mismo!!";
+                    color_alert = "info";
+                    contador_mensaje();    }   
+            }
     }
     async function createDATA() {
         resultStatus = result = "";
@@ -156,8 +169,8 @@
         if (status == 201) {
             message = "Recurso creado correctamente";
             color_alert = "success";
-            getData();
             contador_mensaje();
+            getData();
         }else{
             if (status == 400) {
                 message = "Hay que insertar datos o hay campos vacios";
@@ -184,10 +197,11 @@
         resultStatus = status;
         if (status == 200) {
             open = false;
-            getData();
+            
             message = "Recursos borrados correctamente";
             color_alert = "success";
-            contador_mensaje();          
+            contador_mensaje();    
+            getData();      
         }
     }
     async function deleteDATA_Spef(province, year) {
@@ -341,7 +355,6 @@
     #editar-btn {
         display: inline-block; /* Ajusta el elemento a un ancho mínimo */
         vertical-align: middle;
-        u
         background-color: #1E3A8A; /* Color de fondo azul oscuro */
         color: #FFFFFF; /* Color de texto blanco */
         padding: 7.5px 12.5px; /* Espaciado interno del botón */
