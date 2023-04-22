@@ -47,6 +47,7 @@
     function contador_mensaje() {
         let mensaje_visible = true;
         setTimeout(function() {
+            message ="";
             mensaje_visible = false;
             console.log("finalziacion");
         }, 5000);
