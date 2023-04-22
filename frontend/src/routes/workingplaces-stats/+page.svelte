@@ -306,7 +306,7 @@
                                     on:click={deleteDATA_Spef(x.province, x.year)}
                                     >Borrar</Button
                                 ></td>
-                            <td><Button on:click><a href="/workingplaces-stats/{x.province}/{x.year}">Editar</a></Button></td>
+                            <td><a href="/workingplaces-stats/{x.province}/{x.year}" id="editar-btn">Editar</a></td>
                         </tr>
                     {/each}
             {/if}
@@ -331,15 +331,28 @@
         justify-content: center;
         align-items: center;
     }
-    .button {
-    padding: 1%;
-    }
     .spanp{
         margin-right: 1%;   
         margin-left: 1%;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    #editar-btn {
+        display: inline-block; /* Ajusta el elemento a un ancho mínimo */
+        vertical-align: middle;
+        u
+        background-color: #1E3A8A; /* Color de fondo azul oscuro */
+        color: #FFFFFF; /* Color de texto blanco */
+        padding: 7.5px 12.5px; /* Espaciado interno del botón */
+        border: none; /* Borde sin estilo */
+        border-radius: 5px; /* Bordes redondeados */
+        text-decoration: none;
+        cursor: pointer; /* Cambia el cursor al pasar por encima */
+    }
+  
+  #editar-btn:hover {
+        background-color: #3F65B6; /* Color de fondo iluminado */
     }
     .filter-square {
         margin-top: 1.5%;
