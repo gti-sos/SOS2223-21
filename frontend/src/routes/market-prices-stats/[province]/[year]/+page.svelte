@@ -65,9 +65,9 @@
             body: JSON.stringify({
                 province: updatedMks_province,
                 year: updatedMks_year,
-                pib_current_price: updatedMks_pib_current_price,
-                pib_percentage_structure: updatedMks_pib_percentage_structure,
-                pib_variation_rate: updatedMks_pib_variation_rate,
+                pib_current_price: parseFloat(updatedMks_pib_current_price),
+                pib_percentage_structure: parseFloat(updatedMks_pib_percentage_structure),
+                pib_variation_rate: parseFloat(updatedMks_pib_variation_rate),
             }),
         });
         const status = await res.status;
