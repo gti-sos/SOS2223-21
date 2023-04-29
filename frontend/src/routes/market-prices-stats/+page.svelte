@@ -16,7 +16,6 @@
     let open = false;
     let open_create = false;
 
-    let visible = true;
 
     const toggle = () => ( open = !open );
     const toggle_create = () => ( open_create = !open_create );
@@ -61,6 +60,7 @@
         let offset = (pagina - 1) * limit;
         let query = `?limit=${limit}&offset=${offset}`;
         var params = query;
+        let param_not_found = false;
         var params_ids = "";
         for (const [key, value] of Object.entries(search)) {     
                     if (value != ""){
@@ -68,12 +68,16 @@
         }
         resultStatus = result = "";
         if(search_province && search_year){
+            params_not_found = true;
             params_ids = "/" + search_province + "/" + search_year + params;
+
         }else{
             if(search_province){
+                param_not_found = true;
                 params_ids = "/" + search_province + params;
             }else{
                 if(search_year){
+                    param_not_found = true;
                     params_ids = params + "&year=" + search_year ;
                 }else{
                     params_ids = params;
@@ -93,17 +97,32 @@
             }
         }catch(error){
             mks = [];
-        }
+        } 
         const status = await res.status;
         if (status == 400) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
+            setTimeout(() => {
+                message = "";
+                color_alert = "";
+            }, 3200);
+        }
+        if (status == 404 && param_not_found != false) {
+            message = "No se ha encontrado el recurso";
+            color_alert = "danger";
+            setTimeout(() => {
+                message = "";
+                color_alert = "";
+            }, 3200);
         }
         if (status == 500) {
             message = "Ha habido un error en la petición";
             color_alert = "danger";
+            setTimeout(() => {
+                message = "";
+                color_alert = "";
+            }, 3200);
         }
-        visible = true;
      
     }
 
@@ -130,8 +149,7 @@
         setTimeout(() => {
                 message = "";
                 color_alert = "";
-        }, 3500);
-        visible = true;
+        }, 3200);
     }
 
 
@@ -168,9 +186,8 @@
         setTimeout(() => {
                 message = "";
                 color_alert = "";
-        }, 3500);
+        }, 3200);
         open_create = false;
-        visible = true;
     }
     async function deleteMks() {
         resultStatus = result = "";
@@ -188,9 +205,8 @@
         setTimeout(() => {
                 message = "";
                 color_alert = "";
-        }, 3500);
+        }, 3200);
         
-        visible = true;
     }
     
     async function deleteMks_one(province, year) {
@@ -208,8 +224,7 @@
         setTimeout(() => {
                 message = "";
                 color_alert = "";
-        }, 3500);
-        visible = true;
+        }, 3200);
     }
     async function previousPage() {
         if (pagina > 1) { 
@@ -222,8 +237,7 @@
         setTimeout(() => {
                 message = "";
                 color_alert = "";
-        }, 3500);
-        visible = true;
+        }, 3200);
     }
     async function nextPage() {
         if (mks.length >= 10) {
@@ -236,8 +250,7 @@
         setTimeout(() => {
                 message = "";
                 color_alert = "";
-        }, 3500);
-        visible = true;             
+        }, 3200);             
     }
     let show_search = false;
     const toggle_search = () => ( 
@@ -298,13 +311,13 @@
                                 </div>
                                 <div class="col-md">    
                                     <p>PIB Estructura porcentual</p>
-                                    <input bind:value={newMks.pib_percentage_structure} required>
+                                    <input bind:value={newMks.pib_percentage_structure}>
                                 </div>
                             </div>
                             <div class="row" id="create">
                                 <div class="col-md">
                                     <p>PIB Tasa de variación</p>
-                                    <input bind:value={newMks.pib_variation_rate} required>
+                                    <input bind:value={newMks.pib_variation_rate}>
                                 </div>   
                             </div>
                         </ModalBody>
@@ -324,9 +337,7 @@
             </div>
             <div class="col-md-4">
                 {#if message != ""}
-                    {#if visible}
-                        <Alert color={color_alert} isOpen={visible} toggle={() => (visible = false)} dismissible>{message}</Alert>
-                    {/if}
+                        <Alert color={color_alert}>{message}</Alert>
                 {/if}
             </div>
             <div class="col-md-2"></div>

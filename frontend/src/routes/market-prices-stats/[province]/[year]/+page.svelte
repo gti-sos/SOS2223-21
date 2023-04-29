@@ -24,7 +24,6 @@
     let color_alert;
     let result = "";
     let resultStatus = "";
-    let visible = true;
 
     async function getMks_one() {
         resultStatus = result = "";
@@ -47,13 +46,20 @@
         if(status == 404){
             message = `No existe ningún recurso para la provincia: ${updatedMks_province}, en el año: ${updatedMks_year}.`;
             color_alert = "danger";
+            setTimeout(() => {
+                message = "";
+                color_alert = "";
+            }, 3200);
         }else{
             if(status == 400){
                 message = "Ha habido un error en la petición";
                 color_alert = "danger";
+                setTimeout(() => {
+                message = "";
+                color_alert = "";
+                }, 3200);
             }
         }
-        visible = true;
     }
     async function updateMks() {
         resultStatus = result = "";
@@ -76,23 +82,38 @@
             message = "Recurso actualizado correctamente";
             color_alert = "success";
             getMks_one();
+            setTimeout(() => {
+                message = "";
+                color_alert = "";
+            }, 3200);
         }else{
             if(status == 404){
             message = `No existe ningún recurso para la provincia: ${updatedMks_province}, en el año: ${updatedMks_year}.`;
             color_alert = "danger";
+            setTimeout(() => {
+                message = "";
+                color_alert = "";
+            }, 3200);
             }else{
                 if(status == 400){
                     message = "Ha habido un error en la petición";
                     color_alert = "danger";
+                    setTimeout(() => {
+                        message = "";
+                        color_alert = "";
+                    }, 3200);
                 }else{
                     if(status == 409){
                         message = "La provincia tiene que ser de Andalucía";
                         color_alert = "danger";
+                        setTimeout(() => {
+                            message = "";
+                            color_alert = "";
+                        }, 3200);
                     }
                 }
             }
         }
-        visible = true;
     }
         
 </script>
@@ -107,9 +128,7 @@
             </div>
             <div class="col-md-6">
                 {#if message != ""}
-                    {#if visible}
-                        <Alert color={color_alert} isOpen={visible} toggle={() => (visible = false)} dismissible>{message}</Alert>
-                    {/if}
+                    <Alert color={color_alert}>{message}</Alert>
                 {/if}
             </div>
         </div>
