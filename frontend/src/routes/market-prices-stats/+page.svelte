@@ -399,7 +399,6 @@
                     </div>   
                 </div>
             </div>
-            
         {/if}
         <Table  bordered striped>
             <thead>
