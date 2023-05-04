@@ -6,7 +6,6 @@
     <Nav>
         <h2>SOS2223-21 </h2>
         <NavLink href="/"><h6>Inicio</h6> <Icon name="house-fill"/></NavLink>
-        <NavLink href="/about"><h6>Acerca de</h6></NavLink>
         <NavItem><ButtonDropdown>
                 <DropdownToggle color="" style="font-weight:bold" caret>Front-ends</DropdownToggle>
                 <DropdownMenu>
@@ -16,7 +15,11 @@
                     <DropdownItem><a href="/workingplaces-stats">workingplaces-stats</a></DropdownItem>
                     <DropdownItem><a href="/salaried-stats">salaried-stats</a></DropdownItem>
                 </DropdownMenu>
-            </ButtonDropdown></NavItem>
+            </ButtonDropdown>
+        </NavItem>
+        <NavLink href="/integrations"><h6>Integraciones</h6></NavLink>
+        <NavLink href="/analytics"><h6>Analítica</h6></NavLink>
+        <NavLink href="/about"><h6>Acerca de</h6></NavLink>
     </Nav>
 </div>
 

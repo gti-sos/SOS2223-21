@@ -1,9 +1,18 @@
 import { datos_jorge } from './index-JFS.js';
 const rutaJorge = "/api/v2/market-prices-stats";
 import Datastore from 'nedb';
+import request from 'request';
 var db = new Datastore();
 
+var path_proxy = '/api/proxy_jfs';
+
 function loadBackend_jorge_v2(app) {
+    //proxy
+    app.use(path_proxy, function (req, res) {
+        var url = req.url.replace('/?url=', '');
+        console.log('piped: ' + req.url);
+        req.pipe(request(url)).pipe(res);
+    });
     //POSTMAN DOCUMENTATION API V2
     app.get(rutaJorge + '/docs', function (req, res) {
         res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93RQTZb2');
