@@ -18,12 +18,7 @@ function loadBackend_jorge_v2(app) {
             console.log("New GET to /market-prices-stats/graph");
         }
     });
-     //proxy
-    app.use(path_proxy, function (req, res) {
-        var url = req.url.replace('/?url=', '');
-        console.log('piped: ' + req.url);
-        req.pipe(request(url)).pipe(res);
-    });
+    
     //POSTMAN DOCUMENTATION API V2
     app.get(rutaJorge + '/docs', function (req, res) {
         res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93RQTZb2');
