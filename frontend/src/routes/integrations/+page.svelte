@@ -1,17 +1,29 @@
 
 <section>
-    <h2>Usos</h2>
+    <h4>Usos</h4>
     <ul>
         <li>
-            <a href="https://github.com/jorgefl8">Jorge Florentino Serra</a> : market-prices-stats
+            <h2>Jorge</h2>
+            <ul>
+                <li class ="li_mod">
+                    <a href="https://github.com/jorgefl8">Jorge Florentino Serra</a> : market-prices-stats
+                </li>
+            </ul>
         </li>
+        
     </ul>
 
-    <h2>Integraciones</h2>
+    <h4>Integraciones</h4>
     <ul>
         <li>
-           
+            <h2>Jorge</h2>
+            <ul>
+                <li class ="li_mod">
+                    <a href="/market-prices-stats/graph_proxy">/graph_proxy</a> - D03B.b.b.a: Integración a través de un proxy propio con una api de SOS.
+                </li>
+            </ul>
         </li>
+        
     </ul>
 </section>
 
@@ -23,7 +35,10 @@
         margin-top: 15px;
         margin-left: 2%;
         color: #15297c;
-        list-style-type: circle;
+    }
+    h4{
+        font-size: 30px;
+        color: #15297c;
     }
 
     ul {
@@ -37,12 +52,14 @@
         margin: 10px 0;
         list-style-type: circle;
     }
-
+    .li_mod{
+        margin-left: 2%;
+        list-style-type: disc !important;
+    }
     a {
         color: #1e90ff;
         text-decoration: none;
         font-weight: bold;
-        list-style-type: circle;
     }
 
     section {

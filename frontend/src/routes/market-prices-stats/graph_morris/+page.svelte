@@ -15,6 +15,9 @@
     let API = "/api/v2/market-prices-stats/graph";
     if (dev) API = "http://localhost:12345" + API;
 
+    onMount(async () => {
+        await getData();
+    });
     async function getData(){
         const res = await fetch(API, {
             method: "GET",
@@ -23,53 +26,59 @@
             const dataReceived = await res.json();
             result = JSON.stringify(dataReceived, null, 2);
             data = dataReceived;
-            // Get unique list of provinces and years
-            const provinces = [...new Set(data.map(item => item.province))];
-            const years = [...new Set(data.map(item => item.year))];
-            // Create series data for each province
-            const seriesData = provinces.map(province => {
-                const provinceData = data.filter(item => item.province === province);
-                return {
-                    name: province,
-                    data: years.map(year => {
-                        const yearData = provinceData.find(item => item.year === year);
-                        return yearData ? yearData.pib_current_price : null;
-                    })
-                };
-            });
-            loadChartData(provinces, years, seriesData);
+            const seriesData = data.filter(x => x.year == 2010);
+            loadChartData(seriesData);
         }catch(error){
             console.log(error);
         } 
        
     }
-    async function loadChartData() {
+    async function loadChartData(seriesData) {
         Morris.Line({
             // ID of the element in which to draw the chart.
-            element: 'container',
+            element: 'morrischart',
             // Chart data records -- each entry in this array corresponds to a point on
             // the chart.
-            data: [
-                { year: '2008', value: 20 },
-                { year: '2009', value: 10 },
-                { year: '2010', value: 5 },
-                { year: '2011', value: 5 },
-                { year: '2012', value: 20 }
-            ],
+            data: seriesData,
             // The name of the data record attribute that contains x-values.
-            xkey: 'year',
+            xkey: 'province',
             // A list of names of data record attributes that contain y-values.
-            ykeys: ['value'],
+            ykeys: ['pib_current_price'],
             // Labels for the ykeys -- will be displayed when you hover over the
             // chart.
-            labels: ['Value']
+            labels: [],
+            lineColors: ['#1e90ff'],
+            pointFillColors: ['#15297c'],
+            parseTime: false,
+            hoverCallback: function(index, options, content) {
+                var data = options.data[index];
+                var tooltip = '<div class="morris-hover-row-label">' + data.province + ", "+data.year + '</div>';
+                tooltip += '<div class="morris-hover-point" style="color: ' + options.lineColors[index % options.lineColors.length] + '">';
+                tooltip += 'PIB: ' + data.pib_current_price.toFixed(2) + '€ <br>';
+                tooltip += 'Porcentaje de estructura: ' + data.pib_percentage_structure.toFixed(2) + '%<br>';
+                tooltip += 'Tasa de variación: ' + data.pib_variation_rate.toFixed(2) + '%<br>';
+                tooltip += '</div>';
+                return tooltip;
+            }
         });
     }
-    onMount(async () => {
-        getData();
-    });
+   
     
 </script>   
 <main>
-    <div id="container" style="height: 250px;"></div>
+    <h3>Gráfico que muestra la diferencia del precio del PIB de Andalucía por provincia en el año 2010</h3>
+    <div id="morrischart" style="height: 250px;"></div>
+    <h5>Gráfico realizado con <a href="http://morrisjs.github.io/morris.js/index.html">Morris.js</a></h5>
+
 </main>
+<style>
+    main{
+        margin: 0 auto;
+        width: 80%;
+    }
+    h3{
+        text-align: center;
+        margin-top: 1%;
+    }
+
+</style>

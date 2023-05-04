@@ -7,7 +7,7 @@ var db = new Datastore();
 var path_proxy = '/api/proxy_jfs';
 
 function loadBackend_jorge_v2(app) {
-    //get para pintar con highcharts
+    //get para pintar con highcharts y morris.js
     app.get(rutaJorge +'/graph', (req, res) => {
         const data = datos_jorge;
         if (data.length === 0) {
