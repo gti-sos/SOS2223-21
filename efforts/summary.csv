@@ -1,0 +1,57 @@
+﻿User,Description,Duration
+Jorge Florentino,#16 Replicando algoritmo del archivo index-JFS.js al index.js y desplegándolo,00:15:05
+Jorge Florentino,#17 Realizando tarea 3 del feedback,00:25:21
+Jorge Florentino,#18 Desplegando el repo en gcloud,00:31:37
+Jorge Florentino,#2 test,00:00:59
+Jorge Florentino,#29 Desplegando API REST en google cloud,00:17:10
+Jorge Florentino,#30 Desarrollando colección en POSTMAN,00:31:42
+Jorge Florentino,#31 Asegurarse que el nombre del recurso (FFFFF) debe cumplir las siguientes restricciones,00:32:14
+Jorge Florentino,#37 Completar el registro información en el repositorio común de la asignatura,03:33:44
+Jorge Florentino,#38 Montando index.html  y dándole estilo,00:55:32
+Jorge Florentino,#39 Asegurando la persistencia con una base de datos NeDB,01:14:27
+Jorge Florentino,#4 Realizando tarea 4a y siguientes,00:27:43
+Jorge Florentino,#51 Creando test en json,00:25:08
+Jorge Florentino,#53 Asegurando funcionamiento tarea 4,00:20:12
+Jorge Florentino,#55 Montando despliegue automático gcloud,00:40:07
+Jorge Florentino,#57 Front-end Svelte que permita todas las funcionalidades básicas de gestión de la información realizando peticiones a la API REST,00:21:52
+Jorge Florentino,#58 Checkeando que no haya JSON ni codigo de estado,03:27:41
+Jorge Florentino,#59 Recarga de página,00:42:47
+Jorge Florentino,#7 Realizando tarea 4 para feedback,00:15:04
+Jorge Florentino,#8 Realizando tarea 8 para feedback,00:24:45
+Jorge Florentino,#9 Realizando tareas 10 en adelante,02:47:19
+Pabloveralopez123,Adicion del algoritmo de gcloud,00:26:47
+Pabloveralopez123,"Arreglos GET, POST, DELETE y PUT",01:53:27
+Pabloveralopez123,"Arreglos Offset, limit, from, to",00:35:35
+Pabloveralopez123,Arreglos Post,01:33:39
+Pabloveralopez123,Configuracion Svelte,01:25:15
+Pabloveralopez123,Creacion de frontend,01:00:00
+Pabloveralopez123,Creacion recurso para crear 10 o mas datos en caso de que este vacio,00:28:00
+Pabloveralopez123,D03,01:06:47
+Pabloveralopez123,Desarrollo de llamadas en POSTMAN,00:31:00
+Pabloveralopez123,Desplegue de una API REST funcional,00:30:00
+Pabloveralopez123,Modificación module index.js,00:26:00
+Pabloveralopez123,Paginación y Busquedas,01:37:23
+Pabloveralopez123,Realizacion tarea 8 feedback,00:17:34
+Pabloveralopez123,"Realizacion tareas 10,11,12 feedback",02:18:30
+Pabloveralopez123,Realización de cambios en readme,00:30:59
+Pabloveralopez123,Realización tarea 4 feedback,00:15:37
+Pabloveralopez123,"Realización tareas 10,11,12 feedback",01:09:48
+Pabloveralopez123,Replicación algoritmo index-PVL,00:41:37
+Pabloveralopez123,Terminar frontend,01:30:00
+Setefilla Ruano,Haciendo tarea 1 de feedback,03:21:00
+Setefilla Ruano,Haciendo tarea 2 de feedback,01:19:00
+Setefilla Ruano,Haciendo tarea 20 febrero,05:57:05
+Setefilla Ruano,Haciendo tarea 3 de feedback,01:22:00
+Setefilla Ruano,Haciendo tarea feedback 1,00:55:00
+Setefilla Ruano,Haciendo tarea feedback 2,03:23:00
+Setefilla Ruano,Haciendo tarea feedback 3,01:03:00
+Setefilla Ruano,Realizando tarea 1 de feedback,00:15:59
+Setefilla Ruano,Realizando tarea 8 de feedback,00:15:01
+Setefilla Ruano,Realizando tarea 9 de feedback,00:20:19
+Setefilla Ruano,Tarea 10 27-02,00:31:21
+Setefilla Ruano,Tarea 13-03,00:16:58
+Setefilla Ruano,Tarea 2 13-03,00:27:00
+Setefilla Ruano,Tarea 3 13-03,00:20:00
+Setefilla Ruano,Tarea 4 27-02,00:19:59
+Setefilla Ruano,Tarea 8 27-02,00:15:13
+Setefilla Ruano,,04:23:01
