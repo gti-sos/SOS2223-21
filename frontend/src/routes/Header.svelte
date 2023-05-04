@@ -19,6 +19,7 @@
         </NavItem>
         <NavLink href="/integrations"><h6>Integraciones</h6></NavLink>
         <NavLink href="/analytics"><h6>Analítica</h6></NavLink>
+        <NavLink href="/graphics"><h6>Gráficos</h6></NavLink>
         <NavLink href="/about"><h6>Acerca de</h6></NavLink>
     </Nav>
 </div>

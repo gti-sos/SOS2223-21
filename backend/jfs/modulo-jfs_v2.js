@@ -7,7 +7,18 @@ var db = new Datastore();
 var path_proxy = '/api/proxy_jfs';
 
 function loadBackend_jorge_v2(app) {
-    //proxy
+    //get para pintar con highcharts
+    app.get(rutaJorge +'/graph', (req, res) => {
+        const data = datos_jorge;
+        if (data.length === 0) {
+            res.sendStatus(404);
+            console.log(`No existe ningún recurso.`);
+        } else {
+            res.status(200).json(data);
+            console.log("New GET to /market-prices-stats/graph");
+        }
+    });
+     //proxy
     app.use(path_proxy, function (req, res) {
         var url = req.url.replace('/?url=', '');
         console.log('piped: ' + req.url);
