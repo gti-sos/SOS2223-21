@@ -8,6 +8,8 @@ function loadBackend_jorge_v3(app) {
     app.get(rutaJorge + '/docs', function (req, res) {
         res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93eSZadu');
     });
+    //insertar datos
+    db.insert(datos_jorge);
     /*------------GET------------*/
     //GET carga de datos
     app.get(rutaJorge + "/loadInitialData", (req, res) => {
