@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>Market-prices-stats</title>
+</svelte:head>
 <script>
     // @ts-nocheck
 
