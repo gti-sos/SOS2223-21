@@ -1,19 +1,14 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+test('basic test market-prices-stats', async ({ page }) => {
+    await page.goto('https://sos2223-21.ew.r.appspot.com/market-prices-stats');
+    await page.getByText('Cargar Datos Iniciales').click();
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+// test('basic test market-prices-stats', async ({ page }) => {
+//     await page.goto('http://localhost:12345/market-prices-stats');
+//     await page.getByText('Cargar Datos Iniciales').click();
+//     await expect(page).toHaveTitle('Cargar Datos Iniciales');
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects the URL to contain intro.
-  await expect(page).toHaveURL(/.*intro/);
-});
+// });
