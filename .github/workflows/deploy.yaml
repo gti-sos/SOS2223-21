@@ -24,7 +24,7 @@ jobs:
         run: cd frontend; npm install;npm run build;cd ..
       - name: 'Inicia servidor node'
         run: npm start & 
-      - name: 'Pruebas métodos en local'
+      - name: 'Pruebas métodos backend'
         run: npm test
       - name: 'Run Playwright e2e tests'
         run: npx playwright test
@@ -38,14 +38,10 @@ jobs:
         uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY_JSON }}'
-
-          
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
-
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
-    
       - name: Deploy
         run: gcloud app deploy
       #- name: 'Esperar antes de ejecutar las pruebas de gcloud'

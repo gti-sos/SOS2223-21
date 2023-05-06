@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 
 test('basic test market-prices-stats', async ({ page }) => {
-    await page.goto('https://sos2223-21.ew.r.appspot.com/market-prices-stats');
+    await page.goto('http://localhost:12345/market-prices-stats');
     await page.getByText('Cargar Datos Iniciales').click();
 });
 

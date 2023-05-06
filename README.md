@@ -1,4 +1,5 @@
 ## SOS2223-21
+[![Known Vulnerabilities](https://snyk.io/test/github/gti-sos/SOS2223-21/badge.svg)](https://snyk.io/test/github/gti-sos/SOS2223-21)
 ---------------------------
 - **Team**
    - [Jorge Florentino Serra](https://github.com/jorgefl8)
