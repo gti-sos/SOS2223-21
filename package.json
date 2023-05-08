@@ -13,7 +13,7 @@
     "test-gcloud": "npm run test-market-prices-stats-gcloud",
     "test-salaried-stats": "npx newman run ./testsPostman/backend-src.json -e ./testsPostman/env/localhost-src.json",
     "test-market-salaried-stats-gcloud": "npx newman run ./testsPostman/backend-src.json -e ./testsPostman/env/gcloud-src.json",
-    "test": "jest"
+    "test": "npm run test-market-prices-stats && npm run test-workingplaces-stats && npm run test-salaried-stats"
   },
   "repository": {
     "type": "git",
@@ -26,21 +26,15 @@
   },
   "homepage": "https://github.com/gti-sos/SOS2223-21#readme",
   "dependencies": {
+<<<<<<< HEAD
     "@playwright/test": "^1.33.0",
     "chartist": "^1.3.0",
+=======
+>>>>>>> 98c8fe8eb430eecb61a857ed055b5db160963c13
     "cool-ascii-faces": "^1.3.4",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "nedb": "^1.8.0",
     "request": "^2.88.2"
-  },
-  "devDependencies": {
-    "babel-plugin-istanbul": "^6.1.1",
-    "coveralls": "^3.1.1",
-    "jest": "^29.5.0",
-    "mocha": "^10.2.0",
-    "nyc": "^15.1.0",
-    "playwright": "^1.33.0",
-    "playwright-test-coverage": "^1.2.12"
   }
 }

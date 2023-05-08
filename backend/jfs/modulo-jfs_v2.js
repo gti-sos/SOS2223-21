@@ -4,26 +4,9 @@ import Datastore from 'nedb';
 import request from 'request';
 var db = new Datastore();
 
-var path_proxy = '/api/proxy_jfs';
+var path_jfs = '/api/proxy_jfs';
 
 function loadBackend_jorge_v2(app) {
-    //get para pintar con highcharts y morris.js
-    app.get(rutaJorge +'/graph', (req, res) => {
-        const data = datos_jorge;
-        if (data.length === 0) {
-            res.sendStatus(404);
-            console.log(`No existe ningún recurso.`);
-        } else {
-            res.status(200).json(data);
-            console.log("New GET to /market-prices-stats/graph");
-        }
-    });
-     //proxy
-    app.use(path_proxy, function (req, res) {
-        var url = req.url.replace('/?url=', '');
-        console.log('piped: ' + req.url);
-        req.pipe(request(url)).pipe(res);
-    });
     //POSTMAN DOCUMENTATION API V2
     app.get(rutaJorge + '/docs', function (req, res) {
         res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93RQTZb2');
@@ -320,6 +303,21 @@ function loadBackend_jorge_v2(app) {
                 res.status(200).send("El recurso se ha borrado correctamente.");
             }
         });
+    });
+    app.get(rutaJorge +'/graph', (req, res) => {
+        const data = datos_jorge;
+        if (data.length === 0) {
+            res.sendStatus(404);
+            console.log(`No existe ningún recurso.`);
+        } else {
+            res.status(200).json(data);
+            console.log("New GET to /market-prices-stats/graph");
+        }
+    });
+    app.use(path_jfs, function (req, res) {
+        var url = req.url.replace('/?url=', '');
+        console.log('piped: ' + req.url);
+        req.pipe(request(url)).pipe(res);
     });
 };
 export { loadBackend_jorge_v2 };
