@@ -16,6 +16,8 @@ jobs:
           node-version: 16.x
       - name: Install dependencies
         run: npm ci
+      - name: 'Inicia servidor node'
+        run: npm start & 
       - name: Run coverage
         run: npm run test-jest
       - name: Coverage to Coveralls
