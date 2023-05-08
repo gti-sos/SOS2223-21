@@ -13,7 +13,10 @@
     <h2>Pablo</h2>
     <ul>
         <li>
-           
+            <a href="/workingplaces-stats/graph_highchart">/graph_highchart</a> - D03B.a.a.1 & D03B.a.b: Gráfico con Highchart de todos los recursos propios   .
+        </li>
+        <li>
+            <a href="/workingplaces-stats/graph_morris">/graph_morris</a> - D03B.a.a.2: Gráfico con Morris.js del PIB por año dentro de Sevilla.
         </li>
     </ul>
 </section>
