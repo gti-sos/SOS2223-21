@@ -10,21 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Set up Node 18
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18
       - name: Install dependencies
-        run: npm ci
-      - name: 'Install Playwright Browsers'
-        run: npx playwright install --with-deps
-      - name: 'Actualizando frontend producción'
-        run: cd frontend; npm install;npm run build;cd ..
+        run: npm install
       - name: 'Inicia servidor node'
         run: npm start & 
       - name: Run coverage
-        run: npm run test-jest
-      - name: Coverage to Coveralls
-        uses: coverallsapp/github-action@v2
+        run: npm run test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
 
   # deploy:
   #   timeout-minutes: 30
