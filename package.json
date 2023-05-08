@@ -26,11 +26,8 @@
   },
   "homepage": "https://github.com/gti-sos/SOS2223-21#readme",
   "dependencies": {
-<<<<<<< HEAD
     "@playwright/test": "^1.33.0",
     "chartist": "^1.3.0",
-=======
->>>>>>> 98c8fe8eb430eecb61a857ed055b5db160963c13
     "cool-ascii-faces": "^1.3.4",
     "cors": "^2.8.5",
     "express": "^4.18.2",
