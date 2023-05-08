@@ -6,6 +6,24 @@ on:
       - main
 
 jobs:
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install dependencies
+        run: npm ci
+      - name: Run coverage
+        run: npm run test-jest
+      - name: Coverage to Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        env:
+          CI: true
   deploy:
     timeout-minutes: 30
     name: Deploy to Google Cloud Run
@@ -16,9 +34,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          token: ${{ secrets.CODECOV_TOKEN }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
       - name: 'Install dependencies'
         run: npm ci
       - name: 'Install Playwright Browsers'
@@ -29,6 +44,8 @@ jobs:
         run: npm start & 
       - name: 'Pruebas métodos backend'
         run: npm test
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
       - name: 'Run Playwright e2e tests'
         run: npx playwright test
       - uses: actions/upload-artifact@v3

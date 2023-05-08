@@ -13,7 +13,12 @@
     "test-gcloud": "npm run test-market-prices-stats-gcloud",
     "test-salaried-stats": "npx newman run ./testsPostman/backend-src.json -e ./testsPostman/env/localhost-src.json",
     "test-market-salaried-stats-gcloud": "npx newman run ./testsPostman/backend-src.json -e ./testsPostman/env/gcloud-src.json",
+    "test-jest": "jest --coverage",
     "test": "npm run test-market-prices-stats && npm run test-workingplaces-stats && npm run test-salaried-stats"
+  },
+  "jest": {
+    "verbose": true,
+    "preset": "jest-playwright-preset"
   },
   "repository": {
     "type": "git",
@@ -33,6 +38,8 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.33.0"
+    "@playwright/test": "^1.33.0",
+    "jest": "^29.5.0",
+    "playwright": "^1.33.0"
   }
 }
