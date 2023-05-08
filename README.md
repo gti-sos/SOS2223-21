@@ -1,6 +1,6 @@
 ## SOS2223-21
 [![Known Vulnerabilities](https://snyk.io/test/github/gti-sos/SOS2223-21/badge.svg)](https://snyk.io/test/github/gti-sos/SOS2223-21)
-
+[![codecov](https://codecov.io/gh/gti-sos/SOS2223-21/branch/main/graph/badge.svg?token=FEeyQRChit)](https://codecov.io/gh/gti-sos/SOS2223-21)
 ---------------------------
 - **Team**
    - [Jorge Florentino Serra](https://github.com/jorgefl8)
