@@ -10,6 +10,7 @@
     import { dev } from "$app/environment";
 
     let data = [];
+    let data_hired_people = [];
     let data_mixed = [];
     let message = "";
     let result ="";
