@@ -14,9 +14,12 @@
     let data = [];
     let result ="";
 
-    let years = [];
+    let yearsm = [];
+    let datam = [];
     let provinces = [];
-    let total = [];
+    const provinc =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
+    let total;
+    let provincia = '';
 
     
     let API = "/api/v2/workingplaces-stats/graph";
@@ -25,87 +28,18 @@
     let chart;
 
     onMount(async () => {
-
-        getData();
         chart = new Chartist.Line('.ct-chart', {
-                  labels: ['2008', '2009', '2010', '2012', '2013', '2014', '2015', '2016'],
-                  // Naming the series with the series object array notation
-                  series: [{
-                    name: 'Andalucia',
-                    data: [5, 2, -4, 2, 0, -2, 5, -3]
-                  }, {
-                    name: 'Cadiz',
-                    data: [4, 3, 5, 3, 1, 3, 6, 4]
-                  }, {
-                    name: 'Malaga',
-                    data: [2, 4, 3, 1, 4, 5, 3, 2]
-                  }]
-                }, {
-                  fullWidth: true,
-                  series: {
-                    'series-1': {
-                      lineSmooth: Chartist.Interpolation.step()
-                    },
-                    'series-2': {
-                      lineSmooth: Chartist.Interpolation.simple(),
-                      showArea: true
-                    },
-                    'Malaga': {
-                      showPoint: false
-                    }
-                  }
-                }, [
-                  ['screen and (max-width: 320px)', {
-                    series: {
-                      'series-1': {
-                        lineSmooth: Chartist.Interpolation.none()
-                      },
-                      'series-2': {
-                        lineSmooth: Chartist.Interpolation.none(),
-                        showArea: false
-                      },
-                      'Malaga': {
-                        lineSmooth: Chartist.Interpolation.none(),
-                        showPoint: true
-                      }
-                    }
-                  }]
-                ]);
+                    labels: [2008, 2008, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017,2018,2019],
+                    series: [[20080, 20080, 20100, 20110, 20120, 20130, 20140, 20150, 20160, 20170,20180,20190]]
+                    }, {
+                    low: 1,
+                    showArea: true
+                    });
+        getData();
            })
  
-  
-    function processData(apiResponse) {
-        const total = {
-            provinces: [],
-            years: [],
-            data: []
-        };
-
-        apiResponse.forEach(({ province, year, work_place }) => {
-            // Agregar la provincia a la lista de provincias si aún no está
-            if (!total.provinces.includes(province)) {
-            total.provinces.push(province);
-            // Agregar un nuevo objeto al array de datos
-            total.data.push({
-                province,
-                work_place: []
-            });
-            }
-
-            // Agregar el año a la lista de años si aún no está
-            if (!total.years.includes(year)) {
-            total.years.push(year);
-            }
-
-            // Buscar el índice del objeto de datos correspondiente a la provincia
-            const dataIndex = total.data.findIndex(d => d.province === province);
-            // Agregar el valor de work_place al array de work_place correspondiente al año
-            total.data[dataIndex].work_place.push(work_place);
-        });
-
-        return total;
-    }
     async function getData(){
+        if (provincia != ''){
         const res = await fetch(API, {
             method: "GET",
         });
@@ -113,32 +47,43 @@
             const dataReceived = await res.json();
             result = JSON.stringify(dataReceived, null, 2);
             data = dataReceived;
-        
-            data.forEach(function(x) {
-                if (!provinces.includes(x.province)) {
-                    provinces.push(x.province);
-                }
-                if (!years.includes(x.year)) {
-                    years.push(x.year);
-                }
-            });
+            console.log(data.length);
+            let proc = [];
+            if (data.length != 0) {
+                loadDat(provincia, data);
+                chart = new Chartist.Line('.ct-chart', {
+                    labels: yearsm,
+                    series: [datam]
+                    }, {
+                    low: 0,
+                    showArea: true
+                    });
+            }
             
-            total = provinces.reduce((acc, province) => {
-                const P_Data = data.filter(x => x.province === province);
-                const P_Year = years.reduce((yearsAcc, year) => {
-                    const yearData = P_Data.find(x => x.year === year);
-                    yearsAcc.push(yearData ? yearData.work_place : null);
-                    return yearsAcc;
-                }, []);
-                acc.push({ name: province, data: P_Year });
-                return acc;
-                }, []);
-            loadChartData(total);
+           
         }catch(error){
             console.log(error);
-        } 
+        } }
      
     }
+
+    function loadDat(provinciado, data){
+           let yearso = [];
+           let datao = [];
+        let filtrado = data.filter(x => x.province === provinciado);
+        for (let a in filtrado) {
+            yearso.push(filtrado[a].year);
+            datao.push(filtrado[a].work_place);
+        }
+
+        yearsm = yearso;
+        datam = datao;
+    }
+
+    function guardarProvincia() {
+      provincia = document.getElementById('select-provincia').value;
+      getData();
+  }
     
    
 
@@ -147,5 +92,33 @@
     
 </script>   
 <main>
+    <div class = "centrado">
+    <h1>Grafica sobre puestos de trabajo segun la provincia seleccionada</h1>
+    <div>
+      <label for="select-provincia">Provincia:</label>
+      <select id="select-provincia" name="provincia">
+        <option value="Andalucía">Andalucía</option>
+        <option value="Almería">Almería</option>
+        <option value="Cádiz">Cádiz</option>
+        <option value="Córdoba">Córdoba</option>
+        <option value="Granada">Granada</option>
+        <option value="Huelva">Huelva</option>
+        <option value="Jaén">Jaén</option>
+        <option value="Málaga">Málaga</option>
+        <option value="Sevilla">Sevilla</option>
+      </select>
+      <button on:click={guardarProvincia}>Seleccionar</button>
+    </div>
     <div class="ct-chart"></div>
+    </div>
 </main>
+<style>
+.centrado {
+        margin-top: 1.5%;
+        margin-left: 8.5%;
+        margin-right: 8.5%;
+        background-color: #f1f1f1;
+        padding: 20px;
+        border: 1px solid #ccc;
+    }
+</style>
