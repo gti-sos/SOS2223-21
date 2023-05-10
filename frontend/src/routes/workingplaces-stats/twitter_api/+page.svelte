@@ -66,7 +66,6 @@
         } }
      
     }
-    
 
     function loadDat(provinciado, data){
            let yearso = [];
