@@ -30,7 +30,7 @@
                     <a href="/workingplaces-stats/graph_proxy">/graph_proxy</a> - Integración a través de un proxy propio.
                 </li>
                 <li class ="li_mod">
-                    <a href="/workingplaces-stats/twitter_api">/Twitter API</a> - Integración a través de una api de twitter.
+                    <a href="/workingplaces-stats/twitch_api">/Twitch API</a> - Integración a través de una api de twitch para ver todas las canciones de una playlist mediante su id.
                 </li>
                 <li class ="li_mod">
                     <a href="/workingplaces-stats/instagram_api">/instagram_api</a> - Integración a través de instagram.
