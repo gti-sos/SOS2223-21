@@ -18,7 +18,7 @@ let result = "";
 let provincia = "";
 let accessToken;
 let refreshToken;
-let API = "http://localhost:12345/workingplaces-stats/twitch_api";
+let API = "https://sos2223-21.ew.r.appspot.com/workingplaces-stats/twitch_api";
 if (dev) API = "http://localhost:12345/workingplaces-stats/twitch_api";
 
 const URL_BASE = `https://id.twitch.tv/oauth2/authorize?{parameters}`;
