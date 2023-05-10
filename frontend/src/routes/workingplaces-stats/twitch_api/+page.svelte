@@ -38,8 +38,7 @@ async function getToken() {
     const code = urlParams.get('code');
 
     const grantType = 'authorization_code';
-    const redirectUri = 'http://localhost:12345/workingplaces-stats/twitch_api';
-    const postData = `client_id=${client_id}&client_secret=${client_secret}&code=${code}&grant_type=authorization_code&redirect_uri=${redirectUri}`;
+    const postData = `client_id=${client_id}&client_secret=${client_secret}&code=${code}&grant_type=authorization_code&redirect_uri=${API}`;
  
     const response = await fetch('https://id.twitch.tv/oauth2/token', {
         method: 'POST',
