@@ -12,7 +12,7 @@
 import { onMount } from 'svelte';
 import { dev } from "$app/environment";
 
-let API = "https://sos2223-21.ew.r.appspot.com//workingplaces-stats/twitch_api";
+let API = "https://sos2223-21.ew.r.appspot.com/workingplaces-stats/twitch_api";
 if (dev) {
   console.log("No entra");
   API = "http://localhost:12345/workingplaces-stats/twitch_api";

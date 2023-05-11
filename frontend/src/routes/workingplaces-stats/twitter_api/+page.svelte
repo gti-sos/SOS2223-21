@@ -19,8 +19,8 @@ if (dev) {
   API = "http://localhost:12345/workingplaces-stats/twitch_api";
   }
 
-const client_id = "4qkk4s8gvz74xfj00i1b61fycu6tmb";
-const client_secret = "ugbnb9eyo0cva0kdwci4d2n8nikkn6";
+const client_id = "dzJBolYPYpB8hoKYnTPpdwXYm";
+const client_secret = "FEaNWBz1naLCzgVjh1ORcStV18B86y0K6IgyazSkX0nHftJC4o";
 
 let playlistId;
 
