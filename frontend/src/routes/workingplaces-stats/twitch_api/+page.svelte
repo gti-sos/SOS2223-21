@@ -12,7 +12,7 @@
 import { onMount } from 'svelte';
 import { dev } from "$app/environment";
 
-let API = "https://sos2223-21.ew.r.appspot.com/workingplaces-stats/twitch_api";
+let API = "https://sos2223-21.ew.r.appspot.com//workingplaces-stats/twitch_api";
 if (dev) {
   console.log("No entra");
   API = "http://localhost:12345/workingplaces-stats/twitch_api";
@@ -28,8 +28,8 @@ let response;
 let datam = [];
 let result = "";
 let provincia = "";
-let accessToken;
-let refreshToken;
+let accessToken="";
+let refreshToken="";
 
 let code;
 
@@ -44,6 +44,11 @@ onMount(async () => {
   if(!code){
     console.log("code:", code);
       inicio();
+
+    }else if (code){
+      if (accessToken==""){
+        console.log("Hola");
+      getToken();}
     }
 });
 
@@ -55,7 +60,7 @@ async function asignacion_code(){
 
 async function handleSubmit(event) {
     event.preventDefault();
-    getToken();
+    ObtenerCanciones();
     
   }
 async function inicio(){
@@ -66,25 +71,24 @@ async function inicio(){
   
 }
 async function getToken() {
-    
+    console.log("entro token");
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     code = urlParams.get('code');
     const grantType = 'authorization_code';
     const postData = `client_id=${client_id}&client_secret=${client_secret}&code=${code}&grant_type=authorization_code&redirect_uri=${API}`;
-  if (datam.length()==0){
+    console.log(datam);
     response = await fetch('https://id.twitch.tv/oauth2/token', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: postData
-  });}
+  });
 
   const data = await response.json();
   accessToken = data.access_token;
   refreshToken = data.refresh_token;
-  ObtenerCanciones();
 }
 async function ObtenerCanciones() {
   const authToken = accessToken;
@@ -104,49 +108,90 @@ async function ObtenerCanciones() {
 
 </script>   
 <main>
-<div>
-<form on:submit={handleSubmit}>
-  <label>
-    Playlist ID:
-    <input type="text" bind:value={playlistId}>
-  </label>
-  <button type="submit">Buscar</button>
-</form>
-</div>
-<div class="Contenedor">
-{#each datam as dato}
-    <div class="Enganche">
-        <img src={dato.album.image_url} alt={dato.album.name} />
-        <a href="#">Título: {dato.album.name}</a>
+<div class="wpcab">
+  <div class="SearchContainer">
+    <form class="SearchForm" on:submit={handleSubmit}>
+      <label class="SearchLabel">
+        Playlist ID:
+        <input class="SearchInput" type="text" bind:value={playlistId}>
+      </label>
+      <button class="SearchButton" type="submit">Buscar</button>
+    </form>
+    <div class="ExampleContainer">
+      <div class="ExampleBox">Ejemplo IDs: B08NFDW82R, B08HCW84SF</div>
     </div>
-{/each}
+  </div>
+  <div class="ImageContainer">
+    {#each datam as dato}
+      <div class="ImageBox">
+        <img class="Image" src={dato.album.image_url} alt={dato.album.name}>
+        <a class="Title" href="">{dato.album.name}</a>
+      </div>
+    {/each}
+  </div>
 </div>
-
 </main>
 <style>
-.Contenedor {
+.SearchContainer {
+  display: flex;
+}
+.wpcab{
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+.SearchForm {
+  margin-left: 20px;
+}
+
+.SearchLabel {
+  display: flex;
+  align-items: center;
+}
+
+.SearchInput {
+  margin-left: 10px;
+}
+
+.SearchButton {
+  margin-left: 10px;
+}
+
+.ExampleContainer {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.ExampleBox {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.ImageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.ImageBox {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.Enganche {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   margin: 10px;
+  flex-basis: calc(33.33% - 20px);
 }
 
-.Enganche img {
+.Image {
   max-width: 100px;
   height: auto;
-  margin-right: 10px;
+  object-fit: cover;
 }
 
-.Enganche a {
+.Title {
+  margin-top: 5px;
   font-size: 18px;
   text-decoration: none;
   color: #333;
+  text-align: center;
 }
-
 </style>
