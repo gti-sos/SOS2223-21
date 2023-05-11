@@ -23,9 +23,9 @@ const client_secret = "ugbnb9eyo0cva0kdwci4d2n8nikkn6";
 
 let playlistId;
 
+let response;
 
-
-let data = [];
+let datam = [];
 let result = "";
 let provincia = "";
 let accessToken;
@@ -72,14 +72,14 @@ async function getToken() {
     code = urlParams.get('code');
     const grantType = 'authorization_code';
     const postData = `client_id=${client_id}&client_secret=${client_secret}&code=${code}&grant_type=authorization_code&redirect_uri=${API}`;
- 
-    const response = await fetch('https://id.twitch.tv/oauth2/token', {
+  if (datam.length()==0){
+    response = await fetch('https://id.twitch.tv/oauth2/token', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: postData
-  });
+  });}
 
   const data = await response.json();
   accessToken = data.access_token;
@@ -96,7 +96,7 @@ async function ObtenerCanciones() {
     }
   });
      let datos = await responsePlaylist.json();
-     data = datos.data;
+     datam = datos.data;
  
 }
 
@@ -114,7 +114,7 @@ async function ObtenerCanciones() {
 </form>
 </div>
 <div class="Contenedor">
-{#each data as dato}
+{#each datam as dato}
     <div class="Enganche">
         <img src={dato.album.image_url} alt={dato.album.name} />
         <a href="#">Título: {dato.album.name}</a>
