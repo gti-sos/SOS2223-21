@@ -8,8 +8,8 @@
     var access_token_gh = null;
 
     const AUTHORIZE = 'https://github.com/login/oauth/authorize';
-    //let redirect_uri = "https://sos2223-21.ew.r.appspot.com/market-prices-stats/gh"
-    let redirect_uri = 'http://localhost:12345/market-prices-stats/gh';
+    let redirect_uri = "https://sos2223-21.ew.r.appspot.com/market-prices-stats/gh"
+    //let redirect_uri = 'http://localhost:12345/market-prices-stats/gh';
     const USER_INFO = 'https://api.github.com/user';
 
     let API = "/api/v2/market-prices-stats";

@@ -11,7 +11,9 @@
     const AUTHORIZE = "https://accounts.spotify.com/authorize"
     const TOKEN = "https://accounts.spotify.com/api/token";
     const PLAYLISTS = "https://api.spotify.com/v1/me/playlists";
-    let redirect_uri = "http://localhost:12345/market-prices-stats/spotify"
+    //let redirect_uri = "http://localhost:12345/market-prices-stats/spotify"
+    let redirect_uri = "https://sos2223-21.ew.r.appspot.com/market-prices-stats/spotify"
+
 
     let playlists = [];
     let show_token_section = false;
