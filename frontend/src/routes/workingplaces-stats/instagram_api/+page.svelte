@@ -12,15 +12,15 @@
 import { onMount } from 'svelte';
 import { dev } from "$app/environment";
 
-let API2 = "https://sos2223-21.ew.r.appspot.com/workingplaces-stats/twitter_api";
-let API = "http://localhost:12345/workingplaces-stats/twitter_api";
+let API2 = "https://sos2223-21.ew.r.appspot.com/workingplaces-stats/instagram_api";
+let API = "http://localhost:12345/workingplaces-stats/instagram_api";
 if (dev) {
   console.log("No entra");
-  API = "http://localhost:12345/workingplaces-stats/twitter_api";
+  API = "http://localhost:12345/workingplaces-stats/instagram_api";
   }
 
-const client_id = "dzJBolYPYpB8hoKYnTPpdwXYm";
-const client_secret = "FEaNWBz1naLCzgVjh1ORcStV18B86y0K6IgyazSkX0nHftJC4o";
+const client_id = "3305386166390584";
+const client_secret = "4d4af9fbbf06e7f2d0e8500a6ec4029f";
 
 let playlistId;
 
@@ -33,11 +33,7 @@ let accessToken="";
 let refreshToken="";
 
 let code;
-
-const parameters =`response_type=code&client_id=${client_id}&redirect_uri=${API}&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls&state=c3ab8aa609ea11e793ae92361f002671`;
-const url_auth = `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${client_id}&redirect_uri=${API}&scope=tweet.read%20users.read%20offline.access&state=state&code_challenge=challenge&code_challenge_method=plain`
-const parameters_post =`client_id=${client_id}&client_secret=${client_secret}&code=${code}&grant_type=authorization_code&redirect_uri=${API}`;
-
+const url_auth = `https://www.instagram.com/oauth/authorize?client_id=${client_id}&redirect_uri=${API}&scope=user_profile&response_type=code`
 
 
 onMount(async () => {
@@ -79,7 +75,7 @@ async function getToken() {
     const grantType = 'authorization_code';
     const postData = `client_id=${client_id}&client_secret=${client_secret}&code=${code}&grant_type=authorization_code&redirect_uri=${API}`;
     console.log(datam);
-    response = await fetch('https://id.twitch.tv/oauth2/token', {
+    response = await fetch('https://api.instagram.com/oauth/access_token', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -90,6 +86,7 @@ async function getToken() {
   const data = await response.json();
   accessToken = data.access_token;
   refreshToken = data.refresh_token;
+  console.log(data);
 }
 async function ObtenerCanciones() {
   const authToken = accessToken;
