@@ -12,8 +12,8 @@
 import { onMount } from 'svelte';
 import { dev } from "$app/environment";
 
-let API2 = "https://sos2223-21.ew.r.appspot.com/workingplaces-stats/instagram_api";
-let API = "http://localhost:12345/workingplaces-stats/instagram_api";
+let API = "https://sos2223-21.ew.r.appspot.com/workingplaces-stats/instagram_api";
+let API2 = "http://localhost:12345/workingplaces-stats/instagram_api";
 if (dev) {
   console.log("No entra");
   API = "http://localhost:12345/workingplaces-stats/instagram_api";
