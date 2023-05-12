@@ -40,8 +40,15 @@
             <h2>Pablo</h2>
             <ul>
                 <li class ="li_mod">
-                    <a href="/workingplaces-stats/graph_proxy">/graph_proxy</a> - D03B.b.b.a: Integración a través de un proxy propio con una api de SOS.
+                    <a href="/workingplaces-stats/graph_proxy">/graph_proxy</a> - Integración a través de un proxy propio.
                 </li>
+                <li class ="li_mod">
+                    <a href="/workingplaces-stats/twitch_api">/Twitch API</a> - Integración a través de una api de twitch para ver todas las canciones de una playlist mediante su id.
+                </li>
+                <li class ="li_mod">
+                    <a href="/workingplaces-stats/twitter_api">/Twitter API</a> - Integración a través de twitter para leer tweets.
+                </li>
+
             </ul>
         </li>
         
