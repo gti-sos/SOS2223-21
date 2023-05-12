@@ -8,11 +8,13 @@
     //@ts-nocheck
     import { onMount } from 'svelte';
     import { dev } from "$app/environment";
+    import {Button} from "sveltestrap";
+
 
     let data = [];
     let data_hired_people = [];
     let data_mixed = [];
-    let message = "";
+    let message = "No hay datos para mostrar.";
     let result ="";
     let API_hired_people = "/api/proxy_jfs/?url=https://sos2223-23.ew.r.appspot.com/api/v2/hired-people";
     let API = "/api/v2/market-prices-stats/graph";
@@ -39,12 +41,18 @@
     onMount(async () => {
         await loadData();
     });
+    async function loadHired(){
+        await fetch(API_hired_people+'/loadInitialData', {
+            method: "GET",
+        });
+        await loadData();
+    }
     async function loadData(){
         await getData();
         await getData_hired_people();
         await mixData();
         if(data_mixed.length > 0) loadChartData(data_mixed);
-        else message = "No hay datos para mostrar.";
+        
     }
     async function mixData(){
         for (var i = 0; i < data.length; i++) {
@@ -129,12 +137,14 @@
     <h3>Gráfico de integración entre la API hired-people utilizando proxy y market-prices-stats</h3>
     <h4>Se mostrará la comparación de <strong>contratos indefinidos</strong> y <strong>contratos únicos eventuales</strong>, separados por mujeres y hombres, en los años en los que el <strong>precio del PIB</strong> fue mayor a <strong>20 millones</strong>.</h4>
 
-    {#if message != ""}
+    {#if data_mixed.length === 0}
         <p>{message}</p>
     {/if}
     <div id="morrischart" style="height: 250px;"></div>
     <h5>Gráfico realizado con <a href="http://morrisjs.github.io/morris.js/index.html">Morris.js</a></h5>
-
+    {#if data_mixed.length == 0}
+        <Button on:click={loadHired} color="warning">Cargar datos</Button>
+    {/if}
 </main>
 <style>
     main{

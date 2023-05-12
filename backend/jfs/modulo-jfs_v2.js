@@ -7,6 +7,56 @@ var db = new Datastore();
 var path_jfs = '/api/proxy_jfs';
 
 function loadBackend_jorge_v2(app) {
+    // app.get(rutaJorge + '/graph_serie', async function (req, res) {
+    //     console.log("New GET to /market-prices-stats/graph_serie");
+    //     const params = '?country='+req.query.country+'&imdb_id='+req.query.imdb_id;
+    //     const result = await fetch('https://api.movieofthenight.com/v2/get/basic' +params, {
+    //         method: 'GET',
+        
+    //     });
+    //     const data = await result.json();
+    //     res.status(200).json(data);
+    // });
+    app.get(rutaJorge +'/graph', (req, res) => {
+        const data = datos_jorge;
+        if (data.length === 0) {
+            res.sendStatus(404);
+            console.log(`No existe ningún recurso.`);
+        } else {
+            res.status(200).json(data);
+            console.log("New GET to /market-prices-stats/graph");
+        }
+    });
+    app.use(path_jfs, function (req, res) {
+        var url = req.url.replace('/?url=', '');
+        console.log('piped: ' + req.url);
+        req.pipe(request(url)).pipe(res);
+    });
+    app.get(rutaJorge + '/getAccessTokenGH', async function (req, res) {
+        console.log("New GET to /market-prices-stats/getAccessTokenGH");
+        const params = '?client_id=' + req.query.client_id + '&client_secret=' + req.query.client_secret + '&code=' + req.query.code;
+        await fetch('https://github.com/login/oauth/access_token'+params, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {return response.json()})
+        .then(data => {    
+            res.status(200).json(data);
+        });
+    });
+    app.get(rutaJorge + '/getGH_info', async function (req, res) {
+        console.log("New GET to /market-prices-stats/getGH_info");
+        const result = await fetch(req.query.url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + req.query.access_token
+            }
+        });
+        const data = await result.json();
+        res.status(200).json(data);
+    });
     //POSTMAN DOCUMENTATION API V2
     app.get(rutaJorge + '/docs', function (req, res) {
         res.status(301).redirect('https://documenter.getpostman.com/view/26013124/2s93RQTZb2');
@@ -304,20 +354,6 @@ function loadBackend_jorge_v2(app) {
             }
         });
     });
-    app.get(rutaJorge +'/graph', (req, res) => {
-        const data = datos_jorge;
-        if (data.length === 0) {
-            res.sendStatus(404);
-            console.log(`No existe ningún recurso.`);
-        } else {
-            res.status(200).json(data);
-            console.log("New GET to /market-prices-stats/graph");
-        }
-    });
-    app.use(path_jfs, function (req, res) {
-        var url = req.url.replace('/?url=', '');
-        console.log('piped: ' + req.url);
-        req.pipe(request(url)).pipe(res);
-    });
+    
 };
 export { loadBackend_jorge_v2 };

@@ -418,7 +418,7 @@
                     <td colspan="6"><p class="text-center">No hay ningún dato.</p></td>
                 {:else}
                     {#each mks as x}
-                        <tr>
+                        <tr class="marketpriceRow">
                             <td><a class="ahref_perso" href="/market-prices-stats/{x.province}/{x.year}">{x.province}</a></td>
                             <td>{x.year}</td>
                             <td>{x.pib_current_price}</td>
