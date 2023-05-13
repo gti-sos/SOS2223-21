@@ -201,21 +201,15 @@
         {#if show_gh_section == true}
             <div class="row">
                 <div class="col-md-6" style="display: flex;">
-                    <h3>Github info para el usuario:</h3> <img src={user_info.avatar_url} alt="Imagen de {user_info.login}" /><a href={user_info.html_url}><h2>{user_info.login}</h2></a>
+                    <h3>Github info para el usuario:</h3> <img src={user_info.avatar_url} alt="Imagen de {user_info.login}" /><a href={user_info.html_url}><h3>{user_info.login}</h3></a>
                     
                 </div>
             </div>
             <div class="row">
                 <h3>Biografía: {user_info.bio}</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-3" style="margin-bottom: 2%;">
-                    <Button color="warning" on:click={refreshGh}>Recargar</Button>
-                </div>
-                <div class="col-md-3" style="margin-bottom: 2%;">
-                    <Button color="danger" on:click={revokeAccess}>Limpiar credenciales</Button>
-                </div>
-            </div>
+            </div>     
+            <Button color="warning" on:click={refreshGh}>Recargar</Button>
+            <Button color="danger" on:click={revokeAccess}>Limpiar credenciales</Button>
             <div class="row">
                 <div class="col-md-6">
                     <Table  bordered striped>
