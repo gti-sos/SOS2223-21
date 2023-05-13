@@ -169,6 +169,9 @@
         localStorage.removeItem("client_secret_gh");
         show_token_section = true;
         show_gh_section = false;
+        client_id_gh = ''; 
+        client_secret_gh = ''; 
+        access_token_gh = null;
     }
     
 </script>

@@ -154,6 +154,11 @@
         localStorage.removeItem("refresh_token_spotify");
         show_token_section = true;
         show_playlists_section = false; 
+        client_id_spotify = ""; 
+        client_secret_spotify = ""; 
+        access_token_spotify = null;
+        refresh_token_spotify = null;
+
     }
     
 </script>
