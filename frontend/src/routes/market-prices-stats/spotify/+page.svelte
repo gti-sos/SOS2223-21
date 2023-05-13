@@ -147,6 +147,14 @@
         url += "&scope=playlist-read-private";
         window.location.href = url; // Show Spotify's authorization screen
     }
+    async function revokeAcces(){
+        localStorage.removeItem("client_id_spotify");
+        localStorage.removeItem("client_secret_spotify");
+        localStorage.removeItem("access_token_spotify");
+        localStorage.removeItem("refresh_token_spotify");
+        show_token_section = true;
+        show_playlists_section = false; 
+    }
     
 </script>
 <main>
@@ -170,7 +178,7 @@
                     <Input type="textarea" name="text" id="clientSecret" bind:value={client_secret_spotify}/>
                 </FormGroup>
                 <FormGroup>
-                    <Button color="primary" on:click={requestAuthorization}>Request Authorization</Button>
+                    <Button color="primary" on:click={requestAuthorization}>Pedir autorización</Button>
                 </FormGroup>
                 
             </Form> 
@@ -181,7 +189,7 @@
                     <Table  bordered striped>
                         <thead>
                             <tr>
-                                <th> <h3 style="margin-right: 1%;">Playlists</h3> <Button color="warning" on:click={refreshPlaylists}>Refresh Playlists</Button></th>
+                                <th> <h3 style="margin-right: 1%;">Playlists</h3> <Button color="warning" on:click={refreshPlaylists}>Recargar</Button> <Button color="danger" on:click={revokeAcces}>Limpiar credenciales</Button></th>
                             </tr>
                         </thead>
                         <tbody>

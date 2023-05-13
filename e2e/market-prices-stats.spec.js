@@ -9,7 +9,7 @@ test('market-prices-stats create data works', async ({ page }) => {
     await page.goto('http://localhost:12345/market-prices-stats');
     await page.getByText('Cargar Datos Iniciales').click();
     await page.waitForSelector('Table');
-    await expect((await page.$$('table tr')).length).toBeGreaterThan(0);
+    await expect((await page.$$('table tr')).length).toBeGreaterThan(1);
 });
 test('market-prices-stats delete all data works', async ({ page }) => {
     await page.goto('http://localhost:12345/market-prices-stats');

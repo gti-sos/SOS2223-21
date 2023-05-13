@@ -163,16 +163,22 @@
         url += "&redirect_uri=" + encodeURI(redirect_uri);
         window.location.href = url; // redirect user to GitHub authorization page
     }
-    
+    async function revokeAccess(){
+        localStorage.removeItem("access_token_gh");
+        localStorage.removeItem("client_id_gh");
+        localStorage.removeItem("client_secret_gh");
+        show_token_section = true;
+        show_gh_section = false;
+    }
     
 </script>
 <main>
     <div class="container" style="margin-top: 1%;">
         {#if show_token_section == true}
             <div class="row" style="margin-bottom: 1%;">
-                <h2>
+                <h3>
                     Listar tus seguidores y seguidos de github usando OAUTH
-                </h2>
+                </h3>
                 <p>
                     Para poder usar esta funcionalidad, tienes que ir al apartado de desarrolladores de github: <a href="https://github.com/settings/developers">https://github.com/settings/developers</a>,crear una APP de OAUTH para obtener Client Id y Secrete, y añadir <strong>https://sos2223-21.ew.r.appspot.com/market-prices-stats/gh</strong> en el campo "Authorization callback URL".
                 </p>
@@ -187,7 +193,7 @@
                     <Input type="textarea" name="text" id="clientSecret" bind:value={client_secret_gh}/>
                 </FormGroup>
                 <FormGroup>
-                    <Button color="primary" on:click={requestAuthorization}>Request Authorization</Button>
+                    <Button color="primary" on:click={requestAuthorization}>Pedir autorización</Button>
                 </FormGroup>
                 
             </Form> 
@@ -195,16 +201,19 @@
         {#if show_gh_section == true}
             <div class="row">
                 <div class="col-md-6" style="display: flex;">
-                    <h2>Github info para el usuario:</h2> <img src={user_info.avatar_url} alt="Imagen de {user_info.login}" /><a href={user_info.html_url}><h2>{user_info.login}</h2></a>
+                    <h3>Github info para el usuario:</h3> <img src={user_info.avatar_url} alt="Imagen de {user_info.login}" /><a href={user_info.html_url}><h2>{user_info.login}</h2></a>
                     
                 </div>
             </div>
             <div class="row">
-                <h2>Biografía: {user_info.bio}</h2>
+                <h3>Biografía: {user_info.bio}</h3>
             </div>
             <div class="row">
                 <div class="col-md-3" style="margin-bottom: 2%;">
-                    <Button color="warning" on:click={refreshGh}>Refresh</Button>
+                    <Button color="warning" on:click={refreshGh}>Recargar</Button>
+                </div>
+                <div class="col-md-3" style="margin-bottom: 2%;">
+                    <Button color="danger" on:click={revokeAccess}>Limpiar credenciales</Button>
                 </div>
             </div>
             <div class="row">
@@ -212,7 +221,7 @@
                     <Table  bordered striped>
                         <thead>
                             <tr>
-                                <th> <h3 style="margin-right: 1%;">Seguidos</h3></th>
+                                <th> Seguidos</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -234,7 +243,7 @@
                     <Table  bordered striped>
                         <thead>
                             <tr>
-                                <th> <h3 style="margin-right: 1%;">Seguidores</h3> </th>
+                                <th>Seguidores</th>
                             </tr>
                         </thead>
                         <tbody>
