@@ -193,7 +193,7 @@
                     <Table  bordered striped>
                         <thead>
                             <tr>
-                                <th style="display: flex;"> <h3>Playlists</h3> <Button color="warning" on:click={refreshPlaylists}>Recargar</Button> <Button color="danger" on:click={revokeAcces}>Limpiar credenciales</Button></th>
+                                <th> <div style="display: flex;"><h3>Playlists</h3> <Button color="warning" on:click={refreshPlaylists}>Recargar</Button> <Button color="danger" on:click={revokeAcces}>Limpiar credenciales</Button></div></th>
                             </tr>
                         </thead>
                         <tbody>
