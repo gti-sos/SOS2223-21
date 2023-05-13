@@ -158,7 +158,6 @@
         client_secret_spotify = ""; 
         access_token_spotify = null;
         refresh_token_spotify = null;
-
     }
     
 </script>
@@ -193,8 +192,8 @@
                 <div class="col-md-6">
                     <Table  bordered striped>
                         <thead>
-                            <tr style="display: flex;">
-                                <th> <h3>Playlists</h3> <Button color="warning" on:click={refreshPlaylists}>Recargar</Button> <Button color="danger" on:click={revokeAcces}>Limpiar credenciales</Button></th>
+                            <tr>
+                                <th style="display: flex;"> <h3>Playlists</h3> <Button color="warning" on:click={refreshPlaylists}>Recargar</Button> <Button color="danger" on:click={revokeAcces}>Limpiar credenciales</Button></th>
                             </tr>
                         </thead>
                         <tbody>

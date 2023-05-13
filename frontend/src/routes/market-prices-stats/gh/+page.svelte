@@ -213,7 +213,7 @@
             </div>     
             <Button color="warning" on:click={refreshGh}>Recargar</Button>
             <Button color="danger" on:click={revokeAccess}>Limpiar credenciales</Button>
-            <div class="row">
+            <div class="row" style="margin-top: 1%;">
                 <div class="col-md-6">
                     <Table  bordered striped>
                         <thead>
