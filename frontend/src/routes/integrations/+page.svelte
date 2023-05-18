@@ -15,10 +15,10 @@
                     <a href="/market-prices-stats/gh">/github</a> : Uso textual a través de OAUTH de la API de GitHub. Muestra información de tu usuario.
                 </li>
                 <li class ="li_mod">
-                    <a href="/market-prices-stats/graph_serie">/graph_serie</a> - Integración API de rapid api para ver info de serie.
+                    <a href="/market-prices-stats/graph_serie">/graph_serie</a> - Uso con widget API de rapid api para ver info de serie.
                 </li>
                 <li class ="li_mod">
-                    <a href="/market-prices-stats/twitter_rapidapi">/twitter_rapidapi</a> - Integración API de rapid api para ver info de usuario de Twitter.
+                    <a href="/market-prices-stats/twitter_rapidapi">/twitter_rapidapi</a> - Uso textual API de rapid api para ver info de usuario de Twitter.
                 </li>
             </ul>
         </li>
