@@ -3,14 +3,14 @@
     import { onMount } from "svelte";
     import {Button,Table, Form, FormGroup, Label, Input} from "sveltestrap"; 
     let datam = [];
-    var client_id = ""; 
-    var client_secret = ""; 
+    var client_id_Ins = ""; 
+    var client_secret_Ins = ""; 
     var acces_token;
     var refresh_token;
 
     const auth = "https://instagram.com/oauth/authorize"
     const token = "https://api.instagram.com/oauth/access_token";
-    //let redirect_uri = "http://localhost:12345/workingplaces-stats/instagram_api"
+    //let redirect_uri = "https://localtest.me:12345/workingplaces-stats/instagram_api"
     let response;
     let redirect_uri = "https://sos2223-21.ew.r.appspot.com/workingplaces-stats/instagram_api"
     let code;
@@ -23,11 +23,12 @@
     });
 
     async function LocalStorageCharger(){
+        console.log(redirect_uri);
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         code = urlParams.get('code');
-        client_id = localStorage.getItem("client_id");
-        client_secret = localStorage.getItem("client_secret");
+        client_id_Ins = localStorage.getItem("client_id_Ins");
+        client_secret_Ins = localStorage.getItem("client_secret_Ins");
         userId = localStorage.getItem("userId");
         if ( code ){
             asignacion_code();
@@ -41,10 +42,10 @@
             }
         }
         async function getAuth(){
-        localStorage.setItem("client_id", client_id);
-        localStorage.setItem("client_secret", client_secret);
+        localStorage.setItem("client_id_Ins", client_id_Ins);
+        localStorage.setItem("client_secret_Ins", client_secret_Ins);
         localStorage.setItem("userId", userId);
-        let url = auth+"?client_id=" + client_id+ "&response_type=code"+ "&redirect_uri=" + redirect_uri;
+        let url = auth+"?client_id=" + client_id_Ins+ "&response_type=code"+ "&redirect_uri=" + redirect_uri+"&scope=user_profile";
         window.location.href = url;
     }
 
@@ -64,7 +65,7 @@
         code = urlParams.get('code');
         const grantType = 'authorization_code';
 
-        const postData = `client_id=${client_id}&client_secret=${client_secret}&code=${code}&grant_type=authorization_code&redirect_uri=${redirect_uri}`;
+        const postData = `client_id=${client_id_Ins}&client_secret=${client_secret_Ins}&code=${code}&grant_type=authorization_code&redirect_uri=${redirect_uri}`;
         console.log(datam);
         response = await fetch(token, {
             method: 'POST',
@@ -78,7 +79,7 @@
       acces_token = data.access_token;
       refresh_token = data.refresh_token;
 
-      getCanciones();
+      getUsuarios();
     }
     async function getUsuarios() {
       const authToken = acces_token;
@@ -99,9 +100,9 @@
 <div>
             <Form>
                     <Label for="clientId">Client Id:</Label>
-                    <Input type="text" name="text" id="clientId" bind:value={client_id}/>
+                    <Input type="text" name="text" id="clientId" bind:value={client_id_Ins}/>
                     <Label for="clientSecret">Client Secret:</Label>
-                    <Input type="text" name="text" id="clientSecret" bind:value={client_secret}/>
+                    <Input type="text" name="text" id="clientSecret" bind:value={client_secret_Ins}/>
                     <Label for="userId">userId:</Label>
                     <Input type="text" name="text" id="userId" bind:value={userId}/>
                     <Button color="primary" on:click={getAuth}>Pedir autorización</Button>
