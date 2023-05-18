@@ -238,7 +238,7 @@ function loadBackend_jorge_v2(app) {
     /*------------POST------------*/
     //POST rutaJorge
     app.post(rutaJorge, (req, res) => {
-        console.log("I");const body = req.body;
+        const body = req.body;
         console.log("New POST to /market-prices-stats");
         db.find({}, async (err, data) => {
             if (err) {
