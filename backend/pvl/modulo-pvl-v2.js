@@ -4,9 +4,22 @@ import {JSONWP} from './Datos/Datos.js'
 const ruta = "/api/v2/workingplaces-stats";
 const provincias =["Andalucía", "Jaén", "Almería", "Sevilla", "Huelva", "Málaga", "Cádiz", "Córdoba", "Granada"];
 import Datastore from 'nedb';
+import request from 'request';
 var db = new Datastore();
 
 function LoadModulo_Pablo_v2(app){
+
+        //___________________________________________________PROXY________________________________________________\\
+        
+        app.use(ruta +'/proxy', (req, res) => {
+            const url = 'http://localhost:12345/api/v2/workingplaces-stats/ips' + req.url;
+            req.pipe(request(url)).pipe(res);
+          });
+        app.use(ruta + '/ips', (req, res) => {
+            res.json({"consola":21, "console":12});
+            console.log(req.ip);
+          });
+          
         //___________________________________________________DOCS________________________________________________\\
         app.get(ruta + '/docs', function (req, res) {
             res.status(301).redirect('https://documenter.getpostman.com/view/26063650/2s93RTPrSP');
