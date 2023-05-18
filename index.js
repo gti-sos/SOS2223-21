@@ -23,7 +23,7 @@ LoadModulo_Pablo(app);
 LoadModulo_Pablo_v2(app);
 loadBackend_src_v2(app);
 
-app.use(handler); //configurador svelte
+app.use(handler); 
 
 app.listen(port, () => {
     console.log(`Server escuchando en el puerto ${port}`);

@@ -19,16 +19,13 @@
     let open = false;
     let open_create = false;
 
-
     const toggle = () => ( open = !open );
     const toggle_create = () => ( open_create = !open_create );
-
 
     onMount(async () => {
         getMks();
     });
    
-
     let API = "/api/v2/market-prices-stats";
 
     if (dev) API = "http://localhost:12345" + API;

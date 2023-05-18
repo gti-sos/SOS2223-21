@@ -5,7 +5,7 @@
     import {
         Button,
         Table,
-        Alert, Col, Row
+        Alert
     } from "sveltestrap";    
     import { page } from "$app/stores";
     onMount(async () => {

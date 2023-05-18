@@ -183,7 +183,7 @@
                     Listar tus seguidores y seguidos de github usando OAUTH
                 </h3>
                 <p>
-                    Para poder usar esta funcionalidad, tienes que ir al apartado de desarrolladores de github: <a href="https://github.com/settings/developers">https://github.com/settings/developers</a>,crear una APP de OAUTH para obtener Client Id y Secrete, y añadir <strong>https://sos2223-21.ew.r.appspot.com/market-prices-stats/gh</strong> en el campo "Authorization callback URL".
+                    Para poder usar esta funcionalidad, tienes que ir al apartado de desarrolladores de github: <a href="https://github.com/settings/developers">https://github.com/settings/developers</a>,crear una APP de OAUTH para obtener Client Id y Secret, y añadir <strong>https://sos2223-21.ew.r.appspot.com/market-prices-stats/gh</strong> en el campo "Authorization callback URL".
                 </p>
             </div>
             <Form>
@@ -205,7 +205,6 @@
             <div class="row">
                 <div class="col-md-6" style="display: flex;">
                     <h3>Github info para el usuario:</h3> <img src={user_info.avatar_url} alt="Imagen de {user_info.login}" /><a href={user_info.html_url}><h3>{user_info.login}</h3></a>
-                    
                 </div>
             </div>
             <div class="row">

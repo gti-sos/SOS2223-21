@@ -2,6 +2,7 @@
     // @ts-nocheck
     import { onMount } from "svelte";
     import {Button,Table, Form, FormGroup, Label, Input} from "sveltestrap"; 
+    import { Buffer } from "buffer";
 
     var client_id_spotify = ""; 
     var client_secret_spotify = ""; 
@@ -65,13 +66,13 @@
     }
     
     async function callAuthorizationApi(body) {
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        headers.append('Authorization', 'Basic ' + btoa(client_id_spotify + ":" + client_secret_spotify));
         fetch(TOKEN, {
             method: 'POST',
             body: body,
-            headers: headers
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic ' + (new Buffer.from(client_id_spotify + ":" + client_secret_spotify).toString('base64'))
+            }
         }).then(response => {
             handleAuthorizationResponse(response);
         }).catch(error => {
@@ -110,7 +111,7 @@
         if(status == 200){
             const data = await res.json();
             playlists = [];
-            data.items.forEach(item => addPlaylist(item)); //or item.name??
+            data.items.forEach(item => addPlaylist(item)); 
         }else if (status === 401 ){
             refreshAccessToken();
         }else{
