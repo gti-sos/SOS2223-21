@@ -55,7 +55,7 @@
       const urlParams = new URLSearchParams(queryString);
       code = urlParams.get('code');
       if (code){
-        getToken();
+        //getToken();
       }
     }
     async function getToken() {
@@ -76,10 +76,11 @@
       });
 
       const data = await response.json();
+      console.log(data);
       acces_token = data.access_token;
       refresh_token = data.refresh_token;
 
-      getUsuarios();
+      
     }
     async function getUsuarios() {
       const authToken = acces_token;
