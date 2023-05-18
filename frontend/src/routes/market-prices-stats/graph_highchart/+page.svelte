@@ -27,10 +27,10 @@
             const dataReceived = await res.json();
             result = JSON.stringify(dataReceived, null, 2);
             data = dataReceived;
-            // Get unique list of provinces and years
-            const provinces = [...new Set(data.map(item => item.province))];
-            const years = [...new Set(data.map(item => item.year))];
-            // Create series data for each province
+
+            const provinces = [... new Set(data.map(item => item.province))];
+            const years = [... new Set(data.map(item => item.year))];
+
             const seriesData = provinces.map(province => {
                 const provinceData = data.filter(item => item.province === province);
                 return {
@@ -41,13 +41,14 @@
                     })
                 };
             });
-            loadChartData(provinces, years, seriesData);
+            
+            loadChartData(years, seriesData);
         }catch(error){
             console.log(error);
         } 
      
     }
-    async function loadChartData(provinces, years, seriesData) {
+    async function loadChartData(years, seriesData) {
         Highcharts.chart('container', {
             chart: {
                 type: 'column'
@@ -56,8 +57,7 @@
                 text: 'PIB de las provincias de Andalucía desde 2008 hasta 2019'
             },
             xAxis: {
-                categories: years,
-                crosshair: true
+                categories: years
             },
             yAxis: {
                 title: {
@@ -73,7 +73,7 @@
                 const pibVariationRate = provinceData ? provinceData.pib_variation_rate.toFixed(2) + '%' : '-';
                 return `<b>${point.series.name}</b><br>` +
                         `Year: ${year}<br>` +
-                        `PIB: €${point.y.toLocaleString()}<br>` +
+                        `PIB: ${point.y.toLocaleString()}€<br>` +
                         `PIB percentage structure: ${pibPercentageStructure}<br>` +
                         `PIB variation rate: ${pibVariationRate}`;
                 }

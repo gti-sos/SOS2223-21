@@ -238,7 +238,7 @@ function loadBackend_jorge_v2(app) {
     /*------------POST------------*/
     //POST rutaJorge
     app.post(rutaJorge, (req, res) => {
-        const body = req.body;
+        console.log("I");const body = req.body;
         console.log("New POST to /market-prices-stats");
         db.find({}, async (err, data) => {
             if (err) {
@@ -247,13 +247,13 @@ function loadBackend_jorge_v2(app) {
             } else {
                 if (!body || !body.province || !body.year || !body.pib_current_price || !body.pib_percentage_structure || !body.pib_variation_rate ||
                     body.year == "" || body.province == "" || body.pib_current_price == "" || body.pib_percentage_structure == "" || body.pib_variation_rate == "" ) {
-                    res.status(400).send("Hay que insertar datos o faltan campos.");
+                        res.status(400).send("Hay que insertar datos o faltan campos.");
                 } else if(typeof req.body.province != "string" || typeof req.body.year != "number" || typeof req.body.pib_current_price != "number" || typeof req.body.pib_percentage_structure != "number" || typeof req.body.pib_variation_rate != "number"){
                     res.status(400).send("Los campos del body no son correctos.");
                 }else {
                     if (data.some(x =>
                         x.province === body.province && x.year === body.year)) {
-                        res.status(409).send("El recurso ya existe.");
+                            res.status(409).send("El recurso ya existe.");
                     } else {
                         if (datos_jorge.some(x => x.province === body.province)) {
                             db.insert(req.body);
@@ -266,7 +266,6 @@ function loadBackend_jorge_v2(app) {
                 }
             };
         });
-
     });
     //POST Ruta específica 
     app.post(rutaJorge + '/:pronvince/:year', (req, res) => {

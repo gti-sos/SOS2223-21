@@ -35,22 +35,15 @@
     }
     async function loadChartData(seriesData) {
         Morris.Line({
-            // ID of the element in which to draw the chart.
             element: 'morrischart',
-            // Chart data records -- each entry in this array corresponds to a point on
-            // the chart.
             data: seriesData,
-            // The name of the data record attribute that contains x-values.
             xkey: 'province',
-            // A list of names of data record attributes that contain y-values.
             ykeys: ['pib_current_price'],
-            // Labels for the ykeys -- will be displayed when you hover over the
-            // chart.
             labels: [],
             lineColors: ['#1e90ff'],
             pointFillColors: ['#15297c'],
             parseTime: false,
-            hoverCallback: function(index, options, content) {
+            hoverCallback: function(index, options) {
                 var data = options.data[index];
                 var tooltip = '<div class="morris-hover-row-label">' + data.province + ", "+data.year + '</div>';
                 tooltip += '<div class="morris-hover-point" style="color: ' + options.lineColors[index % options.lineColors.length] + '">';

@@ -65,7 +65,6 @@
                     })
                 };
             });
-            console.log(seriesData);
             await loadChartData(years, seriesData);
         }catch(error){
             console.log(error);
