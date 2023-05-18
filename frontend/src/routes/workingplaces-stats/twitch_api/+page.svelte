@@ -31,7 +31,7 @@
         playlistId = localStorage.getItem("playlistId");
         if ( code ){
             asignacion_code();
-
+            console.log("Hola");
         }
         else{
             acces_token = localStorage.getItem("acces_token");
