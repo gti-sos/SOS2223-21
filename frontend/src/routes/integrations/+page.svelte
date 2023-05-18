@@ -24,6 +24,19 @@
         </li>
         
     </ul>
+    <h2>Pablo</h2>
+            <ul>
+                <li class ="li_mod">
+                    <a href="/workingplaces-stats/companies_innovation">/companies_innovation</a> - Uso de una api de sos(SOS-G22).
+                </li>
+                <li class ="li_mod">
+                    <a href="/workingplaces-stats/twitch_api">/Twitch API</a> - Uso de una api de twitch para ver todas las canciones de una playlist mediante su id(Oauth).
+                </li>
+                <li class ="li_mod">
+                    <a href="/workingplaces-stats/instagram_api">/Instagram API</a> - Integración a través de twitter para leer tweets.
+                </li>
+
+            </ul>
 
     <h4>Integraciones</h4>
     <ul>
@@ -42,13 +55,6 @@
                 <li class ="li_mod">
                     <a href="/workingplaces-stats/graph_proxy">/graph_proxy</a> - Integración a través de un proxy propio.
                 </li>
-                <li class ="li_mod">
-                    <a href="/workingplaces-stats/twitch_api">/Twitch API</a> - Integración a través de una api de twitch para ver todas las canciones de una playlist mediante su id.
-                </li>
-                <li class ="li_mod">
-                    <a href="/workingplaces-stats/twitter_api">/Twitter API</a> - Integración a través de twitter para leer tweets.
-                </li>
-
             </ul>
         </li>
         

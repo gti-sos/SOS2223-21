@@ -29,6 +29,7 @@ function LoadModulo_Pablo_v2(app){
                     response.sendStatus(200);
                 }
             });});
+            
             app.get(ruta +'/graph', (req, res) => {
                 const data = JSONWP;
                 if (data.length === 0) {
