@@ -12,7 +12,6 @@
 
 
     let data = [];
-    let dato989;
     let data_hired_people = [];
     let data_mixed = [];
     let message = "No hay datos para mostrar.";

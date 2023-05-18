@@ -96,7 +96,7 @@
     
 </script>
 <main>
-
+    <div>
             <Form>
                     <Label for="clientId">Client Id:</Label>
                     <Input type="text" name="text" id="clientId" bind:value={client_id}/>
