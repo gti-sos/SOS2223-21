@@ -17,7 +17,7 @@
         console.log("Entramos")
         getData();
     });
-    let API = "https://sos2223-21.appspot.com/api/v2/workingplaces-stats/proxy/?url=https://sos2223-22.appspot.com/api/v2/jobs-companies-innovation-stats";
+    let API = "http://sos2223-21.appspot.com/api/v2/workingplaces-stats/proxy/?url=https://sos2223-22.appspot.com/api/v2/jobs-companies-innovation-stats";
     
     let dataWP = [];
     let newBody = {
@@ -126,6 +126,7 @@
                 <h2>
                     Puestos De Trabajo Totales de Mercado 
                 </h2>
+                En el caso de que no haya datos es necesario cargarlos aqui: <a href="https://sos2223-22.appspot.com/frontAcb">FrontendAcb(SOSG22)</a>
             </row>
         </div>
        </div> 

@@ -69,10 +69,11 @@
             total = provinces.reduce((acc, province) => {
                 const P_Data = data.filter(x => x.province === province);
                 const P_Year = years.reduce((yearsAcc, year) => {
+
                     const yearData = P_Data.find(x => x.year === year);
                     yearsAcc.push(yearData ? yearData.work_place : null);
                     return yearsAcc;
-                }, []);
+                    }, []);
                 acc.push({ name: province, data: P_Year });
                 return acc;
                 }, []);
@@ -83,6 +84,7 @@
      
     }
     async function loadChartData(total) {
+      //total (name, data)
   Highcharts.chart('container', {
     chart: {
       polar: true, // establece el tipo de gráfico como radar

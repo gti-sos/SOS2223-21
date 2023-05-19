@@ -156,6 +156,7 @@ function LoadModulo_Pablo_v2(app){
             if(!jsonContainsParam(queryParams, "year")) queryParams.set("year", parseInt(req.params.year))
             console.log(requer);
             console.log(queryParams);
+            //fromEntries de par a clave-valor
             obj = Object.fromEntries(queryParams);
             
             db.find(obj, async (err, data) => {

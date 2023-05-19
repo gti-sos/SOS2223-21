@@ -35,7 +35,9 @@
                 <li class ="li_mod">
                     <a href="/workingplaces-stats/graph_nba">/graph_nba</a> - Uso de una api externa con un widget(NBA).
                 </li>
-
+                <li class ="li_mod">
+                    <a href="/workingplaces-stats/graph_proxy">/graph_proxy</a> - Uso de una api de sos(G22) a través de un proxy propio.
+                </li>
             </ul>
 
     <h4>Integraciones</h4>
@@ -51,11 +53,7 @@
         </li>
         <li>
             <h2>Pablo</h2>
-            <ul>
-                <li class ="li_mod">
-                    <a href="/workingplaces-stats/graph_proxy">/graph_proxy</a> - Integración a través de un proxy propio.
-                </li>
-            </ul>
+            
         </li>
         
     </ul>

@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>Workingplaces-stats</title>
+</svelte:head>
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
@@ -309,7 +312,7 @@
                     <td colspan="6"><p class="text-center">No existen datos, inserte o cargue los datos iniciales.</p></td>
                 {:else}
                     {#each dataWP as x}
-                        <tr>
+                        <tr class="WorkingplaceRow">
                             <td><a class="cuadricula" href="/workingplaces-stats/{x.province}/{x.year}">{x.province}</a></td>
                             <td>{x.year}</td>
                             <td>{x.work_place}</td>
