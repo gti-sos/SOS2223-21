@@ -13,7 +13,7 @@
     let data = [];
     let result ="";
     
-    let API = "/api/v2/market-prices-stats/graph";
+    let API = "/api/v2/market-prices-stats";
     if (dev) API = "http://localhost:12345" + API;
 
     onMount(async () => {
