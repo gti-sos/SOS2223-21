@@ -30,8 +30,6 @@
         if(status == 200){
             const data = await res.json();
             evolution_data = data;
-            console.log(data);
-            console.log(evolution_data);
         }
      
     }
