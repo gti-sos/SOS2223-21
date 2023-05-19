@@ -22,7 +22,7 @@
     let provincia = '';
 
     
-    let API = "/api/v2/workingplaces-stats/graph";
+    let API = "/api/v2/workingplaces-stats";
     if (dev) API = "http://localhost:12345" + API;
 
     let chart;

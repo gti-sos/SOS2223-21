@@ -17,7 +17,7 @@
     let message = "No hay datos para mostrar.";
     let result ="";
     let API_hired_people = "/api/proxy_jfs/?url=https://sos2223-23.ew.r.appspot.com/api/v2/hired-people";
-    let API = "/api/v2/market-prices-stats/graph";
+    let API = "/api/v2/market-prices-stats";
     if (dev){
         API = "http://localhost:12345" + API;
         API_hired_people = "http://localhost:12345" + API_hired_people;
