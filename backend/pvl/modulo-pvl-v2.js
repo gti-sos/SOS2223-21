@@ -12,7 +12,7 @@ function LoadModulo_Pablo_v2(app){
         //___________________________________________________PROXY________________________________________________\\
         
         app.use(ruta +'/proxy', (req, res) => {
-            const url = 'http://localhost:12345/api/v2/workingplaces-stats/ips' + req.url;
+            var url = req.url.replace('/?url=', '');
             req.pipe(request(url)).pipe(res);
           });
         app.use(ruta + '/ips', (req, res) => {

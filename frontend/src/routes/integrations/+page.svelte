@@ -27,13 +27,13 @@
     <h2>Pablo</h2>
             <ul>
                 <li class ="li_mod">
-                    <a href="/workingplaces-stats/companies_innovation">/companies_innovation</a> - Uso de una api de sos(SOS-G22).
-                </li>
-                <li class ="li_mod">
                     <a href="/workingplaces-stats/twitch_api">/Twitch API</a> - Uso de una api de twitch para ver todas las canciones de una playlist mediante su id(Oauth).
                 </li>
                 <li class ="li_mod">
-                    <a href="/workingplaces-stats/instagram_api">/Instagram API</a> - Integración a través de twitter para leer tweets.
+                    <a href="/workingplaces-stats/graph_coins">/graph_coins</a> - Uso de una api externa con un widget(coins).
+                </li>
+                <li class ="li_mod">
+                    <a href="/workingplaces-stats/graph_nba">/graph_nba</a> - Uso de una api externa con un widget(NBA).
                 </li>
 
             </ul>
