@@ -97,7 +97,7 @@
 
 </script>
 <main>
-    <div><h1>Estadisticas de la NBA equipo Atlanta Hawks temporada 2020</h1></div>
+    <div><h1>Grafica del bitcoin en las ultimas 5 semanas</h1></div>
     <div class="container" style="margin-top: 1%;">
             <Form>
                 <FormGroup>
