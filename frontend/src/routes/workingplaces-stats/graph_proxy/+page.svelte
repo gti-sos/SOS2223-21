@@ -17,7 +17,7 @@
         console.log("Entramos")
         getData();
     });
-    let API = "http://sos2223-21.appspot.com/api/v2/workingplaces-stats/proxy/?url=https://sos2223-22.appspot.com/api/v2/jobs-companies-innovation-stats";
+    let API = "https://sos2223-21.appspot.com/api/v2/workingplaces-stats/proxy/?url=https://sos2223-22.appspot.com/api/v2/jobs-companies-innovation-stats";
     
     let dataWP = [];
     let newBody = {
