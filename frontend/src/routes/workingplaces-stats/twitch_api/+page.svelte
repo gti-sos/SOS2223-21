@@ -10,9 +10,9 @@
 
     const auth = "https://id.twitch.tv/oauth2/authorize"
     const token = "https://id.twitch.tv/oauth2/token";
-    let redirect_uri = "http://localhost:12345/workingplaces-stats/twitch_api"
+    //let redirect_uri = "http://localhost:12345/workingplaces-stats/twitch_api"
     let response;
-    //let redirect_uri = "https://sos2223-21.ew.r.appspot.com/workingplaces-stats/twitch_api"
+    let redirect_uri = "https://sos2223-21.ew.r.appspot.com/workingplaces-stats/twitch_api"
     let code;
 
     let playlistId;
